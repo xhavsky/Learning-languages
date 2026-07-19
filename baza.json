@@ -1,0 +1,58 @@
+{
+    "Angielski": [
+        {
+            "pl": "być",
+            "obcy": "to be",
+            "nauczone": true
+        },
+        {
+            "pl": "mieć",
+            "obcy": "to have",
+            "nauczone": true
+        },
+        {
+            "pl": "Dziękuję",
+            "obcy": "Thank you",
+            "nauczone": true
+        },
+        {
+            "pl": "Jeść",
+            "obcy": "to eat",
+            "nauczone": true
+        }
+    ],
+    "Hiszpański": [
+        {
+            "pl": "być (trvale)",
+            "obcy": "ser",
+            "nauczone": false
+        },
+        {
+            "pl": "mieć",
+            "obcy": "tener",
+            "nauczone": false
+        },
+        {
+            "pl": "Dziękuję",
+            "obcy": "Gracias",
+            "nauczone": false
+        }
+    ],
+    "Rosyjski (zapis fonetyczny)": [
+        {
+            "pl": "być",
+            "obcy": "byt",
+            "nauczone": false
+        },
+        {
+            "pl": "mieć",
+            "obcy": "imiet",
+            "nauczone": false
+        },
+        {
+            "pl": "Dziękuję",
+            "obcy": "Spasibo",
+            "nauczone": false
+        }
+    ]
+}
