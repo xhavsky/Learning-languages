@@ -3,10 +3,11 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models.dart';
-import 'portal.dart';
 import 'storage.dart';
 import 'theme.dart';
 import 'ui_fx.dart';
@@ -19,9 +20,11 @@ class ChatMessage {
 }
 
 const _prefsOllamaHost = 'ollamaHost';
+const _prefsOnDeviceReady = 'onDeviceLlmReady';
 const _defaultModel = 'bielik-latest:latest';
+const _onDeviceModelAsset = 'assets/data/on_device_tutor.json';
 
-/// Zapisany adres Ollamy (np. http://192.168.0.130:11434) — opcjonalny.
+/// Zapisany adres Ollamy na TYM urządzeniu (opcjonalnie, np. lokalny PC).
 Future<String> loadOllamaHostPref() async {
   final prefs = await SharedPreferences.getInstance();
   return (prefs.getString(_prefsOllamaHost) ?? '').trim();
@@ -32,22 +35,20 @@ Future<void> saveOllamaHostPref(String host) async {
   await prefs.setString(_prefsOllamaHost, host.trim());
 }
 
-/// Wynik połączenia z lokalnym modelem.
+/// Wynik połączenia z modelem NA URZĄDZENIU (bez portalu / bez chmury).
 class LocalLlmSession {
   const LocalLlmSession({
     required this.kind,
     required this.label,
     this.baseUrl,
-    this.portal,
   });
 
-  /// ollama | portal | offline
+  /// ollama | ondevice
   final String kind;
   final String label;
   final String? baseUrl;
-  final PortalInfo? portal;
 
-  bool get isLive => kind == 'ollama' || kind == 'portal';
+  bool get isLive => kind == 'ollama' || kind == 'ondevice';
 }
 
 Future<String?> _ollamaChatAt({
@@ -96,58 +97,6 @@ Future<String?> _ollamaChatAt({
   }
 }
 
-/// Proxy przez portal Anielki → Ollama na PC (działa z telefonu przez Funnel).
-Future<String?> _portalTutorChat({
-  required PortalInfo portal,
-  required List<ChatMessage> history,
-  required String systemPrompt,
-}) async {
-  final client = HttpClient();
-  final bases = <String>{
-    portal.url,
-    if (portal.urlHttp.isNotEmpty) portal.urlHttp,
-    portal.urlIp,
-  };
-  try {
-    for (final base in bases) {
-      try {
-        final uri = Uri.parse(
-          '${base.replaceAll(RegExp(r'/$'), '')}/api/tutor-chat',
-        );
-        final req =
-            await client.postUrl(uri).timeout(const Duration(seconds: 8));
-        req.headers.set('Content-Type', 'application/json; charset=utf-8');
-        req.headers.set('X-Portal-Pin', portal.pin);
-        req.add(
-          utf8.encode(
-            jsonEncode({
-              'pin': portal.pin,
-              'system': systemPrompt,
-              'model': _defaultModel,
-              'messages': [
-                for (final m in history)
-                  if (m.role != 'system')
-                    {'role': m.role, 'content': m.text},
-              ],
-            }),
-          ),
-        );
-        final res = await req.close().timeout(const Duration(seconds: 120));
-        final body = await res.transform(utf8.decoder).join();
-        if (res.statusCode != 200) continue;
-        final decoded = jsonDecode(body) as Map<String, dynamic>;
-        final text = (decoded['reply'] as String?)?.trim();
-        if (text != null && text.isNotEmpty) return text;
-      } catch (_) {
-        continue;
-      }
-    }
-    return null;
-  } finally {
-    client.close(force: true);
-  }
-}
-
 List<String> _ollamaCandidateBases(String customHost) {
   final out = <String>[];
   void add(String u) {
@@ -162,16 +111,27 @@ List<String> _ollamaCandidateBases(String customHost) {
 
   add(customHost);
   add('http://127.0.0.1:11434');
-  // Emulator Android → host PC
+  // Emulator Android → host PC (tylko gdy Ollama na tym samym komputerze)
   if (Platform.isAndroid) add('http://10.0.2.2:11434');
   return out;
 }
 
-/// Szuka lokalnego modelu: Ollama na PC / LAN, potem portal → Ollama.
-Future<LocalLlmSession> discoverLocalLlm({
-  required PortalInfo portal,
-  String? customHost,
-}) async {
+/// Kopiuje wbudowany model językowy do katalogu aplikacji (raz).
+Future<File> ensureOnDeviceModelInstalled() async {
+  final prefs = await SharedPreferences.getInstance();
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File('${dir.path}/on_device_tutor.json');
+  if (!await file.exists()) {
+    final raw = await rootBundle.loadString(_onDeviceModelAsset);
+    await file.writeAsString(raw);
+  }
+  await prefs.setBool(_prefsOnDeviceReady, true);
+  return file;
+}
+
+/// Szuka modelu NA URZĄDZENIU: lokalna Ollama (opcjonalnie) albo wbudowany tutor.
+/// NIGDY nie łączy z portalem ani chmurą.
+Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
   final host = customHost ?? await loadOllamaHostPref();
   final system = 'Ping. Odpowiedz jednym słowem: OK';
   for (final base in _ollamaCandidateBases(host)) {
@@ -183,34 +143,18 @@ Future<LocalLlmSession> discoverLocalLlm({
       readTimeout: const Duration(seconds: 20),
     );
     if (probe != null) {
-      final local = base.contains('127.0.0.1') || base.contains('10.0.2.2');
       return LocalLlmSession(
         kind: 'ollama',
         baseUrl: base,
-        label: local
-            ? 'AI lokalne: Ollama na tym urządzeniu/PC (bez chmury)'
-            : 'AI lokalne: Ollama pod $base (bez chmury)',
+        label: 'Model na urządzeniu: Ollama ($base) — bez portalu / chmury',
       );
     }
   }
 
-  final viaPortal = await _portalTutorChat(
-    portal: portal,
-    history: const [],
-    systemPrompt: system,
-  );
-  if (viaPortal != null) {
-    return LocalLlmSession(
-      kind: 'portal',
-      portal: portal,
-      label:
-          'AI lokalne: model na PC taty przez portal (telefon OK, bez chmury)',
-    );
-  }
-
+  await ensureOnDeviceModelInstalled();
   return const LocalLlmSession(
-    kind: 'offline',
-    label: 'Tryb offline (brak lokalnego modelu) — ćwiczenie bez chmury',
+    kind: 'ondevice',
+    label: 'Model językowy na urządzeniu (wbudowany) — bez internetu i portalu',
   );
 }
 
@@ -218,6 +162,9 @@ Future<String?> localLlmReply({
   required LocalLlmSession session,
   required List<ChatMessage> history,
   required String systemPrompt,
+  required String lang,
+  required List<Word> words,
+  required int userTurns,
 }) async {
   if (session.kind == 'ollama' && session.baseUrl != null) {
     return _ollamaChatAt(
@@ -226,14 +173,13 @@ Future<String?> localLlmReply({
       systemPrompt: systemPrompt,
     );
   }
-  if (session.kind == 'portal' && session.portal != null) {
-    return _portalTutorChat(
-      portal: session.portal!,
-      history: history,
-      systemPrompt: systemPrompt,
-    );
-  }
-  return null;
+  // Wbudowany model na urządzeniu — zawsze działa offline.
+  return fallbackTutorReply(
+    lang: lang,
+    words: words,
+    history: history,
+    userTurns: userTurns,
+  );
 }
 
 /// @Deprecated — kompatybilność; preferuj [localLlmReply].
@@ -521,7 +467,7 @@ String _nextBeat(
   return topic;
 }
 
-/// Ekran codziennej rozmowy z lokalnym modelem (Ollama / portal) + offline.
+/// Ekran codziennej rozmowy z modelem NA URZĄDZENIU (bez portalu).
 class DailyChatPage extends StatefulWidget {
   const DailyChatPage({
     super.key,
@@ -529,7 +475,6 @@ class DailyChatPage extends StatefulWidget {
     required this.pack,
     required this.store,
     required this.palette,
-    required this.portal,
     required this.onXpChanged,
   });
 
@@ -537,7 +482,6 @@ class DailyChatPage extends StatefulWidget {
   final LangPack pack;
   final BazaStore store;
   final AppPalette palette;
-  final PortalInfo portal;
   final VoidCallback onXpChanged;
 
   @override
@@ -552,8 +496,8 @@ class _DailyChatPageState extends State<DailyChatPage> {
   var _userTurns = 0;
   String? _status;
   LocalLlmSession _session = const LocalLlmSession(
-    kind: 'offline',
-    label: 'Łączenie z lokalnym modelem…',
+    kind: 'ondevice',
+    label: 'Przygotowuję model na urządzeniu…',
   );
 
   @override
@@ -578,28 +522,21 @@ class _DailyChatPageState extends State<DailyChatPage> {
       lang: widget.lang,
       words: widget.pack.words,
     );
-    final session = await discoverLocalLlm(portal: widget.portal);
-    String opening;
-    if (session.isLive) {
-      opening = await localLlmReply(
-            session: session,
-            history: const [],
-            systemPrompt: system,
-          ) ??
-          fallbackTutorReply(
-            lang: widget.lang,
-            words: widget.pack.words,
-            history: const [],
-            userTurns: 0,
-          );
-    } else {
-      opening = fallbackTutorReply(
-        lang: widget.lang,
-        words: widget.pack.words,
-        history: const [],
-        userTurns: 0,
-      );
-    }
+    final session = await discoverLocalLlm();
+    final opening = await localLlmReply(
+          session: session,
+          history: const [],
+          systemPrompt: system,
+          lang: widget.lang,
+          words: widget.pack.words,
+          userTurns: 0,
+        ) ??
+        fallbackTutorReply(
+          lang: widget.lang,
+          words: widget.pack.words,
+          history: const [],
+          userTurns: 0,
+        );
     setState(() {
       _session = session;
       _status = session.label;
@@ -648,35 +585,27 @@ class _DailyChatPageState extends State<DailyChatPage> {
       lang: widget.lang,
       words: widget.pack.words,
     );
-    String? reply;
-    if (_session.isLive) {
+    var reply = await localLlmReply(
+      session: _session,
+      history: _messages,
+      systemPrompt: system,
+      lang: widget.lang,
+      words: widget.pack.words,
+      userTurns: _userTurns,
+    );
+    if (reply == null && _session.kind == 'ollama') {
+      // Ollama padła — wróć na wbudowany model na urządzeniu.
+      final again = await discoverLocalLlm();
+      _session = again;
+      _status = again.label;
       reply = await localLlmReply(
-        session: _session,
+        session: again,
         history: _messages,
         systemPrompt: system,
+        lang: widget.lang,
+        words: widget.pack.words,
+        userTurns: _userTurns,
       );
-      if (reply == null) {
-        // Spróbuj ponownie odkryć endpoint (np. portal gdy padnie LAN).
-        final again = await discoverLocalLlm(portal: widget.portal);
-        if (again.isLive) {
-          _session = again;
-          reply = await localLlmReply(
-            session: again,
-            history: _messages,
-            systemPrompt: system,
-          );
-        }
-        if (reply == null) {
-          _session = const LocalLlmSession(
-            kind: 'offline',
-            label:
-                'Lokalny model niedostępny — tryb offline (bez chmury)',
-          );
-          _status = _session.label;
-        } else {
-          _status = _session.label;
-        }
-      }
     }
     reply ??= fallbackTutorReply(
       lang: widget.lang,
@@ -699,7 +628,7 @@ class _DailyChatPageState extends State<DailyChatPage> {
     final done = widget.store.stats.chatDoneToday;
     return Scaffold(
       appBar: AppBar(
-        title: Text('AI lokalne · ${widget.lang}'),
+        title: Text('AI na urządzeniu · ${widget.lang}'),
         actions: [
           if (done)
             const Padding(

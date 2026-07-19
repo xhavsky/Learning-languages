@@ -24,6 +24,7 @@ flutter:
   assets:
     - assets/data/baza.json
     - assets/data/portal.json
+    - assets/data/on_device_tutor.json
     - assets/images/kitten_book.png
     - assets/images/busy_cat.gif
     - assets/audio/

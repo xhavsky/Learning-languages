@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'ai_chat.dart';
 import 'curiosities.dart';
 import 'import_csv.dart';
+import 'mascot.dart';
 import 'models.dart';
 import 'portal.dart';
 import 'storage.dart';
@@ -415,12 +416,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final w = _current;
     if (w == null) return;
     applySrs(w, correct: ok);
-    _store.stats.recordAnswer(ok);
+    final justFed = _store.stats.recordAnswer(ok);
     await _store.save();
     if (ok) {
-      final msg = w.nauczone
+      var msg = w.nauczone
           ? 'Nauczone! ✓ (3× z rzędu)'
           : 'Brawo! ✓ (${w.correctStreak}/3)';
+      if (justFed) msg = '$msg · Kicia najedzona! 🐱';
       _flash(msg, kind: FeedbackKind.success);
       _successCtrl.forward(from: 0);
       _burstCtrl.forward(from: 0);
@@ -435,7 +437,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (mounted) _draw();
   }
 
-  /// Po awansie poziomu: tytuł + ciekawostka + wyzwanie + bonus XP.
+  /// Po awansie poziomu: tytuł + ciekawostka + ubranko Kici + bonus XP.
   Future<void> _maybeShowLevelRewards() async {
     final pending = _store.stats.pendingRewardLevels();
     if (pending.isEmpty) return;
@@ -445,6 +447,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       final bonus = levelUpBonusXpFor(lv);
       final unlockedTitle = newTitleAtLevel(lv);
       final rank = titleForLevel(lv);
+      final outfit = mascotItemForLevel(lv);
       _store.stats.addXp(bonus);
       bonusTotal += bonus;
       if (!mounted) break;
@@ -485,13 +488,57 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         fontWeight: FontWeight.w700,
                       ),
                 ),
+                if (outfit != null) ...[
+                  const SizedBox(height: 12),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(outfit.emoji, style: const TextStyle(fontSize: 28)),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Dla Kici: ${outfit.name}',
+                              style: Theme.of(ctx)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                            Text(outfit.blurb),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 const SizedBox(height: 12),
-                Text(
-                  '📖 ${fact.title}',
-                  style: Theme.of(ctx).textTheme.titleMedium,
+                // Żarówka tylko przy ciekawostce (nie przy samym ubranku/tytule).
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.lightbulb_outline_rounded,
+                      color: Theme.of(ctx).colorScheme.tertiary,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            fact.title,
+                            style: Theme.of(ctx).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(fact.text),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 6),
-                Text(fact.text),
                 if (fact.tip != null) ...[
                   const SizedBox(height: 12),
                   Container(
@@ -584,26 +631,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           itemBuilder: (_, i) {
                             final c = items[i];
                             return SoftPanel(
-                              child: Column(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    c.title,
-                                    style: Theme.of(ctx)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  Icon(
+                                    Icons.lightbulb_outline_rounded,
+                                    color: Theme.of(ctx).colorScheme.tertiary,
+                                    size: 26,
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(c.text),
-                                  if (c.tip != null) ...[
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      '🎯 ${c.tip}',
-                                      style:
-                                          Theme.of(ctx).textTheme.bodySmall,
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          c.title,
+                                          style: Theme.of(ctx)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(c.text),
+                                        if (c.tip != null) ...[
+                                          const SizedBox(height: 6),
+                                          Text(
+                                            '🎯 ${c.tip}',
+                                            style: Theme.of(ctx)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ],
                               ),
                             );
@@ -612,6 +676,74 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _openWardrobe() async {
+    final level = _store.stats.playerLevel;
+    final unlocked = unlockedMascotItems(level);
+    if (!mounted) return;
+    await showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Garderoba Kici',
+                style: Theme.of(ctx).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Za każdy poziom — nowe ubranko lub akcesorium. '
+                'Nakarm Kicię min. $mascotDailyFeedGoal słówkami dziennie!',
+                style: Theme.of(ctx).textTheme.bodySmall,
+              ),
+              const SizedBox(height: 12),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (final item in mascotWardrobe)
+                      ListTile(
+                        leading: Text(
+                          item.emoji,
+                          style: const TextStyle(fontSize: 28),
+                        ),
+                        title: Text(item.name),
+                        subtitle: Text(
+                          level >= item.unlockLevel
+                              ? item.blurb
+                              : 'Od poziomu ${item.unlockLevel}',
+                        ),
+                        trailing: Icon(
+                          level >= item.unlockLevel
+                              ? Icons.check_circle
+                              : Icons.lock_outline,
+                          color: level >= item.unlockLevel
+                              ? Theme.of(ctx).colorScheme.primary
+                              : null,
+                        ),
+                      ),
+                    if (unlocked.isEmpty)
+                      const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Text(
+                          'Jeszcze nic nie odblokowano — ćwicz do poziomu 2!',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -878,14 +1010,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'AI lokalne (Ollama)',
+                      'AI na urządzeniu',
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Na PC zwykle pusto (127.0.0.1). Na telefonie: zostaw pusto — '
-                      'apka łączy się z modelem na PC przez portal. '
-                      'Opcjonalnie wpisz adres LAN, np. http://192.168.0.130:11434',
+                      'Czat używa modelu językowego na tym urządzeniu '
+                      '(bez portalu i chmury). Opcjonalnie: lokalna Ollama '
+                      'na tym samym komputerze — zwykle zostaw pusto.',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
@@ -893,7 +1025,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       controller: ollamaCtrl,
                       decoration: const InputDecoration(
                         labelText: 'Adres Ollamy (opcjonalnie)',
-                        hintText: 'http://192.168.0.130:11434',
+                        hintText: 'http://127.0.0.1:11434',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -1112,7 +1244,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           pack: pack,
           store: _store,
           palette: widget.palette,
-          portal: _portal,
           onXpChanged: () {
             if (mounted) setState(() {});
           },
@@ -1397,32 +1528,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: ListView(
                   padding: const EdgeInsets.all(20),
                   children: [
+                    MascotCard(
+                      playerLevel: _store.stats.playerLevel,
+                      wordsToday: _store.stats.wordsToday,
+                      fedToday: _store.stats.mascotFedToday,
+                      onTapWardrobe: _openWardrobe,
+                    ),
                     SoftPanel(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: Column(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxHeight: 280),
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Image.asset(
-                                  'assets/images/kitten_book.png',
-                                  fit: BoxFit.contain,
-                                  alignment: Alignment.center,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
                           Text(
                             'Trener Językowy',
                             style: Theme.of(context).textTheme.headlineMedium,
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            'Ucz się słówek z uroczym kotkiem 📚',
+                            'Ucz się słówek i karm Kicię nauką 📚',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -1597,7 +1719,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           label: Text(
                             _store.stats.chatDoneToday
                                 ? 'Rozmowa ✓'
-                                : 'AI lokalne',
+                                : 'AI na urządzeniu',
                           ),
                         ),
                         FilledButton.tonal(

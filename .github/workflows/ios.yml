@@ -18,7 +18,7 @@ jobs:
   ios:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: subosito/flutter-action@v2
         with:
@@ -50,14 +50,14 @@ jobs:
           cd dist
           ditto -c -k --sequesterRsrc --keepParent Trener-Jezykowy-iOS Trener-Jezykowy-iOS.zip
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: Trener-Jezykowy-iOS
           path: dist/Trener-Jezykowy-iOS.zip
 
       - name: Attach to GitHub Release
         if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ios-unsigned
           name: Paczka iOS — Trener Językowy

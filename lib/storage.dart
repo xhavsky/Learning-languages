@@ -19,6 +19,8 @@ class AppStats {
     this.lastChatDay = '',
     this.sessionXp = 0,
     this.rewardedLevel = 1,
+    this.wordsToday = 0,
+    this.wordsDay = '',
   });
 
   int streakDays;
@@ -39,6 +41,12 @@ class AppStats {
 
   /// Najwyższy poziom, za który już pokazano nagrodę (ciekawostkę).
   int rewardedLevel;
+
+  /// Ile słówek „nakarmiło” kotka dziś (poprawne odpowiedzi).
+  int wordsToday;
+
+  /// Dzień licznika karmienia (yyyy-MM-dd).
+  String wordsDay;
 
   double get sessionAccuracy =>
       sessionTotal == 0 ? 0 : sessionCorrect / sessionTotal;
@@ -84,21 +92,50 @@ class AppStats {
 
   bool get chatDoneToday => lastChatDay == _dayKey(DateTime.now());
 
-  Map<String, dynamic> toJson() => {
-        'streakDays': streakDays,
-        'lastPlayDay': lastPlayDay,
-        'lifetimeCorrect': lifetimeCorrect,
-        'lifetimeTotal': lifetimeTotal,
-        'xp': xp,
-        'lastChatDay': lastChatDay,
-        'rewardedLevel': rewardedLevel,
-      };
+  /// Minimum 3 słówka dziennie = kotek najedzony.
+  static const dailyFeedGoal = 3;
+
+  bool get mascotFedToday {
+    _rollFeedDay();
+    return wordsToday >= dailyFeedGoal;
+  }
+
+  void _rollFeedDay() {
+    final today = _dayKey(DateTime.now());
+    if (wordsDay != today) {
+      wordsDay = today;
+      wordsToday = 0;
+    }
+  }
+
+  /// Liczy poprawną odpowiedź jako karmę dla maskotki. Zwraca true gdy właśnie osiągnęła cel.
+  bool feedMascotOnCorrect() {
+    _rollFeedDay();
+    final before = wordsToday;
+    wordsToday++;
+    return before < dailyFeedGoal && wordsToday >= dailyFeedGoal;
+  }
+
+  Map<String, dynamic> toJson() {
+    _rollFeedDay();
+    return {
+      'streakDays': streakDays,
+      'lastPlayDay': lastPlayDay,
+      'lifetimeCorrect': lifetimeCorrect,
+      'lifetimeTotal': lifetimeTotal,
+      'xp': xp,
+      'lastChatDay': lastChatDay,
+      'rewardedLevel': rewardedLevel,
+      'wordsToday': wordsToday,
+      'wordsDay': wordsDay,
+    };
+  }
 
   factory AppStats.fromJson(Map<String, dynamic>? json) {
     if (json == null) return AppStats();
     final xp = json['xp'] as int? ?? 0;
     final tmp = AppStats(xp: xp);
-    return AppStats(
+    final s = AppStats(
       streakDays: json['streakDays'] as int? ?? 0,
       lastPlayDay: json['lastPlayDay'] as String? ?? '',
       lifetimeCorrect: json['lifetimeCorrect'] as int? ?? 0,
@@ -107,7 +144,11 @@ class AppStats {
       lastChatDay: json['lastChatDay'] as String? ?? '',
       // Stare zapisy bez pola: nie spamuj nagrodami za minione poziomy.
       rewardedLevel: json['rewardedLevel'] as int? ?? tmp.playerLevel,
+      wordsToday: json['wordsToday'] as int? ?? 0,
+      wordsDay: json['wordsDay'] as String? ?? '',
     );
+    s._rollFeedDay();
+    return s;
   }
 
   void addXp(int amount) {
@@ -130,13 +171,16 @@ class AppStats {
     }
   }
 
-  void recordAnswer(bool correct) {
+  /// Zwraca true, jeśli poprawna odpowiedź właśnie najadła kotka (cel dnia).
+  bool recordAnswer(bool correct) {
     sessionTotal++;
     lifetimeTotal++;
+    var justFed = false;
     if (correct) {
       sessionCorrect++;
       lifetimeCorrect++;
       addXp(10);
+      justFed = feedMascotOnCorrect();
     } else {
       addXp(2);
     }
@@ -147,6 +191,7 @@ class AppStats {
       lastPlayDay = today;
       if (streakDays >= 2) addXp(5); // bonus za kontynuację passy
     }
+    return justFed;
   }
 
   /// Nagroda za codzienną rozmowę (raz dziennie). Zwraca XP lub 0.
