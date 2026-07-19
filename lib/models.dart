@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-/// SRS levels: 0=new, 1=hard, 2=ok, 3=mastered.
+/// SRS levels: 0=new, 1–2=learning, 3=mastered (3 poprawne z rzędu).
 class Word {
   Word({
     required this.id,
@@ -10,6 +10,7 @@ class Word {
     this.level = 0,
     this.hard = false,
     this.nextDue,
+    this.correctStreak = 0,
   });
 
   final String id;
@@ -19,11 +20,14 @@ class Word {
   bool hard;
   DateTime? nextDue;
 
+  /// Ile dobrych odpowiedzi z rzędu (reset przy błędzie).
+  int correctStreak;
+
   bool get nauczone => level >= 3;
 
   factory Word.fromJson(Map<String, dynamic> json) {
-    final pl = json['pl'] as String? ?? '';
-    final obcy = json['obcy'] as String? ?? '';
+    final pl = capitalizePhrase(json['pl'] as String? ?? '');
+    final obcy = capitalizePhrase(json['obcy'] as String? ?? '');
     var id = json['id'] as String?;
     id ??= _stableId(pl, obcy);
     var level = json['level'] as int?;
@@ -33,6 +37,7 @@ class Word {
     if (rawDue is String && rawDue.isNotEmpty) {
       due = DateTime.tryParse(rawDue);
     }
+    final streak = json['correctStreak'] as int? ?? (level >= 3 ? 3 : 0);
     return Word(
       id: id,
       pl: pl,
@@ -40,6 +45,7 @@ class Word {
       level: level.clamp(0, 3),
       hard: json['hard'] as bool? ?? false,
       nextDue: due,
+      correctStreak: streak.clamp(0, 99),
     );
   }
 
@@ -51,17 +57,25 @@ class Word {
         'nauczone': nauczone,
         'hard': hard,
         'nextDue': nextDue?.toIso8601String(),
+        'correctStreak': correctStreak,
       };
 
   static String _stableId(String pl, String obcy) {
-    // Simple stable id without crypto package.
-    final s = '$pl|$obcy';
+    // Simple stable id without crypto package (case-insensitive).
+    final s = '${pl.toLowerCase()}|${obcy.toLowerCase()}';
     var h = 0;
     for (final c in s.codeUnits) {
       h = (h * 31 + c) & 0x7fffffff;
     }
     return h.toRadixString(16).padLeft(8, '0');
   }
+}
+
+/// Pierwsza litera z dużej — ładniejszy wygląd listy.
+String capitalizePhrase(String raw) {
+  final s = raw.trim();
+  if (s.isEmpty) return s;
+  return '${s[0].toUpperCase()}${s.substring(1)}';
 }
 
 class WordGroup {
@@ -76,7 +90,8 @@ class WordGroup {
   List<String> wordIds;
 
   factory WordGroup.fromJson(Map<String, dynamic> json) => WordGroup(
-        id: json['id'] as String? ?? Word._stableId('g', '${Random().nextInt(1 << 20)}'),
+        id: json['id'] as String? ??
+            Word._stableId('g', '${Random().nextInt(1 << 20)}'),
         name: json['name'] as String? ?? 'Zestaw',
         wordIds: (json['wordIds'] as List<dynamic>? ?? [])
             .map((e) => e.toString())
@@ -116,6 +131,16 @@ class LangPack {
     return g.wordIds.map(byId).whereType<Word>().toList();
   }
 
+  /// Usuwa słowo z bazy i ze wszystkich zestawów.
+  bool removeWord(String wordId) {
+    final before = words.length;
+    words.removeWhere((w) => w.id == wordId);
+    for (final g in groups) {
+      g.wordIds.removeWhere((id) => id == wordId);
+    }
+    return words.length < before;
+  }
+
   Map<String, dynamic> toJson() => {
         'words': words.map((w) => w.toJson()).toList(),
         'groups': groups.map((g) => g.toJson()).toList(),
@@ -136,9 +161,8 @@ Map<String, LangPack> parseBaza(Map<String, dynamic> raw) {
           .toList();
       out[e.key] = LangPack(words: words, groups: groups);
     } else if (v is List) {
-      final words = v
-          .map((w) => Word.fromJson(w as Map<String, dynamic>))
-          .toList();
+      final words =
+          v.map((w) => Word.fromJson(w as Map<String, dynamic>)).toList();
       out[e.key] = LangPack(words: words, groups: []);
     }
   }
@@ -152,21 +176,28 @@ Map<String, dynamic> encodeBaza(Map<String, LangPack> baza) => {
 String prettyBaza(Map<String, LangPack> baza) =>
     const JsonEncoder.withIndent('  ').convert(encodeBaza(baza));
 
-/// SRS schedule after answer.
+/// Nauczone dopiero po 3 dobrych odpowiedziach z rzędu.
 void applySrs(Word w, {required bool correct}) {
   final now = DateTime.now();
   if (correct) {
-    w.level = (w.level + 1).clamp(0, 3);
-    if (w.level >= 2) w.hard = false;
-    w.nextDue = now.add(Duration(days: switch (w.level) {
-      1 => 1,
-      2 => 3,
-      3 => 7,
-      _ => 0,
-    }));
+    w.correctStreak = (w.correctStreak + 1).clamp(0, 99);
+    if (w.correctStreak >= 3) {
+      w.level = 3;
+      w.hard = false;
+      w.nextDue = now.add(const Duration(days: 7));
+    } else {
+      w.level = w.correctStreak.clamp(0, 2);
+      if (w.level >= 2) w.hard = false;
+      w.nextDue = now.add(Duration(days: switch (w.level) {
+        1 => 1,
+        2 => 3,
+        _ => 0,
+      }));
+    }
   } else {
-    w.level = (w.level - 1).clamp(0, 3);
-    if (w.level <= 1) w.hard = true;
+    w.correctStreak = 0;
+    w.level = 0;
+    w.hard = true;
     w.nextDue = now; // due immediately
   }
 }

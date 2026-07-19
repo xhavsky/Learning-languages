@@ -88,18 +88,31 @@ class BazaStore {
     }
 
     baza = parseBaza(decoded);
-    // Merge new words/groups from seed assets.
+    // Merge new words/groups from seed assets; refresh display text.
     final seedPack = parseBaza(jsonDecode(seed) as Map<String, dynamic>);
     for (final e in seedPack.entries) {
       final pack = baza.putIfAbsent(
         e.key,
         () => LangPack(words: [], groups: []),
       );
-      final have = pack.words.map((w) => w.id).toSet();
+      final byId = {for (final w in pack.words) w.id: w};
       for (final w in e.value.words) {
-        if (!have.contains(w.id)) {
+        final existing = byId[w.id];
+        if (existing == null) {
           pack.words.add(w);
-          have.add(w.id);
+          byId[w.id] = w;
+        } else {
+          // Keep progress; refresh spelling/capitalization from seed.
+          final i = pack.words.indexOf(existing);
+          pack.words[i] = Word(
+            id: existing.id,
+            pl: w.pl,
+            obcy: w.obcy,
+            level: existing.level,
+            hard: existing.hard,
+            nextDue: existing.nextDue,
+            correctStreak: existing.correctStreak,
+          );
         }
       }
       final gHave = pack.groups.map((g) => g.id).toSet();

@@ -3,21 +3,403 @@
     "words": [
       {
         "id": "8c485e2d1628",
-        "pl": "być",
-        "obcy": "to be",
+        "pl": "Być",
+        "obcy": "To be",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "e533b902c85b",
-        "pl": "mieć",
-        "obcy": "to have",
+        "pl": "Mieć",
+        "obcy": "To have",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49f2f957",
+        "pl": "Robić",
+        "obcy": "To do",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50fec726",
+        "pl": "Iść",
+        "obcy": "To go",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02ba4d2a",
+        "pl": "Przychodzić",
+        "obcy": "To come",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d4fcbc7",
+        "pl": "Widzieć",
+        "obcy": "To see",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "168b8cd5",
+        "pl": "Patrzeć",
+        "obcy": "To look",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "584acd8a",
+        "pl": "Słyszeć",
+        "obcy": "To hear",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ec84aba",
+        "pl": "Mówić",
+        "obcy": "To speak",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "66b16301",
+        "pl": "Powiedzieć",
+        "obcy": "To say",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "75fd5a36",
+        "pl": "Wiedzieć",
+        "obcy": "To know",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "54aa3f4a",
+        "pl": "Myśleć",
+        "obcy": "To think",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "059091a6",
+        "pl": "Chcieć",
+        "obcy": "To want",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30355297",
+        "pl": "Lubić",
+        "obcy": "To like",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3404ca4a",
+        "pl": "Kochać",
+        "obcy": "To love",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47960d0f91ee",
+        "pl": "Jeść",
+        "obcy": "To eat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "764c58c1",
+        "pl": "Pić",
+        "obcy": "To drink",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74d344eb",
+        "pl": "Spać",
+        "obcy": "To sleep",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c7c37ec",
+        "pl": "Pracować",
+        "obcy": "To work",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "16c70cbe",
+        "pl": "Uczyć się",
+        "obcy": "To learn",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08b6ee37",
+        "pl": "Czytać",
+        "obcy": "To read",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c0d5296",
+        "pl": "Pisać",
+        "obcy": "To write",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "513907ae",
+        "pl": "Grać",
+        "obcy": "To play",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4fb2d653",
+        "pl": "Biegać",
+        "obcy": "To run",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "16061147",
+        "pl": "Pływać",
+        "obcy": "To swim",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3680ee69",
+        "pl": "Kupować",
+        "obcy": "To buy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3096241b",
+        "pl": "Sprzedawać",
+        "obcy": "To sell",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "36b10f7a",
+        "pl": "Dawać",
+        "obcy": "To give",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2ac27626",
+        "pl": "Brać",
+        "obcy": "To take",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4c2f8075",
+        "pl": "Znaleźć",
+        "obcy": "To find",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0a2a6a84",
+        "pl": "Pomagać",
+        "obcy": "To help",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32cdf1e1",
+        "pl": "Czekać",
+        "obcy": "To wait",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "195714fd",
+        "pl": "Otwierać",
+        "obcy": "To open",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ba1b7d1",
+        "pl": "Zamykać",
+        "obcy": "To close",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "494ac1a0",
+        "pl": "Zaczynać",
+        "obcy": "To start",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3a1ad961",
+        "pl": "Kończyć",
+        "obcy": "To finish",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "40fe541f",
+        "pl": "Pytać",
+        "obcy": "To ask",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6c457ad6",
+        "pl": "Odpowiadać",
+        "obcy": "To answer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ade9b5d",
+        "pl": "Rozumieć",
+        "obcy": "To understand",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0144d8e4",
+        "pl": "Pamiętać",
+        "obcy": "To remember",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "2bd4082e6649",
@@ -26,27 +408,607 @@
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
-        "id": "47960d0f91ee",
-        "pl": "Jeść",
-        "obcy": "to eat",
+        "id": "2621be01",
+        "pl": "Proszę",
+        "obcy": "Please",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f82f246",
+        "pl": "Przepraszam",
+        "obcy": "Sorry",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d53586d",
+        "pl": "Dzień dobry",
+        "obcy": "Good morning",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7eb18cb0",
+        "pl": "Cześć",
+        "obcy": "Hello",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02bcb573",
+        "pl": "Do widzenia",
+        "obcy": "Goodbye",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "23f6f189",
+        "pl": "Tak",
+        "obcy": "Yes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41ac80f3",
+        "pl": "Nie",
+        "obcy": "No",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02bbf073",
+        "pl": "Dobrze",
+        "obcy": "Good",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5a0800fc",
+        "pl": "Źle",
+        "obcy": "Bad",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "54ebbfe6",
+        "pl": "Dom",
+        "obcy": "House",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3abf2d06",
+        "pl": "Szkoła",
+        "obcy": "School",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70e20df7",
+        "pl": "Książka",
+        "obcy": "Book",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "515563b0",
+        "pl": "Woda",
+        "obcy": "Water",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74529280",
+        "pl": "Chleb",
+        "obcy": "Bread",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6ad53535",
+        "pl": "Przyjaciel",
+        "obcy": "Friend",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0ceb8b57",
+        "pl": "Rodzina",
+        "obcy": "Family",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6041356a",
+        "pl": "Kot",
+        "obcy": "Cat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "57d9d827",
+        "pl": "Pies",
+        "obcy": "Dog",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ce223f2",
+        "pl": "Dzień",
+        "obcy": "Day",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0eeb625e",
+        "pl": "Noc",
+        "obcy": "Night",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e49c800",
+        "pl": "Czas",
+        "obcy": "Time",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6fbc21ab",
+        "pl": "Rok",
+        "obcy": "Year",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5568aa8e",
+        "pl": "Ręka",
+        "obcy": "Hand",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "15d2673e",
+        "pl": "Głowa",
+        "obcy": "Head",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50831ed2",
+        "pl": "Duży",
+        "obcy": "Big",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "35602dd6",
+        "pl": "Mały",
+        "obcy": "Small",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6488ce87",
+        "pl": "Nowy",
+        "obcy": "New",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "016e4512",
+        "pl": "Stary",
+        "obcy": "Old",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41869a4b",
+        "pl": "Piękny",
+        "obcy": "Beautiful",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "715592c3",
+        "pl": "Szczęśliwy",
+        "obcy": "Happy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12f5b9de",
+        "pl": "Smutny",
+        "obcy": "Sad",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "523b071c",
+        "pl": "Czerwony",
+        "obcy": "Red",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1b5c8319",
+        "pl": "Niebieski",
+        "obcy": "Blue",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "663d53ab",
+        "pl": "Zielony",
+        "obcy": "Green",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3cbd6c5c",
+        "pl": "Jeden",
+        "obcy": "One",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a90df7e",
+        "pl": "Dwa",
+        "obcy": "Two",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "140ea71f",
+        "pl": "Trzy",
+        "obcy": "Three",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "05adb737",
+        "pl": "Mama",
+        "obcy": "Mom",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68c7ba25",
+        "pl": "Tata",
+        "obcy": "Dad",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00f49cd7",
+        "pl": "Siostra",
+        "obcy": "Sister",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "58be7247",
+        "pl": "Brat",
+        "obcy": "Brother",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6738f284",
+        "pl": "Jedzenie",
+        "obcy": "Food",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6ca5ea4d",
+        "pl": "Mleko",
+        "obcy": "Milk",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "507d0459",
+        "pl": "Jabłko",
+        "obcy": "Apple",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f4e7d15",
+        "pl": "Herbata",
+        "obcy": "Tea",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "624cc0a8",
+        "pl": "Kawa",
+        "obcy": "Coffee",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c537bbe",
+        "pl": "Miasto",
+        "obcy": "City",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "23ee54ef",
+        "pl": "Ulica",
+        "obcy": "Street",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a67683e",
+        "pl": "Samochód",
+        "obcy": "Car",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
       {
-        "id": "start-en",
-        "name": "Podstawy",
+        "id": "en-czasowniki",
+        "name": "Czasowniki",
         "wordIds": [
           "8c485e2d1628",
           "e533b902c85b",
+          "49f2f957",
+          "50fec726",
+          "02ba4d2a",
+          "1d4fcbc7",
+          "168b8cd5",
+          "584acd8a",
+          "3ec84aba",
+          "66b16301",
+          "75fd5a36",
+          "54aa3f4a",
+          "059091a6",
+          "30355297",
+          "3404ca4a",
+          "47960d0f91ee",
+          "764c58c1",
+          "74d344eb",
+          "7c7c37ec",
+          "16c70cbe",
+          "08b6ee37",
+          "0c0d5296",
+          "513907ae",
+          "4fb2d653",
+          "16061147",
+          "3680ee69",
+          "3096241b",
+          "36b10f7a",
+          "2ac27626",
+          "4c2f8075",
+          "0a2a6a84",
+          "32cdf1e1",
+          "195714fd",
+          "1ba1b7d1",
+          "494ac1a0",
+          "3a1ad961",
+          "40fe541f",
+          "6c457ad6",
+          "5ade9b5d",
+          "0144d8e4"
+        ]
+      },
+      {
+        "id": "start-en",
+        "name": "Podstawy",
+        "wordIds": [
           "2bd4082e6649",
-          "47960d0f91ee"
+          "2621be01",
+          "7f82f246",
+          "7d53586d",
+          "7eb18cb0",
+          "02bcb573",
+          "23f6f189",
+          "41ac80f3",
+          "02bbf073",
+          "5a0800fc",
+          "54ebbfe6",
+          "3abf2d06",
+          "70e20df7",
+          "515563b0",
+          "74529280"
+        ]
+      },
+      {
+        "id": "en-codzien",
+        "name": "Codzienne słowa",
+        "wordIds": [
+          "6ad53535",
+          "0ceb8b57",
+          "6041356a",
+          "57d9d827",
+          "5ce223f2",
+          "0eeb625e",
+          "2e49c800",
+          "6fbc21ab",
+          "5568aa8e",
+          "15d2673e",
+          "50831ed2",
+          "35602dd6",
+          "6488ce87",
+          "016e4512",
+          "41869a4b",
+          "715592c3",
+          "12f5b9de",
+          "523b071c",
+          "1b5c8319",
+          "663d53ab",
+          "3cbd6c5c",
+          "7a90df7e",
+          "140ea71f",
+          "05adb737",
+          "68c7ba25",
+          "00f49cd7",
+          "58be7247",
+          "6738f284",
+          "6ca5ea4d",
+          "507d0459",
+          "7f4e7d15",
+          "624cc0a8",
+          "2c537bbe",
+          "23ee54ef",
+          "7a67683e"
         ]
       }
     ]
@@ -55,21 +1017,423 @@
     "words": [
       {
         "id": "2a1c955a7365",
-        "pl": "być (trvale)",
-        "obcy": "ser",
+        "pl": "Być (trwale)",
+        "obcy": "Ser",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "351e11ba",
+        "pl": "Być (chwilowo)",
+        "obcy": "Estar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "3241a30a967b",
-        "pl": "mieć",
-        "obcy": "tener",
+        "pl": "Mieć",
+        "obcy": "Tener",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49447dbe",
+        "pl": "Robić",
+        "obcy": "Hacer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "46c02150",
+        "pl": "Iść",
+        "obcy": "Ir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2121c4e9",
+        "pl": "Przychodzić",
+        "obcy": "Venir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41f54baa",
+        "pl": "Widzieć",
+        "obcy": "Ver",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5abcbcf8",
+        "pl": "Patrzeć",
+        "obcy": "Mirar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "56622a6b",
+        "pl": "Słyszeć",
+        "obcy": "Oír",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08c51681",
+        "pl": "Mówić",
+        "obcy": "Hablar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12ef2310",
+        "pl": "Powiedzieć",
+        "obcy": "Decir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6dcc8a27",
+        "pl": "Wiedzieć",
+        "obcy": "Saber",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "10d62701",
+        "pl": "Znać",
+        "obcy": "Conocer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2d7653a8",
+        "pl": "Myśleć",
+        "obcy": "Pensar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41b4cf0d",
+        "pl": "Chcieć",
+        "obcy": "Querer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2dea0465",
+        "pl": "Lubić",
+        "obcy": "Gustar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "046809ea",
+        "pl": "Kochać",
+        "obcy": "Amar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "25677339",
+        "pl": "Jeść",
+        "obcy": "Comer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b002a1e",
+        "pl": "Pić",
+        "obcy": "Beber",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "799bede8",
+        "pl": "Spać",
+        "obcy": "Dormir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1f7a0e23",
+        "pl": "Pracować",
+        "obcy": "Trabajar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2185d2e4",
+        "pl": "Uczyć się",
+        "obcy": "Aprender",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "78ded74a",
+        "pl": "Czytać",
+        "obcy": "Leer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3b7ea7bb",
+        "pl": "Pisać",
+        "obcy": "Escribir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e8438e2",
+        "pl": "Grać",
+        "obcy": "Jugar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32d5b846",
+        "pl": "Biegać",
+        "obcy": "Correr",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1694c3bc",
+        "pl": "Pływać",
+        "obcy": "Nadar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a9650ac",
+        "pl": "Kupować",
+        "obcy": "Comprar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c4f2d4e",
+        "pl": "Sprzedawać",
+        "obcy": "Vender",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "124d0379",
+        "pl": "Dawać",
+        "obcy": "Dar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "199f4a9d",
+        "pl": "Brać",
+        "obcy": "Tomar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4e54195f",
+        "pl": "Znaleźć",
+        "obcy": "Encontrar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68dd6eba",
+        "pl": "Pomagać",
+        "obcy": "Ayudar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "24834407",
+        "pl": "Czekać",
+        "obcy": "Esperar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d549908",
+        "pl": "Otwierać",
+        "obcy": "Abrir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "79422d11",
+        "pl": "Zamykać",
+        "obcy": "Cerrar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7e7c50eb",
+        "pl": "Zaczynać",
+        "obcy": "Empezar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "646b59d9",
+        "pl": "Kończyć",
+        "obcy": "Terminar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f7b661d",
+        "pl": "Pytać",
+        "obcy": "Preguntar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "753a4dd5",
+        "pl": "Odpowiadać",
+        "obcy": "Responder",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "05c50fe3",
+        "pl": "Rozumieć",
+        "obcy": "Entender",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76e89330",
+        "pl": "Pamiętać",
+        "obcy": "Recordar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "58d29f147a20",
@@ -78,17 +1442,609 @@
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "685044ba",
+        "pl": "Proszę",
+        "obcy": "Por favor",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6b2fbc39",
+        "pl": "Przepraszam",
+        "obcy": "Perdón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "40cabd6f",
+        "pl": "Dzień dobry",
+        "obcy": "Buenos días",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "18bb8d1e",
+        "pl": "Cześć",
+        "obcy": "Hola",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a5781e8",
+        "pl": "Do widzenia",
+        "obcy": "Adiós",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4b7b93f8",
+        "pl": "Tak",
+        "obcy": "Sí",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41ac80f3",
+        "pl": "Nie",
+        "obcy": "No",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02b992e6",
+        "pl": "Dobrze",
+        "obcy": "Bien",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5a082a4f",
+        "pl": "Źle",
+        "obcy": "Mal",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "44cb51a6",
+        "pl": "Dom",
+        "obcy": "Casa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5398dfa8",
+        "pl": "Szkoła",
+        "obcy": "Escuela",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2be9b234",
+        "pl": "Książka",
+        "obcy": "Libro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4ce85379",
+        "pl": "Woda",
+        "obcy": "Agua",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0d0aac25",
+        "pl": "Chleb",
+        "obcy": "Pan",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1befb1ee",
+        "pl": "Przyjaciel",
+        "obcy": "Amigo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1085ddfa",
+        "pl": "Rodzina",
+        "obcy": "Familia",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "27e749c1",
+        "pl": "Kot",
+        "obcy": "Gato",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49693045",
+        "pl": "Pies",
+        "obcy": "Perro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ce234ce",
+        "pl": "Dzień",
+        "obcy": "Día",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0eee0d85",
+        "pl": "Noc",
+        "obcy": "Noche",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "42f4510f",
+        "pl": "Czas",
+        "obcy": "Tiempo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "520e0a91",
+        "pl": "Rok",
+        "obcy": "Año",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "556af074",
+        "pl": "Ręka",
+        "obcy": "Mano",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "62157de6",
+        "pl": "Głowa",
+        "obcy": "Cabeza",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "53a595c7",
+        "pl": "Duży",
+        "obcy": "Grande",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32982c59",
+        "pl": "Mały",
+        "obcy": "Pequeño",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "659659de",
+        "pl": "Nowy",
+        "obcy": "Nuevo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5f52a102",
+        "pl": "Stary",
+        "obcy": "Viejo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26cf7cc9",
+        "pl": "Piękny",
+        "obcy": "Bonito",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "713b2561",
+        "pl": "Szczęśliwy",
+        "obcy": "Feliz",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6410fd91",
+        "pl": "Smutny",
+        "obcy": "Triste",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "75260317",
+        "pl": "Czerwony",
+        "obcy": "Rojo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1b5c434f",
+        "pl": "Niebieski",
+        "obcy": "Azul",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "670afc0c",
+        "pl": "Zielony",
+        "obcy": "Verde",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3cbd82ec",
+        "pl": "Jeden",
+        "obcy": "Uno",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a90a27a",
+        "pl": "Dwa",
+        "obcy": "Dos",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c84be0b",
+        "pl": "Trzy",
+        "obcy": "Tres",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3008fbfc",
+        "pl": "Mama",
+        "obcy": "Mamá",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30350144",
+        "pl": "Tata",
+        "obcy": "Papá",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50d5ba89",
+        "pl": "Siostra",
+        "obcy": "Hermana",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "001bd471",
+        "pl": "Brat",
+        "obcy": "Hermano",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77a70e2b",
+        "pl": "Jedzenie",
+        "obcy": "Comida",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "28075495",
+        "pl": "Mleko",
+        "obcy": "Leche",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "066994b3",
+        "pl": "Jabłko",
+        "obcy": "Manzana",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6b551d50",
+        "pl": "Herbata",
+        "obcy": "Té",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1879e1fd",
+        "pl": "Kawa",
+        "obcy": "Café",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6563b5eb",
+        "pl": "Miasto",
+        "obcy": "Ciudad",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c1d7f5b",
+        "pl": "Ulica",
+        "obcy": "Calle",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7e34829e",
+        "pl": "Samochód",
+        "obcy": "Coche",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
       {
+        "id": "es-czasowniki",
+        "name": "Czasowniki",
+        "wordIds": [
+          "2a1c955a7365",
+          "351e11ba",
+          "3241a30a967b",
+          "49447dbe",
+          "46c02150",
+          "2121c4e9",
+          "41f54baa",
+          "5abcbcf8",
+          "56622a6b",
+          "08c51681",
+          "12ef2310",
+          "6dcc8a27",
+          "10d62701",
+          "2d7653a8",
+          "41b4cf0d",
+          "2dea0465",
+          "046809ea",
+          "25677339",
+          "2b002a1e",
+          "799bede8",
+          "1f7a0e23",
+          "2185d2e4",
+          "78ded74a",
+          "3b7ea7bb",
+          "5e8438e2",
+          "32d5b846",
+          "1694c3bc",
+          "1a9650ac",
+          "7c4f2d4e",
+          "124d0379",
+          "199f4a9d",
+          "4e54195f",
+          "68dd6eba",
+          "24834407",
+          "1d549908",
+          "79422d11",
+          "7e7c50eb",
+          "646b59d9",
+          "0f7b661d",
+          "753a4dd5",
+          "05c50fe3",
+          "76e89330"
+        ]
+      },
+      {
         "id": "es-podstawy",
         "name": "Podstawy",
         "wordIds": [
-          "2a1c955a7365",
-          "3241a30a967b",
-          "58d29f147a20"
+          "58d29f147a20",
+          "685044ba",
+          "6b2fbc39",
+          "40cabd6f",
+          "18bb8d1e",
+          "6a5781e8",
+          "4b7b93f8",
+          "41ac80f3",
+          "02b992e6",
+          "5a082a4f",
+          "44cb51a6",
+          "5398dfa8",
+          "2be9b234",
+          "4ce85379",
+          "0d0aac25"
+        ]
+      },
+      {
+        "id": "es-codzien",
+        "name": "Codzienne słowa",
+        "wordIds": [
+          "1befb1ee",
+          "1085ddfa",
+          "27e749c1",
+          "49693045",
+          "5ce234ce",
+          "0eee0d85",
+          "42f4510f",
+          "520e0a91",
+          "556af074",
+          "62157de6",
+          "53a595c7",
+          "32982c59",
+          "659659de",
+          "5f52a102",
+          "26cf7cc9",
+          "713b2561",
+          "6410fd91",
+          "75260317",
+          "1b5c434f",
+          "670afc0c",
+          "3cbd82ec",
+          "7a90a27a",
+          "7c84be0b",
+          "3008fbfc",
+          "30350144",
+          "50d5ba89",
+          "001bd471",
+          "77a70e2b",
+          "28075495",
+          "066994b3",
+          "6b551d50",
+          "1879e1fd",
+          "6563b5eb",
+          "7c1d7f5b",
+          "7e34829e"
         ]
       }
     ]
@@ -97,381 +2053,936 @@
     "words": [
       {
         "id": "845fcf0d5c03",
-        "pl": "być",
-        "obcy": "быть",
+        "pl": "Być",
+        "obcy": "Быть",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "ad04ecd27767",
-        "pl": "mieć",
-        "obcy": "иметь",
+        "pl": "Mieć",
+        "obcy": "Иметь",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "0d30eeea7844",
-        "pl": "mówić",
-        "obcy": "говорить",
+        "pl": "Mówić",
+        "obcy": "Говорить",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "d252c84ecf03",
-        "pl": "kochać",
-        "obcy": "любить",
+        "pl": "Kochać",
+        "obcy": "Любить",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "ff5b37b2e594",
-        "pl": "wiedzieć",
-        "obcy": "знать",
+        "pl": "Wiedzieć",
+        "obcy": "Знать",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "5fb13ec7ea50",
-        "pl": "myśleć",
-        "obcy": "думать",
+        "pl": "Myśleć",
+        "obcy": "Думать",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "c5c46c2fdb5f",
-        "pl": "robić",
-        "obcy": "делать",
+        "pl": "Robić",
+        "obcy": "Делать",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "586f577f739b",
-        "pl": "chcieć",
-        "obcy": "хотеть",
+        "pl": "Chcieć",
+        "obcy": "Хотеть",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "20726aa826d7",
-        "pl": "iść",
-        "obcy": "идти",
+        "pl": "Iść",
+        "obcy": "Идти",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "531d53101e38",
-        "pl": "widzieć",
-        "obcy": "видеть",
+        "pl": "Widzieć",
+        "obcy": "Видеть",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "756e987f",
+        "pl": "Przychodzić",
+        "obcy": "Приходить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b399b0d",
+        "pl": "Patrzeć",
+        "obcy": "Смотреть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1e8e1f3a",
+        "pl": "Słyszeć",
+        "obcy": "Слышать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32804dbf",
+        "pl": "Powiedzieć",
+        "obcy": "Сказать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30c31e26",
+        "pl": "Lubić",
+        "obcy": "Нравиться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dd6fd4b",
+        "pl": "Jeść",
+        "obcy": "Есть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6e8e5af1",
+        "pl": "Pić",
+        "obcy": "Пить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "61508a43",
+        "pl": "Spać",
+        "obcy": "Спать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "39b0c8ff",
+        "pl": "Pracować",
+        "obcy": "Работать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4c78380d",
+        "pl": "Uczyć się",
+        "obcy": "Учиться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "087963ad",
+        "pl": "Czytać",
+        "obcy": "Читать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2ea1938e",
+        "pl": "Pisać",
+        "obcy": "Писать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "269d8d20",
+        "pl": "Grać",
+        "obcy": "Играть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "67d5f678",
+        "pl": "Biegać",
+        "obcy": "Бегать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70f12d16",
+        "pl": "Pływać",
+        "obcy": "Плавать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4e20e84b",
+        "pl": "Kupować",
+        "obcy": "Покупать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "208ce385",
+        "pl": "Sprzedawać",
+        "obcy": "Продавать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "69112520",
+        "pl": "Dawać",
+        "obcy": "Давать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5017e185",
+        "pl": "Brać",
+        "obcy": "Брать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4bd011e3",
+        "pl": "Znaleźć",
+        "obcy": "Находить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7215798a",
+        "pl": "Pomagać",
+        "obcy": "Помогать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e0650a3",
+        "pl": "Czekać",
+        "obcy": "Ждать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60ec4ab7",
+        "pl": "Otwierać",
+        "obcy": "Открывать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "52956d56",
+        "pl": "Zamykać",
+        "obcy": "Закрывать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5db75fe4",
+        "pl": "Zaczynać",
+        "obcy": "Начинать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4449e470",
+        "pl": "Kończyć",
+        "obcy": "Заканчивать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2eb1fd51",
+        "pl": "Pytać",
+        "obcy": "Спрашивать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b323c27",
+        "pl": "Odpowiadać",
+        "obcy": "Отвечать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a031c9e",
+        "pl": "Rozumieć",
+        "obcy": "Понимать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7061a634",
+        "pl": "Pamiętać",
+        "obcy": "Помнить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "687f437b1510",
-        "pl": "dzień",
-        "obcy": "день",
+        "pl": "Dzień",
+        "obcy": "День",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "ad9c7f87120a",
-        "pl": "czas",
-        "obcy": "время",
+        "pl": "Czas",
+        "obcy": "Время",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "5b3ea5806879",
-        "pl": "człowiek",
-        "obcy": "человек",
+        "pl": "Człowiek",
+        "obcy": "Человек",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "1516d47464a0",
-        "pl": "rok",
-        "obcy": "год",
+        "pl": "Rok",
+        "obcy": "Год",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "fed5613ce159",
-        "pl": "życie",
-        "obcy": "жизнь",
+        "pl": "Życie",
+        "obcy": "Жизнь",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "aec62e1e37fd",
-        "pl": "ręka",
-        "obcy": "рука",
+        "pl": "Ręka",
+        "obcy": "Рука",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "b9b2602b5b17",
-        "pl": "słowo",
-        "obcy": "слово",
+        "pl": "Słowo",
+        "obcy": "Слово",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "06bfd7a9c9c3",
-        "pl": "głowa",
-        "obcy": "голова",
+        "pl": "Głowa",
+        "obcy": "Голова",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "41e2ef8e0976",
-        "pl": "dom",
-        "obcy": "дом",
+        "pl": "Dom",
+        "obcy": "Дом",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "caa47bf3bca9",
-        "pl": "miasto",
-        "obcy": "город",
+        "pl": "Miasto",
+        "obcy": "Город",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "04fb0974cc02",
-        "pl": "tak",
-        "obcy": "да",
+        "pl": "Tak",
+        "obcy": "Да",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "6be6faeab6fc",
-        "pl": "nie",
-        "obcy": "нет",
+        "pl": "Nie",
+        "obcy": "Нет",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "e91d5e383747",
-        "pl": "dziękuję",
-        "obcy": "спасибо",
+        "pl": "Dziękuję",
+        "obcy": "Спасибо",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "f72219a81a73",
-        "pl": "proszę",
-        "obcy": "пожалуйста",
+        "pl": "Proszę",
+        "obcy": "Пожалуйста",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "a2ce8387460e",
-        "pl": "dzień dobry",
-        "obcy": "здравствуйте",
+        "pl": "Dzień dobry",
+        "obcy": "Здравствуйте",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "972dad228d58",
-        "pl": "cześć",
-        "obcy": "привет",
+        "pl": "Cześć",
+        "obcy": "Привет",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "3ebb018a35d6",
-        "pl": "do widzenia",
-        "obcy": "до свидания",
+        "pl": "Do widzenia",
+        "obcy": "До свидания",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "96ec75383b25",
-        "pl": "dobrze",
-        "obcy": "хорошо",
+        "pl": "Dobrze",
+        "obcy": "Хорошо",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "2d6f9d6a9ed5",
-        "pl": "źle",
-        "obcy": "плохо",
+        "pl": "Źle",
+        "obcy": "Плохо",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "dec6826418c6",
-        "pl": "nowy",
-        "obcy": "новый",
+        "pl": "Nowy",
+        "obcy": "Новый",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "47c8c07b9ae1",
-        "pl": "stary",
-        "obcy": "старый",
+        "pl": "Stary",
+        "obcy": "Старый",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "8fff53da3afa",
-        "pl": "duży",
-        "obcy": "большой",
+        "pl": "Duży",
+        "obcy": "Большой",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "914dbb4d9eb7",
-        "pl": "mały",
-        "obcy": "маленький",
+        "pl": "Mały",
+        "obcy": "Маленький",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "9402871cc341",
-        "pl": "piękny",
-        "obcy": "красивый",
+        "pl": "Piękny",
+        "obcy": "Красивый",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "41bcccebb30b",
-        "pl": "przyjaciel",
-        "obcy": "друг",
+        "pl": "Przyjaciel",
+        "obcy": "Друг",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "bffac34a70a4",
-        "pl": "chleb",
-        "obcy": "хлеб",
+        "pl": "Chleb",
+        "obcy": "Хлеб",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "f7e0009dd29e",
-        "pl": "woda",
-        "obcy": "вода",
+        "pl": "Woda",
+        "obcy": "Вода",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "85a580812fb2",
-        "pl": "herbata",
-        "obcy": "чай",
+        "pl": "Herbata",
+        "obcy": "Чай",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "c9d5f092efdb",
-        "pl": "kawa",
-        "obcy": "кофе",
+        "pl": "Kawa",
+        "obcy": "Кофе",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
       },
       {
         "id": "dd956787708e",
-        "pl": "obiad",
-        "obcy": "обед",
+        "pl": "Obiad",
+        "obcy": "Обед",
         "level": 0,
         "nauczone": false,
         "hard": false,
-        "nextDue": null
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1489a20f",
+        "pl": "Szkoła",
+        "obcy": "Школа",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63537924",
+        "pl": "Książka",
+        "obcy": "Книга",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "304983d8",
+        "pl": "Rodzina",
+        "obcy": "Семья",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60501b12",
+        "pl": "Kot",
+        "obcy": "Кот",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ee67467",
+        "pl": "Pies",
+        "obcy": "Собака",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4455cd40",
+        "pl": "Noc",
+        "obcy": "Ночь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1fa4aef5",
+        "pl": "Szczęśliwy",
+        "obcy": "Счастливый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5635dfcc",
+        "pl": "Smutny",
+        "obcy": "Грустный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "733a0c1f",
+        "pl": "Czerwony",
+        "obcy": "Красный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "088961a8",
+        "pl": "Niebieski",
+        "obcy": "Синий",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d293d9f",
+        "pl": "Zielony",
+        "obcy": "Зелёный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5cb9fa05",
+        "pl": "Jeden",
+        "obcy": "Один",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a9f6aa4",
+        "pl": "Dwa",
+        "obcy": "Два",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77aff17b",
+        "pl": "Trzy",
+        "obcy": "Три",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "31d2f73c",
+        "pl": "Mama",
+        "obcy": "Мама",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "31fefc84",
+        "pl": "Tata",
+        "obcy": "Папа",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "364f8c98",
+        "pl": "Siostra",
+        "obcy": "Сестра",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e72b45a",
+        "pl": "Brat",
+        "obcy": "Брат",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1263ba1b",
+        "pl": "Mleko",
+        "obcy": "Молоко",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a7d398a",
+        "pl": "Jabłko",
+        "obcy": "Яблоко",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3487851e",
+        "pl": "Ulica",
+        "obcy": "Улица",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0feb894d",
+        "pl": "Samochód",
+        "obcy": "Машина",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5edd6b8a",
+        "pl": "Przepraszam",
+        "obcy": "Извините",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
-      {
-        "id": "ru-powitania",
-        "name": "Powitania i podstawy",
-        "wordIds": [
-          "04fb0974cc02",
-          "6be6faeab6fc",
-          "e91d5e383747",
-          "f72219a81a73",
-          "a2ce8387460e",
-          "972dad228d58",
-          "3ebb018a35d6",
-          "96ec75383b25",
-          "2d6f9d6a9ed5"
-        ]
-      },
       {
         "id": "ru-czasowniki",
         "name": "Czasowniki",
@@ -485,7 +2996,102 @@
           "c5c46c2fdb5f",
           "586f577f739b",
           "20726aa826d7",
-          "531d53101e38"
+          "531d53101e38",
+          "756e987f",
+          "5b399b0d",
+          "1e8e1f3a",
+          "32804dbf",
+          "30c31e26",
+          "5dd6fd4b",
+          "6e8e5af1",
+          "61508a43",
+          "39b0c8ff",
+          "4c78380d",
+          "087963ad",
+          "2ea1938e",
+          "269d8d20",
+          "67d5f678",
+          "70f12d16",
+          "4e20e84b",
+          "208ce385",
+          "69112520",
+          "5017e185",
+          "4bd011e3",
+          "7215798a",
+          "0e0650a3",
+          "60ec4ab7",
+          "52956d56",
+          "5db75fe4",
+          "4449e470",
+          "2eb1fd51",
+          "5b323c27",
+          "7a031c9e",
+          "7061a634"
+        ]
+      },
+      {
+        "id": "ru-powitania",
+        "name": "Powitania i podstawy",
+        "wordIds": [
+          "04fb0974cc02",
+          "6be6faeab6fc",
+          "e91d5e383747",
+          "f72219a81a73",
+          "a2ce8387460e",
+          "972dad228d58",
+          "3ebb018a35d6",
+          "96ec75383b25",
+          "2d6f9d6a9ed5",
+          "687f437b1510",
+          "ad9c7f87120a",
+          "5b3ea5806879",
+          "1516d47464a0",
+          "fed5613ce159",
+          "aec62e1e37fd",
+          "b9b2602b5b17",
+          "06bfd7a9c9c3"
+        ]
+      },
+      {
+        "id": "ru-codzien",
+        "name": "Codzienne słowa",
+        "wordIds": [
+          "41e2ef8e0976",
+          "caa47bf3bca9",
+          "dec6826418c6",
+          "47c8c07b9ae1",
+          "8fff53da3afa",
+          "914dbb4d9eb7",
+          "9402871cc341",
+          "41bcccebb30b",
+          "bffac34a70a4",
+          "f7e0009dd29e",
+          "85a580812fb2",
+          "c9d5f092efdb",
+          "dd956787708e",
+          "1489a20f",
+          "63537924",
+          "304983d8",
+          "60501b12",
+          "1ee67467",
+          "4455cd40",
+          "1fa4aef5",
+          "5635dfcc",
+          "733a0c1f",
+          "088961a8",
+          "1d293d9f",
+          "5cb9fa05",
+          "7a9f6aa4",
+          "77aff17b",
+          "31d2f73c",
+          "31fefc84",
+          "364f8c98",
+          "5e72b45a",
+          "1263ba1b",
+          "2a7d398a",
+          "3487851e",
+          "0feb894d",
+          "5edd6b8a"
         ]
       }
     ]
