@@ -25,6 +25,7 @@ STATIC = ROOT / "static"
 DATA = Path(os.environ.get("ANIELKA_PORTAL_DATA", str(ROOT / "data")))
 HISTORY = DATA / "chat.json"
 META = DATA / "meta.json"
+GH_IDENTITY = DATA / "github_identity.json"
 
 HOST = os.environ.get("ANIELKA_PORTAL_HOST", "0.0.0.0")
 PORT = int(os.environ.get("ANIELKA_PORTAL_PORT", "7474"))
@@ -442,13 +443,165 @@ Anielka i tata pracują nad TYM SAMYM kodem (gałąź main).
 Zasady współpracy: jedna prośba naraz; gdy portal jest busy, tata nie edytuje równolegle;
 nie dublujcie tej samej zmiany lokalnie i przez portal; commit przed release.
 Anielka ma przez portal te same możliwości: zmiany w kodzie, commit na main, release.
+
+{gh_block}
+
 Odpowiadaj po polsku, krótko i jasno.
 Wiadomość od Anielki:
 """
 
 
+def _gh_prompt_block() -> str:
+    ident = _load_gh_identity()
+    if not ident:
+        return (
+            "Konto GitHub Anielki NIE jest jeszcze zapisane w portalu. "
+            "Przy commitach możesz użyć autora „Anielka” i e-mail "
+            "anielka@users.noreply.github.com, a poproś ją o „Zapisz konto” w sekcji GitHub."
+        )
+    name = ident.get("name") or ident["username"]
+    email = ident.get("email") or f"{ident['username']}@users.noreply.github.com"
+    return (
+        f"Tożsamość Gita: GIT_AUTHOR_NAME/EMAIL są ustawione na konto Anielki ({name} <{email}>). "
+        "Przy commitach NIE zmieniaj globalnego git config — używaj tych zmiennych "
+        "(albo `git -c user.name=... -c user.email=... commit`). "
+        "Commit ma być widoczny na GitHubie jako Anielka. Pushuj origin main; "
+        "mirror na jej konto robi portal po sesji."
+    )
+
+
+def _load_gh_identity() -> dict | None:
+    if not GH_IDENTITY.exists():
+        return None
+    try:
+        data = json.loads(GH_IDENTITY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not data.get("username") or not data.get("token"):
+        return None
+    return data
+
+
+def _gh_identity_public(ident: dict | None = None) -> dict:
+    ident = ident if ident is not None else _load_gh_identity()
+    if not ident:
+        return {"configured": False}
+    token = str(ident.get("token") or "")
+    masked = ""
+    if len(token) > 8:
+        masked = token[:4] + "…" + token[-4:]
+    elif token:
+        masked = "••••"
+    return {
+        "configured": True,
+        "username": ident.get("username"),
+        "name": ident.get("name") or ident.get("username"),
+        "email": ident.get("email"),
+        "repo": ident.get("repo") or "Learning-languages",
+        "url": f"https://github.com/{ident.get('username')}/{ident.get('repo') or 'Learning-languages'}",
+        "tokenMasked": masked,
+        "savedAt": ident.get("savedAt"),
+    }
+
+
+def _fetch_github_profile(token: str) -> dict:
+    import urllib.error
+    import urllib.request
+
+    req = urllib.request.Request(
+        "https://api.github.com/user",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "anielka-portal",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", "replace")
+        raise RuntimeError(f"GitHub /user: {e.code} {body[:300]}") from e
+
+
+def _save_gh_identity(username: str, token: str, repo: str) -> dict:
+    username = username.strip()
+    token = token.strip()
+    repo = (repo or "Learning-languages").strip() or "Learning-languages"
+    if not username or not token:
+        return {"ok": False, "error": "Podaj nazwę użytkownika i token."}
+    try:
+        profile = _fetch_github_profile(token)
+    except Exception as e:  # noqa: BLE001
+        return {
+            "ok": False,
+            "error": str(e),
+            "help": "Token classic z scope repo; sprawdź też nazwę użytkownika.",
+        }
+    login = str(profile.get("login") or username)
+    if login.lower() != username.lower():
+        # Prefer actual login from token
+        username = login
+    uid = profile.get("id")
+    noreply = (
+        f"{uid}+{login}@users.noreply.github.com"
+        if uid
+        else f"{login}@users.noreply.github.com"
+    )
+    email = (profile.get("email") or "").strip() or noreply
+    name = (profile.get("name") or "").strip() or login
+    payload = {
+        "username": username,
+        "token": token,
+        "repo": repo,
+        "name": name,
+        "email": email,
+        "savedAt": _now(),
+    }
+    DATA.mkdir(parents=True, exist_ok=True)
+    GH_IDENTITY.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    try:
+        os.chmod(GH_IDENTITY, 0o600)
+    except OSError:
+        pass
+    return {"ok": True, "identity": _gh_identity_public(payload)}
+
+
+def _agent_git_env(base: dict | None = None) -> dict:
+    env = (base or os.environ).copy()
+    ident = _load_gh_identity()
+    if ident:
+        env["GIT_AUTHOR_NAME"] = ident.get("name") or ident["username"]
+        env["GIT_AUTHOR_EMAIL"] = ident.get("email") or (
+            f"{ident['username']}@users.noreply.github.com"
+        )
+        env["GIT_COMMITTER_NAME"] = env["GIT_AUTHOR_NAME"]
+        env["GIT_COMMITTER_EMAIL"] = env["GIT_AUTHOR_EMAIL"]
+        env["ANIELKA_GH_USER"] = ident["username"]
+        env["ANIELKA_GH_REPO"] = ident.get("repo") or "Learning-languages"
+    return env
+
+
+def _mirror_to_anielka() -> dict | None:
+    """Push current HEAD to Anielka's GitHub fork/repo (if identity saved)."""
+    ident = _load_gh_identity()
+    if not ident:
+        return None
+    result = _github_publish(
+        ident["username"],
+        ident["token"],
+        ident.get("repo") or "Learning-languages",
+    )
+    return result
+
+
 def _run_agent(user_text: str) -> str:
-    prompt = SYSTEM_PREFIX.format(workspace=WORKSPACE) + user_text.strip()
+    prompt = SYSTEM_PREFIX.format(
+        workspace=WORKSPACE,
+        gh_block=_gh_prompt_block(),
+    ) + user_text.strip()
     cmd = [
         CURSOR_BIN,
         "agent",
@@ -460,7 +613,7 @@ def _run_agent(user_text: str) -> str:
         "--stream-partial-output",
         prompt,
     ]
-    env = os.environ.copy()
+    env = _agent_git_env()
     _set_progress(
         reset=True,
         stage="start",
@@ -660,6 +813,24 @@ def _worker() -> None:
         try:
             answer = _run_agent(user["text"])
             _append("assistant", answer, replyTo=msg_id)
+            # Mirror commits onto Anielka's GitHub so her account shows the work
+            mirror = _mirror_to_anielka()
+            if mirror:
+                if mirror.get("ok"):
+                    _append(
+                        "system",
+                        "🐙 Zsynchronizowano też na Twoje GitHub: "
+                        + (mirror.get("url") or ""),
+                        status="mirror-ok",
+                    )
+                else:
+                    _append(
+                        "system",
+                        "⚠️ Nie udało się zsynchronizować na Twoje GitHub: "
+                        + (mirror.get("error") or "?")
+                        + "\nZapisz ponownie token w sekcji GitHub albo napisz tacie.",
+                        status="mirror-fail",
+                    )
         except Exception as e:  # noqa: BLE001
             _append("assistant", f"Błąd: {e}", replyTo=msg_id, status="error")
         finally:
@@ -756,6 +927,10 @@ class Handler(BaseHTTPRequestHandler):
             if not _check_pin(self):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
             return self._json(200, _workspace_status())
+        if path == "/api/github-identity":
+            if not _check_pin(self):
+                return self._json(401, {"error": "Zły PIN. Poproś tatę."})
+            return self._json(200, _gh_identity_public())
         if path.startswith("/static/"):
             rel = path.removeprefix("/static/")
             assets_img = (REPO / "assets" / "images").resolve()
@@ -817,12 +992,35 @@ class Handler(BaseHTTPRequestHandler):
                 _save_chat([])
             return self._json(200, {"ok": True})
 
+        if path == "/api/github-identity":
+            if not _check_pin(self) and data.get("pin") != PIN:
+                return self._json(401, {"error": "Zły PIN"})
+            if data.get("clear"):
+                try:
+                    GH_IDENTITY.unlink(missing_ok=True)
+                except OSError as e:
+                    return self._json(500, {"ok": False, "error": str(e)})
+                return self._json(200, {"ok": True, "identity": {"configured": False}})
+            user = (data.get("username") or "").strip()
+            token = (data.get("token") or "").strip()
+            repo = (data.get("repo") or "Learning-languages").strip() or "Learning-languages"
+            result = _save_gh_identity(user, token, repo)
+            code = 200 if result.get("ok") else 400
+            return self._json(code, result)
+
         if path == "/api/github-publish":
             if not _check_pin(self) and data.get("pin") != PIN:
                 return self._json(401, {"error": "Zły PIN"})
             user = (data.get("username") or "").strip()
             token = (data.get("token") or "").strip()
             repo = (data.get("repo") or "Learning-languages").strip() or "Learning-languages"
+            if not user or not token:
+                # Fall back to saved identity
+                ident = _load_gh_identity()
+                if ident:
+                    user = ident["username"]
+                    token = ident["token"]
+                    repo = repo or ident.get("repo") or "Learning-languages"
             if not user or not token:
                 return self._json(
                     400,
@@ -832,11 +1030,17 @@ class Handler(BaseHTTPRequestHandler):
                             "1) Wejdź na https://github.com/settings/tokens\n"
                             "2) Generate new token (classic)\n"
                             "3) Zaznacz uprawnienie: repo\n"
-                            "4) Skopiuj token i wklej tutaj razem z nazwą konta"
+                            "4) Skopiuj token i wklej tutaj razem z nazwą konta\n"
+                            "5) Kliknij „Zapisz konto”, żeby portal pamiętał"
                         ),
                     },
                 )
+            saved = _save_gh_identity(user, token, repo)
+            if not saved.get("ok"):
+                return self._json(400, saved)
             result = _github_publish(user, token, repo)
+            if result.get("ok"):
+                result["identity"] = saved.get("identity")
             return self._json(200 if result.get("ok") else 500, result)
 
         if path == "/api/release":

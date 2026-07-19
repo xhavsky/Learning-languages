@@ -673,19 +673,26 @@
       </div>
 
       <div class="card glass">
-        <h2>Opublikuj na moje GitHub</h2>
+        <h2>Twoje konto GitHub</h2>
         <p class="hint" style="margin-top:0">
-          1) <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">github.com/settings/tokens</a><br/>
-          2) Generate new token (classic) · scope <b>repo</b><br/>
-          3) Wklej poniżej z nazwą konta
+          Zapisz login + token — portal <b>zapamięta</b> je na komputerze taty.<br/>
+          Potem commit’y z czatu będą podpisane Tobą, a po każdej sesji kod poleci też na
+          <b>Twoje</b> repo (osobno widać na GitHubie).<br/><br/>
+          1) <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Token classic</a> · scope <b>repo</b><br/>
+          2) Wklej poniżej → <b>Zapisz konto</b> (albo od razu Opublikuj)
         </p>
+        <p id="ghSaved" class="hint" style="margin-top:0"></p>
         <label for="ghUser">Nazwa użytkownika GitHub</label>
         <input id="ghUser" placeholder="np. anielka123" autocomplete="username" />
         <label for="ghToken" style="margin-top:8px">Token (classic, scope: repo)</label>
-        <input id="ghToken" type="password" placeholder="ghp_…" autocomplete="off" />
+        <input id="ghToken" type="password" placeholder="ghp_… (zostanie zapisany)" autocomplete="off" />
         <label for="ghRepo" style="margin-top:8px">Nazwa repozytorium</label>
         <input id="ghRepo" value="Learning-languages" />
-        <button id="ghPublish" type="button">Opublikuj projekt na moje konto</button>
+        <div class="row">
+          <button id="ghSave" type="button">Zapisz konto</button>
+          <button id="ghPublish" type="button">Opublikuj / zsynchronizuj</button>
+          <button id="ghClear" class="ghost" type="button">Zapomnij</button>
+        </div>
         <p id="ghStatus" class="hint"></p>
       </div>
 
@@ -703,6 +710,9 @@
     const $ = (id) => document.getElementById(id);
     let pin = localStorage.getItem("anielka_pin") || "";
     let timer = null;
+    let msgsStickBottom = true;
+    let lastMsgSig = "";
+    let ghTokenCache = localStorage.getItem("anielka_gh_token") || "";
 
     function applyTheme(theme) {
       const dark = theme !== "light";
@@ -725,8 +735,46 @@
       $("gate").classList.remove("show");
       $("app").classList.add("show");
       refresh();
+      loadGithubIdentity();
       if (timer) clearInterval(timer);
       timer = setInterval(refresh, 1000);
+      const box = $("msgs");
+      box.addEventListener("scroll", () => {
+        msgsStickBottom =
+          box.scrollHeight - box.scrollTop - box.clientHeight < 96;
+      }, { passive: true });
+    }
+
+    function applyGithubIdentity(ident) {
+      const el = $("ghSaved");
+      if (ident && ident.configured) {
+        el.innerHTML =
+          '✅ Zapisane konto: <strong>@' + escapeHtml(ident.username) + "</strong>" +
+          (ident.name ? (" · " + escapeHtml(ident.name)) : "") +
+          (ident.url
+            ? (' · <a href="' + escapeHtml(ident.url) + '" target="_blank" rel="noopener">Twoje repo</a>')
+            : "") +
+          (ident.tokenMasked ? (" · token " + escapeHtml(ident.tokenMasked)) : "");
+        if (ident.username) $("ghUser").value = ident.username;
+        if (ident.repo) $("ghRepo").value = ident.repo;
+        if (ghTokenCache) $("ghToken").placeholder = "zapisany (wpisz nowy, by zmienić)";
+      } else {
+        el.textContent = "Brak zapisanego konta — commit’y mogą iść jako tata, a mirror nie zadziała.";
+      }
+    }
+
+    async function loadGithubIdentity() {
+      try {
+        const data = await api("/api/github-identity");
+        applyGithubIdentity(data);
+        const lsUser = localStorage.getItem("anielka_gh_user");
+        const lsRepo = localStorage.getItem("anielka_gh_repo");
+        if (lsUser && !$("ghUser").value) $("ghUser").value = lsUser;
+        if (lsRepo) $("ghRepo").value = lsRepo;
+        if (ghTokenCache && !$("ghToken").value) {
+          $("ghToken").value = ghTokenCache;
+        }
+      } catch (_) { /* ignore */ }
     }
 
     function stageLabel(stage) {
@@ -822,19 +870,29 @@
 
     function render(messages, busy, progress) {
       const box = $("msgs");
-      box.innerHTML = "";
-      for (const m of messages) {
-        const el = document.createElement("div");
-        el.className = "msg " + (m.role || "system");
-        const who =
-          m.role === "user" ? "Anielka" :
-          m.role === "assistant" ? "Asystent" : "System";
-        el.innerHTML =
-          '<div class="meta"><span class="dot"></span>' + who + "</div>" +
-          '<div class="body">' + formatMsg(m.text || "") + "</div>";
-        box.appendChild(el);
+      const sig =
+        messages.map((m) => m.id).join(",") +
+        ":" +
+        String((messages[messages.length - 1] && messages[messages.length - 1].text) || "").length;
+      if (sig !== lastMsgSig) {
+        const stick = msgsStickBottom;
+        const prevTop = box.scrollTop;
+        box.innerHTML = "";
+        for (const m of messages) {
+          const el = document.createElement("div");
+          el.className = "msg " + (m.role || "system");
+          const who =
+            m.role === "user" ? "Anielka" :
+            m.role === "assistant" ? "Asystent" : "System";
+          el.innerHTML =
+            '<div class="meta"><span class="dot"></span>' + who + "</div>" +
+            '<div class="body">' + formatMsg(m.text || "") + "</div>";
+          box.appendChild(el);
+        }
+        lastMsgSig = sig;
+        if (stick) box.scrollTop = box.scrollHeight;
+        else box.scrollTop = prevTop;
       }
-      box.scrollTop = box.scrollHeight;
       renderProgress(progress || {}, busy);
       $("status").innerHTML = busy
         ? '<span class="busy">Asystent pracuje — tata: nie edytuj równolegle</span>'
@@ -881,6 +939,7 @@
       const text = $("text").value.trim();
       if (!text) return;
       $("send").disabled = true;
+      msgsStickBottom = true;
       try {
         await api("/api/chat", {
           method: "POST",
@@ -897,20 +956,38 @@
     $("clear").onclick = async () => {
       if (!confirm("Na pewno wyczyścić czat?")) return;
       await api("/api/clear", { method: "POST", body: JSON.stringify({ pin }) });
+      lastMsgSig = "";
+      msgsStickBottom = true;
       await refresh();
     };
 
-    $("ghPublish").onclick = async () => {
-      const username = $("ghUser").value.trim();
-      const token = $("ghToken").value.trim();
-      const repo = $("ghRepo").value.trim() || "Learning-languages";
+    async function saveGithubAccount(alsoPublish) {
+      let username = $("ghUser").value.trim();
+      let token = $("ghToken").value.trim() || ghTokenCache;
+      let repo = $("ghRepo").value.trim() || "Learning-languages";
       if (!username || !token) {
-        alert("Wpisz nazwę użytkownika i token (patrz instrukcja powyżej).");
+        alert("Wpisz nazwę użytkownika i token (albo najpierw Zapisz konto).");
         return;
       }
+      $("ghSave").disabled = true;
       $("ghPublish").disabled = true;
-      $("ghStatus").textContent = "Publikuję… to może chwilę potrwać.";
+      $("ghStatus").textContent = alsoPublish ? "Zapisuję i publikuję…" : "Zapisuję konto…";
       try {
+        const save = await api("/api/github-identity", {
+          method: "POST",
+          body: JSON.stringify({ pin, username, token, repo }),
+        });
+        if (!save.ok) throw new Error(save.error || "Nie zapisano");
+        ghTokenCache = token;
+        localStorage.setItem("anielka_gh_token", token);
+        localStorage.setItem("anielka_gh_user", username);
+        localStorage.setItem("anielka_gh_repo", repo);
+        applyGithubIdentity(save.identity || { configured: true, username, repo });
+        $("ghToken").value = token;
+        if (!alsoPublish) {
+          $("ghStatus").textContent = "✅ Konto zapisane. Commit’y z portalu będą jako Ty + mirror na Twoje repo.";
+          return;
+        }
         const data = await api("/api/github-publish", {
           method: "POST",
           body: JSON.stringify({ pin, username, token, repo }),
@@ -919,12 +996,33 @@
           ? ("✅ " + escapeHtml(data.message || data.url))
           : ("❌ " + escapeHtml(data.error || "Błąd") +
              (data.help ? "<br/>" + escapeHtml(data.help) : ""));
-        if (data.ok) $("ghToken").value = "";
+        if (data.identity) applyGithubIdentity(data.identity);
       } catch (e) {
         $("ghStatus").textContent = "❌ " + e.message;
       } finally {
+        $("ghSave").disabled = false;
         $("ghPublish").disabled = false;
       }
+    }
+
+    $("ghSave").onclick = () => saveGithubAccount(false);
+    $("ghPublish").onclick = () => saveGithubAccount(true);
+    $("ghClear").onclick = async () => {
+      if (!confirm("Zapomnieć zapisane konto GitHub Anielki na tym komputerze?")) return;
+      try {
+        await api("/api/github-identity", {
+          method: "POST",
+          body: JSON.stringify({ pin, clear: true }),
+        });
+      } catch (_) { /* ignore */ }
+      ghTokenCache = "";
+      localStorage.removeItem("anielka_gh_token");
+      localStorage.removeItem("anielka_gh_user");
+      localStorage.removeItem("anielka_gh_repo");
+      $("ghToken").value = "";
+      $("ghToken").placeholder = "ghp_… (zostanie zapisany)";
+      applyGithubIdentity({ configured: false });
+      $("ghStatus").textContent = "Usunięto zapisane konto.";
     };
 
     async function doRelease(kind) {
