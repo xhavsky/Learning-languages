@@ -1,29 +1,34 @@
-# Współpraca: Tata + Anielka
+# Współpraca: Anielka + Tata
 
-## Katalogi
+To jest **projekt Anielki**. Jeden katalog, jedna gałąź `main`, wspólna praca.
 
-| Ścieżka | Rola |
-|---------|------|
-| `~/Dokumenty/Projekty/Learning-languages` | **Shared** — wspólny kod, portal WWW, agent, release |
-| `~/Dokumenty/Projekty/Learning-languages-wip` | **WIP taty** — eksperymenty (`adam/wip`), nie idzie w paczki Anielki |
+## Gdzie jest kod
 
-Portal (`anielka-portal`, port **7474**) zawsze celuje w **shared**.
+`~/Dokumenty/Projekty/Learning-languages`  
+GitHub: https://github.com/xhavsky/Learning-languages
 
-## Anielka (WWW — publiczny Funnel)
+Nie ma osobnego „WIP taty” — tata i Anielka pracują nad tym samym.
 
-1. **https://nixos.tail4caf1.ts.net:7475** — działa z Opera **bez Tailscale**
-2. PIN: `3141` (w aplikacji / u taty)
-3. Paczki / Release + Opublikuj na moje GitHub — w portalu
+## Jak pracujecie
 
-Persist: `systemctl --user enable --now anielka-portal-serve` (Funnel HTTPS :7475).
+| Kto | Jak |
+|-----|-----|
+| **Anielka** | Portal WWW → pisze, co zmienić → asystent edytuje ten sam projekt → może odpalić paczki (Windows/APK) |
+| **Tata** | Ten sam folder w Cursorze / edytorze — te same pliki, ten sam `main` |
 
-## Tata
+Portal: **https://nixos.tail4caf1.ts.net:7475** · PIN u taty / w aplikacji.
 
-- Codzienna praca / agent z portalu: **shared**
-- Ryzykowne eksperymenty: otwórz **Learning-languages-wip**
-- Z WIP → shared: cherry-pick / PR / ręczne skopiowanie — nie mieszaj dirty tree przy release
+## Paczki (Releases)
 
-## Release
+1. Anielka klika w portalu **Windows ZIP** / **Android APK**
+2. GitHub buduje aplikację w chmurze
+3. Gotowy plik: https://github.com/xhavsky/Learning-languages/releases
 
-Przycisk w portalu: `git push origin main` + `gh workflow run` (`windows.yml` / `android.yml`).  
-Wymaga czystego Gita w shared i dostępu do GitHub z PC taty.
+Żeby build wystartował, zmiany w projekcie muszą być zapisane w Gicie (commit). Asystent z portalu albo tata mogą to zrobić.
+
+## Serwis na PC taty
+
+```bash
+systemctl --user enable --now anielka-portal.service
+systemctl --user enable --now anielka-portal-serve.service   # Funnel :7475
+```

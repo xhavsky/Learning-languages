@@ -914,7 +914,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            '💌 Portal Anielki (tymczasowy)',
+                            '💌 Portal Anielki',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const SizedBox(height: 6),
@@ -923,7 +923,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'PIN: ${_portal.pin} · publiczny link (bez Tailscale)',
+                            'PIN: ${_portal.pin} · Twój projekt — wspólna praca z tatą',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(height: 8),

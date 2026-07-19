@@ -286,11 +286,10 @@ def _write_meta() -> None:
         pass
 
 
-SYSTEM_PREFIX = """Jesteś asystentem projektu „Trener Językowy” (Flutter) dla Anielki i taty.
-WSPÓLNY katalog (shared): {workspace}
-NIE edytuj worktree WIP taty (~/Dokumenty/Projekty/Learning-languages-wip).
-Pracuj tylko w shared. Po większych zmianach możesz zaproponować commit na main.
-Release/paczki Anielka odpala z portalu WWW (przyciski), nie buduj ręcznie ZIP chyba że prosi.
+SYSTEM_PREFIX = """Jesteś asystentem projektu „Trener Językowy” (Flutter).
+To projekt Anielki. Katalog: {workspace}
+Anielka i tata pracują nad TYM SAMYM kodem (gałąź main) — nie ma osobnego WIP.
+Anielka ma przez portal te same możliwości: zmiany w kodzie, commit na main, release.
 Odpowiadaj po polsku, krótko i jasno.
 Wiadomość od Anielki:
 """
@@ -717,9 +716,8 @@ def _workspace_status() -> dict:
         "dirty": bool((dirty.stdout or "").strip()),
         "dirtyFiles": (dirty.stdout or "").strip().splitlines()[:30],
         "origin": (remote.stdout or "").strip(),
-        "wipHint": (
-            "Eksperymenty taty: ~/Dokumenty/Projekty/Learning-languages-wip "
-            "(branch adam/wip). Portal i release = tylko ten katalog shared."
+        "note": (
+            "Jeden wspólny projekt Anielki — portal i lokalna praca to to samo repo."
         ),
         "releasesUrl": "https://github.com/xhavsky/Learning-languages/releases",
     }
@@ -740,16 +738,15 @@ def _find_gh() -> str | None:
 
 
 def _trigger_release(kind: str) -> dict:
-    """Push shared main (if needed) and dispatch GitHub Actions workflows."""
+    """Push main (if needed) and dispatch GitHub Actions workflows."""
     st = _workspace_status()
     if st["dirty"]:
         return {
             "ok": False,
-            "error": "W shared są niezapisane zmiany Gita. "
-            "Najpierw niech asystent zacommituje na main, albo tata posprząta WIP.",
+            "error": "W projekcie są niezapisane zmiany Gita. "
+            "Najpierw poproś asystenta (lub tatę), żeby zacommitował na main.",
             "dirtyFiles": st["dirtyFiles"],
-            "help": "Portal pracuje tylko w Learning-languages (shared). "
-            "Brudne pliki nie powinny iść w paczkę.",
+            "help": "To jeden wspólny projekt — commit na main, potem znowu Release.",
         }
 
     # Ensure we're on main for releases

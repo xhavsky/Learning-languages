@@ -21,7 +21,7 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **Motywy kolorystyczne**: Las / Ocean / Zachód / Winogrono / Róż / Grafit + jasny/ciemny
 - Feedback **inline** (bez AlertDialog)
 - Eksport / import bazy JSON (Ustawienia)
-- **Portal Anielki** (Tailscale) — czat z agentem + release paczek: zobacz [COLLAB.md](COLLAB.md)
+- **Portal Anielki** — czat z agentem + budowa paczek: [COLLAB.md](COLLAB.md) (jeden wspólny projekt)
 
 ## Regeneracja audio
 
