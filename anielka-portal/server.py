@@ -261,6 +261,10 @@ class Handler(BaseHTTPRequestHandler):
             with _lock:
                 chat = _load_chat()
             return self._json(200, {"messages": chat, "busy": _busy})
+        if path == "/api/status":
+            if not _check_pin(self):
+                return self._json(401, {"error": "Zły PIN. Poproś tatę."})
+            return self._json(200, _workspace_status())
         if path.startswith("/static/"):
             rel = path.removeprefix("/static/")
             f = STATIC / rel
@@ -347,11 +351,6 @@ class Handler(BaseHTTPRequestHandler):
                     "❌ Release nie wystartował: " + (result.get("error") or "?"),
                 )
             return self._json(code, result)
-
-        if path == "/api/status":
-            if not _check_pin(self) and data.get("pin") != PIN:
-                return self._json(401, {"error": "Zły PIN"})
-            return self._json(200, _workspace_status())
 
         return self._json(404, {"error": "nie ma takiego API"})
 
