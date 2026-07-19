@@ -131,6 +131,14 @@ class LangPack {
     return g.wordIds.map(byId).whereType<Word>().toList();
   }
 
+  /// Nazwy kategorii (zestawów), do których należy słówko.
+  List<String> categoriesFor(String wordId) {
+    return groups
+        .where((g) => g.wordIds.contains(wordId))
+        .map((g) => g.name)
+        .toList();
+  }
+
   /// Usuwa słowo z bazy i ze wszystkich zestawów.
   bool removeWord(String wordId) {
     final before = words.length;

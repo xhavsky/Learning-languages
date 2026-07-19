@@ -15,6 +15,10 @@ class AppStats {
     this.sessionTotal = 0,
     this.lifetimeCorrect = 0,
     this.lifetimeTotal = 0,
+    this.xp = 0,
+    this.lastChatDay = '',
+    this.sessionXp = 0,
+    this.rewardedLevel = 1,
   });
 
   int streakDays;
@@ -24,24 +28,106 @@ class AppStats {
   int lifetimeCorrect;
   int lifetimeTotal;
 
+  /// Punkty doświadczenia (trwałe).
+  int xp;
+
+  /// Ostatni dzień ukończonej rozmowy AI (yyyy-MM-dd).
+  String lastChatDay;
+
+  /// XP zdobyte w tej sesji aplikacji (nie zapisywane).
+  int sessionXp;
+
+  /// Najwyższy poziom, za który już pokazano nagrodę (ciekawostkę).
+  int rewardedLevel;
+
   double get sessionAccuracy =>
       sessionTotal == 0 ? 0 : sessionCorrect / sessionTotal;
+
+  /// Poziom gracza z XP (1, 2, 3…).
+  int get playerLevel {
+    var level = 1;
+    var need = 50;
+    var left = xp;
+    while (left >= need) {
+      left -= need;
+      level++;
+      need = 40 + level * 25;
+    }
+    return level;
+  }
+
+  /// Postęp do kolejnego poziomu 0.0–1.0.
+  double get levelProgress {
+    var need = 50;
+    var left = xp;
+    var level = 1;
+    while (left >= need) {
+      left -= need;
+      level++;
+      need = 40 + level * 25;
+    }
+    return need == 0 ? 1 : (left / need).clamp(0.0, 1.0);
+  }
+
+  /// Ile XP brakuje do kolejnego poziomu.
+  int get xpToNextLevel {
+    var need = 50;
+    var left = xp;
+    var level = 1;
+    while (left >= need) {
+      left -= need;
+      level++;
+      need = 40 + level * 25;
+    }
+    return (need - left).clamp(0, need);
+  }
+
+  bool get chatDoneToday => lastChatDay == _dayKey(DateTime.now());
 
   Map<String, dynamic> toJson() => {
         'streakDays': streakDays,
         'lastPlayDay': lastPlayDay,
         'lifetimeCorrect': lifetimeCorrect,
         'lifetimeTotal': lifetimeTotal,
+        'xp': xp,
+        'lastChatDay': lastChatDay,
+        'rewardedLevel': rewardedLevel,
       };
 
   factory AppStats.fromJson(Map<String, dynamic>? json) {
     if (json == null) return AppStats();
+    final xp = json['xp'] as int? ?? 0;
+    final tmp = AppStats(xp: xp);
     return AppStats(
       streakDays: json['streakDays'] as int? ?? 0,
       lastPlayDay: json['lastPlayDay'] as String? ?? '',
       lifetimeCorrect: json['lifetimeCorrect'] as int? ?? 0,
       lifetimeTotal: json['lifetimeTotal'] as int? ?? 0,
+      xp: xp,
+      lastChatDay: json['lastChatDay'] as String? ?? '',
+      // Stare zapisy bez pola: nie spamuj nagrodami za minione poziomy.
+      rewardedLevel: json['rewardedLevel'] as int? ?? tmp.playerLevel,
     );
+  }
+
+  void addXp(int amount) {
+    if (amount <= 0) return;
+    xp += amount;
+    sessionXp += amount;
+  }
+
+  /// Poziomy, za które należy pokazać nagrodę (po [addXp]).
+  List<int> pendingRewardLevels() {
+    final now = playerLevel;
+    if (now <= rewardedLevel) return const [];
+    return [for (var lv = rewardedLevel + 1; lv <= now; lv++) lv];
+  }
+
+  /// Oznacza poziomy jako nagrodzone (po pokazaniu ciekawostek).
+  void markRewardsClaimed(Iterable<int> levels) {
+    for (final lv in levels) {
+      if (lv > rewardedLevel) rewardedLevel = lv;
+    }
   }
 
   void recordAnswer(bool correct) {
@@ -50,13 +136,26 @@ class AppStats {
     if (correct) {
       sessionCorrect++;
       lifetimeCorrect++;
+      addXp(10);
+    } else {
+      addXp(2);
     }
     final today = _dayKey(DateTime.now());
     if (lastPlayDay != today) {
       final yesterday = _dayKey(DateTime.now().subtract(const Duration(days: 1)));
       streakDays = (lastPlayDay == yesterday) ? streakDays + 1 : 1;
       lastPlayDay = today;
+      if (streakDays >= 2) addXp(5); // bonus za kontynuację passy
     }
+  }
+
+  /// Nagroda za codzienną rozmowę (raz dziennie). Zwraca XP lub 0.
+  int completeDailyChat({int reward = 40}) {
+    final today = _dayKey(DateTime.now());
+    if (lastChatDay == today) return 0;
+    lastChatDay = today;
+    addXp(reward);
+    return reward;
   }
 
   static String _dayKey(DateTime d) =>
@@ -115,11 +214,30 @@ class BazaStore {
           );
         }
       }
-      final gHave = pack.groups.map((g) => g.id).toSet();
+      // Zestawy wbudowane (z seeda) synchronizujemy; użytkownika (g-…) zostawiamy.
+      final seedIds = e.value.groups.map((g) => g.id).toSet();
+      final seedAssigned = <String>{
+        for (final g in e.value.groups) ...g.wordIds,
+      };
+      pack.groups.removeWhere(
+        (g) => !g.id.startsWith('g-') && !seedIds.contains(g.id),
+      );
       for (final g in e.value.groups) {
-        if (!gHave.contains(g.id)) {
-          pack.groups.add(g);
-          gHave.add(g.id);
+        final existing = pack.groups.where((x) => x.id == g.id).firstOrNull;
+        if (existing == null) {
+          pack.groups.add(
+            WordGroup(
+              id: g.id,
+              name: g.name,
+              wordIds: List.of(g.wordIds),
+            ),
+          );
+        } else {
+          existing.name = g.name;
+          // Seed ustawia kategorie słów z bazy; własne słowa usera zostają.
+          final keptUser = existing.wordIds
+              .where((id) => !seedAssigned.contains(id) && pack.byId(id) != null);
+          existing.wordIds = [...g.wordIds, ...keptUser];
         }
       }
     }

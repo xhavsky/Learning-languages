@@ -1155,6 +1155,7 @@ class Handler(BaseHTTPRequestHandler):
                     ".css": "text/css; charset=utf-8",
                     ".js": "application/javascript; charset=utf-8",
                     ".png": "image/png",
+                    ".gif": "image/gif",
                     ".jpg": "image/jpeg",
                     ".jpeg": "image/jpeg",
                     ".webp": "image/webp",

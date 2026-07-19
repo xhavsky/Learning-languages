@@ -516,7 +516,6 @@
     }
 
     #progressCard { display: block; }
-    #progressCard.is-idle .bar > i { width: 0% !important; animation: none; }
     #progressCard.is-idle #progressDetail { opacity: 0.8; font-weight: 600; }
     #progressCard.show { display: block; }
     .progress-head {
@@ -527,37 +526,38 @@
       margin-bottom: 10px;
     }
     .progress-head strong { font-size: 1rem; }
-    .progress-pct {
-      font-variant-numeric: tabular-nums;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .busy-cat-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-height: 72px;
+      padding: 6px 0 2px;
     }
-    .bar {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      border: 1px solid var(--stroke);
-    }
-    .bar > i {
+    .busy-cat-wrap img {
       display: block;
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #2dd4bf, #818cf8, #fb7185);
-      background-size: 200% 100%;
-      animation: shimmer 2.2s linear infinite;
-      transition: width 0.35s ease;
+      max-width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      transition: opacity 0.35s ease, filter 0.35s ease;
     }
-    #progressCard.busy .bar > i {
-      background-image:
-        linear-gradient(90deg, #2dd4bf, #818cf8, #fb7185),
-        linear-gradient(135deg, rgba(255,255,255,0.28) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.28) 75%, transparent 75%, transparent);
-      background-size: 200% 100%, 40px 40px;
-      animation: shimmer 2.2s linear infinite, progress-stripes 0.9s linear infinite;
+    #progressCard.is-idle .busy-cat-wrap img {
+      opacity: 0.22;
+      filter: grayscale(0.4);
+    }
+    #progressCard.busy .busy-cat-wrap img {
+      opacity: 1;
+      filter: drop-shadow(0 0 10px rgba(129, 140, 248, 0.55))
+              drop-shadow(0 0 18px rgba(45, 212, 191, 0.35));
+    }
+    .busy-cat-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+    #progressCard.busy .busy-cat-label {
+      color: var(--accent);
     }
     #progressDetail { margin: 10px 0 0; font-weight: 700; color: var(--ink); font-size: 1.02rem; }
     #progressMeta {
@@ -668,10 +668,10 @@
       <div id="progressCard" class="card glass" aria-live="polite">
         <div class="progress-head">
           <strong>Status projektu</strong>
-          <span class="progress-pct"><span id="progressPct">0</span>%</span>
         </div>
-        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <i id="progressBar"></i>
+        <div class="busy-cat-wrap" id="busyCatWrap">
+          <img id="busyCat" src="/static/img/busy_cat.gif" alt="" width="160" height="auto" />
+          <span id="busyCatLabel" class="busy-cat-label">Projekt wolny</span>
         </div>
         <p id="progressDetail">…</p>
         <div id="progressMeta"></div>
@@ -866,19 +866,18 @@
       card.classList.toggle("busy", active);
       card.classList.toggle("is-idle", !active);
 
-      const pct = active
-        ? Math.max(0, Math.min(100, Number(progress && progress.percent) || 0))
-        : 0;
-      $("progressPct").textContent = String(pct);
-      $("progressBar").style.width = pct + "%";
-      card.querySelector(".bar").setAttribute("aria-valuenow", String(pct));
-
+      const cat = $("busyCat");
+      const catLabel = $("busyCatLabel");
       if (active) {
+        cat.style.display = "";
+        catLabel.textContent = "Coś się dzieje…";
         $("progressDetail").textContent =
           (progress && progress.detail) || "Praca w toku…";
       } else {
+        cat.style.display = "";
+        catLabel.textContent = "Projekt wolny";
         $("progressDetail").textContent =
-          "Projekt wolny — możesz pisać. Gdy tata pracuje lokalnie, tu zobaczysz pasek.";
+          "Projekt wolny — możesz pisać. Gdy tata pracuje lokalnie, tu zobaczysz kota.";
       }
 
       const sec = (progress && progress.elapsedSec) || 0;
