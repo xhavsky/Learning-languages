@@ -11,6 +11,9 @@ on:
       - "windows/**"
       - ".github/workflows/windows.yml"
 
+permissions:
+  contents: write
+
 jobs:
   windows:
     runs-on: windows-latest
