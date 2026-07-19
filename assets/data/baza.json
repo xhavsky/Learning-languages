@@ -950,8 +950,8 @@
         ]
       },
       {
-        "id": "start-en",
-        "name": "Podstawy",
+        "id": "en-powitania",
+        "name": "Powitania",
         "wordIds": [
           "2bd4082e6649",
           "2621be01",
@@ -960,52 +960,106 @@
           "7eb18cb0",
           "02bcb573",
           "23f6f189",
-          "41ac80f3",
-          "02bbf073",
-          "5a0800fc",
-          "54ebbfe6",
-          "3abf2d06",
-          "70e20df7",
-          "515563b0",
-          "74529280"
+          "41ac80f3"
         ]
       },
       {
-        "id": "en-codzien",
-        "name": "Codzienne słowa",
+        "id": "en-dom",
+        "name": "Dom i szkoła",
+        "wordIds": [
+          "54ebbfe6",
+          "3abf2d06",
+          "70e20df7"
+        ]
+      },
+      {
+        "id": "en-jedzenie",
+        "name": "Jedzenie",
+        "wordIds": [
+          "515563b0",
+          "74529280",
+          "6738f284",
+          "6ca5ea4d",
+          "507d0459",
+          "7f4e7d15",
+          "624cc0a8"
+        ]
+      },
+      {
+        "id": "en-zwierzeta",
+        "name": "Zwierzęta",
+        "wordIds": [
+          "6041356a",
+          "57d9d827"
+        ]
+      },
+      {
+        "id": "en-rodzina",
+        "name": "Rodzina",
         "wordIds": [
           "6ad53535",
           "0ceb8b57",
-          "6041356a",
-          "57d9d827",
+          "05adb737",
+          "68c7ba25",
+          "00f49cd7",
+          "58be7247"
+        ]
+      },
+      {
+        "id": "en-czas",
+        "name": "Czas",
+        "wordIds": [
           "5ce223f2",
           "0eeb625e",
           "2e49c800",
-          "6fbc21ab",
+          "6fbc21ab"
+        ]
+      },
+      {
+        "id": "en-cialo",
+        "name": "Ciało",
+        "wordIds": [
           "5568aa8e",
-          "15d2673e",
+          "15d2673e"
+        ]
+      },
+      {
+        "id": "en-przymiotniki",
+        "name": "Przymiotniki",
+        "wordIds": [
+          "02bbf073",
+          "5a0800fc",
           "50831ed2",
           "35602dd6",
           "6488ce87",
           "016e4512",
           "41869a4b",
           "715592c3",
-          "12f5b9de",
+          "12f5b9de"
+        ]
+      },
+      {
+        "id": "en-kolory",
+        "name": "Kolory",
+        "wordIds": [
           "523b071c",
           "1b5c8319",
-          "663d53ab",
+          "663d53ab"
+        ]
+      },
+      {
+        "id": "en-liczby",
+        "name": "Liczby",
+        "wordIds": [
           "3cbd6c5c",
           "7a90df7e",
-          "140ea71f",
-          "05adb737",
-          "68c7ba25",
-          "00f49cd7",
-          "58be7247",
-          "6738f284",
-          "6ca5ea4d",
-          "507d0459",
-          "7f4e7d15",
-          "624cc0a8",
+          "140ea71f"
+        ]
+      },
+      {
+        "id": "en-miasto",
+        "name": "Miasto",
+        "wordIds": [
           "2c537bbe",
           "23ee54ef",
           "7a67683e"
@@ -1986,8 +2040,8 @@
         ]
       },
       {
-        "id": "es-podstawy",
-        "name": "Podstawy",
+        "id": "es-powitania",
+        "name": "Powitania",
         "wordIds": [
           "58d29f147a20",
           "685044ba",
@@ -1996,52 +2050,106 @@
           "18bb8d1e",
           "6a5781e8",
           "4b7b93f8",
-          "41ac80f3",
-          "02b992e6",
-          "5a082a4f",
-          "44cb51a6",
-          "5398dfa8",
-          "2be9b234",
-          "4ce85379",
-          "0d0aac25"
+          "41ac80f3"
         ]
       },
       {
-        "id": "es-codzien",
-        "name": "Codzienne słowa",
+        "id": "es-dom",
+        "name": "Dom i szkoła",
+        "wordIds": [
+          "44cb51a6",
+          "5398dfa8",
+          "2be9b234"
+        ]
+      },
+      {
+        "id": "es-jedzenie",
+        "name": "Jedzenie",
+        "wordIds": [
+          "4ce85379",
+          "0d0aac25",
+          "77a70e2b",
+          "28075495",
+          "066994b3",
+          "6b551d50",
+          "1879e1fd"
+        ]
+      },
+      {
+        "id": "es-zwierzeta",
+        "name": "Zwierzęta",
+        "wordIds": [
+          "27e749c1",
+          "49693045"
+        ]
+      },
+      {
+        "id": "es-rodzina",
+        "name": "Rodzina",
         "wordIds": [
           "1befb1ee",
           "1085ddfa",
-          "27e749c1",
-          "49693045",
+          "3008fbfc",
+          "30350144",
+          "50d5ba89",
+          "001bd471"
+        ]
+      },
+      {
+        "id": "es-czas",
+        "name": "Czas",
+        "wordIds": [
           "5ce234ce",
           "0eee0d85",
           "42f4510f",
-          "520e0a91",
+          "520e0a91"
+        ]
+      },
+      {
+        "id": "es-cialo",
+        "name": "Ciało",
+        "wordIds": [
           "556af074",
-          "62157de6",
+          "62157de6"
+        ]
+      },
+      {
+        "id": "es-przymiotniki",
+        "name": "Przymiotniki",
+        "wordIds": [
+          "02b992e6",
+          "5a082a4f",
           "53a595c7",
           "32982c59",
           "659659de",
           "5f52a102",
           "26cf7cc9",
           "713b2561",
-          "6410fd91",
+          "6410fd91"
+        ]
+      },
+      {
+        "id": "es-kolory",
+        "name": "Kolory",
+        "wordIds": [
           "75260317",
           "1b5c434f",
-          "670afc0c",
+          "670afc0c"
+        ]
+      },
+      {
+        "id": "es-liczby",
+        "name": "Liczby",
+        "wordIds": [
           "3cbd82ec",
           "7a90a27a",
-          "7c84be0b",
-          "3008fbfc",
-          "30350144",
-          "50d5ba89",
-          "001bd471",
-          "77a70e2b",
-          "28075495",
-          "066994b3",
-          "6b551d50",
-          "1879e1fd",
+          "7c84be0b"
+        ]
+      },
+      {
+        "id": "es-miasto",
+        "name": "Miasto",
+        "wordIds": [
           "6563b5eb",
           "7c1d7f5b",
           "7e34829e"
@@ -3031,7 +3139,7 @@
       },
       {
         "id": "ru-powitania",
-        "name": "Powitania i podstawy",
+        "name": "Powitania",
         "wordIds": [
           "04fb0974cc02",
           "6be6faeab6fc",
@@ -3040,58 +3148,112 @@
           "a2ce8387460e",
           "972dad228d58",
           "3ebb018a35d6",
-          "96ec75383b25",
-          "2d6f9d6a9ed5",
-          "687f437b1510",
-          "ad9c7f87120a",
-          "5b3ea5806879",
-          "1516d47464a0",
-          "fed5613ce159",
-          "aec62e1e37fd",
-          "b9b2602b5b17",
-          "06bfd7a9c9c3"
+          "5edd6b8a"
         ]
       },
       {
-        "id": "ru-codzien",
-        "name": "Codzienne słowa",
+        "id": "ru-dom",
+        "name": "Dom i szkoła",
         "wordIds": [
+          "b9b2602b5b17",
           "41e2ef8e0976",
-          "caa47bf3bca9",
-          "dec6826418c6",
-          "47c8c07b9ae1",
-          "8fff53da3afa",
-          "914dbb4d9eb7",
-          "9402871cc341",
-          "41bcccebb30b",
+          "1489a20f",
+          "63537924"
+        ]
+      },
+      {
+        "id": "ru-jedzenie",
+        "name": "Jedzenie",
+        "wordIds": [
           "bffac34a70a4",
           "f7e0009dd29e",
           "85a580812fb2",
           "c9d5f092efdb",
           "dd956787708e",
-          "1489a20f",
-          "63537924",
-          "304983d8",
+          "1263ba1b",
+          "2a7d398a"
+        ]
+      },
+      {
+        "id": "ru-zwierzeta",
+        "name": "Zwierzęta",
+        "wordIds": [
           "60501b12",
-          "1ee67467",
-          "4455cd40",
-          "1fa4aef5",
-          "5635dfcc",
-          "733a0c1f",
-          "088961a8",
-          "1d293d9f",
-          "5cb9fa05",
-          "7a9f6aa4",
-          "77aff17b",
+          "1ee67467"
+        ]
+      },
+      {
+        "id": "ru-rodzina",
+        "name": "Rodzina",
+        "wordIds": [
+          "5b3ea5806879",
+          "41bcccebb30b",
+          "304983d8",
           "31d2f73c",
           "31fefc84",
           "364f8c98",
-          "5e72b45a",
-          "1263ba1b",
-          "2a7d398a",
+          "5e72b45a"
+        ]
+      },
+      {
+        "id": "ru-czas",
+        "name": "Czas",
+        "wordIds": [
+          "687f437b1510",
+          "ad9c7f87120a",
+          "1516d47464a0",
+          "fed5613ce159",
+          "4455cd40"
+        ]
+      },
+      {
+        "id": "ru-cialo",
+        "name": "Ciało",
+        "wordIds": [
+          "aec62e1e37fd",
+          "06bfd7a9c9c3"
+        ]
+      },
+      {
+        "id": "ru-przymiotniki",
+        "name": "Przymiotniki",
+        "wordIds": [
+          "96ec75383b25",
+          "2d6f9d6a9ed5",
+          "dec6826418c6",
+          "47c8c07b9ae1",
+          "8fff53da3afa",
+          "914dbb4d9eb7",
+          "9402871cc341",
+          "1fa4aef5",
+          "5635dfcc"
+        ]
+      },
+      {
+        "id": "ru-kolory",
+        "name": "Kolory",
+        "wordIds": [
+          "733a0c1f",
+          "088961a8",
+          "1d293d9f"
+        ]
+      },
+      {
+        "id": "ru-liczby",
+        "name": "Liczby",
+        "wordIds": [
+          "5cb9fa05",
+          "7a9f6aa4",
+          "77aff17b"
+        ]
+      },
+      {
+        "id": "ru-miasto",
+        "name": "Miasto",
+        "wordIds": [
+          "caa47bf3bca9",
           "3487851e",
-          "0feb894d",
-          "5edd6b8a"
+          "0feb894d"
         ]
       }
     ]

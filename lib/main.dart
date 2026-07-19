@@ -1,9 +1,13 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'ai_chat.dart';
+import 'curiosities.dart';
+import 'import_csv.dart';
 import 'models.dart';
 import 'portal.dart';
 import 'storage.dart';
@@ -394,7 +398,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       await _shakeCtrl.forward(from: 0);
       await Future<void>.delayed(const Duration(milliseconds: 900));
     }
+    await _maybeShowLevelRewards();
     if (mounted) _draw();
+  }
+
+  /// Po awansie poziomu: ciekawostka językowa + bonus XP.
+  Future<void> _maybeShowLevelRewards() async {
+    final pending = _store.stats.pendingRewardLevels();
+    if (pending.isEmpty) return;
+    var bonusTotal = 0;
+    for (final lv in pending) {
+      final fact = curiosityForLevel(lv, lang: _lang);
+      _store.stats.addXp(levelUpBonusXp);
+      bonusTotal += levelUpBonusXp;
+      if (!mounted) break;
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) => AlertDialog(
+          title: Text('Poziom $lv! 🎉'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Nagroda: +$levelUpBonusXp XP',
+                style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                fact.title,
+                style: Theme.of(ctx).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 6),
+              Text(fact.text),
+            ],
+          ),
+          actions: [
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Super!'),
+            ),
+          ],
+        ),
+      );
+    }
+    _store.stats.markRewardsClaimed(pending);
+    // Jeśli bonus XP dał kolejny poziom — kolejne nagrody w następnym wywołaniu.
+    await _store.save();
+    if (mounted) setState(() {});
+    if (bonusTotal > 0 && _store.stats.pendingRewardLevels().isNotEmpty) {
+      await _maybeShowLevelRewards();
+    }
   }
 
   Future<void> _checkTyping() async {
@@ -689,6 +746,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final plCtrl = TextEditingController();
     final obcyCtrl = TextEditingController();
     var lang = _lang ?? _store.baza.keys.first;
+    String? categoryId;
     final ok = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -703,6 +761,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           child: StatefulBuilder(
             builder: (ctx, setLocal) {
+              final groups = _store.baza[lang]?.groups ?? const <WordGroup>[];
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -714,7 +773,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     items: _store.baza.keys
                         .map((k) => DropdownMenuItem(value: k, child: Text(k)))
                         .toList(),
-                    onChanged: (v) => setLocal(() => lang = v ?? lang),
+                    onChanged: (v) => setLocal(() {
+                      lang = v ?? lang;
+                      categoryId = null;
+                    }),
                     decoration: const InputDecoration(labelText: 'Język'),
                   ),
                   const SizedBox(height: 8),
@@ -726,6 +788,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   TextField(
                     controller: obcyCtrl,
                     decoration: const InputDecoration(labelText: 'Tłumaczenie'),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String?>(
+                    initialValue: categoryId,
+                    items: [
+                      const DropdownMenuItem<String?>(
+                        value: null,
+                        child: Text('Bez kategorii'),
+                      ),
+                      for (final g in groups)
+                        DropdownMenuItem<String?>(
+                          value: g.id,
+                          child: Text(g.name),
+                        ),
+                    ],
+                    onChanged: (v) => setLocal(() => categoryId = v),
+                    decoration: const InputDecoration(labelText: 'Kategoria'),
                   ),
                   const SizedBox(height: 16),
                   FilledButton(
@@ -752,9 +831,168 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
     final created = Word.fromJson({'pl': pl, 'obcy': obcy});
     pack.words.add(created);
+    if (categoryId != null) {
+      final g = pack.groups.where((x) => x.id == categoryId).firstOrNull;
+      if (g != null && !g.wordIds.contains(created.id)) {
+        g.wordIds.add(created.id);
+      }
+    }
     await _store.save();
     setState(() {});
     _flash('Dodano: ${created.pl} → ${created.obcy}', kind: FeedbackKind.success);
+  }
+
+  Future<void> _openDailyChat() async {
+    final pack = _pack;
+    if (pack == null || _lang == null) {
+      _flash('Wybierz język', kind: FeedbackKind.hint);
+      return;
+    }
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => DailyChatPage(
+          lang: _lang!,
+          pack: pack,
+          store: _store,
+          palette: widget.palette,
+          onXpChanged: () {
+            if (mounted) setState(() {});
+          },
+        ),
+      ),
+    );
+    if (mounted) {
+      await _maybeShowLevelRewards();
+      setState(() {});
+    }
+  }
+
+  Future<void> _importWordsSheet() async {
+    final pack = _pack;
+    if (pack == null || _lang == null) {
+      _flash('Wybierz język', kind: FeedbackKind.hint);
+      return;
+    }
+    final textCtrl = TextEditingController();
+    final pathCtrl = TextEditingController();
+    var makeGroup = true;
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 8,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: StatefulBuilder(
+            builder: (ctx, setLocal) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Import słówek',
+                      style: Theme.of(ctx).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Wklej CSV lub tekst: pl,obcy · pl;obcy · pl - obcy\n'
+                      'Jedna para w linii.',
+                      style: Theme.of(ctx).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: textCtrl,
+                      minLines: 6,
+                      maxLines: 12,
+                      decoration: const InputDecoration(
+                        labelText: 'Tekst / CSV',
+                        hintText: 'kot,cat\npies,dog\ndom - house',
+                        border: OutlineInputBorder(),
+                        alignLabelWithHint: true,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: pathCtrl,
+                      decoration: const InputDecoration(
+                        labelText: 'Albo ścieżka do pliku .csv / .txt',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Utwórz kategorię z importu'),
+                      value: makeGroup,
+                      onChanged: (v) => setLocal(() => makeGroup = v),
+                    ),
+                    const SizedBox(height: 8),
+                    FilledButton(
+                      onPressed: () => Navigator.pop(ctx, true),
+                      child: const Text('Importuj'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+    if (ok != true) {
+      textCtrl.dispose();
+      pathCtrl.dispose();
+      return;
+    }
+
+    var raw = textCtrl.text;
+    final path = pathCtrl.text.trim();
+    textCtrl.dispose();
+    pathCtrl.dispose();
+
+    if (raw.trim().isEmpty && path.isNotEmpty) {
+      try {
+        raw = await File(path).readAsString();
+      } catch (e) {
+        _flash('Nie da się odczytać pliku: $e', kind: FeedbackKind.fail, ms: 3000);
+        return;
+      }
+    }
+    if (raw.trim().isEmpty) {
+      _flash('Wklej tekst albo podaj ścieżkę', kind: FeedbackKind.hint);
+      return;
+    }
+
+    final beforeIds = pack.words.map((w) => w.id).toSet();
+    final result = importWordText(pack, raw);
+    if (result.added > 0 && makeGroup) {
+      final newIds = pack.words
+          .where((w) => !beforeIds.contains(w.id))
+          .map((w) => w.id)
+          .toList();
+      if (newIds.isNotEmpty) {
+        pack.groups.add(
+          WordGroup(
+            id: 'g-import-${DateTime.now().millisecondsSinceEpoch}',
+            name: 'Import ${DateTime.now().day}.${DateTime.now().month}',
+            wordIds: newIds,
+          ),
+        );
+      }
+    }
+    await _store.save();
+    setState(() {});
+    _draw();
+    _flash(
+      result.summary,
+      kind: result.added > 0 ? FeedbackKind.success : FeedbackKind.hint,
+      ms: 3500,
+    );
   }
 
   Widget _keyboard() {
@@ -833,7 +1071,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               .where((g) => g.id == _groupId)
               .map((g) => g.name)
               .firstOrNull ??
-          'Zestaw',
+          'Kategoria',
     };
   }
 
@@ -863,7 +1101,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.3',
+                'v0.0.4',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -874,7 +1112,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           IconButton(
-            tooltip: 'Zestawy',
+            tooltip: 'Kategorie',
             onPressed: _openGroups,
             icon: const Icon(Icons.folder_special_outlined),
           ),
@@ -1012,13 +1250,46 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Zestaw: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
+                            'Kategoria: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           Text(
                             'Sesja: ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}'
                             ' · streak ${_store.stats.streakDays} dni',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Text(
+                                'Poz. ${_store.stats.playerLevel}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: LinearProgressIndicator(
+                                    value: _store.stats.levelProgress,
+                                    minHeight: 10,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                '${_store.stats.xp} XP',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
+                            '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
@@ -1036,9 +1307,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           label: const Text('Słowo'),
                         ),
                         OutlinedButton.icon(
+                          onPressed: _importWordsSheet,
+                          icon: const Icon(Icons.upload_file_outlined),
+                          label: const Text('Import CSV'),
+                        ),
+                        OutlinedButton.icon(
                           onPressed: _openWords,
                           icon: const Icon(Icons.edit_note),
                           label: const Text('Lista'),
+                        ),
+                        FilledButton.icon(
+                          onPressed: _openDailyChat,
+                          icon: Icon(
+                            _store.stats.chatDoneToday
+                                ? Icons.chat_bubble
+                                : Icons.chat_bubble_outline,
+                          ),
+                          label: Text(
+                            _store.stats.chatDoneToday
+                                ? 'Rozmowa ✓'
+                                : 'AI lokalne',
+                          ),
                         ),
                         FilledButton.tonal(
                           onPressed: () async {
@@ -1088,8 +1377,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       SoftPanel(
                         child: Text(
                           pool.isEmpty && _poolReview
-                              ? 'Brak opanowanych w tym zestawie.'
-                              : 'Brak słówek do nauki w zestawie.\nDodaj słowa lub wybierz inny zestaw.',
+                              ? 'Brak opanowanych w tej kategorii.'
+                              : 'Brak słówek do nauki w kategorii.\nDodaj słowa lub wybierz inną kategorię.',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
@@ -1293,7 +1582,7 @@ class _GroupsPageState extends State<GroupsPage> {
                       controller: nameCtrl,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: const InputDecoration(
-                        labelText: 'Nazwa zestawu',
+                        labelText: 'Nazwa kategorii',
                         hintText: 'np. Czasowniki na dziś',
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.label_outline),
@@ -1325,7 +1614,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Zaznacz słowa do zestawu (możesz szukać po polsku lub obcym).',
+                      'Zaznacz słowa do kategorii (możesz szukać po polsku lub obcym).',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
@@ -1390,7 +1679,7 @@ class _GroupsPageState extends State<GroupsPage> {
                                     .removeWhere((x) => x.id == _editingGroupId);
                                 Navigator.pop(ctx, false);
                               },
-                              child: const Text('Usuń zestaw'),
+                              child: const Text('Usuń kategorię'),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -1408,7 +1697,7 @@ class _GroupsPageState extends State<GroupsPage> {
                         child: Text(
                           selected.isEmpty
                               ? 'Utwórz (wybierz słowa)'
-                              : 'Utwórz zestaw (${selected.length})',
+                              : 'Utwórz kategorię (${selected.length})',
                         ),
                       ),
                   ],
@@ -1430,7 +1719,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final selected = <String>{};
     _editingGroupId = null;
     final ok = await _pickWords(
-      title: 'Nowy zestaw',
+      title: 'Nowa kategoria',
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: true,
@@ -1444,7 +1733,7 @@ class _GroupsPageState extends State<GroupsPage> {
     if (!mounted) return;
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Podaj nazwę zestawu')),
+        const SnackBar(content: Text('Podaj nazwę kategorii')),
       );
       return;
     }
@@ -1470,7 +1759,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final nameCtrl = TextEditingController(text: g.name);
     _editingGroupId = g.id;
     final ok = await _pickWords(
-      title: 'Edytuj zestaw',
+      title: 'Edytuj kategorię',
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: false,
@@ -1546,19 +1835,19 @@ class _GroupsPageState extends State<GroupsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Zestawy — ${widget.lang}'),
+        title: Text('Kategorie — ${widget.lang}'),
         actions: [
           IconButton(
             onPressed: _createGroup,
             icon: const Icon(Icons.create_new_folder_outlined),
-            tooltip: 'Nowy zestaw',
+            tooltip: 'Nowa kategoria',
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createGroup,
         icon: const Icon(Icons.add),
-        label: const Text('Nowy zestaw'),
+        label: const Text('Nowa kategoria'),
       ),
       body: GradientScaffoldBody(
         palette: widget.palette,
@@ -1568,7 +1857,7 @@ class _GroupsPageState extends State<GroupsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
               child: Text(
-                'Wybierz zestaw do nauki albo utwórz własny z listy słówek.',
+                'Wybierz kategorię tematyczną albo utwórz własną z listy słówek.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -1620,8 +1909,8 @@ class _GroupsPageState extends State<GroupsPage> {
                     padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
                     child: Text(
                       widget.pack.groups.isEmpty
-                          ? 'Twoje zestawy (pusto — dodaj pierwszy)'
-                          : 'Twoje zestawy (${widget.pack.groups.length})',
+                          ? 'Kategorie (pusto — dodaj pierwszą)'
+                          : 'Kategorie tematyczne (${widget.pack.groups.length})',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
@@ -1629,7 +1918,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     const Padding(
                       padding: EdgeInsets.fromLTRB(16, 8, 16, 20),
                       child: Text(
-                        'Kliknij „Nowy zestaw”, wpisz nazwę i zaznacz słówka.',
+                        'Kliknij „Nowa kategoria”, wpisz nazwę i zaznacz słówka.',
                       ),
                     )
                   else
@@ -1675,6 +1964,7 @@ class WordsPage extends StatefulWidget {
 class _WordsPageState extends State<WordsPage> {
   final _filterCtrl = TextEditingController();
   String _query = '';
+  String? _categoryFilter; // null = wszystkie
 
   @override
   void dispose() {
@@ -1776,15 +2066,25 @@ class _WordsPageState extends State<WordsPage> {
   @override
   Widget build(BuildContext context) {
     final q = _query.trim().toLowerCase();
-    final sorted = List<Word>.of(widget.pack.words)
-      ..sort((a, b) => a.pl.toLowerCase().compareTo(b.pl.toLowerCase()));
+    var sorted = List<Word>.of(widget.pack.words);
+    if (_categoryFilter != null) {
+      final ids = widget.pack.groups
+          .where((g) => g.id == _categoryFilter)
+          .expand((g) => g.wordIds)
+          .toSet();
+      sorted = sorted.where((w) => ids.contains(w.id)).toList();
+    }
+    sorted.sort((a, b) => a.pl.toLowerCase().compareTo(b.pl.toLowerCase()));
     final list = q.isEmpty
         ? sorted
         : sorted
             .where(
               (w) =>
                   w.pl.toLowerCase().contains(q) ||
-                  w.obcy.toLowerCase().contains(q),
+                  w.obcy.toLowerCase().contains(q) ||
+                  widget.pack
+                      .categoriesFor(w.id)
+                      .any((c) => c.toLowerCase().contains(q)),
             )
             .toList();
 
@@ -1817,6 +2117,37 @@ class _WordsPageState extends State<WordsPage> {
                 ),
               ),
             ),
+            if (widget.pack.groups.isNotEmpty)
+              SizedBox(
+                height: 44,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: FilterChip(
+                        label: const Text('Wszystkie'),
+                        selected: _categoryFilter == null,
+                        onSelected: (_) =>
+                            setState(() => _categoryFilter = null),
+                      ),
+                    ),
+                    for (final g in widget.pack.groups)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: FilterChip(
+                          label: Text(g.name),
+                          selected: _categoryFilter == g.id,
+                          onSelected: (_) => setState(
+                            () => _categoryFilter =
+                                _categoryFilter == g.id ? null : g.id,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Align(
@@ -1839,6 +2170,7 @@ class _WordsPageState extends State<WordsPage> {
                         separatorBuilder: (_, _) => const Divider(height: 1),
                         itemBuilder: (_, i) {
                           final w = list[i];
+                          final cats = widget.pack.categoriesFor(w.id);
                           return Dismissible(
                             key: ValueKey(w.id),
                             direction: DismissDirection.endToStart,
@@ -1860,7 +2192,11 @@ class _WordsPageState extends State<WordsPage> {
                                   fontSize: 17,
                                 ),
                               ),
-                              subtitle: Text('→ ${w.obcy}'),
+                              subtitle: Text(
+                                cats.isEmpty
+                                    ? '→ ${w.obcy}'
+                                    : '→ ${w.obcy} · ${cats.join(', ')}',
+                              ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

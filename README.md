@@ -10,9 +10,12 @@ trener-jezykowy          # NixOS
 nix-shell -p flutter --run 'flutter run -d linux'
 ```
 
-## Funkcje (0.0.1 — pre-alpha)
+## Funkcje (0.0.5)
 
-- **Zestawy słówek** — grupy przez `wordIds` (bez duplikowania), Cała baza / Nieopanowane / Trudne
+- **Zestawy / kategorie tematyczne** — Czasowniki, Powitania, Jedzenie, Zwierzęta, Rodzina, Kolory…
+- **Import CSV / tekst** — wklej lub plik (`pl,obcy` / `pl;obcy` / `pl - obcy`)
+- **Codzienna rozmowa AI** — tylko lokalnie (Ollama/Bielik na PC); bez chmury; tryb offline bez Ollamy; +40 XP za 3 wiadomości/dzień
+- **XP i poziomy** — punkty za odpowiedzi i rozmowy; **nagroda za lvl**: ciekawostka językowa + bonus XP
 - **SRS** — poziomy 0–3, powtórki wg `nextDue`
 - **Kierunek** PL→obcy / obcy→PL / mieszany + podpowiedź (pierwsza litera)
 - Metoda **ABC** lub **Pisanie** (zapamiętana per język)

@@ -1,5 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trener_jezykowy/curiosities.dart';
+import 'package:trener_jezykowy/import_csv.dart';
 import 'package:trener_jezykowy/models.dart';
+import 'package:trener_jezykowy/storage.dart';
 
 void main() {
   test('parseBaza migrates legacy list format', () {
@@ -84,5 +87,75 @@ void main() {
     expect(capitalizePhrase('dom'), 'Dom');
     expect(capitalizePhrase('  hello'), 'Hello');
     expect(capitalizePhrase('быть'), 'Быть');
+  });
+
+  test('parseWordText csv and dash', () {
+    final pairs = parseWordText('''
+pl,obcy
+kot,cat
+pies;dog
+dom - house
+# komentarz
+''');
+    expect(pairs.map((p) => '${p.pl}|${p.obcy}').toList(), [
+      'Kot|Cat',
+      'Pies|Dog',
+      'Dom|House',
+    ]);
+  });
+
+  test('importWordText skips duplicates', () {
+    final pack = LangPack(
+      words: [Word.fromJson({'pl': 'Kot', 'obcy': 'Cat'})],
+      groups: [],
+    );
+    final r = importWordText(pack, 'kot,cat\npies,dog');
+    expect(r.added, 1);
+    expect(r.skippedDuplicates, 1);
+    expect(pack.words, hasLength(2));
+  });
+
+  test('AppStats xp and levels', () {
+    final s = AppStats();
+    expect(s.playerLevel, 1);
+    s.addXp(50);
+    expect(s.playerLevel, 2);
+    s.recordAnswer(true);
+    expect(s.xp, 60);
+    expect(s.sessionXp, 60);
+    final gained = s.completeDailyChat();
+    expect(gained, 40);
+    expect(s.completeDailyChat(), 0);
+    expect(s.chatDoneToday, isTrue);
+  });
+
+  test('level rewards pending then claimed', () {
+    final s = AppStats();
+    expect(s.pendingRewardLevels(), isEmpty);
+    s.addXp(50); // level 2
+    expect(s.pendingRewardLevels(), [2]);
+    s.markRewardsClaimed([2]);
+    expect(s.rewardedLevel, 2);
+    expect(s.pendingRewardLevels(), isEmpty);
+  });
+
+  test('categoriesFor returns group names', () {
+    final pack = LangPack(
+      words: [
+        Word(id: 'a', pl: 'Kot', obcy: 'Cat'),
+        Word(id: 'b', pl: 'Pies', obcy: 'Dog'),
+      ],
+      groups: [
+        WordGroup(id: 'z', name: 'Zwierzęta', wordIds: ['a', 'b']),
+      ],
+    );
+    expect(pack.categoriesFor('a'), ['Zwierzęta']);
+    expect(pack.categoriesFor('missing'), isEmpty);
+  });
+
+  test('curiosityForLevel returns fact', () {
+    final c = curiosityForLevel(2, lang: 'Angielski');
+    expect(c.title, isNotEmpty);
+    expect(c.text, isNotEmpty);
   });
 }
