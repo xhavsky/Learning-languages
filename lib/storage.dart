@@ -29,10 +29,15 @@ class AppStats {
     this.rewardedLevel = 1,
     this.wordsToday = 0,
     this.wordsDay = '',
+    this.goldenPaws = 0,
     List<String>? unlockedMascotIds,
     Map<String, String>? equippedMascot,
+    List<String>? ownedHomeIds,
+    Map<String, String>? placedHome,
   })  : unlockedMascotIds = List<String>.from(unlockedMascotIds ?? const []),
-        equippedMascot = Map<String, String>.from(equippedMascot ?? const {});
+        equippedMascot = Map<String, String>.from(equippedMascot ?? const {}),
+        ownedHomeIds = List<String>.from(ownedHomeIds ?? const []),
+        placedHome = Map<String, String>.from(placedHome ?? const {});
 
   int streakDays;
   String lastPlayDay; // yyyy-MM-dd
@@ -59,11 +64,20 @@ class AppStats {
   /// Dzień licznika karmienia (yyyy-MM-dd).
   String wordsDay;
 
+  /// Waluta sklepu — złote łapki 🐾
+  int goldenPaws;
+
   /// Odblokowane ubranka (id z [mascotWardrobe]).
   List<String> unlockedMascotIds;
 
   /// Założone ubranka: slot.name → itemId.
   Map<String, String> equippedMascot;
+
+  /// Kupione rzeczy do pokoiku (miski, posłanie…).
+  List<String> ownedHomeIds;
+
+  /// Ustawione w pokoiku: HomeSlot.name → homeItemId.
+  Map<String, String> placedHome;
 
   double get sessionAccuracy =>
       sessionTotal == 0 ? 0 : sessionCorrect / sessionTotal;
@@ -157,6 +171,47 @@ class AppStats {
     }
   }
 
+  void addGoldenPaws(int amount) {
+    if (amount <= 0) return;
+    goldenPaws += amount;
+  }
+
+  /// Kupuje ekskluzywne ubranko. Zwraca null przy sukcesie, inaczej komunikat.
+  String? buyOutfit(MascotItem item) {
+    final price = item.shopPrice;
+    if (price == null) return 'To ubranko nie jest w sklepie';
+    if (unlockedMascotIds.contains(item.id)) return 'Już masz to ubranko';
+    if (goldenPaws < price) {
+      return 'Za mało złotych łapek (potrzeba $price 🐾)';
+    }
+    goldenPaws -= price;
+    unlockMascotItem(item.id);
+    return null;
+  }
+
+  /// Kupuje miskę / posłanie. Zwraca null przy sukcesie.
+  String? buyHomeItem(HomeItem item) {
+    if (ownedHomeIds.contains(item.id)) return 'Już masz tę rzecz';
+    if (goldenPaws < item.price) {
+      return 'Za mało złotych łapek (potrzeba ${item.price} 🐾)';
+    }
+    goldenPaws -= item.price;
+    ownedHomeIds.add(item.id);
+    placedHome[item.slot.name] = item.id;
+    return null;
+  }
+
+  /// Wystawia / chowa rzecz w pokoiku (toggle).
+  void togglePlaceHome(HomeItem item) {
+    if (!ownedHomeIds.contains(item.id)) return;
+    final slot = item.slot.name;
+    if (placedHome[slot] == item.id) {
+      placedHome.remove(slot);
+    } else {
+      placedHome[slot] = item.id;
+    }
+  }
+
   /// Stare zapisy bez listy ubranek → migracja po legacyUnlockLevel.
   void ensureMascotMigration() {
     if (unlockedMascotIds.isNotEmpty) return;
@@ -183,8 +238,11 @@ class AppStats {
       'rewardedLevel': rewardedLevel,
       'wordsToday': wordsToday,
       'wordsDay': wordsDay,
+      'goldenPaws': goldenPaws,
       'unlockedMascotIds': unlockedMascotIds,
       'equippedMascot': equippedMascot,
+      'ownedHomeIds': ownedHomeIds,
+      'placedHome': placedHome,
     };
   }
 
@@ -206,6 +264,20 @@ class AppStats {
         if (k is String && v is String) equipped[k] = v;
       });
     }
+    final rawHome = json['ownedHomeIds'];
+    final ownedHome = <String>[];
+    if (rawHome is List) {
+      for (final e in rawHome) {
+        if (e is String) ownedHome.add(e);
+      }
+    }
+    final rawPlaced = json['placedHome'];
+    final placed = <String, String>{};
+    if (rawPlaced is Map) {
+      rawPlaced.forEach((k, v) {
+        if (k is String && v is String) placed[k] = v;
+      });
+    }
     final s = AppStats(
       streakDays: json['streakDays'] as int? ?? 0,
       lastPlayDay: json['lastPlayDay'] as String? ?? '',
@@ -217,8 +289,11 @@ class AppStats {
       rewardedLevel: json['rewardedLevel'] as int? ?? tmp.playerLevel,
       wordsToday: json['wordsToday'] as int? ?? 0,
       wordsDay: json['wordsDay'] as String? ?? '',
+      goldenPaws: json['goldenPaws'] as int? ?? 0,
       unlockedMascotIds: unlocked,
       equippedMascot: equipped,
+      ownedHomeIds: ownedHome,
+      placedHome: placed,
     );
     s._rollFeedDay();
     s.ensureMascotMigration();
@@ -254,7 +329,9 @@ class AppStats {
       sessionCorrect++;
       lifetimeCorrect++;
       addXp(10);
+      addGoldenPaws(pawsPerCorrect);
       justFed = feedMascotOnCorrect();
+      if (justFed) addGoldenPaws(pawsFeedBonus);
     } else {
       addXp(2);
     }
@@ -274,6 +351,7 @@ class AppStats {
     if (lastChatDay == today) return 0;
     lastChatDay = today;
     addXp(reward);
+    addGoldenPaws(pawsDailyChat);
     return reward;
   }
 

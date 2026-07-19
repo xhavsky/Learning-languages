@@ -182,6 +182,41 @@ dom - house
     expect(scarves.map((e) => e.color.toARGB32()).toSet().length, scarves.length);
   });
 
+  test('golden paws earn and shop buy', () {
+    final s = AppStats();
+    expect(s.goldenPaws, 0);
+    s.recordAnswer(true);
+    expect(s.goldenPaws, pawsPerCorrect);
+    for (var i = 0; i < 4; i++) {
+      s.recordAnswer(true);
+    }
+    // 5th correct also triggers feed bonus
+    expect(s.goldenPaws, 5 * pawsPerCorrect + pawsFeedBonus);
+    expect(s.mascotFedToday, isTrue);
+
+    final bowl = mascotHomeShop.first;
+    s.goldenPaws = bowl.price;
+    expect(s.buyHomeItem(bowl), isNull);
+    expect(s.ownedHomeIds, contains(bowl.id));
+    expect(s.placedHome[bowl.slot.name], bowl.id);
+    expect(s.goldenPaws, 0);
+
+    final outfit = shopExclusiveOutfits().first;
+    s.goldenPaws = outfit.shopPrice!;
+    expect(s.buyOutfit(outfit), isNull);
+    expect(s.unlockedMascotIds, contains(outfit.id));
+  });
+
+  test('shop exclusives are not rolled as level rewards', () {
+    final exclusiveIds = shopExclusiveOutfits().map((e) => e.id).toSet();
+    expect(exclusiveIds, isNotEmpty);
+    for (var i = 0; i < 40; i++) {
+      final item = rollMascotReward(const [], random: math.Random(i));
+      expect(item, isNotNull);
+      expect(exclusiveIds.contains(item!.id), isFalse);
+    }
+  });
+
   test('categoriesFor returns group names', () {
     final pack = LangPack(
       words: [

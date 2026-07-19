@@ -422,7 +422,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       var msg = w.nauczone
           ? 'Nauczone! ✓ (3× z rzędu)'
           : 'Brawo! ✓ (${w.correctStreak}/3)';
-      if (justFed) msg = '$msg · Kicia najedzona! 🐱';
+      if (justFed) {
+        msg = '$msg · Kicia najedzona! 🐱 +$pawsFeedBonus 🐾';
+      } else {
+        msg = '$msg · +$pawsPerCorrect 🐾';
+      }
       _flash(msg, kind: FeedbackKind.success);
       _successCtrl.forward(from: 0);
       _burstCtrl.forward(from: 0);
@@ -452,6 +456,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _store.stats.unlockMascotItem(outfit.id);
       }
       _store.stats.addXp(bonus);
+      _store.stats.addGoldenPaws(pawsPerLevelUp);
       bonusTotal += bonus;
       if (!mounted) break;
       await showDialog<void>(
@@ -486,7 +491,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
                 const SizedBox(height: 12),
                 Text(
-                  'Nagroda: +$bonus XP',
+                  'Nagroda: +$bonus XP · +$pawsPerLevelUp 🐾',
                   style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -530,6 +535,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: DressedKicia(
                       equipped: Map<String, String>.from(
                         _store.stats.equippedMascot,
+                      ),
+                      placedHome: Map<String, String>.from(
+                        _store.stats.placedHome,
                       ),
                       size: 140,
                     ),
@@ -709,6 +717,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     await _store.save();
   }
 
+  Future<void> _openShop() async {
+    if (!mounted) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ShopPage(
+          stats: _store.stats,
+          palette: widget.palette,
+          onChanged: () async {
+            await _store.save();
+            if (mounted) setState(() {});
+          },
+        ),
+      ),
+    );
+    if (mounted) setState(() {});
+  }
+
   Future<void> _openWardrobe() async {
     if (!mounted) return;
     await showModalBottomSheet<void>(
@@ -740,6 +765,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     const SizedBox(height: 4),
                     Text(
                       'Za każdy poziom losujesz nowe ubranko. '
+                      'Ekskluzywne ciuchy, miski i posłanie — w sklepie za złote łapki 🐾. '
                       'Stuknij, żeby ubrać Kicię (1 rzecz na slot). '
                       'Nakarm ją min. $mascotDailyFeedGoal słówkami dziennie!',
                       style: Theme.of(ctx).textTheme.bodySmall,
@@ -748,6 +774,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     Center(
                       child: DressedKicia(
                         equipped: Map<String, String>.from(equipped),
+                        placedHome:
+                            Map<String, String>.from(_store.stats.placedHome),
                         size: 180,
                       ),
                     ),
@@ -770,11 +798,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               subtitle: Text(
                                 unlockedIds.contains(item.id)
                                     ? '${slotLabel(item.slot)} · ${item.blurb}'
-                                    : '🔒 Jeszcze nie wylosowane',
+                                    : item.isShopExclusive
+                                        ? '🛒 Tylko w sklepie · ${item.shopPrice} 🐾'
+                                        : '🔒 Jeszcze nie wylosowane',
                               ),
                               selected: equipped[item.slot.name] == item.id,
                               trailing: !unlockedIds.contains(item.id)
-                                  ? const Icon(Icons.lock_outline)
+                                  ? Icon(
+                                      item.isShopExclusive
+                                          ? Icons.storefront_outlined
+                                          : Icons.lock_outline,
+                                    )
                                   : Icon(
                                       equipped[item.slot.name] == item.id
                                           ? Icons.checkroom
@@ -1551,7 +1585,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.6',
+                'v0.0.8',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -1560,6 +1594,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
               ),
             ),
+          ),
+          IconButton(
+            tooltip: 'Sklep Kici',
+            onPressed: _openShop,
+            icon: const Icon(Icons.storefront_outlined),
           ),
           IconButton(
             tooltip: 'Kategorie',
@@ -1595,7 +1634,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       fedToday: _store.stats.mascotFedToday,
                       unlockedIds: _store.stats.unlockedMascotIds,
                       equipped: _store.stats.equippedMascot,
+                      placedHome: _store.stats.placedHome,
+                      goldenPaws: _store.stats.goldenPaws,
                       onTapWardrobe: _openWardrobe,
+                      onTapShop: _openShop,
                       onEquip: _equipMascot,
                     ),
                     SoftPanel(
@@ -1694,7 +1736,74 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Kategoria: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
+                            'Kategoria (przesuń pasek →)',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          const SizedBox(height: 6),
+                          SizedBox(
+                            height: 44,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: FilterChip(
+                                    label: const Text('Cała baza'),
+                                    selected: _groupId == '__all__',
+                                    onSelected: (_) {
+                                      setState(() => _groupId = '__all__');
+                                      _draw();
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: FilterChip(
+                                    label: const Text('Nieopanowane'),
+                                    selected: _groupId == '__unlearned__',
+                                    onSelected: (_) {
+                                      setState(
+                                        () => _groupId = '__unlearned__',
+                                      );
+                                      _draw();
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: FilterChip(
+                                    label: const Text('Trudne'),
+                                    selected: _groupId == '__hard__',
+                                    onSelected: (_) {
+                                      setState(() => _groupId = '__hard__');
+                                      _draw();
+                                    },
+                                  ),
+                                ),
+                                if (pack != null)
+                                  for (final g in pack.groups)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                      ),
+                                      child: FilterChip(
+                                        label: Text(g.name),
+                                        selected: _groupId == g.id,
+                                        onSelected: (_) {
+                                          setState(() => _groupId = g.id);
+                                          _draw();
+                                        },
+                                      ),
+                                    ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -2683,6 +2792,225 @@ class _WordsPageState extends State<WordsPage> {
                           );
                         },
                       ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Sklep Kici — ekskluzywne ubranka + miski, posłanie (złote łapki).
+class ShopPage extends StatefulWidget {
+  const ShopPage({
+    super.key,
+    required this.stats,
+    required this.palette,
+    required this.onChanged,
+  });
+
+  final AppStats stats;
+  final AppPalette palette;
+  final VoidCallback onChanged;
+
+  @override
+  State<ShopPage> createState() => _ShopPageState();
+}
+
+class _ShopPageState extends State<ShopPage>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabs;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabs = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabs.dispose();
+    super.dispose();
+  }
+
+  void _toast(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  Future<void> _buyOutfit(MascotItem item) async {
+    final err = widget.stats.buyOutfit(item);
+    if (err != null) {
+      _toast(err);
+      return;
+    }
+    widget.onChanged();
+    setState(() {});
+    _toast('Kupiono: ${item.name}! 🐾');
+  }
+
+  Future<void> _buyHome(HomeItem item) async {
+    final err = widget.stats.buyHomeItem(item);
+    if (err != null) {
+      _toast(err);
+      return;
+    }
+    widget.onChanged();
+    setState(() {});
+    _toast('Kupiono: ${item.name}! 🐾');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final outfits = shopExclusiveOutfits();
+    final paws = widget.stats.goldenPaws;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sklep Kici'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Center(
+              child: Text(
+                '🐾 $paws',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+            ),
+          ),
+        ],
+        bottom: TabBar(
+          controller: _tabs,
+          tabs: const [
+            Tab(text: 'Ubranka', icon: Icon(Icons.checkroom_outlined)),
+            Tab(text: 'Pokoik', icon: Icon(Icons.home_outlined)),
+          ],
+        ),
+      ),
+      body: GradientScaffoldBody(
+        palette: widget.palette,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+              child: SoftPanel(
+                margin: EdgeInsets.zero,
+                child: Column(
+                  children: [
+                    DressedKicia(
+                      equipped: widget.stats.equippedMascot,
+                      placedHome: widget.stats.placedHome,
+                      size: 150,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Złote łapki: +$pawsPerCorrect za poprawną odpowiedź, '
+                      '+$pawsFeedBonus gdy Kicia najedzona, '
+                      '+$pawsPerLevelUp za poziom, '
+                      '+$pawsDailyChat za rozmowę AI.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabs,
+                children: [
+                  ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                    itemCount: outfits.length,
+                    separatorBuilder: (_, _) => const SizedBox(height: 8),
+                    itemBuilder: (_, i) {
+                      final item = outfits[i];
+                      final owned =
+                          widget.stats.unlockedMascotIds.contains(item.id);
+                      final price = item.shopPrice ?? 0;
+                      return SoftPanel(
+                        margin: EdgeInsets.zero,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: item.color,
+                            child: Text(
+                              item.emoji,
+                              style: const TextStyle(fontSize: 22),
+                            ),
+                          ),
+                          title: Text(item.name),
+                          subtitle: Text(
+                            '${slotLabel(item.slot)} · ${item.blurb}',
+                          ),
+                          trailing: owned
+                              ? TextButton(
+                                  onPressed: () async {
+                                    widget.stats.toggleEquipMascot(item);
+                                    widget.onChanged();
+                                    setState(() {});
+                                  },
+                                  child: Text(
+                                    widget.stats.equippedMascot[item.slot.name] ==
+                                            item.id
+                                        ? 'Zdjęte'
+                                        : 'Ubierz',
+                                  ),
+                                )
+                              : FilledButton(
+                                  onPressed: paws >= price
+                                      ? () => _buyOutfit(item)
+                                      : null,
+                                  child: Text('$price 🐾'),
+                                ),
+                        ),
+                      );
+                    },
+                  ),
+                  ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                    itemCount: mascotHomeShop.length,
+                    separatorBuilder: (_, _) => const SizedBox(height: 8),
+                    itemBuilder: (_, i) {
+                      final item = mascotHomeShop[i];
+                      final owned =
+                          widget.stats.ownedHomeIds.contains(item.id);
+                      final placed =
+                          widget.stats.placedHome[item.slot.name] == item.id;
+                      return SoftPanel(
+                        margin: EdgeInsets.zero,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: item.color,
+                            child: Text(
+                              item.emoji,
+                              style: const TextStyle(fontSize: 22),
+                            ),
+                          ),
+                          title: Text(item.name),
+                          subtitle: Text(
+                            '${homeSlotLabel(item.slot)} · ${item.blurb}',
+                          ),
+                          trailing: owned
+                              ? TextButton(
+                                  onPressed: () {
+                                    widget.stats.togglePlaceHome(item);
+                                    widget.onChanged();
+                                    setState(() {});
+                                  },
+                                  child: Text(placed ? 'Schowaj' : 'Wystaw'),
+                                )
+                              : FilledButton(
+                                  onPressed: paws >= item.price
+                                      ? () => _buyHome(item)
+                                      : null,
+                                  child: Text('${item.price} 🐾'),
+                                ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],
