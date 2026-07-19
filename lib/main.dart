@@ -257,8 +257,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString('method_$lang');
     final rate = prefs.getDouble('playbackRate') ?? 1.0;
+    final dirRaw = prefs.getString('translateDir') ?? 'plToForeign';
     setState(() {
       _playbackRate = rate;
+      _dir = switch (dirRaw) {
+        'foreignToPl' => TranslateDir.foreignToPl,
+        'mixed' => TranslateDir.mixed,
+        _ => TranslateDir.plToForeign,
+      };
       if (raw == 'abc') {
         _method = GameMethod.abc;
       } else if (raw == 'typing') {
@@ -277,6 +283,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       'method_$lang',
       _method == GameMethod.abc ? 'abc' : 'typing',
     );
+  }
+
+  Future<void> _persistDir(TranslateDir dir) async {
+    setState(() => _dir = dir);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      'translateDir',
+      switch (dir) {
+        TranslateDir.plToForeign => 'plToForeign',
+        TranslateDir.foreignToPl => 'foreignToPl',
+        TranslateDir.mixed => 'mixed',
+      },
+    );
+    _draw();
   }
 
   Future<void> _persistRate(double rate) async {
@@ -320,23 +340,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return;
       }
       _current = pool[_rng.nextInt(pool.length)];
+      // _askForeign = true → pokazujemy obcy, oczekujemy PL
       _askForeign = switch (_dir) {
         TranslateDir.plToForeign => false,
         TranslateDir.foreignToPl => true,
         TranslateDir.mixed => _rng.nextBool(),
       };
       if (_method == GameMethod.abc) {
-        // ABC always: show foreign → pick Polish (Anielka)
-        _askForeign = true;
-        _abc = _buildAbc(_current!);
+        _abc = _buildAbc(_current!, askForeign: _askForeign);
       } else {
         _abc = [];
       }
     });
     if (_current != null) {
-      final play = _askForeign ? _current!.obcy : _current!.obcy;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _playText(play);
+        // Auto-odtwarzaj tylko gdy na ekranie jest słowo obce —
+        // przy PL→obcy NIE puszczaj odpowiedzi przed odpowiedzią.
+        if (_askForeign) {
+          _playText(_current!.obcy);
+        }
         if (_method == GameMethod.typing) {
           _answerFocus.requestFocus();
         }
@@ -344,38 +366,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
   }
 
-  List<String> _buildAbc(Word correct) {
+  List<String> _buildAbc(Word correct, {required bool askForeign}) {
     final pack = _pack!;
+    if (askForeign) {
+      // Pokazujemy obcy → wybierz polskie
+      final others = pack.words
+          .map((w) => w.pl)
+          .where((pl) => pl != correct.pl)
+          .toSet()
+          .toList()
+        ..shuffle(_rng);
+      final distractors = others.take(2).toList();
+      while (distractors.length < 2) {
+        distractors.add(['kot', 'pies', 'dom'][distractors.length]);
+      }
+      return [correct.pl, ...distractors]..shuffle(_rng);
+    }
+    // Pokazujemy polskie → wybierz obce
     final others = pack.words
-        .map((w) => w.pl)
-        .where((pl) => pl != correct.pl)
+        .map((w) => w.obcy)
+        .where((o) => o != correct.obcy)
         .toSet()
         .toList()
       ..shuffle(_rng);
     final distractors = others.take(2).toList();
     while (distractors.length < 2) {
-      distractors.add(['kot', 'pies', 'dom'][distractors.length]);
+      distractors.add(['hello', 'cat', 'house'][distractors.length]);
     }
-    return [correct.pl, ...distractors]..shuffle(_rng);
+    return [correct.obcy, ...distractors]..shuffle(_rng);
   }
 
   String get _promptLabel {
-    if (_method == GameMethod.abc || _askForeign) {
-      return 'Jak po polsku znaczy:';
-    }
+    if (_askForeign) return 'Jak po polsku znaczy:';
     return 'Przetłumacz na język obcy:';
   }
 
   String get _promptWord {
     if (_current == null) return '';
-    if (_method == GameMethod.abc || _askForeign) return _current!.obcy;
-    return _current!.pl;
+    return _askForeign ? _current!.obcy : _current!.pl;
   }
 
   String get _expected {
     if (_current == null) return '';
-    if (_method == GameMethod.abc || _askForeign) return _current!.pl;
-    return _current!.obcy;
+    return _askForeign ? _current!.pl : _current!.obcy;
   }
 
   Future<void> _onResult(bool ok) async {
@@ -402,39 +435,83 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (mounted) _draw();
   }
 
-  /// Po awansie poziomu: ciekawostka językowa + bonus XP.
+  /// Po awansie poziomu: tytuł + ciekawostka + wyzwanie + bonus XP.
   Future<void> _maybeShowLevelRewards() async {
     final pending = _store.stats.pendingRewardLevels();
     if (pending.isEmpty) return;
     var bonusTotal = 0;
     for (final lv in pending) {
       final fact = curiosityForLevel(lv, lang: _lang);
-      _store.stats.addXp(levelUpBonusXp);
-      bonusTotal += levelUpBonusXp;
+      final bonus = levelUpBonusXpFor(lv);
+      final unlockedTitle = newTitleAtLevel(lv);
+      final rank = titleForLevel(lv);
+      _store.stats.addXp(bonus);
+      bonusTotal += bonus;
       if (!mounted) break;
       await showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (ctx) => AlertDialog(
           title: Text('Poziom $lv! 🎉'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nagroda: +$levelUpBonusXp XP',
-                style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Tytuł: ${rank.title}',
+                  style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                if (unlockedTitle != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '✨ Nowy tytuł odblokowany!',
+                    style: Theme.of(ctx).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(ctx).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  Text(unlockedTitle.blurb),
+                ] else ...[
+                  const SizedBox(height: 4),
+                  Text(rank.blurb),
+                ],
+                const SizedBox(height: 12),
+                Text(
+                  'Nagroda: +$bonus XP',
+                  style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  '📖 ${fact.title}',
+                  style: Theme.of(ctx).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 6),
+                Text(fact.text),
+                if (fact.tip != null) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Theme.of(ctx)
+                          .colorScheme
+                          .primaryContainer
+                          .withValues(alpha: 0.55),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                fact.title,
-                style: Theme.of(ctx).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 6),
-              Text(fact.text),
-            ],
+                    child: Text(
+                      '🎯 Wyzwanie: ${fact.tip}',
+                      style: Theme.of(ctx).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
           actions: [
             FilledButton(
@@ -452,6 +529,93 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (bonusTotal > 0 && _store.stats.pendingRewardLevels().isNotEmpty) {
       await _maybeShowLevelRewards();
     }
+  }
+
+  Future<void> _openCuriosityAlbum() async {
+    final items = unlockedCuriosities(
+      rewardedLevel: _store.stats.rewardedLevel,
+      lang: _lang,
+    );
+    final rank = titleForLevel(_store.stats.playerLevel);
+    if (!mounted) return;
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 8,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: SizedBox(
+            height: MediaQuery.of(ctx).size.height * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Album nagród',
+                  style: Theme.of(ctx).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Poziom ${_store.stats.playerLevel} · ${rank.title}',
+                  style: Theme.of(ctx).textTheme.bodyMedium,
+                ),
+                Text(
+                  rank.blurb,
+                  style: Theme.of(ctx).textTheme.bodySmall,
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: items.isEmpty
+                      ? const Center(
+                          child: Text(
+                            'Awansuj na poziom 2, żeby odblokować pierwszą ciekawostkę!',
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      : ListView.separated(
+                          itemCount: items.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 8),
+                          itemBuilder: (_, i) {
+                            final c = items[i];
+                            return SoftSurface(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    c.title,
+                                    style: Theme.of(ctx)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(c.text),
+                                  if (c.tip != null) ...[
+                                    const SizedBox(height: 6),
+                                    Text(
+                                      '🎯 ${c.tip}',
+                                      style:
+                                          Theme.of(ctx).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _checkTyping() async {
@@ -566,180 +730,273 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _openSettings() async {
+    final ollamaCtrl = TextEditingController(text: await loadOllamaHostPref());
+    if (!mounted) {
+      ollamaCtrl.dispose();
+      return;
+    }
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
       builder: (ctx) {
-        return Padding(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 8,
-            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text('Ustawienia', style: Theme.of(ctx).textTheme.titleLarge),
-                const SizedBox(height: 12),
-                Text('Motyw jasny/ciemny', style: Theme.of(ctx).textTheme.titleSmall),
-                Wrap(
-                  spacing: 8,
+        return StatefulBuilder(
+          builder: (ctx, setSheet) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 8,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ChoiceChip(
-                      label: const Text('System'),
-                      selected: widget.themeMode == ThemeMode.system,
-                      onSelected: (_) =>
-                          widget.onThemeModeChanged(ThemeMode.system),
+                    Text(
+                      'Ustawienia',
+                      style: Theme.of(ctx).textTheme.titleLarge,
                     ),
-                    ChoiceChip(
-                      label: const Text('Jasny'),
-                      selected: widget.themeMode == ThemeMode.light,
-                      onSelected: (_) =>
-                          widget.onThemeModeChanged(ThemeMode.light),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Motyw jasny/ciemny',
+                      style: Theme.of(ctx).textTheme.titleSmall,
                     ),
-                    ChoiceChip(
-                      label: const Text('Ciemny'),
-                      selected: widget.themeMode == ThemeMode.dark,
-                      onSelected: (_) =>
-                          widget.onThemeModeChanged(ThemeMode.dark),
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        ChoiceChip(
+                          label: const Text('System'),
+                          selected: widget.themeMode == ThemeMode.system,
+                          onSelected: (_) {
+                            widget.onThemeModeChanged(ThemeMode.system);
+                            setSheet(() {});
+                          },
+                        ),
+                        ChoiceChip(
+                          label: const Text('Jasny'),
+                          selected: widget.themeMode == ThemeMode.light,
+                          onSelected: (_) {
+                            widget.onThemeModeChanged(ThemeMode.light);
+                            setSheet(() {});
+                          },
+                        ),
+                        ChoiceChip(
+                          label: const Text('Ciemny'),
+                          selected: widget.themeMode == ThemeMode.dark,
+                          onSelected: (_) {
+                            widget.onThemeModeChanged(ThemeMode.dark);
+                            setSheet(() {});
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text('Kolorystyka', style: Theme.of(ctx).textTheme.titleSmall),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    for (final p in AppPalette.values)
-                      FilterChip(
-                        avatar: CircleAvatar(backgroundColor: p.seed),
-                        label: Text(p.label),
-                        selected: widget.palette == p,
-                        onSelected: (_) => widget.onPaletteChanged(p),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Kolorystyka',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final p in AppPalette.values)
+                          FilterChip(
+                            avatar: CircleAvatar(backgroundColor: p.seed),
+                            label: Text(p.label),
+                            selected: widget.palette == p,
+                            onSelected: (_) {
+                              widget.onPaletteChanged(p);
+                              setSheet(() {});
+                            },
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Kierunek',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        ChoiceChip(
+                          label: const Text('PL → obcy'),
+                          selected: _dir == TranslateDir.plToForeign,
+                          onSelected: (_) async {
+                            await _persistDir(TranslateDir.plToForeign);
+                            setSheet(() {});
+                          },
+                        ),
+                        ChoiceChip(
+                          label: const Text('obcy → PL'),
+                          selected: _dir == TranslateDir.foreignToPl,
+                          onSelected: (_) async {
+                            await _persistDir(TranslateDir.foreignToPl);
+                            setSheet(() {});
+                          },
+                        ),
+                        ChoiceChip(
+                          label: const Text('Mieszany'),
+                          selected: _dir == TranslateDir.mixed,
+                          onSelected: (_) async {
+                            await _persistDir(TranslateDir.mixed);
+                            setSheet(() {});
+                          },
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        _dir == TranslateDir.plToForeign
+                            ? 'Widzisz polskie — wpisujesz / wybierasz obce. Audio dopiero po odpowiedzi albo po 🔊.'
+                            : _dir == TranslateDir.foreignToPl
+                                ? 'Widzisz obce — odpowiadasz po polsku. Audio startuje od razu.'
+                                : 'Losowo PL→obcy albo obcy→PL przy każdym słówku.',
+                        style: Theme.of(ctx).textTheme.bodySmall,
                       ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text('Kierunek', style: Theme.of(ctx).textTheme.titleSmall),
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    ChoiceChip(
-                      label: const Text('PL → obcy'),
-                      selected: _dir == TranslateDir.plToForeign,
-                      onSelected: (_) {
-                        setState(() => _dir = TranslateDir.plToForeign);
-                        _draw();
-                      },
                     ),
-                    ChoiceChip(
-                      label: const Text('obcy → PL'),
-                      selected: _dir == TranslateDir.foreignToPl,
-                      onSelected: (_) {
-                        setState(() => _dir = TranslateDir.foreignToPl);
-                        _draw();
-                      },
+                    const SizedBox(height: 16),
+                    Text(
+                      'Tempo audio',
+                      style: Theme.of(ctx).textTheme.titleSmall,
                     ),
-                    ChoiceChip(
-                      label: const Text('Mieszany'),
-                      selected: _dir == TranslateDir.mixed,
-                      onSelected: (_) {
-                        setState(() => _dir = TranslateDir.mixed);
-                        _draw();
-                      },
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        for (final r in [0.75, 1.0, 1.25])
+                          ChoiceChip(
+                            label: Text('${r}x'),
+                            selected: (_playbackRate - r).abs() < 0.01,
+                            onSelected: (_) async {
+                              await _persistRate(r);
+                              setSheet(() {});
+                            },
+                          ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text('Tempo audio', style: Theme.of(ctx).textTheme.titleSmall),
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    for (final r in [0.75, 1.0, 1.25])
-                      ChoiceChip(
-                        label: Text('${r}x'),
-                        selected: (_playbackRate - r).abs() < 0.01,
-                        onSelected: (_) => _persistRate(r),
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                FilledButton.tonal(
-                  onPressed: () async {
-                    final path = await _store.exportToDocuments();
-                    if (ctx.mounted) Navigator.pop(ctx);
-                    _flash('Wyeksportowano:\n$path', kind: FeedbackKind.info, ms: 4000);
-                  },
-                  child: const Text('Eksportuj bazę (JSON)'),
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  controller: _importCtrl,
-                  decoration: const InputDecoration(
-                    labelText: 'Ścieżka do importu JSON',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                OutlinedButton(
-                  onPressed: () async {
-                    final err = await _store.importFromPath(_importCtrl.text.trim());
-                    if (ctx.mounted) Navigator.pop(ctx);
-                    if (err != null) {
-                      _flash(err, kind: FeedbackKind.fail, ms: 3000);
-                    } else {
-                      setState(() {});
-                      _draw();
-                      _flash('Zaimportowano bazę', kind: FeedbackKind.success);
-                    }
-                  },
-                  child: const Text('Importuj z pliku'),
-                ),
-                const SizedBox(height: 12),
-                Builder(
-                  builder: (_) {
-                    final miss = _store.missingAudioKeys();
-                    return Text(
-                      miss.isEmpty
-                          ? 'Audio: komplet w manifeście'
-                          : 'Brak audio: ${miss.length} haseł\n(PC: python3 scripts/generate_tts.py)',
+                    const SizedBox(height: 16),
+                    Text(
+                      'AI lokalne (Ollama)',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Na PC zwykle pusto (127.0.0.1). Na telefonie: zostaw pusto — '
+                      'apka łączy się z modelem na PC przez portal. '
+                      'Opcjonalnie wpisz adres LAN, np. http://192.168.0.130:11434',
                       style: Theme.of(ctx).textTheme.bodySmall,
-                    );
-                  },
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: ollamaCtrl,
+                      decoration: const InputDecoration(
+                        labelText: 'Adres Ollamy (opcjonalnie)',
+                        hintText: 'http://192.168.0.130:11434',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    FilledButton.tonal(
+                      onPressed: () async {
+                        await saveOllamaHostPref(ollamaCtrl.text);
+                        if (ctx.mounted) {
+                          ScaffoldMessenger.of(ctx).showSnackBar(
+                            const SnackBar(
+                              content: Text('Zapisano adres AI lokalnego'),
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text('Zapisz adres AI'),
+                    ),
+                    const SizedBox(height: 16),
+                    FilledButton.tonal(
+                      onPressed: () async {
+                        final path = await _store.exportToDocuments();
+                        if (ctx.mounted) Navigator.pop(ctx);
+                        _flash(
+                          'Wyeksportowano:\n$path',
+                          kind: FeedbackKind.info,
+                          ms: 4000,
+                        );
+                      },
+                      child: const Text('Eksportuj bazę (JSON)'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _importCtrl,
+                      decoration: const InputDecoration(
+                        labelText: 'Ścieżka do importu JSON',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    OutlinedButton(
+                      onPressed: () async {
+                        final err =
+                            await _store.importFromPath(_importCtrl.text.trim());
+                        if (ctx.mounted) Navigator.pop(ctx);
+                        if (err != null) {
+                          _flash(err, kind: FeedbackKind.fail, ms: 3000);
+                        } else {
+                          setState(() {});
+                          _draw();
+                          _flash(
+                            'Zaimportowano bazę',
+                            kind: FeedbackKind.success,
+                          );
+                        }
+                      },
+                      child: const Text('Importuj z pliku'),
+                    ),
+                    const SizedBox(height: 12),
+                    Builder(
+                      builder: (_) {
+                        final miss = _store.missingAudioKeys();
+                        return Text(
+                          miss.isEmpty
+                              ? 'Audio: komplet (${_store.baza.values.fold<int>(0, (n, p) => n + p.words.length)} słówek)'
+                              : 'Brak audio: ${miss.length} haseł\n(PC: python3 scripts/generate_tts.py)',
+                          style: Theme.of(ctx).textTheme.bodySmall,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Dla Anielki',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 8),
+                    FilledButton.tonal(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        showAnielkaPortalSheet(context, portal: _portal);
+                      },
+                      child: const Text('Portal WWW (adres + PIN)'),
+                    ),
+                    const SizedBox(height: 8),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        showGithubPublishSheet(context, portal: _portal);
+                      },
+                      child: const Text('Opublikuj na moje GitHub'),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      _portal.url,
+                      style: Theme.of(ctx).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 16),
-                Text('Dla Anielki', style: Theme.of(ctx).textTheme.titleSmall),
-                const SizedBox(height: 8),
-                FilledButton.tonal(
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                    showAnielkaPortalSheet(context, portal: _portal);
-                  },
-                  child: const Text('Portal WWW (adres + PIN)'),
-                ),
-                const SizedBox(height: 8),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                    showGithubPublishSheet(context, portal: _portal);
-                  },
-                  child: const Text('Opublikuj na moje GitHub'),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  _portal.url,
-                  style: Theme.of(ctx).textTheme.bodySmall,
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
-    );
+    ).whenComplete(ollamaCtrl.dispose);
   }
 
   Future<void> _addWord() async {
@@ -855,6 +1112,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           pack: pack,
           store: _store,
           palette: widget.palette,
+          portal: _portal,
           onXpChanged: () {
             if (mounted) setState(() {});
           },
@@ -1101,7 +1359,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.4',
+                'v0.0.6',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -1288,10 +1546,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ],
                           ),
                           Text(
+                            titleForLevel(_store.stats.playerLevel).title,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
                             'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
                             '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 6),
+                          TextButton(
+                            onPressed: _openCuriosityAlbum,
+                            child: const Text('Album nagród / ciekawostki'),
                           ),
                         ],
                       ),

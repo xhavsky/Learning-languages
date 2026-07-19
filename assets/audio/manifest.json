@@ -370,6 +370,2190 @@
       "pl": "obiad",
       "id": "dd956787708e",
       "engine": "piper/ru"
+    },
+    "Angielski|To be": {
+      "file": "en_to_be_cbb5e0a404.mp3",
+      "lang": "en",
+      "text": "To be",
+      "pl": "Być",
+      "id": "8c485e2d1628",
+      "engine": "piper/en"
+    },
+    "Angielski|To have": {
+      "file": "en_to_have_782c76ca31.mp3",
+      "lang": "en",
+      "text": "To have",
+      "pl": "Mieć",
+      "id": "e533b902c85b",
+      "engine": "piper/en"
+    },
+    "Angielski|To do": {
+      "file": "en_to_do_6249fd280b.mp3",
+      "lang": "en",
+      "text": "To do",
+      "pl": "Robić",
+      "id": "49f2f957",
+      "engine": "piper/en"
+    },
+    "Angielski|To go": {
+      "file": "en_to_go_b6c0a87e65.mp3",
+      "lang": "en",
+      "text": "To go",
+      "pl": "Iść",
+      "id": "50fec726",
+      "engine": "piper/en"
+    },
+    "Angielski|To come": {
+      "file": "en_to_come_20ea21aed5.mp3",
+      "lang": "en",
+      "text": "To come",
+      "pl": "Przychodzić",
+      "id": "02ba4d2a",
+      "engine": "piper/en"
+    },
+    "Angielski|To see": {
+      "file": "en_to_see_04a27073d9.mp3",
+      "lang": "en",
+      "text": "To see",
+      "pl": "Widzieć",
+      "id": "1d4fcbc7",
+      "engine": "piper/en"
+    },
+    "Angielski|To look": {
+      "file": "en_to_look_767905f9d6.mp3",
+      "lang": "en",
+      "text": "To look",
+      "pl": "Patrzeć",
+      "id": "168b8cd5",
+      "engine": "piper/en"
+    },
+    "Angielski|To hear": {
+      "file": "en_to_hear_6e040ed6ac.mp3",
+      "lang": "en",
+      "text": "To hear",
+      "pl": "Słyszeć",
+      "id": "584acd8a",
+      "engine": "piper/en"
+    },
+    "Angielski|To speak": {
+      "file": "en_to_speak_1d3e01ab65.mp3",
+      "lang": "en",
+      "text": "To speak",
+      "pl": "Mówić",
+      "id": "3ec84aba",
+      "engine": "piper/en"
+    },
+    "Angielski|To say": {
+      "file": "en_to_say_b66a1cb1f5.mp3",
+      "lang": "en",
+      "text": "To say",
+      "pl": "Powiedzieć",
+      "id": "66b16301",
+      "engine": "piper/en"
+    },
+    "Angielski|To know": {
+      "file": "en_to_know_79a27fbc6f.mp3",
+      "lang": "en",
+      "text": "To know",
+      "pl": "Wiedzieć",
+      "id": "75fd5a36",
+      "engine": "piper/en"
+    },
+    "Angielski|To think": {
+      "file": "en_to_think_03d41f8c70.mp3",
+      "lang": "en",
+      "text": "To think",
+      "pl": "Myśleć",
+      "id": "54aa3f4a",
+      "engine": "piper/en"
+    },
+    "Angielski|To want": {
+      "file": "en_to_want_55b1699318.mp3",
+      "lang": "en",
+      "text": "To want",
+      "pl": "Chcieć",
+      "id": "059091a6",
+      "engine": "piper/en"
+    },
+    "Angielski|To like": {
+      "file": "en_to_like_cda849358c.mp3",
+      "lang": "en",
+      "text": "To like",
+      "pl": "Lubić",
+      "id": "30355297",
+      "engine": "piper/en"
+    },
+    "Angielski|To love": {
+      "file": "en_to_love_14f8ce0243.mp3",
+      "lang": "en",
+      "text": "To love",
+      "pl": "Kochać",
+      "id": "3404ca4a",
+      "engine": "piper/en"
+    },
+    "Angielski|To eat": {
+      "file": "en_to_eat_2687b0c18f.mp3",
+      "lang": "en",
+      "text": "To eat",
+      "pl": "Jeść",
+      "id": "47960d0f91ee",
+      "engine": "piper/en"
+    },
+    "Angielski|To drink": {
+      "file": "en_to_drink_5f3974cf6e.mp3",
+      "lang": "en",
+      "text": "To drink",
+      "pl": "Pić",
+      "id": "764c58c1",
+      "engine": "piper/en"
+    },
+    "Angielski|To sleep": {
+      "file": "en_to_sleep_73a4f32999.mp3",
+      "lang": "en",
+      "text": "To sleep",
+      "pl": "Spać",
+      "id": "74d344eb",
+      "engine": "piper/en"
+    },
+    "Angielski|To work": {
+      "file": "en_to_work_046ab4d075.mp3",
+      "lang": "en",
+      "text": "To work",
+      "pl": "Pracować",
+      "id": "7c7c37ec",
+      "engine": "piper/en"
+    },
+    "Angielski|To learn": {
+      "file": "en_to_learn_b13f398988.mp3",
+      "lang": "en",
+      "text": "To learn",
+      "pl": "Uczyć się",
+      "id": "16c70cbe",
+      "engine": "piper/en"
+    },
+    "Angielski|To read": {
+      "file": "en_to_read_712045c255.mp3",
+      "lang": "en",
+      "text": "To read",
+      "pl": "Czytać",
+      "id": "08b6ee37",
+      "engine": "piper/en"
+    },
+    "Angielski|To write": {
+      "file": "en_to_write_2f7ddedb58.mp3",
+      "lang": "en",
+      "text": "To write",
+      "pl": "Pisać",
+      "id": "0c0d5296",
+      "engine": "piper/en"
+    },
+    "Angielski|To play": {
+      "file": "en_to_play_f29fa5f5c3.mp3",
+      "lang": "en",
+      "text": "To play",
+      "pl": "Grać",
+      "id": "513907ae",
+      "engine": "piper/en"
+    },
+    "Angielski|To run": {
+      "file": "en_to_run_06850f18f5.mp3",
+      "lang": "en",
+      "text": "To run",
+      "pl": "Biegać",
+      "id": "4fb2d653",
+      "engine": "piper/en"
+    },
+    "Angielski|To swim": {
+      "file": "en_to_swim_3e51b0fca7.mp3",
+      "lang": "en",
+      "text": "To swim",
+      "pl": "Pływać",
+      "id": "16061147",
+      "engine": "piper/en"
+    },
+    "Angielski|To buy": {
+      "file": "en_to_buy_f665692610.mp3",
+      "lang": "en",
+      "text": "To buy",
+      "pl": "Kupować",
+      "id": "3680ee69",
+      "engine": "piper/en"
+    },
+    "Angielski|To sell": {
+      "file": "en_to_sell_0f9e9d19ea.mp3",
+      "lang": "en",
+      "text": "To sell",
+      "pl": "Sprzedawać",
+      "id": "3096241b",
+      "engine": "piper/en"
+    },
+    "Angielski|To give": {
+      "file": "en_to_give_3382d370b5.mp3",
+      "lang": "en",
+      "text": "To give",
+      "pl": "Dawać",
+      "id": "36b10f7a",
+      "engine": "piper/en"
+    },
+    "Angielski|To take": {
+      "file": "en_to_take_5788e822d8.mp3",
+      "lang": "en",
+      "text": "To take",
+      "pl": "Brać",
+      "id": "2ac27626",
+      "engine": "piper/en"
+    },
+    "Angielski|To find": {
+      "file": "en_to_find_0076f01c14.mp3",
+      "lang": "en",
+      "text": "To find",
+      "pl": "Znaleźć",
+      "id": "4c2f8075",
+      "engine": "piper/en"
+    },
+    "Angielski|To help": {
+      "file": "en_to_help_348b161970.mp3",
+      "lang": "en",
+      "text": "To help",
+      "pl": "Pomagać",
+      "id": "0a2a6a84",
+      "engine": "piper/en"
+    },
+    "Angielski|To wait": {
+      "file": "en_to_wait_b7c1297b4c.mp3",
+      "lang": "en",
+      "text": "To wait",
+      "pl": "Czekać",
+      "id": "32cdf1e1",
+      "engine": "piper/en"
+    },
+    "Angielski|To open": {
+      "file": "en_to_open_40da4db479.mp3",
+      "lang": "en",
+      "text": "To open",
+      "pl": "Otwierać",
+      "id": "195714fd",
+      "engine": "piper/en"
+    },
+    "Angielski|To close": {
+      "file": "en_to_close_253c1a2582.mp3",
+      "lang": "en",
+      "text": "To close",
+      "pl": "Zamykać",
+      "id": "1ba1b7d1",
+      "engine": "piper/en"
+    },
+    "Angielski|To start": {
+      "file": "en_to_start_3ffaffdcd2.mp3",
+      "lang": "en",
+      "text": "To start",
+      "pl": "Zaczynać",
+      "id": "494ac1a0",
+      "engine": "piper/en"
+    },
+    "Angielski|To finish": {
+      "file": "en_to_finish_faa3ab0245.mp3",
+      "lang": "en",
+      "text": "To finish",
+      "pl": "Kończyć",
+      "id": "3a1ad961",
+      "engine": "piper/en"
+    },
+    "Angielski|To ask": {
+      "file": "en_to_ask_7707e33420.mp3",
+      "lang": "en",
+      "text": "To ask",
+      "pl": "Pytać",
+      "id": "40fe541f",
+      "engine": "piper/en"
+    },
+    "Angielski|To answer": {
+      "file": "en_to_answer_8e7ba43e0b.mp3",
+      "lang": "en",
+      "text": "To answer",
+      "pl": "Odpowiadać",
+      "id": "6c457ad6",
+      "engine": "piper/en"
+    },
+    "Angielski|To understand": {
+      "file": "en_to_understand_b0803df1a9.mp3",
+      "lang": "en",
+      "text": "To understand",
+      "pl": "Rozumieć",
+      "id": "5ade9b5d",
+      "engine": "piper/en"
+    },
+    "Angielski|To remember": {
+      "file": "en_to_remember_aa43ed11d0.mp3",
+      "lang": "en",
+      "text": "To remember",
+      "pl": "Pamiętać",
+      "id": "0144d8e4",
+      "engine": "piper/en"
+    },
+    "Angielski|Please": {
+      "file": "en_please_a44d8d9a2d.mp3",
+      "lang": "en",
+      "text": "Please",
+      "pl": "Proszę",
+      "id": "2621be01",
+      "engine": "piper/en"
+    },
+    "Angielski|Sorry": {
+      "file": "en_sorry_1d24b51689.mp3",
+      "lang": "en",
+      "text": "Sorry",
+      "pl": "Przepraszam",
+      "id": "7f82f246",
+      "engine": "piper/en"
+    },
+    "Angielski|Good morning": {
+      "file": "en_good_morning_3e0f305cc8.mp3",
+      "lang": "en",
+      "text": "Good morning",
+      "pl": "Dzień dobry",
+      "id": "7d53586d",
+      "engine": "piper/en"
+    },
+    "Angielski|Hello": {
+      "file": "en_hello_22032c38d2.mp3",
+      "lang": "en",
+      "text": "Hello",
+      "pl": "Cześć",
+      "id": "7eb18cb0",
+      "engine": "piper/en"
+    },
+    "Angielski|Goodbye": {
+      "file": "en_goodbye_d4ec5500c7.mp3",
+      "lang": "en",
+      "text": "Goodbye",
+      "pl": "Do widzenia",
+      "id": "02bcb573",
+      "engine": "piper/en"
+    },
+    "Angielski|Yes": {
+      "file": "en_yes_6d22f9364d.mp3",
+      "lang": "en",
+      "text": "Yes",
+      "pl": "Tak",
+      "id": "23f6f189",
+      "engine": "piper/en"
+    },
+    "Angielski|No": {
+      "file": "en_no_ee7724c0d7.mp3",
+      "lang": "en",
+      "text": "No",
+      "pl": "Nie",
+      "id": "41ac80f3",
+      "engine": "piper/en"
+    },
+    "Angielski|Good": {
+      "file": "en_good_a7d9cbb3a1.mp3",
+      "lang": "en",
+      "text": "Good",
+      "pl": "Dobrze",
+      "id": "02bbf073",
+      "engine": "piper/en"
+    },
+    "Angielski|Bad": {
+      "file": "en_bad_49d197ba20.mp3",
+      "lang": "en",
+      "text": "Bad",
+      "pl": "Źle",
+      "id": "5a0800fc",
+      "engine": "piper/en"
+    },
+    "Angielski|House": {
+      "file": "en_house_829845336c.mp3",
+      "lang": "en",
+      "text": "House",
+      "pl": "Dom",
+      "id": "54ebbfe6",
+      "engine": "piper/en"
+    },
+    "Angielski|School": {
+      "file": "en_school_6b76eb18f5.mp3",
+      "lang": "en",
+      "text": "School",
+      "pl": "Szkoła",
+      "id": "3abf2d06",
+      "engine": "piper/en"
+    },
+    "Angielski|Book": {
+      "file": "en_book_616d24b7c4.mp3",
+      "lang": "en",
+      "text": "Book",
+      "pl": "Książka",
+      "id": "70e20df7",
+      "engine": "piper/en"
+    },
+    "Angielski|Water": {
+      "file": "en_water_7482ee8767.mp3",
+      "lang": "en",
+      "text": "Water",
+      "pl": "Woda",
+      "id": "515563b0",
+      "engine": "piper/en"
+    },
+    "Angielski|Bread": {
+      "file": "en_bread_08afd122be.mp3",
+      "lang": "en",
+      "text": "Bread",
+      "pl": "Chleb",
+      "id": "74529280",
+      "engine": "piper/en"
+    },
+    "Angielski|Friend": {
+      "file": "en_friend_b1a5bf205d.mp3",
+      "lang": "en",
+      "text": "Friend",
+      "pl": "Przyjaciel",
+      "id": "6ad53535",
+      "engine": "piper/en"
+    },
+    "Angielski|Family": {
+      "file": "en_family_e1fb9306a2.mp3",
+      "lang": "en",
+      "text": "Family",
+      "pl": "Rodzina",
+      "id": "0ceb8b57",
+      "engine": "piper/en"
+    },
+    "Angielski|Cat": {
+      "file": "en_cat_dcc8160350.mp3",
+      "lang": "en",
+      "text": "Cat",
+      "pl": "Kot",
+      "id": "6041356a",
+      "engine": "piper/en"
+    },
+    "Angielski|Dog": {
+      "file": "en_dog_f1764431c2.mp3",
+      "lang": "en",
+      "text": "Dog",
+      "pl": "Pies",
+      "id": "57d9d827",
+      "engine": "piper/en"
+    },
+    "Angielski|Day": {
+      "file": "en_day_05572a292e.mp3",
+      "lang": "en",
+      "text": "Day",
+      "pl": "Dzień",
+      "id": "5ce223f2",
+      "engine": "piper/en"
+    },
+    "Angielski|Night": {
+      "file": "en_night_d6fafceb7b.mp3",
+      "lang": "en",
+      "text": "Night",
+      "pl": "Noc",
+      "id": "0eeb625e",
+      "engine": "piper/en"
+    },
+    "Angielski|Time": {
+      "file": "en_time_2a8a0998c1.mp3",
+      "lang": "en",
+      "text": "Time",
+      "pl": "Czas",
+      "id": "2e49c800",
+      "engine": "piper/en"
+    },
+    "Angielski|Year": {
+      "file": "en_year_315b432951.mp3",
+      "lang": "en",
+      "text": "Year",
+      "pl": "Rok",
+      "id": "6fbc21ab",
+      "engine": "piper/en"
+    },
+    "Angielski|Hand": {
+      "file": "en_hand_35590a7614.mp3",
+      "lang": "en",
+      "text": "Hand",
+      "pl": "Ręka",
+      "id": "5568aa8e",
+      "engine": "piper/en"
+    },
+    "Angielski|Head": {
+      "file": "en_head_fb14d8402e.mp3",
+      "lang": "en",
+      "text": "Head",
+      "pl": "Głowa",
+      "id": "15d2673e",
+      "engine": "piper/en"
+    },
+    "Angielski|Big": {
+      "file": "en_big_f97ecc261f.mp3",
+      "lang": "en",
+      "text": "Big",
+      "pl": "Duży",
+      "id": "50831ed2",
+      "engine": "piper/en"
+    },
+    "Angielski|Small": {
+      "file": "en_small_8bd8aa706e.mp3",
+      "lang": "en",
+      "text": "Small",
+      "pl": "Mały",
+      "id": "35602dd6",
+      "engine": "piper/en"
+    },
+    "Angielski|New": {
+      "file": "en_new_34af54eeb4.mp3",
+      "lang": "en",
+      "text": "New",
+      "pl": "Nowy",
+      "id": "6488ce87",
+      "engine": "piper/en"
+    },
+    "Angielski|Old": {
+      "file": "en_old_05538e66b7.mp3",
+      "lang": "en",
+      "text": "Old",
+      "pl": "Stary",
+      "id": "016e4512",
+      "engine": "piper/en"
+    },
+    "Angielski|Beautiful": {
+      "file": "en_beautiful_26e07fc112.mp3",
+      "lang": "en",
+      "text": "Beautiful",
+      "pl": "Piękny",
+      "id": "41869a4b",
+      "engine": "piper/en"
+    },
+    "Angielski|Happy": {
+      "file": "en_happy_9c20554a36.mp3",
+      "lang": "en",
+      "text": "Happy",
+      "pl": "Szczęśliwy",
+      "id": "715592c3",
+      "engine": "piper/en"
+    },
+    "Angielski|Sad": {
+      "file": "en_sad_773cdad428.mp3",
+      "lang": "en",
+      "text": "Sad",
+      "pl": "Smutny",
+      "id": "12f5b9de",
+      "engine": "piper/en"
+    },
+    "Angielski|Red": {
+      "file": "en_red_046227b1b3.mp3",
+      "lang": "en",
+      "text": "Red",
+      "pl": "Czerwony",
+      "id": "523b071c",
+      "engine": "piper/en"
+    },
+    "Angielski|Blue": {
+      "file": "en_blue_c26e01d539.mp3",
+      "lang": "en",
+      "text": "Blue",
+      "pl": "Niebieski",
+      "id": "1b5c8319",
+      "engine": "piper/en"
+    },
+    "Angielski|Green": {
+      "file": "en_green_d013fa338b.mp3",
+      "lang": "en",
+      "text": "Green",
+      "pl": "Zielony",
+      "id": "663d53ab",
+      "engine": "piper/en"
+    },
+    "Angielski|One": {
+      "file": "en_one_d15dcd391f.mp3",
+      "lang": "en",
+      "text": "One",
+      "pl": "Jeden",
+      "id": "3cbd6c5c",
+      "engine": "piper/en"
+    },
+    "Angielski|Two": {
+      "file": "en_two_f01d807cb0.mp3",
+      "lang": "en",
+      "text": "Two",
+      "pl": "Dwa",
+      "id": "7a90df7e",
+      "engine": "piper/en"
+    },
+    "Angielski|Three": {
+      "file": "en_three_921c1dc11a.mp3",
+      "lang": "en",
+      "text": "Three",
+      "pl": "Trzy",
+      "id": "140ea71f",
+      "engine": "piper/en"
+    },
+    "Angielski|Mom": {
+      "file": "en_mom_0ebc6bbccc.mp3",
+      "lang": "en",
+      "text": "Mom",
+      "pl": "Mama",
+      "id": "05adb737",
+      "engine": "piper/en"
+    },
+    "Angielski|Dad": {
+      "file": "en_dad_98d89054cc.mp3",
+      "lang": "en",
+      "text": "Dad",
+      "pl": "Tata",
+      "id": "68c7ba25",
+      "engine": "piper/en"
+    },
+    "Angielski|Sister": {
+      "file": "en_sister_4737745828.mp3",
+      "lang": "en",
+      "text": "Sister",
+      "pl": "Siostra",
+      "id": "00f49cd7",
+      "engine": "piper/en"
+    },
+    "Angielski|Brother": {
+      "file": "en_brother_e2b7265774.mp3",
+      "lang": "en",
+      "text": "Brother",
+      "pl": "Brat",
+      "id": "58be7247",
+      "engine": "piper/en"
+    },
+    "Angielski|Food": {
+      "file": "en_food_3d30e71b2a.mp3",
+      "lang": "en",
+      "text": "Food",
+      "pl": "Jedzenie",
+      "id": "6738f284",
+      "engine": "piper/en"
+    },
+    "Angielski|Milk": {
+      "file": "en_milk_c5823a0af4.mp3",
+      "lang": "en",
+      "text": "Milk",
+      "pl": "Mleko",
+      "id": "6ca5ea4d",
+      "engine": "piper/en"
+    },
+    "Angielski|Apple": {
+      "file": "en_apple_4725d05975.mp3",
+      "lang": "en",
+      "text": "Apple",
+      "pl": "Jabłko",
+      "id": "507d0459",
+      "engine": "piper/en"
+    },
+    "Angielski|Tea": {
+      "file": "en_tea_2c73663aea.mp3",
+      "lang": "en",
+      "text": "Tea",
+      "pl": "Herbata",
+      "id": "7f4e7d15",
+      "engine": "piper/en"
+    },
+    "Angielski|Coffee": {
+      "file": "en_coffee_4f6a09190e.mp3",
+      "lang": "en",
+      "text": "Coffee",
+      "pl": "Kawa",
+      "id": "624cc0a8",
+      "engine": "piper/en"
+    },
+    "Angielski|City": {
+      "file": "en_city_6d156b103d.mp3",
+      "lang": "en",
+      "text": "City",
+      "pl": "Miasto",
+      "id": "2c537bbe",
+      "engine": "piper/en"
+    },
+    "Angielski|Street": {
+      "file": "en_street_6ce1527b11.mp3",
+      "lang": "en",
+      "text": "Street",
+      "pl": "Ulica",
+      "id": "23ee54ef",
+      "engine": "piper/en"
+    },
+    "Angielski|Car": {
+      "file": "en_car_c244f61c8d.mp3",
+      "lang": "en",
+      "text": "Car",
+      "pl": "Samochód",
+      "id": "7a67683e",
+      "engine": "piper/en"
+    },
+    "Hiszpański|Ser": {
+      "file": "es_ser_8afbc3429e.mp3",
+      "lang": "es",
+      "text": "Ser",
+      "pl": "Być (trwale)",
+      "id": "2a1c955a7365",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Estar": {
+      "file": "es_estar_4107045979.mp3",
+      "lang": "es",
+      "text": "Estar",
+      "pl": "Być (chwilowo)",
+      "id": "351e11ba",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Tener": {
+      "file": "es_tener_c8c8ae5608.mp3",
+      "lang": "es",
+      "text": "Tener",
+      "pl": "Mieć",
+      "id": "3241a30a967b",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Hacer": {
+      "file": "es_hacer_4a682b1af8.mp3",
+      "lang": "es",
+      "text": "Hacer",
+      "pl": "Robić",
+      "id": "49447dbe",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Ir": {
+      "file": "es_ir_911eea91e1.mp3",
+      "lang": "es",
+      "text": "Ir",
+      "pl": "Iść",
+      "id": "46c02150",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Venir": {
+      "file": "es_venir_5dc3826584.mp3",
+      "lang": "es",
+      "text": "Venir",
+      "pl": "Przychodzić",
+      "id": "2121c4e9",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Ver": {
+      "file": "es_ver_905cb971de.mp3",
+      "lang": "es",
+      "text": "Ver",
+      "pl": "Widzieć",
+      "id": "41f54baa",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Mirar": {
+      "file": "es_mirar_22944841cf.mp3",
+      "lang": "es",
+      "text": "Mirar",
+      "pl": "Patrzeć",
+      "id": "5abcbcf8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Oír": {
+      "file": "es_oír_e017b4b756.mp3",
+      "lang": "es",
+      "text": "Oír",
+      "pl": "Słyszeć",
+      "id": "56622a6b",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Hablar": {
+      "file": "es_hablar_a1325a9456.mp3",
+      "lang": "es",
+      "text": "Hablar",
+      "pl": "Mówić",
+      "id": "08c51681",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Decir": {
+      "file": "es_decir_571d1d9f45.mp3",
+      "lang": "es",
+      "text": "Decir",
+      "pl": "Powiedzieć",
+      "id": "12ef2310",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Saber": {
+      "file": "es_saber_325616b823.mp3",
+      "lang": "es",
+      "text": "Saber",
+      "pl": "Wiedzieć",
+      "id": "6dcc8a27",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Conocer": {
+      "file": "es_conocer_d935b86d2f.mp3",
+      "lang": "es",
+      "text": "Conocer",
+      "pl": "Znać",
+      "id": "10d62701",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Pensar": {
+      "file": "es_pensar_60add0cfd5.mp3",
+      "lang": "es",
+      "text": "Pensar",
+      "pl": "Myśleć",
+      "id": "2d7653a8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Querer": {
+      "file": "es_querer_9d8cfd1265.mp3",
+      "lang": "es",
+      "text": "Querer",
+      "pl": "Chcieć",
+      "id": "41b4cf0d",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Gustar": {
+      "file": "es_gustar_9dc4f86681.mp3",
+      "lang": "es",
+      "text": "Gustar",
+      "pl": "Lubić",
+      "id": "2dea0465",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Amar": {
+      "file": "es_amar_27e9821b28.mp3",
+      "lang": "es",
+      "text": "Amar",
+      "pl": "Kochać",
+      "id": "046809ea",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Comer": {
+      "file": "es_comer_8bae43a84c.mp3",
+      "lang": "es",
+      "text": "Comer",
+      "pl": "Jeść",
+      "id": "25677339",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Beber": {
+      "file": "es_beber_c7840a5418.mp3",
+      "lang": "es",
+      "text": "Beber",
+      "pl": "Pić",
+      "id": "2b002a1e",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Dormir": {
+      "file": "es_dormir_9e9eeb9e3a.mp3",
+      "lang": "es",
+      "text": "Dormir",
+      "pl": "Spać",
+      "id": "799bede8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Trabajar": {
+      "file": "es_trabajar_9a1bf9f63a.mp3",
+      "lang": "es",
+      "text": "Trabajar",
+      "pl": "Pracować",
+      "id": "1f7a0e23",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Aprender": {
+      "file": "es_aprender_52b2695ad2.mp3",
+      "lang": "es",
+      "text": "Aprender",
+      "pl": "Uczyć się",
+      "id": "2185d2e4",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Leer": {
+      "file": "es_leer_f87351290b.mp3",
+      "lang": "es",
+      "text": "Leer",
+      "pl": "Czytać",
+      "id": "78ded74a",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Escribir": {
+      "file": "es_escribir_815165ae9f.mp3",
+      "lang": "es",
+      "text": "Escribir",
+      "pl": "Pisać",
+      "id": "3b7ea7bb",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Jugar": {
+      "file": "es_jugar_7df5ffee31.mp3",
+      "lang": "es",
+      "text": "Jugar",
+      "pl": "Grać",
+      "id": "5e8438e2",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Correr": {
+      "file": "es_correr_a47cfb1272.mp3",
+      "lang": "es",
+      "text": "Correr",
+      "pl": "Biegać",
+      "id": "32d5b846",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Nadar": {
+      "file": "es_nadar_ac048e953d.mp3",
+      "lang": "es",
+      "text": "Nadar",
+      "pl": "Pływać",
+      "id": "1694c3bc",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Comprar": {
+      "file": "es_comprar_863e4aa87d.mp3",
+      "lang": "es",
+      "text": "Comprar",
+      "pl": "Kupować",
+      "id": "1a9650ac",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Vender": {
+      "file": "es_vender_b050dd5750.mp3",
+      "lang": "es",
+      "text": "Vender",
+      "pl": "Sprzedawać",
+      "id": "7c4f2d4e",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Dar": {
+      "file": "es_dar_f6d82e7d2f.mp3",
+      "lang": "es",
+      "text": "Dar",
+      "pl": "Dawać",
+      "id": "124d0379",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Tomar": {
+      "file": "es_tomar_306915bcc7.mp3",
+      "lang": "es",
+      "text": "Tomar",
+      "pl": "Brać",
+      "id": "199f4a9d",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Encontrar": {
+      "file": "es_encontrar_720603a078.mp3",
+      "lang": "es",
+      "text": "Encontrar",
+      "pl": "Znaleźć",
+      "id": "4e54195f",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Ayudar": {
+      "file": "es_ayudar_f46ba03903.mp3",
+      "lang": "es",
+      "text": "Ayudar",
+      "pl": "Pomagać",
+      "id": "68dd6eba",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Esperar": {
+      "file": "es_esperar_cd430e5456.mp3",
+      "lang": "es",
+      "text": "Esperar",
+      "pl": "Czekać",
+      "id": "24834407",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Abrir": {
+      "file": "es_abrir_c5d20037d3.mp3",
+      "lang": "es",
+      "text": "Abrir",
+      "pl": "Otwierać",
+      "id": "1d549908",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Cerrar": {
+      "file": "es_cerrar_f6c92c7ad6.mp3",
+      "lang": "es",
+      "text": "Cerrar",
+      "pl": "Zamykać",
+      "id": "79422d11",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Empezar": {
+      "file": "es_empezar_93640f7cfe.mp3",
+      "lang": "es",
+      "text": "Empezar",
+      "pl": "Zaczynać",
+      "id": "7e7c50eb",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Terminar": {
+      "file": "es_terminar_e31b717360.mp3",
+      "lang": "es",
+      "text": "Terminar",
+      "pl": "Kończyć",
+      "id": "646b59d9",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Preguntar": {
+      "file": "es_preguntar_89db6bdf92.mp3",
+      "lang": "es",
+      "text": "Preguntar",
+      "pl": "Pytać",
+      "id": "0f7b661d",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Responder": {
+      "file": "es_responder_a8669de271.mp3",
+      "lang": "es",
+      "text": "Responder",
+      "pl": "Odpowiadać",
+      "id": "753a4dd5",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Entender": {
+      "file": "es_entender_696aaccd86.mp3",
+      "lang": "es",
+      "text": "Entender",
+      "pl": "Rozumieć",
+      "id": "05c50fe3",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Recordar": {
+      "file": "es_recordar_e03e31ccab.mp3",
+      "lang": "es",
+      "text": "Recordar",
+      "pl": "Pamiętać",
+      "id": "76e89330",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Por favor": {
+      "file": "es_por_favor_e034e1843e.mp3",
+      "lang": "es",
+      "text": "Por favor",
+      "pl": "Proszę",
+      "id": "685044ba",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Perdón": {
+      "file": "es_perdón_fc8c144818.mp3",
+      "lang": "es",
+      "text": "Perdón",
+      "pl": "Przepraszam",
+      "id": "6b2fbc39",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Buenos días": {
+      "file": "es_buenos_días_37c01ace01.mp3",
+      "lang": "es",
+      "text": "Buenos días",
+      "pl": "Dzień dobry",
+      "id": "40cabd6f",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Hola": {
+      "file": "es_hola_aacca6b045.mp3",
+      "lang": "es",
+      "text": "Hola",
+      "pl": "Cześć",
+      "id": "18bb8d1e",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Adiós": {
+      "file": "es_adiós_dd5d1108eb.mp3",
+      "lang": "es",
+      "text": "Adiós",
+      "pl": "Do widzenia",
+      "id": "6a5781e8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Sí": {
+      "file": "es_sí_149520c7ec.mp3",
+      "lang": "es",
+      "text": "Sí",
+      "pl": "Tak",
+      "id": "4b7b93f8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|No": {
+      "file": "es_no_eecb1974f4.mp3",
+      "lang": "es",
+      "text": "No",
+      "pl": "Nie",
+      "id": "41ac80f3",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Bien": {
+      "file": "es_bien_01e7051644.mp3",
+      "lang": "es",
+      "text": "Bien",
+      "pl": "Dobrze",
+      "id": "02b992e6",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Mal": {
+      "file": "es_mal_737afa94cd.mp3",
+      "lang": "es",
+      "text": "Mal",
+      "pl": "Źle",
+      "id": "5a082a4f",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Casa": {
+      "file": "es_casa_778cd55574.mp3",
+      "lang": "es",
+      "text": "Casa",
+      "pl": "Dom",
+      "id": "44cb51a6",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Escuela": {
+      "file": "es_escuela_2ba1a0c832.mp3",
+      "lang": "es",
+      "text": "Escuela",
+      "pl": "Szkoła",
+      "id": "5398dfa8",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Libro": {
+      "file": "es_libro_edbc8a599e.mp3",
+      "lang": "es",
+      "text": "Libro",
+      "pl": "Książka",
+      "id": "2be9b234",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Agua": {
+      "file": "es_agua_faf6a20567.mp3",
+      "lang": "es",
+      "text": "Agua",
+      "pl": "Woda",
+      "id": "4ce85379",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Pan": {
+      "file": "es_pan_9aa1536a45.mp3",
+      "lang": "es",
+      "text": "Pan",
+      "pl": "Chleb",
+      "id": "0d0aac25",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Amigo": {
+      "file": "es_amigo_fef8396697.mp3",
+      "lang": "es",
+      "text": "Amigo",
+      "pl": "Przyjaciel",
+      "id": "1befb1ee",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Familia": {
+      "file": "es_familia_833c9d099c.mp3",
+      "lang": "es",
+      "text": "Familia",
+      "pl": "Rodzina",
+      "id": "1085ddfa",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Gato": {
+      "file": "es_gato_d61fb07348.mp3",
+      "lang": "es",
+      "text": "Gato",
+      "pl": "Kot",
+      "id": "27e749c1",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Perro": {
+      "file": "es_perro_d6459a922c.mp3",
+      "lang": "es",
+      "text": "Perro",
+      "pl": "Pies",
+      "id": "49693045",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Día": {
+      "file": "es_día_2362b22040.mp3",
+      "lang": "es",
+      "text": "Día",
+      "pl": "Dzień",
+      "id": "5ce234ce",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Noche": {
+      "file": "es_noche_a815584a34.mp3",
+      "lang": "es",
+      "text": "Noche",
+      "pl": "Noc",
+      "id": "0eee0d85",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Tiempo": {
+      "file": "es_tiempo_329dab2ad5.mp3",
+      "lang": "es",
+      "text": "Tiempo",
+      "pl": "Czas",
+      "id": "42f4510f",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Año": {
+      "file": "es_año_f09d85c4f1.mp3",
+      "lang": "es",
+      "text": "Año",
+      "pl": "Rok",
+      "id": "520e0a91",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Mano": {
+      "file": "es_mano_1f0ac4c298.mp3",
+      "lang": "es",
+      "text": "Mano",
+      "pl": "Ręka",
+      "id": "556af074",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Cabeza": {
+      "file": "es_cabeza_875038da43.mp3",
+      "lang": "es",
+      "text": "Cabeza",
+      "pl": "Głowa",
+      "id": "62157de6",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Grande": {
+      "file": "es_grande_252b55db56.mp3",
+      "lang": "es",
+      "text": "Grande",
+      "pl": "Duży",
+      "id": "53a595c7",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Pequeño": {
+      "file": "es_pequeño_70d271a378.mp3",
+      "lang": "es",
+      "text": "Pequeño",
+      "pl": "Mały",
+      "id": "32982c59",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Nuevo": {
+      "file": "es_nuevo_2c89a990c0.mp3",
+      "lang": "es",
+      "text": "Nuevo",
+      "pl": "Nowy",
+      "id": "659659de",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Viejo": {
+      "file": "es_viejo_a608bddcc1.mp3",
+      "lang": "es",
+      "text": "Viejo",
+      "pl": "Stary",
+      "id": "5f52a102",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Bonito": {
+      "file": "es_bonito_040e0a42d2.mp3",
+      "lang": "es",
+      "text": "Bonito",
+      "pl": "Piękny",
+      "id": "26cf7cc9",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Feliz": {
+      "file": "es_feliz_e08aec5077.mp3",
+      "lang": "es",
+      "text": "Feliz",
+      "pl": "Szczęśliwy",
+      "id": "713b2561",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Triste": {
+      "file": "es_triste_5d2ab511f5.mp3",
+      "lang": "es",
+      "text": "Triste",
+      "pl": "Smutny",
+      "id": "6410fd91",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Rojo": {
+      "file": "es_rojo_e82ea1506c.mp3",
+      "lang": "es",
+      "text": "Rojo",
+      "pl": "Czerwony",
+      "id": "75260317",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Azul": {
+      "file": "es_azul_7b43697cb2.mp3",
+      "lang": "es",
+      "text": "Azul",
+      "pl": "Niebieski",
+      "id": "1b5c434f",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Verde": {
+      "file": "es_verde_c187f8991a.mp3",
+      "lang": "es",
+      "text": "Verde",
+      "pl": "Zielony",
+      "id": "670afc0c",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Uno": {
+      "file": "es_uno_e81934ed2a.mp3",
+      "lang": "es",
+      "text": "Uno",
+      "pl": "Jeden",
+      "id": "3cbd82ec",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Dos": {
+      "file": "es_dos_d9d81def6c.mp3",
+      "lang": "es",
+      "text": "Dos",
+      "pl": "Dwa",
+      "id": "7a90a27a",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Tres": {
+      "file": "es_tres_43bdb3e9af.mp3",
+      "lang": "es",
+      "text": "Tres",
+      "pl": "Trzy",
+      "id": "7c84be0b",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Mamá": {
+      "file": "es_mamá_f15234336e.mp3",
+      "lang": "es",
+      "text": "Mamá",
+      "pl": "Mama",
+      "id": "3008fbfc",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Papá": {
+      "file": "es_papá_32971b8548.mp3",
+      "lang": "es",
+      "text": "Papá",
+      "pl": "Tata",
+      "id": "30350144",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Hermana": {
+      "file": "es_hermana_ef2d7bd5a5.mp3",
+      "lang": "es",
+      "text": "Hermana",
+      "pl": "Siostra",
+      "id": "50d5ba89",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Hermano": {
+      "file": "es_hermano_5262571405.mp3",
+      "lang": "es",
+      "text": "Hermano",
+      "pl": "Brat",
+      "id": "001bd471",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Comida": {
+      "file": "es_comida_15806ff44a.mp3",
+      "lang": "es",
+      "text": "Comida",
+      "pl": "Jedzenie",
+      "id": "77a70e2b",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Leche": {
+      "file": "es_leche_21710e1f44.mp3",
+      "lang": "es",
+      "text": "Leche",
+      "pl": "Mleko",
+      "id": "28075495",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Manzana": {
+      "file": "es_manzana_6291e10e49.mp3",
+      "lang": "es",
+      "text": "Manzana",
+      "pl": "Jabłko",
+      "id": "066994b3",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Té": {
+      "file": "es_té_ae68bb768c.mp3",
+      "lang": "es",
+      "text": "Té",
+      "pl": "Herbata",
+      "id": "6b551d50",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Café": {
+      "file": "es_café_c5e42b7422.mp3",
+      "lang": "es",
+      "text": "Café",
+      "pl": "Kawa",
+      "id": "1879e1fd",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Ciudad": {
+      "file": "es_ciudad_0a57b772b7.mp3",
+      "lang": "es",
+      "text": "Ciudad",
+      "pl": "Miasto",
+      "id": "6563b5eb",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Calle": {
+      "file": "es_calle_cafa81e86b.mp3",
+      "lang": "es",
+      "text": "Calle",
+      "pl": "Ulica",
+      "id": "7c1d7f5b",
+      "engine": "piper/es"
+    },
+    "Hiszpański|Coche": {
+      "file": "es_coche_1a1722224e.mp3",
+      "lang": "es",
+      "text": "Coche",
+      "pl": "Samochód",
+      "id": "7e34829e",
+      "engine": "piper/es"
+    },
+    "Rosyjski|Быть": {
+      "file": "ru_быть_1510079b22.mp3",
+      "lang": "ru",
+      "text": "Быть",
+      "pl": "Być",
+      "id": "845fcf0d5c03",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Иметь": {
+      "file": "ru_иметь_f90f9818e8.mp3",
+      "lang": "ru",
+      "text": "Иметь",
+      "pl": "Mieć",
+      "id": "ad04ecd27767",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Говорить": {
+      "file": "ru_говорить_44fa226781.mp3",
+      "lang": "ru",
+      "text": "Говорить",
+      "pl": "Mówić",
+      "id": "0d30eeea7844",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Любить": {
+      "file": "ru_любить_8512923ea1.mp3",
+      "lang": "ru",
+      "text": "Любить",
+      "pl": "Kochać",
+      "id": "d252c84ecf03",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Знать": {
+      "file": "ru_знать_e215a5789a.mp3",
+      "lang": "ru",
+      "text": "Знать",
+      "pl": "Wiedzieć",
+      "id": "ff5b37b2e594",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Думать": {
+      "file": "ru_думать_1106b50358.mp3",
+      "lang": "ru",
+      "text": "Думать",
+      "pl": "Myśleć",
+      "id": "5fb13ec7ea50",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Делать": {
+      "file": "ru_делать_7ca2036977.mp3",
+      "lang": "ru",
+      "text": "Делать",
+      "pl": "Robić",
+      "id": "c5c46c2fdb5f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Хотеть": {
+      "file": "ru_хотеть_80ecbbd729.mp3",
+      "lang": "ru",
+      "text": "Хотеть",
+      "pl": "Chcieć",
+      "id": "586f577f739b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Идти": {
+      "file": "ru_идти_034fa800e0.mp3",
+      "lang": "ru",
+      "text": "Идти",
+      "pl": "Iść",
+      "id": "20726aa826d7",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Видеть": {
+      "file": "ru_видеть_f6a31e2c42.mp3",
+      "lang": "ru",
+      "text": "Видеть",
+      "pl": "Widzieć",
+      "id": "531d53101e38",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Приходить": {
+      "file": "ru_приходить_8db2f09681.mp3",
+      "lang": "ru",
+      "text": "Приходить",
+      "pl": "Przychodzić",
+      "id": "756e987f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Смотреть": {
+      "file": "ru_смотреть_e70b0a402d.mp3",
+      "lang": "ru",
+      "text": "Смотреть",
+      "pl": "Patrzeć",
+      "id": "5b399b0d",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Слышать": {
+      "file": "ru_слышать_a5dc370476.mp3",
+      "lang": "ru",
+      "text": "Слышать",
+      "pl": "Słyszeć",
+      "id": "1e8e1f3a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Сказать": {
+      "file": "ru_сказать_ae47b8a83b.mp3",
+      "lang": "ru",
+      "text": "Сказать",
+      "pl": "Powiedzieć",
+      "id": "32804dbf",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Нравиться": {
+      "file": "ru_нравиться_8711244bfb.mp3",
+      "lang": "ru",
+      "text": "Нравиться",
+      "pl": "Lubić",
+      "id": "30c31e26",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Есть": {
+      "file": "ru_есть_0d24fed22a.mp3",
+      "lang": "ru",
+      "text": "Есть",
+      "pl": "Jeść",
+      "id": "5dd6fd4b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Пить": {
+      "file": "ru_пить_6eb61977ed.mp3",
+      "lang": "ru",
+      "text": "Пить",
+      "pl": "Pić",
+      "id": "6e8e5af1",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Спать": {
+      "file": "ru_спать_a3ee938c90.mp3",
+      "lang": "ru",
+      "text": "Спать",
+      "pl": "Spać",
+      "id": "61508a43",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Работать": {
+      "file": "ru_работать_5321d75553.mp3",
+      "lang": "ru",
+      "text": "Работать",
+      "pl": "Pracować",
+      "id": "39b0c8ff",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Учиться": {
+      "file": "ru_учиться_63aa93877a.mp3",
+      "lang": "ru",
+      "text": "Учиться",
+      "pl": "Uczyć się",
+      "id": "4c78380d",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Читать": {
+      "file": "ru_читать_c1b4bad0b0.mp3",
+      "lang": "ru",
+      "text": "Читать",
+      "pl": "Czytać",
+      "id": "087963ad",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Писать": {
+      "file": "ru_писать_36d153197d.mp3",
+      "lang": "ru",
+      "text": "Писать",
+      "pl": "Pisać",
+      "id": "2ea1938e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Играть": {
+      "file": "ru_играть_a6958a0478.mp3",
+      "lang": "ru",
+      "text": "Играть",
+      "pl": "Grać",
+      "id": "269d8d20",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Бегать": {
+      "file": "ru_бегать_f42d23e016.mp3",
+      "lang": "ru",
+      "text": "Бегать",
+      "pl": "Biegać",
+      "id": "67d5f678",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Плавать": {
+      "file": "ru_плавать_66add2fcca.mp3",
+      "lang": "ru",
+      "text": "Плавать",
+      "pl": "Pływać",
+      "id": "70f12d16",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Покупать": {
+      "file": "ru_покупать_83c544fcc9.mp3",
+      "lang": "ru",
+      "text": "Покупать",
+      "pl": "Kupować",
+      "id": "4e20e84b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Продавать": {
+      "file": "ru_продавать_0b655dffa2.mp3",
+      "lang": "ru",
+      "text": "Продавать",
+      "pl": "Sprzedawać",
+      "id": "208ce385",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Давать": {
+      "file": "ru_давать_287197165f.mp3",
+      "lang": "ru",
+      "text": "Давать",
+      "pl": "Dawać",
+      "id": "69112520",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Брать": {
+      "file": "ru_брать_b367adc9aa.mp3",
+      "lang": "ru",
+      "text": "Брать",
+      "pl": "Brać",
+      "id": "5017e185",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Находить": {
+      "file": "ru_находить_b1ff9a1e6d.mp3",
+      "lang": "ru",
+      "text": "Находить",
+      "pl": "Znaleźć",
+      "id": "4bd011e3",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Помогать": {
+      "file": "ru_помогать_90eb040be5.mp3",
+      "lang": "ru",
+      "text": "Помогать",
+      "pl": "Pomagać",
+      "id": "7215798a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Ждать": {
+      "file": "ru_ждать_5c9214b579.mp3",
+      "lang": "ru",
+      "text": "Ждать",
+      "pl": "Czekać",
+      "id": "0e0650a3",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Открывать": {
+      "file": "ru_открывать_273c8ef883.mp3",
+      "lang": "ru",
+      "text": "Открывать",
+      "pl": "Otwierać",
+      "id": "60ec4ab7",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Закрывать": {
+      "file": "ru_закрывать_5d058a7983.mp3",
+      "lang": "ru",
+      "text": "Закрывать",
+      "pl": "Zamykać",
+      "id": "52956d56",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Начинать": {
+      "file": "ru_начинать_dd3b143d50.mp3",
+      "lang": "ru",
+      "text": "Начинать",
+      "pl": "Zaczynać",
+      "id": "5db75fe4",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Заканчивать": {
+      "file": "ru_заканчивать_ef5102623c.mp3",
+      "lang": "ru",
+      "text": "Заканчивать",
+      "pl": "Kończyć",
+      "id": "4449e470",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Спрашивать": {
+      "file": "ru_спрашивать_c39ce275bb.mp3",
+      "lang": "ru",
+      "text": "Спрашивать",
+      "pl": "Pytać",
+      "id": "2eb1fd51",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Отвечать": {
+      "file": "ru_отвечать_b01c09cb9d.mp3",
+      "lang": "ru",
+      "text": "Отвечать",
+      "pl": "Odpowiadać",
+      "id": "5b323c27",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Понимать": {
+      "file": "ru_понимать_9122776fa7.mp3",
+      "lang": "ru",
+      "text": "Понимать",
+      "pl": "Rozumieć",
+      "id": "7a031c9e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Помнить": {
+      "file": "ru_помнить_152e13f5e1.mp3",
+      "lang": "ru",
+      "text": "Помнить",
+      "pl": "Pamiętać",
+      "id": "7061a634",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|День": {
+      "file": "ru_день_d0851f9c9b.mp3",
+      "lang": "ru",
+      "text": "День",
+      "pl": "Dzień",
+      "id": "687f437b1510",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Время": {
+      "file": "ru_время_32af614e51.mp3",
+      "lang": "ru",
+      "text": "Время",
+      "pl": "Czas",
+      "id": "ad9c7f87120a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Человек": {
+      "file": "ru_человек_e785556fdb.mp3",
+      "lang": "ru",
+      "text": "Человек",
+      "pl": "Człowiek",
+      "id": "5b3ea5806879",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Год": {
+      "file": "ru_год_2704316843.mp3",
+      "lang": "ru",
+      "text": "Год",
+      "pl": "Rok",
+      "id": "1516d47464a0",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Жизнь": {
+      "file": "ru_жизнь_a0a521284c.mp3",
+      "lang": "ru",
+      "text": "Жизнь",
+      "pl": "Życie",
+      "id": "fed5613ce159",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Рука": {
+      "file": "ru_рука_bb840f9e7b.mp3",
+      "lang": "ru",
+      "text": "Рука",
+      "pl": "Ręka",
+      "id": "aec62e1e37fd",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Слово": {
+      "file": "ru_слово_743a859629.mp3",
+      "lang": "ru",
+      "text": "Слово",
+      "pl": "Słowo",
+      "id": "b9b2602b5b17",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Голова": {
+      "file": "ru_голова_0d61214a43.mp3",
+      "lang": "ru",
+      "text": "Голова",
+      "pl": "Głowa",
+      "id": "06bfd7a9c9c3",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Дом": {
+      "file": "ru_дом_6fff69c8ae.mp3",
+      "lang": "ru",
+      "text": "Дом",
+      "pl": "Dom",
+      "id": "41e2ef8e0976",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Город": {
+      "file": "ru_город_03171f5081.mp3",
+      "lang": "ru",
+      "text": "Город",
+      "pl": "Miasto",
+      "id": "caa47bf3bca9",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Да": {
+      "file": "ru_да_e6a48dc308.mp3",
+      "lang": "ru",
+      "text": "Да",
+      "pl": "Tak",
+      "id": "04fb0974cc02",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Нет": {
+      "file": "ru_нет_ed5c56fa3a.mp3",
+      "lang": "ru",
+      "text": "Нет",
+      "pl": "Nie",
+      "id": "6be6faeab6fc",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Спасибо": {
+      "file": "ru_спасибо_4fa5194bf7.mp3",
+      "lang": "ru",
+      "text": "Спасибо",
+      "pl": "Dziękuję",
+      "id": "e91d5e383747",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Пожалуйста": {
+      "file": "ru_пожалуйста_a05f46fedd.mp3",
+      "lang": "ru",
+      "text": "Пожалуйста",
+      "pl": "Proszę",
+      "id": "f72219a81a73",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Здравствуйте": {
+      "file": "ru_здравствуйте_6340f98c7f.mp3",
+      "lang": "ru",
+      "text": "Здравствуйте",
+      "pl": "Dzień dobry",
+      "id": "a2ce8387460e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Привет": {
+      "file": "ru_привет_1a824b00e5.mp3",
+      "lang": "ru",
+      "text": "Привет",
+      "pl": "Cześć",
+      "id": "972dad228d58",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|До свидания": {
+      "file": "ru_до_свидания_0583568493.mp3",
+      "lang": "ru",
+      "text": "До свидания",
+      "pl": "Do widzenia",
+      "id": "3ebb018a35d6",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Хорошо": {
+      "file": "ru_хорошо_7026cd5681.mp3",
+      "lang": "ru",
+      "text": "Хорошо",
+      "pl": "Dobrze",
+      "id": "96ec75383b25",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Плохо": {
+      "file": "ru_плохо_140ecc4ff6.mp3",
+      "lang": "ru",
+      "text": "Плохо",
+      "pl": "Źle",
+      "id": "2d6f9d6a9ed5",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Новый": {
+      "file": "ru_новый_4d6133f310.mp3",
+      "lang": "ru",
+      "text": "Новый",
+      "pl": "Nowy",
+      "id": "dec6826418c6",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Старый": {
+      "file": "ru_старый_beac0f024a.mp3",
+      "lang": "ru",
+      "text": "Старый",
+      "pl": "Stary",
+      "id": "47c8c07b9ae1",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Большой": {
+      "file": "ru_большой_37e8cc484c.mp3",
+      "lang": "ru",
+      "text": "Большой",
+      "pl": "Duży",
+      "id": "8fff53da3afa",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Маленький": {
+      "file": "ru_маленький_977069756f.mp3",
+      "lang": "ru",
+      "text": "Маленький",
+      "pl": "Mały",
+      "id": "914dbb4d9eb7",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Красивый": {
+      "file": "ru_красивый_446ddace09.mp3",
+      "lang": "ru",
+      "text": "Красивый",
+      "pl": "Piękny",
+      "id": "9402871cc341",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Друг": {
+      "file": "ru_друг_a57523a265.mp3",
+      "lang": "ru",
+      "text": "Друг",
+      "pl": "Przyjaciel",
+      "id": "41bcccebb30b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Хлеб": {
+      "file": "ru_хлеб_03a7c787fa.mp3",
+      "lang": "ru",
+      "text": "Хлеб",
+      "pl": "Chleb",
+      "id": "bffac34a70a4",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Вода": {
+      "file": "ru_вода_703a299db0.mp3",
+      "lang": "ru",
+      "text": "Вода",
+      "pl": "Woda",
+      "id": "f7e0009dd29e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Чай": {
+      "file": "ru_чай_3a29838ad0.mp3",
+      "lang": "ru",
+      "text": "Чай",
+      "pl": "Herbata",
+      "id": "85a580812fb2",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Кофе": {
+      "file": "ru_кофе_f58eca3898.mp3",
+      "lang": "ru",
+      "text": "Кофе",
+      "pl": "Kawa",
+      "id": "c9d5f092efdb",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Обед": {
+      "file": "ru_обед_e1203602d6.mp3",
+      "lang": "ru",
+      "text": "Обед",
+      "pl": "Obiad",
+      "id": "dd956787708e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Школа": {
+      "file": "ru_школа_e4ce34d765.mp3",
+      "lang": "ru",
+      "text": "Школа",
+      "pl": "Szkoła",
+      "id": "1489a20f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Книга": {
+      "file": "ru_книга_d099bf59f0.mp3",
+      "lang": "ru",
+      "text": "Книга",
+      "pl": "Książka",
+      "id": "63537924",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Семья": {
+      "file": "ru_семья_991c0c8d41.mp3",
+      "lang": "ru",
+      "text": "Семья",
+      "pl": "Rodzina",
+      "id": "304983d8",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Кот": {
+      "file": "ru_кот_7b3a4eddea.mp3",
+      "lang": "ru",
+      "text": "Кот",
+      "pl": "Kot",
+      "id": "60501b12",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Собака": {
+      "file": "ru_собака_433a8cff1e.mp3",
+      "lang": "ru",
+      "text": "Собака",
+      "pl": "Pies",
+      "id": "1ee67467",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Ночь": {
+      "file": "ru_ночь_47f97bc6fa.mp3",
+      "lang": "ru",
+      "text": "Ночь",
+      "pl": "Noc",
+      "id": "4455cd40",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Счастливый": {
+      "file": "ru_счастливый_453993b3da.mp3",
+      "lang": "ru",
+      "text": "Счастливый",
+      "pl": "Szczęśliwy",
+      "id": "1fa4aef5",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Грустный": {
+      "file": "ru_грустный_7ba1f0ada3.mp3",
+      "lang": "ru",
+      "text": "Грустный",
+      "pl": "Smutny",
+      "id": "5635dfcc",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Красный": {
+      "file": "ru_красный_8dcfdc5a60.mp3",
+      "lang": "ru",
+      "text": "Красный",
+      "pl": "Czerwony",
+      "id": "733a0c1f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Синий": {
+      "file": "ru_синий_f16c4fa227.mp3",
+      "lang": "ru",
+      "text": "Синий",
+      "pl": "Niebieski",
+      "id": "088961a8",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Зелёный": {
+      "file": "ru_зелёный_eda6ff80c0.mp3",
+      "lang": "ru",
+      "text": "Зелёный",
+      "pl": "Zielony",
+      "id": "1d293d9f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Один": {
+      "file": "ru_один_e0f2fe33dc.mp3",
+      "lang": "ru",
+      "text": "Один",
+      "pl": "Jeden",
+      "id": "5cb9fa05",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Два": {
+      "file": "ru_два_370c2b79ea.mp3",
+      "lang": "ru",
+      "text": "Два",
+      "pl": "Dwa",
+      "id": "7a9f6aa4",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Три": {
+      "file": "ru_три_7aedce8c3f.mp3",
+      "lang": "ru",
+      "text": "Три",
+      "pl": "Trzy",
+      "id": "77aff17b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Мама": {
+      "file": "ru_мама_21e2b417bd.mp3",
+      "lang": "ru",
+      "text": "Мама",
+      "pl": "Mama",
+      "id": "31d2f73c",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Папа": {
+      "file": "ru_папа_fcf19e03d2.mp3",
+      "lang": "ru",
+      "text": "Папа",
+      "pl": "Tata",
+      "id": "31fefc84",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Сестра": {
+      "file": "ru_сестра_7ccf3a94f5.mp3",
+      "lang": "ru",
+      "text": "Сестра",
+      "pl": "Siostra",
+      "id": "364f8c98",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Брат": {
+      "file": "ru_брат_c3fc252df3.mp3",
+      "lang": "ru",
+      "text": "Брат",
+      "pl": "Brat",
+      "id": "5e72b45a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Молоко": {
+      "file": "ru_молоко_c243afc8a9.mp3",
+      "lang": "ru",
+      "text": "Молоко",
+      "pl": "Mleko",
+      "id": "1263ba1b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Яблоко": {
+      "file": "ru_яблоко_c6cc1eadd3.mp3",
+      "lang": "ru",
+      "text": "Яблоко",
+      "pl": "Jabłko",
+      "id": "2a7d398a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Улица": {
+      "file": "ru_улица_4ad266f6a2.mp3",
+      "lang": "ru",
+      "text": "Улица",
+      "pl": "Ulica",
+      "id": "3487851e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Машина": {
+      "file": "ru_машина_a9085a791b.mp3",
+      "lang": "ru",
+      "text": "Машина",
+      "pl": "Samochód",
+      "id": "0feb894d",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|Извините": {
+      "file": "ru_извините_e1b5d0b52c.mp3",
+      "lang": "ru",
+      "text": "Извините",
+      "pl": "Przepraszam",
+      "id": "5edd6b8a",
+      "engine": "piper/ru"
     }
   }
 }

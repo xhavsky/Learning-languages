@@ -158,4 +158,13 @@ dom - house
     expect(c.title, isNotEmpty);
     expect(c.text, isNotEmpty);
   });
+
+  test('titleForLevel and album unlock', () {
+    expect(titleForLevel(1).title, 'Nowicjuszka');
+    expect(titleForLevel(6).title, 'Rozmówczyni');
+    expect(newTitleAtLevel(2)?.title, 'Łowczyni słówek');
+    expect(unlockedCuriosities(rewardedLevel: 1), isEmpty);
+    expect(unlockedCuriosities(rewardedLevel: 3, lang: 'Angielski'), isNotEmpty);
+    expect(levelUpBonusXpFor(5), greaterThan(levelUpBonusXpFor(2)));
+  });
 }
