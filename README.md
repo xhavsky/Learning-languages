@@ -15,8 +15,8 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **Zestawy / kategorie tematyczne** — Czasowniki, Powitania, Jedzenie, Zwierzęta, Rodzina, Kolory…
 - **Import CSV / tekst** — wklej lub plik (`pl,obcy` / `pl;obcy` / `pl - obcy`)
 - **Codzienna rozmowa AI** — model językowy **na urządzeniu** (wbudowany tutor; opcjonalnie lokalna Ollama). Bez portalu i chmury; +40 XP za 3 wiadomości/dzień
-- **XP i poziomy** — punkty za odpowiedzi i rozmowy; **nagroda za lvl**: tytuł + ciekawostka (💡) + ubranko Kici + bonus XP; album odblokowanych nagród
-- **Maskotka Kicia** — karm nauką (min. 3 słówka dziennie); za poziomy zbiera ubranka i akcesoria
+- **XP i poziomy** — punkty za odpowiedzi i rozmowy; im wyższy lvl, tym więcej XP trzeba; **nagroda za lvl**: tytuł + ciekawostka (💡) + losowe ubranko Kici + bonus XP; album odblokowanych nagród
+- **Maskotka Kicia** — karm nauką (min. 5 słówek dziennie); losowe ubranka w kolorach, wybierasz strój — Kicia naprawdę go nosi (kreskówka obok zdjęcia)
 - **SRS** — poziomy 0–3, powtórki wg `nextDue`
 - **Kierunek** PL→obcy / obcy→PL / mieszany + podpowiedź (pierwsza litera)
 - Metoda **ABC** lub **Pisanie** (zapamiętana per język)
