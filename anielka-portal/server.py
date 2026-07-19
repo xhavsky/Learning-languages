@@ -31,11 +31,15 @@ PORT = int(os.environ.get("ANIELKA_PORTAL_PORT", "7474"))
 PIN = os.environ.get("ANIELKA_PORTAL_PIN", "3141")
 TAILSCALE_URL = os.environ.get(
     "ANIELKA_PORTAL_URL",
-    "http://nixos.tail4caf1.ts.net:7474",
+    "https://nixos.tail4caf1.ts.net:7475",
 )
 TAILSCALE_IP_URL = os.environ.get(
     "ANIELKA_PORTAL_IP_URL",
     "http://100.68.72.119:7474",
+)
+TAILSCALE_HTTP_URL = os.environ.get(
+    "ANIELKA_PORTAL_HTTP_URL",
+    "http://nixos.tail4caf1.ts.net:7474",
 )
 
 CURSOR_BIN = os.environ.get("CURSOR_BIN", shutil.which("cursor") or "cursor")
@@ -89,6 +93,7 @@ def _write_meta() -> None:
         json.dumps(
             {
                 "url": TAILSCALE_URL,
+                "urlHttp": TAILSCALE_HTTP_URL,
                 "urlIp": TAILSCALE_IP_URL,
                 "port": PORT,
                 "pinHint": "PIN w aplikacji / u taty",
@@ -108,9 +113,13 @@ def _write_meta() -> None:
             json.dumps(
                 {
                     "url": TAILSCALE_URL,
+                    "urlHttp": TAILSCALE_HTTP_URL,
                     "urlIp": TAILSCALE_IP_URL,
                     "pin": PIN,
-                    "note": "Tylko Tailscale · tymczasowy portal dla Anielki",
+                    "note": (
+                        "Tailscale MUSI być włączony. "
+                        "OperaGX: użyj HTTPS :7475"
+                    ),
                 },
                 ensure_ascii=False,
                 indent=2,

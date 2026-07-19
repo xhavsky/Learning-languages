@@ -10,23 +10,28 @@ class PortalInfo {
     required this.url,
     required this.urlIp,
     required this.pin,
+    this.urlHttp = '',
     this.note = '',
   });
 
   final String url;
   final String urlIp;
   final String pin;
+  final String urlHttp;
   final String note;
 
   static const fallback = PortalInfo(
-    url: 'http://nixos.tail4caf1.ts.net:7474',
+    url: 'https://nixos.tail4caf1.ts.net:7475',
+    urlHttp: 'http://nixos.tail4caf1.ts.net:7474',
     urlIp: 'http://100.68.72.119:7474',
     pin: '3141',
-    note: 'Tylko Tailscale · tymczasowy portal dla Anielki',
+    note:
+        'Tailscale włączony. W OperaGX: HTTPS https://nixos.tail4caf1.ts.net:7475',
   );
 
   factory PortalInfo.fromJson(Map<String, dynamic> json) => PortalInfo(
         url: json['url'] as String? ?? fallback.url,
+        urlHttp: json['urlHttp'] as String? ?? fallback.urlHttp,
         urlIp: json['urlIp'] as String? ?? fallback.urlIp,
         pin: json['pin'] as String? ?? fallback.pin,
         note: json['note'] as String? ?? fallback.note,
@@ -49,37 +54,50 @@ Future<Map<String, dynamic>> portalGithubPublish({
   required String repo,
 }) async {
   final client = HttpClient();
+  final bases = <String>{
+    portal.url,
+    if (portal.urlHttp.isNotEmpty) portal.urlHttp,
+    portal.urlIp,
+  };
+  Object? lastErr;
   try {
-    final uri = Uri.parse('${portal.url}/api/github-publish');
-    final req = await client.postUrl(uri).timeout(const Duration(seconds: 20));
-    req.headers.set('Content-Type', 'application/json; charset=utf-8');
-    req.headers.set('X-Portal-Pin', portal.pin);
-    req.add(
-      utf8.encode(
-        jsonEncode({
-          'pin': portal.pin,
-          'username': username,
-          'token': token,
-          'repo': repo,
-        }),
-      ),
-    );
-    final res = await req.close().timeout(const Duration(minutes: 3));
-    final body = await res.transform(utf8.decoder).join();
-    try {
-      return jsonDecode(body) as Map<String, dynamic>;
-    } catch (_) {
-      return {'ok': false, 'error': 'Zła odpowiedź serwera (${res.statusCode})'};
+    for (final base in bases) {
+      try {
+        final uri = Uri.parse('$base/api/github-publish');
+        final req =
+            await client.postUrl(uri).timeout(const Duration(seconds: 20));
+        req.headers.set('Content-Type', 'application/json; charset=utf-8');
+        req.headers.set('X-Portal-Pin', portal.pin);
+        req.add(
+          utf8.encode(
+            jsonEncode({
+              'pin': portal.pin,
+              'username': username,
+              'token': token,
+              'repo': repo,
+            }),
+          ),
+        );
+        final res = await req.close().timeout(const Duration(minutes: 3));
+        final body = await res.transform(utf8.decoder).join();
+        try {
+          return jsonDecode(body) as Map<String, dynamic>;
+        } catch (_) {
+          return {
+            'ok': false,
+            'error': 'Zła odpowiedź serwera (${res.statusCode})',
+          };
+        }
+      } catch (e) {
+        lastErr = e;
+      }
     }
-  } on SocketException {
     return {
       'ok': false,
       'error':
-          'Nie łączy z portalem. Włącz Tailscale i sprawdź, czy tata ma włączony portal.',
-      'help': 'Adres: ${portal.url}',
+          'Nie łączy z portalem ($lastErr). Tailscale + HTTPS ${portal.url}',
+      'help': 'Spróbuj w Opera: ${portal.url}',
     };
-  } catch (e) {
-    return {'ok': false, 'error': '$e'};
   } finally {
     client.close(force: true);
   }
@@ -124,8 +142,13 @@ Future<void> showAnielkaPortalSheet(
                 ),
               ),
               const SizedBox(height: 4),
+              if (portal.urlHttp.isNotEmpty)
+                SelectableText(
+                  'HTTP: ${portal.urlHttp}',
+                  style: Theme.of(ctx).textTheme.bodySmall,
+                ),
               SelectableText(
-                'Zapasowy: ${portal.urlIp}',
+                'IP: ${portal.urlIp}',
                 style: Theme.of(ctx).textTheme.bodySmall,
               ),
               const SizedBox(height: 8),
@@ -133,17 +156,21 @@ Future<void> showAnielkaPortalSheet(
                 'PIN: ${portal.pin}',
                 style: Theme.of(ctx).textTheme.titleMedium,
               ),
+              if (portal.note.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Text(portal.note, style: Theme.of(ctx).textTheme.bodySmall),
+              ],
               const SizedBox(height: 8),
               FilledButton.tonal(
                 onPressed: () async {
                   await Clipboard.setData(ClipboardData(text: portal.url));
                   if (ctx.mounted) {
                     ScaffoldMessenger.of(ctx).showSnackBar(
-                      const SnackBar(content: Text('Skopiowano adres')),
+                      const SnackBar(content: Text('Skopiowano adres HTTPS')),
                     );
                   }
                 },
-                child: const Text('Kopiuj adres'),
+                child: const Text('Kopiuj adres HTTPS'),
               ),
               const SizedBox(height: 16),
               Text(
@@ -152,9 +179,13 @@ Future<void> showAnielkaPortalSheet(
               ),
               const SizedBox(height: 6),
               Text(
-                '5. Napisz, co zmienić w Trenerze — poczekaj na odpowiedź.\n'
-                '6. Paczki Windows/APK: w portalu sekcja „Paczki / Release”.\n'
-                'Eksperymenty taty są w osobnym katalogu WIP — nie mieszają się z Twoimi paczkami.',
+                '1. Na PC Anielki (FreeUnicorn) włącz Tailscale — Connected.\n'
+                '2. OperaGX → wklej HTTPS (ważne):\n'
+                '   ${portal.url}\n'
+                '3. Certyfikat Tailscale: kontynuuj / zaawansowane → wejdź.\n'
+                '4. PIN: ${portal.pin}\n'
+                '5. Napisz, co zmienić — poczekaj na odpowiedź.\n'
+                '6. Paczki: w portalu „Paczki / Release”.',
                 style: Theme.of(ctx).textTheme.bodyMedium,
               ),
             ],

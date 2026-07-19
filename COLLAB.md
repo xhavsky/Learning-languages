@@ -11,10 +11,13 @@ Portal (`anielka-portal`, port **7474**) zawsze celuje w **shared**.
 
 ## Anielka (WWW + Tailscale)
 
-1. http://nixos.tail4caf1.ts.net:7474 (PIN w aplikacji / u taty)
-2. Pisze prośby → Cursor Agent edytuje **shared**
-3. **Paczki / Release** → Windows ZIP i/lub APK (GitHub Actions)
-4. Opcjonalnie: **Opublikuj na moje GitHub** (jej token `repo`)
+1. **HTTPS (OperaGX):** https://nixos.tail4caf1.ts.net:7475  
+2. HTTP: http://nixos.tail4caf1.ts.net:7474 · IP: http://100.68.72.119:7474  
+3. PIN w aplikacji / u taty (`3141`)
+4. Tailscale na FreeUnicorn musi być **Connected** (to samo konto)
+5. Paczki / Release + Opublikuj na moje GitHub — w portalu
+
+Serve: `systemctl --user enable --now anielka-portal-serve` (HTTP 7474 + HTTPS 7475).
 
 ## Tata
 
