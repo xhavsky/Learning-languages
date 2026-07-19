@@ -17,7 +17,9 @@ import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, urlparse
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
@@ -44,8 +46,56 @@ TAILSCALE_HTTP_URL = os.environ.get(
     "https://nixos.tail4caf1.ts.net:7475",
 )
 
+# Lokalny Ollama na PC taty — proxy dla telefonu Anielki (bez chmury).
+OLLAMA_URL = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/")
+OLLAMA_MODEL = os.environ.get("BIELIK_OLLAMA_MODEL", "bielik-latest:latest")
+
 CURSOR_BIN = os.environ.get("CURSOR_BIN", shutil.which("cursor") or "cursor")
 WORKSPACE = os.environ.get("ANIELKA_WORKSPACE", str(REPO))
+
+
+def _ollama_tutor_chat(
+    *,
+    system: str,
+    messages: list[dict],
+    model: str | None = None,
+) -> dict:
+    """Wywołuje lokalną Ollamę. Zwraca {ok, reply} albo {ok: False, error}."""
+    payload = {
+        "model": (model or OLLAMA_MODEL).strip() or OLLAMA_MODEL,
+        "stream": False,
+        "messages": [
+            {"role": "system", "content": system},
+            *[
+                {"role": m.get("role", "user"), "content": m.get("content", "")}
+                for m in messages
+                if isinstance(m, dict) and m.get("content")
+            ],
+        ],
+        "options": {"temperature": 0.85, "num_predict": 160},
+    }
+    body = json.dumps(payload).encode("utf-8")
+    req = Request(
+        f"{OLLAMA_URL}/api/chat",
+        data=body,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urlopen(req, timeout=120) as res:
+            raw = res.read().decode("utf-8", "replace")
+        data = json.loads(raw)
+        msg = data.get("message") or {}
+        text = (msg.get("content") or "").strip()
+        if not text:
+            return {"ok": False, "error": "Pusta odpowiedź modelu"}
+        return {"ok": True, "reply": text, "model": payload["model"]}
+    except HTTPError as e:
+        return {"ok": False, "error": f"Ollama HTTP {e.code}"}
+    except URLError as e:
+        return {"ok": False, "error": f"Ollama niedostępna: {e.reason}"}
+    except (TimeoutError, json.JSONDecodeError, OSError) as e:
+        return {"ok": False, "error": str(e)}
 
 _lock = threading.Lock()
 _jobs: queue.Queue[str] = queue.Queue()
@@ -1282,6 +1332,34 @@ class Handler(BaseHTTPRequestHandler):
                     "❌ Release nie wystartował: " + (result.get("error") or "?"),
                 )
             return self._json(code, result)
+
+        if path == "/api/tutor-chat":
+            # Czat językowy w aplikacji → lokalny Bielik/Ollama na tym PC.
+            if not _check_pin(self) and data.get("pin") != PIN:
+                return self._json(401, {"error": "Zły PIN"})
+            system = (data.get("system") or "").strip()
+            if not system:
+                return self._json(400, {"error": "Brak system prompt"})
+            if len(system) > 12000:
+                return self._json(400, {"error": "Za długi system prompt"})
+            messages = data.get("messages") or []
+            if not isinstance(messages, list):
+                return self._json(400, {"error": "messages musi być listą"})
+            if len(messages) > 40:
+                return self._json(400, {"error": "Za dużo wiadomości"})
+            for m in messages:
+                if not isinstance(m, dict):
+                    return self._json(400, {"error": "zła wiadomość"})
+                content = m.get("content") or ""
+                if len(str(content)) > 4000:
+                    return self._json(400, {"error": "Za długa wiadomość"})
+            model = (data.get("model") or "").strip() or None
+            result = _ollama_tutor_chat(
+                system=system, messages=messages, model=model
+            )
+            if not result.get("ok"):
+                return self._json(503, result)
+            return self._json(200, result)
 
         return self._json(404, {"error": "nie ma takiego API"})
 

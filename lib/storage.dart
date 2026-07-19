@@ -306,21 +306,30 @@ class BazaStore {
   String? audioAsset(String lang, String obcy) {
     final entries = manifest['entries'];
     if (entries is! Map) return null;
-    final entry = entries['$lang|$obcy'];
+    final want = '$lang|$obcy';
+    var entry = entries[want];
+    if (entry is! Map) {
+      final wantFold = want.toLowerCase();
+      for (final e in entries.entries) {
+        if (e.key.toString().toLowerCase() == wantFold) {
+          entry = e.value;
+          break;
+        }
+      }
+    }
     if (entry is Map && entry['file'] is String) {
       return 'audio/${entry['file']}';
     }
     return null;
   }
 
+  bool hasAudio(String lang, String obcy) => audioAsset(lang, obcy) != null;
+
   List<String> missingAudioKeys() {
     final missing = <String>[];
-    final entries = manifest['entries'];
-    final map = entries is Map ? entries : {};
     for (final e in baza.entries) {
       for (final w in e.value.words) {
-        final key = '${e.key}|${w.obcy}';
-        if (!map.containsKey(key)) missing.add(key);
+        if (!hasAudio(e.key, w.obcy)) missing.add('${e.key}|${w.obcy}');
       }
     }
     return missing;
