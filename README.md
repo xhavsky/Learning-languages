@@ -30,6 +30,10 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - Eksport / import bazy JSON (Ustawienia)
 - **Portal współpracy** — współpraca + budowa paczek: [COLLAB.md](COLLAB.md) (jeden wspólny projekt)
 
+## 3D maskotki
+
+Spec: [docs/MASCOT_3D_WEARABLES_SPEC.md](docs/MASCOT_3D_WEARABLES_SPEC.md).
+
 ## Lokalne modele (Bielik v3) — dla buildera, nie dla Anielki
 
 Użytkownik końcowy **nic nie ściąga**: modele są w APK / ZIP.

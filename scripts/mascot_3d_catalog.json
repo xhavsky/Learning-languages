@@ -1,0 +1,126 @@
+{
+  "spec": "1.0",
+  "trellis_quality": "standard",
+  "items": [
+    {
+      "id": "mascot_cat",
+      "kind": "mascot",
+      "slot": null,
+      "prompt": "cute cartoon 3D game character, adorable sitting cat alone, fluffy orange-cream tabby fur, big friendly eyes, pink nose, bare animal only, no clothes no accessories no furniture, studio lighting, dark background",
+      "negative": "furniture, bed, clothes, dress, scarf, bow, boots, hat, collar, accessory, hanger, mannequin",
+      "suffix": "bare animal only, unadorned fur"
+    },
+    {
+      "id": "mascot_dog",
+      "kind": "mascot",
+      "slot": null,
+      "prompt": "cute cartoon 3D game character, adorable sitting puppy alone, floppy ears, big head, soft brown fur, bare animal only, no clothes no accessories no furniture, studio lighting, dark background",
+      "negative": "furniture, bed, clothes, dress, scarf, bow, boots, hat, collar, accessory, hanger, mannequin",
+      "suffix": "bare animal only, unadorned fur"
+    },
+    {
+      "id": "dress_sparkle",
+      "kind": "wearable",
+      "slot": "body",
+      "prompt": "cute cartoon 3D game asset, sparkly purple sequin sweater shell for quadruped torso, hollow soft fabric tube, round neck hole on top, open bottom for hind legs, short cape-like sparkle skirt around lower tube, single garment mesh floating alone, studio lighting, dark background",
+      "negative": "hanger, clothing rack, mannequin, stand, human, person, woman, girl, bust, spaghetti straps on human, cat, dog, animal, pet, face, creature wearing clothes",
+      "suffix": "empty wearable shell, hollow garment, quadruped torso wrap"
+    },
+    {
+      "id": "bow_gold",
+      "kind": "wearable",
+      "slot": "head",
+      "prompt": "cute cartoon 3D game asset, shiny metallic gold ribbon bow, two loops and center knot, small hair bow accessory mesh only, origin at knot, floating accessory alone, studio lighting, dark background",
+      "negative": "hanger, mannequin, human, cat, dog, animal, pet, head, face, ear, creature",
+      "suffix": "isolated bow prop, free-floating accessory"
+    },
+    {
+      "id": "boots_pink",
+      "kind": "wearable",
+      "slot": "special",
+      "prompt": "cute cartoon 3D game asset, pair of tiny empty pink booties side by side, soft short boots, hollow openings on top, unused empty footwear mesh, studio lighting, dark background",
+      "negative": "hanger, mannequin, human, cat, dog, animal, pet, face, eyes, creature, feet inside",
+      "suffix": "empty footwear pair, hollow booties"
+    },
+    {
+      "id": "tiara_crystal",
+      "kind": "wearable",
+      "slot": "head",
+      "prompt": "cute cartoon 3D game asset, small crystal tiara band, open bottom hollow crown for a round cartoon head, silver with clear gems, empty floating jewelry mesh, studio lighting, dark background",
+      "negative": "hanger, mannequin, human, cat, dog, animal, pet, head inside, face, hair",
+      "suffix": "hollow open tiara band, empty wearable"
+    },
+    {
+      "id": "scarf_rainbow",
+      "kind": "wearable",
+      "slot": "neck",
+      "prompt": "cute cartoon 3D game asset, thick rainbow striped knitted collar ring, toroidal scarf loop, hollow center for neck, fabric torus floating alone, studio lighting, dark background",
+      "negative": "hanger, mannequin, human, cat, dog, animal, pet, face, creature wearing scarf, folded flat scarf only on table",
+      "suffix": "hollow neck ring, wearable collar loop"
+    },
+    {
+      "id": "bowl_pink",
+      "kind": "home",
+      "slot": "bowl",
+      "prompt": "cute cartoon 3D game prop, empty round pink ceramic food bowl, short stubby feet, hollow interior, nobody inside, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature, face, sitting inside",
+      "suffix": "empty bowl, vacant"
+    },
+    {
+      "id": "bowl_gold",
+      "kind": "home",
+      "slot": "bowl",
+      "prompt": "cute cartoon 3D game prop, empty fancy golden metal food bowl, shiny brass, short feet, hollow interior, nobody inside, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature, face, sitting inside",
+      "suffix": "empty bowl, vacant"
+    },
+    {
+      "id": "bed_soft",
+      "kind": "home",
+      "slot": "bed",
+      "prompt": "cute cartoon 3D game prop, empty round plush cushion bed, blue quilted rim, soft inner pillow, short legs, vacant unoccupied, nobody sitting in it, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature, face, sitting, sleeping animal",
+      "suffix": "empty bed, vacant unoccupied"
+    },
+    {
+      "id": "bed_castle",
+      "kind": "home",
+      "slot": "bed",
+      "prompt": "cute cartoon 3D game prop, empty round plush castle-style bed, purple quilted rim, magenta pillow, short legs, vacant unoccupied, nobody sitting in it, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature, face, sitting, sleeping animal",
+      "suffix": "empty bed, vacant unoccupied"
+    },
+    {
+      "id": "toy_mouse",
+      "kind": "home",
+      "slot": "toy",
+      "prompt": "cute cartoon 3D game prop, orange fabric mouse toy on a string, plush stuffed toy object only, product shot, studio lighting, dark background",
+      "negative": "living mouse, real animal, cat, dog, pet playing",
+      "suffix": "toy prop only"
+    },
+    {
+      "id": "toy_ball",
+      "kind": "home",
+      "slot": "toy",
+      "prompt": "cute cartoon 3D game prop, small teal jingly ball toy with holes, plastic sphere, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature",
+      "suffix": "toy prop only"
+    },
+    {
+      "id": "plant_catnip",
+      "kind": "home",
+      "slot": "decor",
+      "prompt": "cute cartoon 3D game prop, small leafy green herb plant in a simple pot, houseplant only, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature",
+      "suffix": "plant pot only"
+    },
+    {
+      "id": "lamp_moon",
+      "kind": "home",
+      "slot": "decor",
+      "prompt": "cute cartoon 3D game prop, crescent moon night lamp, soft yellow glow, kids room lamp object only, product shot, studio lighting, dark background",
+      "negative": "cat, dog, animal, pet, creature",
+      "suffix": "lamp only"
+    }
+  ]
+}

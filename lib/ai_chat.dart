@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'bundled_model_extract.dart';
 import 'bundled_ollama.dart';
 import 'models.dart';
 import 'on_device_llm.dart';
@@ -159,12 +160,21 @@ Future<String?> _pickOllamaModel(String baseUrl) async {
 
 /// Szuka modelu NA URZĄDZENIU: Ollama (system / bundlowana) → GGUF → skrypt.
 /// NIGDY nie łączy z portalem ani chmurą.
-Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
+Future<LocalLlmSession> discoverLocalLlm({
+  String? customHost,
+  LlmProgressCallback? onProgress,
+}) async {
   final host = customHost ?? await loadOllamaHostPref();
   final desktop = !Platform.isAndroid && !Platform.isIOS;
 
-  // 1) Desktop: bundlowana / systemowa Ollama + Bielik 11B v3
+  // 1) Desktop: bundlowana / systemowa Ollama (tylko lokalne modele — bez pull)
   if (desktop) {
+    onProgress?.call(
+      const LlmPrepareProgress(
+        phase: 'ollama',
+        message: 'Szukam lokalnej Ollamy / Bielika w paczce…',
+      ),
+    );
     final bundled = BundledOllama.instance;
     if (await bundled.ensureReady()) {
       final probe = await _ollamaChatAt(
@@ -173,20 +183,26 @@ Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
         systemPrompt: 'Ping. Odpowiedz jednym słowem: OK',
         model: bundled.modelName,
         connectTimeout: const Duration(seconds: 3),
-        readTimeout: const Duration(seconds: 60),
+        readTimeout: const Duration(seconds: 45),
       );
       if (probe != null) {
+        onProgress?.call(
+          const LlmPrepareProgress(
+            phase: 'ready',
+            message: 'Gotowe.',
+            progress: 1,
+          ),
+        );
         return LocalLlmSession(
           kind: 'ollama',
           baseUrl: bundled.baseUrl,
           model: bundled.modelName,
           label:
-              'Bielik 11B v3 (Ollama${bundled.isStarted ? ' · bundled' : ''}) — lokalnie',
+              'Bielik (Ollama${bundled.isStarted ? ' · bundled' : ''}) — lokalnie',
         );
       }
     }
 
-    // Systemowa Ollama (bez naszego sidecar), jeśli już działa
     for (final base in _ollamaCandidateBases(host)) {
       final model = await _pickOllamaModel(base);
       if (model == null) continue;
@@ -196,7 +212,7 @@ Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
         systemPrompt: 'Ping. Odpowiedz jednym słowem: OK',
         model: model,
         connectTimeout: const Duration(seconds: 2),
-        readTimeout: const Duration(seconds: 45),
+        readTimeout: const Duration(seconds: 30),
       );
       if (probe != null) {
         return LocalLlmSession(
@@ -209,16 +225,19 @@ Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
     }
   }
 
-  // 2) GGUF via llama.cpp (telefon: 1.5B; PC fallback: 1.5B lub 11B jeśli leży obok)
+  // 2) GGUF via llama.cpp (telefon: 1.5B; PC fallback)
   final gguf = OnDeviceLlm.instance;
-  if (await gguf.ensureLoaded(preferDesktop: desktop)) {
+  if (await gguf.ensureLoaded(
+    preferDesktop: desktop,
+    onProgress: onProgress,
+  )) {
     return LocalLlmSession(
       kind: 'gguf',
       label: gguf.labelForLoaded(),
     );
   }
 
-  // 3) Awaryjny skrypt (bez udawania „pełnego LLM”)
+  // 3) Awaryjny skrypt
   return LocalLlmSession(
     kind: 'script',
     label: gguf.lastError != null
@@ -572,6 +591,8 @@ class _DailyChatPageState extends State<DailyChatPage> {
   var _busy = false;
   var _userTurns = 0;
   String? _status;
+  double? _prepareProgress;
+  var _preparing = false;
   LocalLlmSession _session = const LocalLlmSession(
     kind: 'script',
     label: 'Przygotowuję model na urządzeniu…',
@@ -596,13 +617,25 @@ class _DailyChatPageState extends State<DailyChatPage> {
   Future<void> _boot() async {
     setState(() {
       _busy = true;
-      _status = 'Przygotowuję lokalny model (nic nie ściągaj — jest w paczce)…';
+      _preparing = true;
+      _prepareProgress = null;
+      _status =
+          'Przygotowuję lokalny model… To może być jednorazowa kopia z paczki.';
     });
     final system = buildTutorSystemPrompt(
       lang: widget.lang,
       words: widget.pack.words,
     );
-    final session = await discoverLocalLlm();
+    final session = await discoverLocalLlm(
+      onProgress: (p) {
+        if (!mounted) return;
+        setState(() {
+          _status = p.message;
+          _prepareProgress = p.progress;
+          _preparing = p.phase != 'ready' && p.phase != 'error';
+        });
+      },
+    );
     final opening = await localLlmReply(
           session: session,
           history: const [],
@@ -620,6 +653,8 @@ class _DailyChatPageState extends State<DailyChatPage> {
     setState(() {
       _session = session;
       _status = session.label;
+      _preparing = false;
+      _prepareProgress = null;
       _messages.add(ChatMessage(role: 'assistant', text: opening));
       _busy = false;
     });
@@ -724,10 +759,42 @@ class _DailyChatPageState extends State<DailyChatPage> {
             if (_status != null)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                child: Text(
-                  _status!,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  textAlign: TextAlign.center,
+                child: Column(
+                  children: [
+                    Text(
+                      _status!,
+                      style: Theme.of(context).textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    if (_preparing) ...[
+                      const SizedBox(height: 10),
+                      if (_prepareProgress != null)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: LinearProgressIndicator(
+                            value: _prepareProgress,
+                            minHeight: 8,
+                          ),
+                        )
+                      else
+                        const ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          child: LinearProgressIndicator(minHeight: 8),
+                        ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Jednorazowe przygotowanie modelu z paczki aplikacji. '
+                        'Przy kolejnym wejściu będzie szybciej.',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.65),
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ],
                 ),
               ),
             Padding(

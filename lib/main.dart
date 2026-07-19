@@ -9,14 +9,29 @@ import 'ai_chat.dart';
 import 'curiosities.dart';
 import 'import_csv.dart';
 import 'mascot.dart';
+import 'model3d_viewer.dart';
 import 'models.dart';
 import 'portal.dart';
 import 'storage.dart';
 import 'theme.dart';
 import 'ui_fx.dart';
 
+void _bootLog(String msg) {
+  try {
+    final home = Platform.environment['HOME'] ?? '';
+    final f = File('$home/Dokumenty/trener-boot.log');
+    f.writeAsStringSync(
+      '${DateTime.now().toIso8601String()} $msg\n',
+      mode: FileMode.append,
+      flush: true,
+    );
+  } catch (_) {}
+}
+
 void main() {
+  _bootLog('main start');
   WidgetsFlutterBinding.ensureInitialized();
+  _bootLog('before runApp');
   runApp(const TrenerApp());
 }
 
@@ -129,6 +144,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final AnimationController _burstCtrl;
 
   bool _loading = true;
+  String _loadingMsg = 'Startuję…';
+  String? _bootError;
   String? _lang;
   String _groupId = '__all__';
   GameMethod _method = GameMethod.typing;
@@ -182,18 +199,59 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _boot() async {
-    final portal = await PortalInfo.load();
-    await _store.load();
-    final lang = _store.baza.containsKey('Angielski')
-        ? 'Angielski'
-        : (_store.baza.keys.isNotEmpty ? _store.baza.keys.first : null);
+    _bootLog('_boot start');
+    try {
+      if (!mounted) return;
+      setState(() {
+        _bootError = null;
+        _loadingMsg = 'Ładuję ustawienia…';
+      });
+      _bootLog('_boot: loading portal');
+      final portal = await PortalInfo.load().timeout(
+        const Duration(seconds: 8),
+        onTimeout: () => PortalInfo.fallback,
+      );
+      _bootLog('_boot: portal ok');
+      if (!mounted) return;
+      setState(() => _loadingMsg = 'Ładuję bazę słówek i postępy…');
+      _bootLog('_boot: loading baza');
+      await _store.load().timeout(const Duration(seconds: 20));
+      _bootLog('_boot: baza ok keys=${_store.baza.keys.length}');
+      final lang = _store.baza.containsKey('Angielski')
+          ? 'Angielski'
+          : (_store.baza.keys.isNotEmpty ? _store.baza.keys.first : null);
+      if (!mounted) return;
+      setState(() {
+        _portal = portal;
+        _lang = lang;
+        _loading = false;
+        _bootError = null;
+      });
+      _bootLog('_boot: lang=$lang loading method');
+      await _loadMethodForLang(lang);
+      _draw();
+      _bootLog('_boot: success');
+    } catch (e, st) {
+      // Nigdy nie zostawiaj wiecznego spinnera — pokaż błąd.
+      // ignore: avoid_print
+      print('BOOT ERROR: $e\n$st');
+      _bootLog('_boot ERROR: $e');
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _bootError = e.toString();
+        _loadingMsg = 'Nie udało się uruchomić';
+      });
+    }
+  }
+
+  Future<void> _retryBoot() async {
     setState(() {
-      _portal = portal;
-      _lang = lang;
-      _loading = false;
+      _loading = true;
+      _bootError = null;
+      _loadingMsg = 'Ponawiam start…';
     });
-    await _loadMethodForLang(lang);
-    _draw();
+    await _boot();
   }
 
   LangPack? get _pack =>
@@ -1599,11 +1657,79 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (_bootError != null) {
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 48, color: Colors.orangeAccent),
+                const SizedBox(height: 16),
+                const Text(
+                  'Nie udało się wczytać aplikacji',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  _bootError!,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Częsty powód: stara wersja apki + nowy plik bazy.\n'
+                  'Spróbuj ponowić albo zaktualizuj pakiet (nrs / flutter run).',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white60, fontSize: 13),
+                ),
+                const SizedBox(height: 20),
+                FilledButton(
+                  onPressed: _retryBoot,
+                  child: const Text('Spróbuj ponownie'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: const Color(0xFF1A1A22),
+      );
+    }
     if (_loading) {
       return Scaffold(
-        body: GradientScaffoldBody(
-          palette: widget.palette,
-          child: const Center(child: CircularProgressIndicator()),
+        backgroundColor: const Color(0xFF1A1A22),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(color: Color(0xFFB8F27A)),
+                const SizedBox(height: 20),
+                const Text(
+                  'Startuję Trener Językowy…',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  _loadingMsg,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -3122,12 +3248,29 @@ class _ShopPageState extends State<ShopPage>
                 margin: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    DressedKicia(
-                      equipped: widget.stats.equippedMascot,
-                      placedHome: widget.stats.placedHome,
-                      species: widget.stats.mascotSpecies,
-                      furColor: Color(widget.stats.mascotColorArgb),
+                    Mascot3dOrFallback(
+                      isDog: widget.stats.mascotSpecies == MascotSpecies.dog,
                       size: 150,
+                      fallback: DressedKicia(
+                        equipped: widget.stats.equippedMascot,
+                        placedHome: widget.stats.placedHome,
+                        species: widget.stats.mascotSpecies,
+                        furColor: Color(widget.stats.mascotColorArgb),
+                        size: 150,
+                      ),
+                      onTapOpenPreview: () {
+                        final id = mascotGlbId(
+                          isDog:
+                              widget.stats.mascotSpecies == MascotSpecies.dog,
+                        );
+                        final path = glbAssetForId(id);
+                        if (path == null) return;
+                        openModel3dPreview(
+                          context,
+                          assetPath: path,
+                          title: petName,
+                        );
+                      },
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -3168,7 +3311,21 @@ class _ShopPageState extends State<ShopPage>
                           child: Row(
                             children: [
                               OutfitThumb(item: item, size: 56),
-                              const SizedBox(width: 12),
+                              const SizedBox(width: 4),
+                              IconButton(
+                                tooltip: 'Podgląd 3D',
+                                onPressed: () {
+                                  final path = glbAssetForId(item.id);
+                                  if (path == null) return;
+                                  openModel3dPreview(
+                                    context,
+                                    assetPath: path,
+                                    title: item.name,
+                                  );
+                                },
+                                icon: const Icon(Icons.view_in_ar_outlined),
+                              ),
+                              const SizedBox(width: 4),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -3243,7 +3400,20 @@ class _ShopPageState extends State<ShopPage>
                                   child: HomeItemArt(item: item, size: 52),
                                 ),
                               ),
-                              const SizedBox(width: 12),
+                              IconButton(
+                                tooltip: 'Podgląd 3D',
+                                onPressed: () {
+                                  final path = glbAssetForId(item.id);
+                                  if (path == null) return;
+                                  openModel3dPreview(
+                                    context,
+                                    assetPath: path,
+                                    title: item.name,
+                                  );
+                                },
+                                icon: const Icon(Icons.view_in_ar_outlined),
+                              ),
+                              const SizedBox(width: 4),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

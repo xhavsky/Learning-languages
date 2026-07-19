@@ -381,6 +381,25 @@ class BazaStore {
   AppStats stats = AppStats();
 
   Future<void> load() async {
+    try {
+      await _loadImpl();
+    } catch (e) {
+      // Awaryjnie: sama baza z assetów, bez pliku użytkownika.
+      // ignore: avoid_print
+      print('BazaStore.load failed, falling back to seed: $e');
+      final seed = await rootBundle.loadString('assets/data/baza.json');
+      baza = parseBaza(jsonDecode(seed) as Map<String, dynamic>);
+      stats = AppStats();
+      try {
+        final m = await rootBundle.loadString('assets/audio/manifest.json');
+        if (m.trim().isNotEmpty) {
+          manifest = jsonDecode(m) as Map<String, dynamic>;
+        }
+      } catch (_) {}
+    }
+  }
+
+  Future<void> _loadImpl() async {
     final seed = await rootBundle.loadString('assets/data/baza.json');
     final userFile = await _userBazaFile();
     var raw = seed;

@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import 'model3d_viewer.dart';
+
 /// Gatunek maskotki.
 enum MascotSpecies { cat, dog }
 
@@ -1945,12 +1947,26 @@ class MascotCard extends StatelessWidget {
             const SizedBox(height: 10),
           ],
           Center(
-            child: DressedKicia(
-              equipped: equipped,
-              placedHome: placedHome,
-              species: species,
-              furColor: furColor,
+            child: Mascot3dOrFallback(
+              isDog: species == MascotSpecies.dog,
               size: portraitSize,
+              fallback: DressedKicia(
+                equipped: equipped,
+                placedHome: placedHome,
+                species: species,
+                furColor: furColor,
+                size: portraitSize,
+              ),
+              onTapOpenPreview: () {
+                final id = mascotGlbId(isDog: species == MascotSpecies.dog);
+                final path = glbAssetForId(id);
+                if (path == null) return;
+                openModel3dPreview(
+                  context,
+                  assetPath: path,
+                  title: mascotName(species),
+                );
+              },
             ),
           ),
           if (!fedToday)

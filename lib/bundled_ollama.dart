@@ -194,34 +194,16 @@ PARAMETER temperature 0.7
       if (ok) return true;
     }
 
-    // Brak lokalnego GGUF 11B — cichy pull (użytkownik nic nie klika).
-    if (createBin != null) {
-      lastError = null;
-      try {
-        final pull = await Process.run(
-          createBin.path,
-          ['pull', 'SpeakLeash/bielik-11b-v3.0-instruct:Q4_K_M'],
-          environment: {
-            ...Platform.environment,
-            'OLLAMA_HOST': '127.0.0.1:11434',
-          },
-        );
-        if (pull.exitCode == 0) {
-          modelName = 'SpeakLeash/bielik-11b-v3.0-instruct:Q4_K_M';
-          return true;
-        }
-        lastError = 'ollama pull: ${pull.stderr}'.trim();
-      } catch (e) {
-        lastError = e.toString();
-      }
-    }
+    // NIE robimy cichego `ollama pull` przy otwarciu czatu — to potrafi trwać
+    // wiele minut bez UI. Pełny 11B: użytkownik / osobny przycisk później.
 
     if (tags.isNotEmpty) {
       modelName = tags.first;
       return true;
     }
     lastError = lastError ??
-        'Ollama działa, ale brak modelu (paczka bez GGUF / brak sieci na pull).';
+        'Ollama działa, ale brak lokalnego modelu w paczce '
+        '(połóż GGUF w models/ albo zainstaluj Bielika w Ollamie).';
     return false;
   }
 
