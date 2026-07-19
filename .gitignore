@@ -20,3 +20,7 @@ dist/
 # Misc
 *.log
 .flutter-plugins-dependencies
+
+# Portal runtime
+anielka-portal/data/
+
