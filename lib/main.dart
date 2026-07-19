@@ -136,6 +136,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _poolReview = false; // false=due/new, true=review mastered
   bool _hintShown = false;
   double _playbackRate = 1.0;
+  /// Gdy false — lektor (audio) wyłączony.
+  bool _audioEnabled = true;
 
   Word? _current;
   bool _askForeign = false; // true = show foreign, expect PL
@@ -231,6 +233,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _playText(String text) async {
+    if (!_audioEnabled) return;
     final lang = _lang;
     if (lang == null) return;
     final asset = _store.audioAsset(lang, text);
@@ -259,8 +262,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final raw = prefs.getString('method_$lang');
     final rate = prefs.getDouble('playbackRate') ?? 1.0;
     final dirRaw = prefs.getString('translateDir') ?? 'plToForeign';
+    final audioOn = prefs.getBool('audioEnabled') ?? true;
     setState(() {
       _playbackRate = rate;
+      _audioEnabled = audioOn;
       _dir = switch (dirRaw) {
         'foreignToPl' => TranslateDir.foreignToPl,
         'mixed' => TranslateDir.mixed,
@@ -304,6 +309,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() => _playbackRate = rate);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('playbackRate', rate);
+  }
+
+  Future<void> _persistAudioEnabled(bool on) async {
+    setState(() => _audioEnabled = on);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('audioEnabled', on);
+    if (!on) {
+      try {
+        await _player?.stop();
+      } catch (_) {}
+    }
   }
 
   List<Word> _sessionPool() {
@@ -1087,6 +1103,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
+                      'Lektor (audio)',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Włącz lektora'),
+                      subtitle: Text(
+                        _audioEnabled
+                            ? 'Słówka są odczytywane na głos.'
+                            : 'Audio wyłączone — ćwiczysz w ciszy.',
+                        style: Theme.of(ctx).textTheme.bodySmall,
+                      ),
+                      value: _audioEnabled,
+                      onChanged: (v) async {
+                        await _persistAudioEnabled(v);
+                        setSheet(() {});
+                      },
+                    ),
+                    Text(
                       'Tempo audio',
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
@@ -1097,10 +1132,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ChoiceChip(
                             label: Text('${r}x'),
                             selected: (_playbackRate - r).abs() < 0.01,
-                            onSelected: (_) async {
-                              await _persistRate(r);
-                              setSheet(() {});
-                            },
+                            onSelected: _audioEnabled
+                                ? (_) async {
+                                    await _persistRate(r);
+                                    setSheet(() {});
+                                  }
+                                : null,
                           ),
                       ],
                     ),
@@ -1586,7 +1623,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.8',
+                'v0.0.9',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -1594,6 +1631,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           .withValues(alpha: 0.55),
                     ),
               ),
+            ),
+          ),
+          IconButton(
+            tooltip: _audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
+            onPressed: () => _persistAudioEnabled(!_audioEnabled),
+            icon: Icon(
+              _audioEnabled ? Icons.volume_up_rounded : Icons.volume_off_rounded,
             ),
           ),
           IconButton(
@@ -1662,10 +1706,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             style: Theme.of(context).textTheme.headlineMedium,
                             textAlign: TextAlign.center,
                           ),
+                          const SizedBox(height: 6),
                           Text(
-                            'Ucz się słówek i karm Kicię nauką 📚',
+                            _store.stats.mascotSpecies == MascotSpecies.dog
+                                ? 'Ucz się słówek i karm Pieska nauką'
+                                : 'Ucz się słówek i karm Kicię nauką',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              _HomeStatChip(
+                                icon: Icons.local_fire_department_rounded,
+                                label: 'Poziom ${_store.stats.playerLevel}',
+                              ),
+                              _HomeStatChip(
+                                icon: Icons.pets_rounded,
+                                label: '${_store.stats.goldenPaws} łapek',
+                              ),
+                              _HomeStatChip(
+                                icon: Icons.menu_book_rounded,
+                                label:
+                                    '${_pack?.words.length ?? 0} słówek',
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -2003,10 +2071,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton.filledTonal(
-                                      onPressed: () =>
-                                          _playText(_current!.obcy),
+                                      tooltip: _audioEnabled
+                                          ? 'Posłuchaj'
+                                          : 'Lektor wyłączony',
+                                      onPressed: _audioEnabled
+                                          ? () => _playText(_current!.obcy)
+                                          : null,
                                       iconSize: 32,
-                                      icon: const Icon(Icons.volume_up),
+                                      icon: Icon(
+                                        _audioEnabled
+                                            ? Icons.volume_up_rounded
+                                            : Icons.volume_off_rounded,
+                                      ),
                                     ),
                                     const SizedBox(width: 8),
                                     OutlinedButton(
@@ -3209,6 +3285,41 @@ class _ShopPageState extends State<ShopPage>
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Mały chip ze statystyką na ekranie głównym.
+class _HomeStatChip extends StatelessWidget {
+  const _HomeStatChip({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      decoration: BoxDecoration(
+        color: scheme.primary.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: scheme.primary.withValues(alpha: 0.28)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 18, color: scheme.primary),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onSurface,
+                ),
+          ),
+        ],
       ),
     );
   }

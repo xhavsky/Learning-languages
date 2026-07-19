@@ -84,19 +84,30 @@ ThemeData buildAppTheme({
       centerTitle: false,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.55 : 0.72),
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.45 : 0.65),
       foregroundColor: scheme.onSurface,
       titleTextStyle: TextStyle(
         fontSize: 22,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.3,
         color: scheme.onSurface,
       ),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
       color: scheme.surface.withValues(alpha: dark ? 0.7 : 0.9),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       shadowColor: Colors.black.withValues(alpha: 0.25),
+    ),
+    chipTheme: ChipThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      selectedColor: scheme.primaryContainer,
+      side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.5)),
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        color: scheme.onSurface,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
     ),
     textTheme: Typography.material2021(platform: TargetPlatform.linux)
         .black
@@ -107,44 +118,51 @@ ThemeData buildAppTheme({
         .copyWith(
           headlineMedium: TextStyle(
             fontSize: 28,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.4,
             color: scheme.onSurface,
           ),
           titleLarge: TextStyle(
             fontSize: 22,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
             color: scheme.onSurface,
           ),
-          bodyLarge: TextStyle(fontSize: 18, color: scheme.onSurface),
-          bodyMedium: TextStyle(fontSize: 16, color: scheme.onSurface),
+          titleMedium: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
+            color: scheme.onSurface,
+          ),
+          bodyLarge: TextStyle(fontSize: 18, height: 1.35, color: scheme.onSurface),
+          bodyMedium: TextStyle(fontSize: 16, height: 1.35, color: scheme.onSurface),
         ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size(64, 56),
         elevation: 2,
         shadowColor: scheme.primary.withValues(alpha: 0.4),
-        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(64, 48),
-        textStyle: const TextStyle(fontSize: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: scheme.surface.withValues(alpha: dark ? 0.55 : 0.85),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide(color: scheme.outlineVariant),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide(color: scheme.primary, width: 2),
       ),
     ),
