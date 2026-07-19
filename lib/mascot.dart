@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 /// Slot garderoby — jedno ubranko na slot.
 enum MascotSlot { head, neck, face, body, special }
 
-/// Ubranko / akcesorium — kolory i slot; odblokowywane losowo za poziom.
+/// Slot pokoiku Kici (miska, posłanie…).
+enum HomeSlot { bowl, bed, toy, decor }
+
+/// Ubranko / akcesorium — kolory i slot; losowo za poziom albo ze sklepu.
 class MascotItem {
   const MascotItem({
     required this.id,
@@ -15,6 +18,7 @@ class MascotItem {
     required this.slot,
     required this.color,
     this.legacyUnlockLevel,
+    this.shopPrice,
   });
 
   final String id;
@@ -26,6 +30,32 @@ class MascotItem {
 
   /// Stary system (odblokowanie po poziomie) — tylko migracja zapisów.
   final int? legacyUnlockLevel;
+
+  /// Cena w złotych łapkach (tylko sklep; nie wylosujesz za poziom).
+  final int? shopPrice;
+
+  bool get isShopExclusive => shopPrice != null;
+}
+
+/// Miska / posłanie / zabawka — kupujesz w sklepie za złote łapki.
+class HomeItem {
+  const HomeItem({
+    required this.id,
+    required this.name,
+    required this.emoji,
+    required this.blurb,
+    required this.slot,
+    required this.price,
+    required this.color,
+  });
+
+  final String id;
+  final String name;
+  final String emoji;
+  final String blurb;
+  final HomeSlot slot;
+  final int price;
+  final Color color;
 }
 
 /// Sklepik kotka — więcej ciuszków w różnych kolorach.
@@ -216,10 +246,144 @@ const mascotWardrobe = <MascotItem>[
     slot: MascotSlot.neck,
     color: Color(0xFFFF7043),
   ),
+  // —— Ekskluzywne ubranka ze sklepu (złote łapki) ——
+  MascotItem(
+    id: 'dress_sparkle',
+    name: 'Sukienka brokatowa',
+    emoji: '✨',
+    blurb: 'Brokatowa sukienka tylko ze sklepu!',
+    slot: MascotSlot.body,
+    color: Color(0xFFE040FB),
+    shopPrice: 25,
+  ),
+  MascotItem(
+    id: 'bow_gold',
+    name: 'Kokardka złota',
+    emoji: '💛',
+    blurb: 'Złota kokardka — luksusowa Kicia.',
+    slot: MascotSlot.head,
+    color: Color(0xFFFFD700),
+    shopPrice: 18,
+  ),
+  MascotItem(
+    id: 'boots_pink',
+    name: 'Buciki różowe',
+    emoji: '👢',
+    blurb: 'Różowe buciki na spacer ze słówkami.',
+    slot: MascotSlot.special,
+    color: Color(0xFFFF80AB),
+    shopPrice: 22,
+  ),
+  MascotItem(
+    id: 'tiara_crystal',
+    name: 'Diadem kryształowy',
+    emoji: '💎',
+    blurb: 'Diadem jak z bajki — tylko w sklepie.',
+    slot: MascotSlot.head,
+    color: Color(0xFF81D4FA),
+    shopPrice: 35,
+  ),
+  MascotItem(
+    id: 'scarf_rainbow',
+    name: 'Szalik tęczowy',
+    emoji: '🌈',
+    blurb: 'Tęczowy szalik — wszystkie kolory naraz!',
+    slot: MascotSlot.neck,
+    color: Color(0xFFAB47BC),
+    shopPrice: 20,
+  ),
+];
+
+/// Sklepik: miski, posłanie i gadżety do pokoiku.
+const mascotHomeShop = <HomeItem>[
+  HomeItem(
+    id: 'bowl_pink',
+    name: 'Miska różowa',
+    emoji: '🥣',
+    blurb: 'Różowa miseczka na smaczki-słówka.',
+    slot: HomeSlot.bowl,
+    price: 8,
+    color: Color(0xFFF48FB1),
+  ),
+  HomeItem(
+    id: 'bowl_gold',
+    name: 'Miska złota',
+    emoji: '🥇',
+    blurb: 'Złota miska dla prawdziwej królowej.',
+    slot: HomeSlot.bowl,
+    price: 15,
+    color: Color(0xFFFFD54F),
+  ),
+  HomeItem(
+    id: 'bed_soft',
+    name: 'Posłanie miękkie',
+    emoji: '🛏️',
+    blurb: 'Mięciutkie posłanie — drzemka po nauce.',
+    slot: HomeSlot.bed,
+    price: 12,
+    color: Color(0xFF90CAF9),
+  ),
+  HomeItem(
+    id: 'bed_castle',
+    name: 'Posłanie-zamek',
+    emoji: '🏰',
+    blurb: 'Posłanie jak mały zamek!',
+    slot: HomeSlot.bed,
+    price: 28,
+    color: Color(0xFFCE93D8),
+  ),
+  HomeItem(
+    id: 'toy_mouse',
+    name: 'Myszka na sznurku',
+    emoji: '🐭',
+    blurb: 'Ulubiona zabawka Kici.',
+    slot: HomeSlot.toy,
+    price: 10,
+    color: Color(0xFFFFAB91),
+  ),
+  HomeItem(
+    id: 'toy_ball',
+    name: 'Piłeczka dzwoniąca',
+    emoji: '🔔',
+    blurb: 'Piłeczka — bawi się między quizami.',
+    slot: HomeSlot.toy,
+    price: 9,
+    color: Color(0xFF80CBC4),
+  ),
+  HomeItem(
+    id: 'plant_catnip',
+    name: 'Doniczka kocimiętki',
+    emoji: '🌿',
+    blurb: 'Zielony kącik w pokoiku.',
+    slot: HomeSlot.decor,
+    price: 11,
+    color: Color(0xFF66BB6A),
+  ),
+  HomeItem(
+    id: 'lamp_moon',
+    name: 'Lampka księżyc',
+    emoji: '🌙',
+    blurb: 'Miękkie światło na wieczorne słówka.',
+    slot: HomeSlot.decor,
+    price: 16,
+    color: Color(0xFFFFF59D),
+  ),
 ];
 
 /// Ile słówek dziennie trzeba „nakarmić” Kicię.
 const mascotDailyFeedGoal = 5;
+
+/// Ile złotych łapek za poprawną odpowiedź.
+const pawsPerCorrect = 1;
+
+/// Bonus łapek gdy Kicia właśnie osiągnie cel karmienia.
+const pawsFeedBonus = 3;
+
+/// Bonus łapek za awans poziomu.
+const pawsPerLevelUp = 5;
+
+/// Bonus łapek za codzienną rozmowę AI.
+const pawsDailyChat = 2;
 
 MascotItem? mascotItemById(String id) {
   for (final item in mascotWardrobe) {
@@ -227,6 +391,17 @@ MascotItem? mascotItemById(String id) {
   }
   return null;
 }
+
+HomeItem? homeItemById(String id) {
+  for (final item in mascotHomeShop) {
+    if (item.id == id) return item;
+  }
+  return null;
+}
+
+/// Ubranka dostępne tylko za złote łapki.
+List<MascotItem> shopExclusiveOutfits() =>
+    [for (final item in mascotWardrobe) if (item.isShopExclusive) item];
 
 /// @Deprecated — zostawione pod stare testy; nagrody są teraz losowe.
 MascotItem? mascotItemForLevel(int level) {
@@ -243,10 +418,13 @@ List<MascotItem> unlockedMascotItems(Iterable<String> unlockedIds) {
 
 List<MascotItem> lockedMascotItems(Iterable<String> unlockedIds) {
   final set = unlockedIds.toSet();
-  return [for (final item in mascotWardrobe) if (!set.contains(item.id)) item];
+  return [
+    for (final item in mascotWardrobe)
+      if (!set.contains(item.id) && !item.isShopExclusive) item,
+  ];
 }
 
-/// Losuje jedno nowe ubranko spośród jeszcze zablokowanych.
+/// Losuje jedno nowe ubranko spośród jeszcze zablokowanych (bez sklepowych).
 MascotItem? rollMascotReward(
   Iterable<String> unlockedIds, {
   math.Random? random,
@@ -275,16 +453,27 @@ String slotLabel(MascotSlot slot) => switch (slot) {
       MascotSlot.special => 'Specjalne',
     };
 
+String homeSlotLabel(HomeSlot slot) => switch (slot) {
+      HomeSlot.bowl => 'Miska',
+      HomeSlot.bed => 'Posłanie',
+      HomeSlot.toy => 'Zabawka',
+      HomeSlot.decor => 'Dekoracja',
+    };
+
 /// Kreskówkowa Kicia z namalowanymi ubrankami (naprawdę „ma je na sobie”).
 class DressedKicia extends StatelessWidget {
   const DressedKicia({
     super.key,
     required this.equipped,
+    this.placedHome = const {},
     this.size = 220,
   });
 
   /// slot.name → itemId
   final Map<String, String> equipped;
+
+  /// HomeSlot.name → homeItemId
+  final Map<String, String> placedHome;
   final double size;
 
   List<MascotItem> get _worn {
@@ -296,30 +485,65 @@ class DressedKicia extends StatelessWidget {
     return out;
   }
 
+  List<HomeItem> get _home {
+    final out = <HomeItem>[];
+    for (final id in placedHome.values) {
+      final item = homeItemById(id);
+      if (item != null) out.add(item);
+    }
+    return out;
+  }
+
   @override
   Widget build(BuildContext context) {
     final worn = _worn;
+    final home = _home;
     return SizedBox(
       width: size,
       height: size,
       child: Stack(
+        clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/kicia_base.png',
-              fit: BoxFit.cover,
-              width: size,
-              height: size,
-            ),
+          // Przezroczyste tło — widać gradient aplikacji.
+          Image.asset(
+            'assets/images/kicia_base.png',
+            fit: BoxFit.contain,
+            width: size,
+            height: size,
+            filterQuality: FilterQuality.medium,
           ),
           Positioned.fill(
             child: CustomPaint(
               painter: _OutfitPainter(worn),
             ),
           ),
+          for (final h in home) _homeBadge(h),
         ],
+      ),
+    );
+  }
+
+  Widget _homeBadge(HomeItem item) {
+    final (Alignment align, double dx, double dy) = switch (item.slot) {
+      HomeSlot.bowl => (Alignment.bottomLeft, 4.0, -4.0),
+      HomeSlot.bed => (Alignment.bottomRight, -4.0, -2.0),
+      HomeSlot.toy => (Alignment.centerLeft, -2.0, 18.0),
+      HomeSlot.decor => (Alignment.topRight, -2.0, 8.0),
+    };
+    return Align(
+      alignment: align,
+      child: Transform.translate(
+        offset: Offset(dx, dy),
+        child: Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: item.color.withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.white70, width: 1.5),
+          ),
+          child: Text(item.emoji, style: TextStyle(fontSize: size * 0.12)),
+        ),
       ),
     );
   }
@@ -543,6 +767,22 @@ class _OutfitPainter extends CustomPainter {
         ),
         paint,
       );
+    } else if (item.id == 'tiara_crystal') {
+      final path = Path()
+        ..moveTo(w * 0.32, h * 0.14)
+        ..lineTo(w * 0.38, h * 0.05)
+        ..lineTo(w * 0.44, h * 0.12)
+        ..lineTo(w * 0.50, h * 0.02)
+        ..lineTo(w * 0.56, h * 0.12)
+        ..lineTo(w * 0.62, h * 0.05)
+        ..lineTo(w * 0.68, h * 0.14)
+        ..close();
+      canvas.drawPath(path, paint);
+      canvas.drawCircle(
+        Offset(w * 0.50, h * 0.06),
+        w * 0.025,
+        Paint()..color = Colors.white,
+      );
     }
   }
 
@@ -579,6 +819,21 @@ class _OutfitPainter extends CustomPainter {
         ..close();
       canvas.drawPath(left, wing);
       canvas.drawPath(right, wing);
+    } else if (item.id.startsWith('boots')) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(w * 0.30, h * 0.78, w * 0.44, h * 0.92),
+          const Radius.circular(8),
+        ),
+        paint,
+      );
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(w * 0.56, h * 0.78, w * 0.70, h * 0.92),
+          const Radius.circular(8),
+        ),
+        paint,
+      );
     }
   }
 
@@ -607,7 +862,7 @@ class _OutfitPainter extends CustomPainter {
   }
 }
 
-/// Widget kotka: zdjęcie + kreskówka w stroju + status karmienia.
+/// Widget kotka: kreskówka w stroju + pokoik + status karmienia.
 class MascotCard extends StatelessWidget {
   const MascotCard({
     super.key,
@@ -616,8 +871,11 @@ class MascotCard extends StatelessWidget {
     required this.fedToday,
     required this.unlockedIds,
     required this.equipped,
+    required this.goldenPaws,
+    this.placedHome = const {},
     this.compact = false,
     this.onTapWardrobe,
+    this.onTapShop,
     this.onEquip,
   });
 
@@ -626,8 +884,11 @@ class MascotCard extends StatelessWidget {
   final bool fedToday;
   final List<String> unlockedIds;
   final Map<String, String> equipped;
+  final Map<String, String> placedHome;
+  final int goldenPaws;
   final bool compact;
   final VoidCallback? onTapWardrobe;
+  final VoidCallback? onTapShop;
   final void Function(MascotItem item)? onEquip;
 
   @override
@@ -641,55 +902,52 @@ class MascotCard extends StatelessWidget {
             ? 'Już najedzona — możesz dalej ćwiczyć.'
             : 'Głodna… nakarm nauką: jeszcze $need słówk${need == 1 ? 'o' : 'a'} dziś';
 
-    final portraitSize = compact ? 120.0 : 160.0;
+    final portraitSize = compact ? 140.0 : 200.0;
 
     return Softish(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      'Zdjęcie',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    const SizedBox(height: 4),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        'assets/images/kitten_book.png',
-                        fit: BoxFit.cover,
-                        height: portraitSize,
-                        width: portraitSize,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  'Kicia — maskotka Treningu',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      'Kicia w stroju',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    const SizedBox(height: 4),
-                    DressedKicia(equipped: equipped, size: portraitSize),
-                  ],
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFF8E1),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFFFFD54F)),
+                ),
+                child: Text(
+                  '🐾 $goldenPaws',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF8D6E00),
+                      ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          Center(
+            child: DressedKicia(
+              equipped: equipped,
+              placedHome: placedHome,
+              size: portraitSize,
+            ),
           ),
           if (!fedToday)
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Theme.of(context)
                       .colorScheme
@@ -706,15 +964,21 @@ class MascotCard extends StatelessWidget {
             ),
           const SizedBox(height: 8),
           Text(
-            'Kicia — maskotka Treningu',
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          Text(
             hungerLabel,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Zbieraj złote łapki 🐾 za poprawne odpowiedzi i kupuj '
+            'miski, posłanie oraz ekskluzywne ubranka w sklepie!',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7),
+                ),
           ),
           const SizedBox(height: 6),
           ClipRRect(
@@ -746,13 +1010,12 @@ class MascotCard extends StatelessWidget {
                     selected: equipped[it.slot.name] == it.id,
                     avatar: CircleAvatar(
                       backgroundColor: it.color,
-                      child: Text(it.emoji, style: const TextStyle(fontSize: 12)),
+                      child:
+                          Text(it.emoji, style: const TextStyle(fontSize: 12)),
                     ),
                     label: Text(it.name),
                     visualDensity: VisualDensity.compact,
-                    onSelected: onEquip == null
-                        ? null
-                        : (_) => onEquip!(it),
+                    onSelected: onEquip == null ? null : (_) => onEquip!(it),
                   ),
               ],
             ),
@@ -760,18 +1023,29 @@ class MascotCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                'Awansuj na poziom 2 — Kicia dostanie losowe ubranko!',
+                'Awansuj na poziom 2 albo zajrzyj do sklepu — Kicia dostanie ubranko!',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
-          if (onTapWardrobe != null) ...[
-            const SizedBox(height: 8),
-            TextButton(
-              onPressed: onTapWardrobe,
-              child: const Text('Pełna garderoba'),
-            ),
-          ],
+          const SizedBox(height: 8),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            children: [
+              if (onTapShop != null)
+                FilledButton.tonalIcon(
+                  onPressed: onTapShop,
+                  icon: const Icon(Icons.storefront_outlined),
+                  label: const Text('Sklep'),
+                ),
+              if (onTapWardrobe != null)
+                TextButton(
+                  onPressed: onTapWardrobe,
+                  child: const Text('Pełna garderoba'),
+                ),
+            ],
+          ),
         ],
       ),
     );
