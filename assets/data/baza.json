@@ -900,6 +900,896 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "38cd6ac7",
+        "pl": "Ptak",
+        "obcy": "Bird",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c93bfce",
+        "pl": "Ryba",
+        "obcy": "Fish",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50268141",
+        "pl": "Koń",
+        "obcy": "Horse",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "24b226b4",
+        "pl": "Królik",
+        "obcy": "Rabbit",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "514a307c",
+        "pl": "Mysz",
+        "obcy": "Mouse",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7b558b41",
+        "pl": "Krowa",
+        "obcy": "Cow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7412c3e2",
+        "pl": "Kurczak",
+        "obcy": "Chicken",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41590900",
+        "pl": "Żółty",
+        "obcy": "Yellow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01c13576",
+        "pl": "Czarny",
+        "obcy": "Black",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63fd0e5e",
+        "pl": "Biały",
+        "obcy": "White",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "402031f2",
+        "pl": "Pomarańczowy",
+        "obcy": "Orange",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c4d06dc",
+        "pl": "Różowy",
+        "obcy": "Pink",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60cbb646",
+        "pl": "Brązowy",
+        "obcy": "Brown",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e4e3f93",
+        "pl": "Cztery",
+        "obcy": "Four",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "51d0e6c7",
+        "pl": "Pięć",
+        "obcy": "Five",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "59b88050",
+        "pl": "Sześć",
+        "obcy": "Six",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e4ab42e",
+        "pl": "Siedem",
+        "obcy": "Seven",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77704640",
+        "pl": "Osiem",
+        "obcy": "Eight",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2851dddc",
+        "pl": "Dziewięć",
+        "obcy": "Nine",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "724c7a37",
+        "pl": "Dziesięć",
+        "obcy": "Ten",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2cc054c8",
+        "pl": "Oko",
+        "obcy": "Eye",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26c082ef",
+        "pl": "Ucho",
+        "obcy": "Ear",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47e908ed",
+        "pl": "Noga",
+        "obcy": "Leg",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37608316",
+        "pl": "Usta",
+        "obcy": "Mouth",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dd95abd",
+        "pl": "Nos",
+        "obcy": "Nose",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "55fe2a4c",
+        "pl": "Palec",
+        "obcy": "Finger",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4ca10ff3",
+        "pl": "Ser",
+        "obcy": "Cheese",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "64e92140",
+        "pl": "Jajko",
+        "obcy": "Egg",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "52925460",
+        "pl": "Ryż",
+        "obcy": "Rice",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "73cfc187",
+        "pl": "Zupa",
+        "obcy": "Soup",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30bee5d4",
+        "pl": "Owoc",
+        "obcy": "Fruit",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1fce51a4",
+        "pl": "Warzywo",
+        "obcy": "Vegetable",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "557dc677",
+        "pl": "Cukier",
+        "obcy": "Sugar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1b4084b3",
+        "pl": "Sok",
+        "obcy": "Juice",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a7d65a2",
+        "pl": "Stół",
+        "obcy": "Table",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00def057",
+        "pl": "Krzesło",
+        "obcy": "Chair",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5a76802f",
+        "pl": "Okno",
+        "obcy": "Window",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "45adeb6c",
+        "pl": "Drzwi",
+        "obcy": "Door",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49fee32c",
+        "pl": "Ołówek",
+        "obcy": "Pencil",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f3ea4d8",
+        "pl": "Długopis",
+        "obcy": "Pen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01eb7338",
+        "pl": "Plecak",
+        "obcy": "Backpack",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2d948813",
+        "pl": "Sklep",
+        "obcy": "Shop",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "066744bc",
+        "pl": "Park",
+        "obcy": "Park",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "58354a75",
+        "pl": "Autobus",
+        "obcy": "Bus",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "40bf9733",
+        "pl": "Pociąg",
+        "obcy": "Train",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4b35b222",
+        "pl": "Most",
+        "obcy": "Bridge",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ed3017c",
+        "pl": "Babcia",
+        "obcy": "Grandma",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60253d1d",
+        "pl": "Dziadek",
+        "obcy": "Grandpa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "53438df5",
+        "pl": "Dziecko",
+        "obcy": "Child",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7273ca68",
+        "pl": "Dziewczyna",
+        "obcy": "Girl",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ba05539",
+        "pl": "Chłopiec",
+        "obcy": "Boy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c0276a3",
+        "pl": "Tydzień",
+        "obcy": "Week",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38593061",
+        "pl": "Miesiąc",
+        "obcy": "Month",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3fc36b82",
+        "pl": "Godzina",
+        "obcy": "Hour",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "128a18d7",
+        "pl": "Dzisiaj",
+        "obcy": "Today",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5139cdbb",
+        "pl": "Jutro",
+        "obcy": "Tomorrow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3659f980",
+        "pl": "Wczoraj",
+        "obcy": "Yesterday",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7cb2b28a",
+        "pl": "Szybki",
+        "obcy": "Fast",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3b3fca7e",
+        "pl": "Wolny",
+        "obcy": "Slow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "740bdd42",
+        "pl": "Gorący",
+        "obcy": "Hot",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "065b7597",
+        "pl": "Zimny",
+        "obcy": "Cold",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70d96247",
+        "pl": "Łatwy",
+        "obcy": "Easy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f30f99a",
+        "pl": "Trudny",
+        "obcy": "Difficult",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1b7d74a4",
+        "pl": "Śpiewać",
+        "obcy": "To sing",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6d1ace6e",
+        "pl": "Tańczyć",
+        "obcy": "To dance",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2108f30b",
+        "pl": "Gotować",
+        "obcy": "To cook",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "372da303",
+        "pl": "Myć",
+        "obcy": "To wash",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e9a48e1",
+        "pl": "Słuchać",
+        "obcy": "To listen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d31e287",
+        "pl": "Podróżować",
+        "obcy": "To travel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "619ddb87",
+        "pl": "Rysować",
+        "obcy": "To draw",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7137a6f8",
+        "pl": "Śmiać się",
+        "obcy": "To laugh",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "67d00ad6",
+        "pl": "Słońce",
+        "obcy": "Sun",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "729d8851",
+        "pl": "Deszcz",
+        "obcy": "Rain",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "05f14b87",
+        "pl": "Śnieg",
+        "obcy": "Snow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c6d8017",
+        "pl": "Wiatr",
+        "obcy": "Wind",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63e8b1f5",
+        "pl": "Chmura",
+        "obcy": "Cloud",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "181745dc",
+        "pl": "Pogoda",
+        "obcy": "Weather",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "192de6d9",
+        "pl": "Koszulka",
+        "obcy": "T-shirt",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07f76ab8",
+        "pl": "Spodnie",
+        "obcy": "Pants",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3e67a786",
+        "pl": "But",
+        "obcy": "Shoe",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "62eb7a88",
+        "pl": "Kurtka",
+        "obcy": "Jacket",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4c6f991a",
+        "pl": "Kapelusz",
+        "obcy": "Hat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "279bfafa",
+        "pl": "Sukienka",
+        "obcy": "Dress",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "71f71be9",
+        "pl": "Drzewo",
+        "obcy": "Tree",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "335e2e67",
+        "pl": "Kwiat",
+        "obcy": "Flower",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3af5803b",
+        "pl": "Las",
+        "obcy": "Forest",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1044b70e",
+        "pl": "Morze",
+        "obcy": "Sea",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6bc7ecce",
+        "pl": "Góra",
+        "obcy": "Mountain",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08426a03",
+        "pl": "Rzeka",
+        "obcy": "River",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -946,7 +1836,15 @@
           "40fe541f",
           "6c457ad6",
           "5ade9b5d",
-          "0144d8e4"
+          "0144d8e4",
+          "1b7d74a4",
+          "6d1ace6e",
+          "2108f30b",
+          "372da303",
+          "0e9a48e1",
+          "5d31e287",
+          "619ddb87",
+          "7137a6f8"
         ]
       },
       {
@@ -969,7 +1867,14 @@
         "wordIds": [
           "54ebbfe6",
           "3abf2d06",
-          "70e20df7"
+          "70e20df7",
+          "6a7d65a2",
+          "00def057",
+          "5a76802f",
+          "45adeb6c",
+          "49fee32c",
+          "7f3ea4d8",
+          "01eb7338"
         ]
       },
       {
@@ -982,7 +1887,15 @@
           "6ca5ea4d",
           "507d0459",
           "7f4e7d15",
-          "624cc0a8"
+          "624cc0a8",
+          "4ca10ff3",
+          "64e92140",
+          "52925460",
+          "73cfc187",
+          "30bee5d4",
+          "1fce51a4",
+          "557dc677",
+          "1b4084b3"
         ]
       },
       {
@@ -990,7 +1903,14 @@
         "name": "Zwierzęta",
         "wordIds": [
           "6041356a",
-          "57d9d827"
+          "57d9d827",
+          "38cd6ac7",
+          "0c93bfce",
+          "50268141",
+          "24b226b4",
+          "514a307c",
+          "7b558b41",
+          "7412c3e2"
         ]
       },
       {
@@ -1002,7 +1922,12 @@
           "05adb737",
           "68c7ba25",
           "00f49cd7",
-          "58be7247"
+          "58be7247",
+          "1ed3017c",
+          "60253d1d",
+          "53438df5",
+          "7273ca68",
+          "5ba05539"
         ]
       },
       {
@@ -1012,7 +1937,13 @@
           "5ce223f2",
           "0eeb625e",
           "2e49c800",
-          "6fbc21ab"
+          "6fbc21ab",
+          "1c0276a3",
+          "38593061",
+          "3fc36b82",
+          "128a18d7",
+          "5139cdbb",
+          "3659f980"
         ]
       },
       {
@@ -1020,7 +1951,13 @@
         "name": "Ciało",
         "wordIds": [
           "5568aa8e",
-          "15d2673e"
+          "15d2673e",
+          "2cc054c8",
+          "26c082ef",
+          "47e908ed",
+          "37608316",
+          "5dd95abd",
+          "55fe2a4c"
         ]
       },
       {
@@ -1035,7 +1972,13 @@
           "016e4512",
           "41869a4b",
           "715592c3",
-          "12f5b9de"
+          "12f5b9de",
+          "7cb2b28a",
+          "3b3fca7e",
+          "740bdd42",
+          "065b7597",
+          "70d96247",
+          "6f30f99a"
         ]
       },
       {
@@ -1044,7 +1987,13 @@
         "wordIds": [
           "523b071c",
           "1b5c8319",
-          "663d53ab"
+          "663d53ab",
+          "41590900",
+          "01c13576",
+          "63fd0e5e",
+          "402031f2",
+          "3c4d06dc",
+          "60cbb646"
         ]
       },
       {
@@ -1053,7 +2002,14 @@
         "wordIds": [
           "3cbd6c5c",
           "7a90df7e",
-          "140ea71f"
+          "140ea71f",
+          "0e4e3f93",
+          "51d0e6c7",
+          "59b88050",
+          "2e4ab42e",
+          "77704640",
+          "2851dddc",
+          "724c7a37"
         ]
       },
       {
@@ -1062,7 +2018,48 @@
         "wordIds": [
           "2c537bbe",
           "23ee54ef",
-          "7a67683e"
+          "7a67683e",
+          "2d948813",
+          "066744bc",
+          "58354a75",
+          "40bf9733",
+          "4b35b222"
+        ]
+      },
+      {
+        "id": "30893719",
+        "name": "Pogoda",
+        "wordIds": [
+          "67d00ad6",
+          "729d8851",
+          "05f14b87",
+          "7c6d8017",
+          "63e8b1f5",
+          "181745dc"
+        ]
+      },
+      {
+        "id": "5382a075",
+        "name": "Ubrania",
+        "wordIds": [
+          "192de6d9",
+          "07f76ab8",
+          "3e67a786",
+          "62eb7a88",
+          "4c6f991a",
+          "279bfafa"
+        ]
+      },
+      {
+        "id": "2c603dd8",
+        "name": "Natura",
+        "wordIds": [
+          "71f71be9",
+          "335e2e67",
+          "3af5803b",
+          "1044b70e",
+          "6bc7ecce",
+          "08426a03"
         ]
       }
     ]
@@ -1988,6 +2985,896 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "59991233",
+        "pl": "Ptak",
+        "obcy": "Pájaro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6fe3e0ef",
+        "pl": "Ryba",
+        "obcy": "Pez",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3f3eb516",
+        "pl": "Koń",
+        "obcy": "Caballo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0be43e42",
+        "pl": "Królik",
+        "obcy": "Conejo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "518a5497",
+        "pl": "Mysz",
+        "obcy": "Ratón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f644953",
+        "pl": "Krowa",
+        "obcy": "Vaca",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76539dfd",
+        "pl": "Kurczak",
+        "obcy": "Pollo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26dcd64f",
+        "pl": "Żółty",
+        "obcy": "Amarillo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02673944",
+        "pl": "Czarny",
+        "obcy": "Negro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "78039d0e",
+        "pl": "Biały",
+        "obcy": "Blanco",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72e7307f",
+        "pl": "Pomarańczowy",
+        "obcy": "Naranja",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c4e06b1",
+        "pl": "Różowy",
+        "obcy": "Rosa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4a822c9f",
+        "pl": "Brązowy",
+        "obcy": "Marrón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2ee9a84f",
+        "pl": "Cztery",
+        "obcy": "Cuatro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68218dbf",
+        "pl": "Pięć",
+        "obcy": "Cinco",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d57794e",
+        "pl": "Sześć",
+        "obcy": "Seis",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e4c47a1",
+        "pl": "Siedem",
+        "obcy": "Siete",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41ce460a",
+        "pl": "Osiem",
+        "obcy": "Ocho",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "61ef32c3",
+        "pl": "Dziewięć",
+        "obcy": "Nueve",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "573b9520",
+        "pl": "Dziesięć",
+        "obcy": "Diez",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2cc0788b",
+        "pl": "Oko",
+        "obcy": "Ojo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "794004f2",
+        "pl": "Ucho",
+        "obcy": "Oreja",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4e92455a",
+        "pl": "Noga",
+        "obcy": "Pierna",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12486d3c",
+        "pl": "Usta",
+        "obcy": "Boca",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d4b9ce6",
+        "pl": "Nos",
+        "obcy": "Nariz",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6fd6006f",
+        "pl": "Palec",
+        "obcy": "Dedo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f22fa41",
+        "pl": "Ser",
+        "obcy": "Queso",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4f567c2c",
+        "pl": "Jajko",
+        "obcy": "Huevo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7eccf965",
+        "pl": "Ryż",
+        "obcy": "Arroz",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "73cfc0dd",
+        "pl": "Zupa",
+        "obcy": "Sopa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30bee716",
+        "pl": "Owoc",
+        "obcy": "Fruta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "58f1e6e6",
+        "pl": "Warzywo",
+        "obcy": "Verdura",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c0d1b32",
+        "pl": "Cukier",
+        "obcy": "Azúcar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "579e006a",
+        "pl": "Sok",
+        "obcy": "Zumo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0fcf6192",
+        "pl": "Stół",
+        "obcy": "Mesa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01c1065d",
+        "pl": "Krzesło",
+        "obcy": "Silla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38a6f8a0",
+        "pl": "Okno",
+        "obcy": "Ventana",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26aaf79d",
+        "pl": "Drzwi",
+        "obcy": "Puerta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d39cd8d",
+        "pl": "Ołówek",
+        "obcy": "Lápiz",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5c842650",
+        "pl": "Długopis",
+        "obcy": "Bolígrafo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "306b6dff",
+        "pl": "Plecak",
+        "obcy": "Mochila",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c5138b8",
+        "pl": "Sklep",
+        "obcy": "Tienda",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "09a92ad2",
+        "pl": "Park",
+        "obcy": "Parque",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a4ce801",
+        "pl": "Autobus",
+        "obcy": "Autobús",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "273ffd1c",
+        "pl": "Pociąg",
+        "obcy": "Tren",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "634226f8",
+        "pl": "Most",
+        "obcy": "Puente",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "27755a4a",
+        "pl": "Babcia",
+        "obcy": "Abuela",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "190ca694",
+        "pl": "Dziadek",
+        "obcy": "Abuelo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "344110a0",
+        "pl": "Dziecko",
+        "obcy": "Niño",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5bcc8db6",
+        "pl": "Dziewczyna",
+        "obcy": "Chica",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74eaa43d",
+        "pl": "Chłopiec",
+        "obcy": "Chico",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1e6f8288",
+        "pl": "Tydzień",
+        "obcy": "Semana",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3622b7fc",
+        "pl": "Miesiąc",
+        "obcy": "Mes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3fc36b14",
+        "pl": "Godzina",
+        "obcy": "Hora",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6c927b68",
+        "pl": "Dzisiaj",
+        "obcy": "Hoy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dc22f0d",
+        "pl": "Jutro",
+        "obcy": "Mañana",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "66167827",
+        "pl": "Wczoraj",
+        "obcy": "Ayer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3654a621",
+        "pl": "Szybki",
+        "obcy": "Rápido",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c53ae73",
+        "pl": "Wolny",
+        "obcy": "Lento",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76c971e0",
+        "pl": "Gorący",
+        "obcy": "Caliente",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "065ceda1",
+        "pl": "Zimny",
+        "obcy": "Frío",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a9af006",
+        "pl": "Łatwy",
+        "obcy": "Fácil",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c7e10d6",
+        "pl": "Trudny",
+        "obcy": "Difícil",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "29705c45",
+        "pl": "Śpiewać",
+        "obcy": "Cantar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0d609df3",
+        "pl": "Tańczyć",
+        "obcy": "Bailar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2171df4b",
+        "pl": "Gotować",
+        "obcy": "Cocinar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6cd10f31",
+        "pl": "Myć",
+        "obcy": "Lavar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "13c94881",
+        "pl": "Słuchać",
+        "obcy": "Escuchar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b806625",
+        "pl": "Podróżować",
+        "obcy": "Viajar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0ca6bf41",
+        "pl": "Rysować",
+        "obcy": "Dibujar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b0fbef4",
+        "pl": "Śmiać się",
+        "obcy": "Reír",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "67d00a1a",
+        "pl": "Słońce",
+        "obcy": "Sol",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37c04676",
+        "pl": "Deszcz",
+        "obcy": "Lluvia",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37ef44b5",
+        "pl": "Śnieg",
+        "obcy": "Nieve",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "15551a66",
+        "pl": "Wiatr",
+        "obcy": "Viento",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2867788a",
+        "pl": "Chmura",
+        "obcy": "Nube",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "788b2e9c",
+        "pl": "Pogoda",
+        "obcy": "Clima",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b3461bd",
+        "pl": "Koszulka",
+        "obcy": "Camiseta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d855653",
+        "pl": "Spodnie",
+        "obcy": "Pantalones",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4eab99ae",
+        "pl": "But",
+        "obcy": "Zapato",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6e0c550c",
+        "pl": "Kurtka",
+        "obcy": "Chaqueta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37b2a102",
+        "pl": "Kapelusz",
+        "obcy": "Sombrero",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "534ff367",
+        "pl": "Sukienka",
+        "obcy": "Vestido",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "52ec5983",
+        "pl": "Drzewo",
+        "obcy": "Árbol",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a0f4835",
+        "pl": "Kwiat",
+        "obcy": "Flor",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3422bf59",
+        "pl": "Las",
+        "obcy": "Bosque",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1044a01d",
+        "pl": "Morze",
+        "obcy": "Mar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7ef8e768",
+        "pl": "Góra",
+        "obcy": "Montaña",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "22c5cacb",
+        "pl": "Rzeka",
+        "obcy": "Río",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -2036,7 +3923,15 @@
           "0f7b661d",
           "753a4dd5",
           "05c50fe3",
-          "76e89330"
+          "76e89330",
+          "29705c45",
+          "0d609df3",
+          "2171df4b",
+          "6cd10f31",
+          "13c94881",
+          "0b806625",
+          "0ca6bf41",
+          "0b0fbef4"
         ]
       },
       {
@@ -2059,7 +3954,14 @@
         "wordIds": [
           "44cb51a6",
           "5398dfa8",
-          "2be9b234"
+          "2be9b234",
+          "0fcf6192",
+          "01c1065d",
+          "38a6f8a0",
+          "26aaf79d",
+          "5d39cd8d",
+          "5c842650",
+          "306b6dff"
         ]
       },
       {
@@ -2072,7 +3974,15 @@
           "28075495",
           "066994b3",
           "6b551d50",
-          "1879e1fd"
+          "1879e1fd",
+          "7f22fa41",
+          "4f567c2c",
+          "7eccf965",
+          "73cfc0dd",
+          "30bee716",
+          "58f1e6e6",
+          "3c0d1b32",
+          "579e006a"
         ]
       },
       {
@@ -2080,7 +3990,14 @@
         "name": "Zwierzęta",
         "wordIds": [
           "27e749c1",
-          "49693045"
+          "49693045",
+          "59991233",
+          "6fe3e0ef",
+          "3f3eb516",
+          "0be43e42",
+          "518a5497",
+          "6f644953",
+          "76539dfd"
         ]
       },
       {
@@ -2092,7 +4009,12 @@
           "3008fbfc",
           "30350144",
           "50d5ba89",
-          "001bd471"
+          "001bd471",
+          "27755a4a",
+          "190ca694",
+          "344110a0",
+          "5bcc8db6",
+          "74eaa43d"
         ]
       },
       {
@@ -2102,7 +4024,13 @@
           "5ce234ce",
           "0eee0d85",
           "42f4510f",
-          "520e0a91"
+          "520e0a91",
+          "1e6f8288",
+          "3622b7fc",
+          "3fc36b14",
+          "6c927b68",
+          "5dc22f0d",
+          "66167827"
         ]
       },
       {
@@ -2110,7 +4038,13 @@
         "name": "Ciało",
         "wordIds": [
           "556af074",
-          "62157de6"
+          "62157de6",
+          "2cc0788b",
+          "794004f2",
+          "4e92455a",
+          "12486d3c",
+          "5d4b9ce6",
+          "6fd6006f"
         ]
       },
       {
@@ -2125,7 +4059,13 @@
           "5f52a102",
           "26cf7cc9",
           "713b2561",
-          "6410fd91"
+          "6410fd91",
+          "3654a621",
+          "2c53ae73",
+          "76c971e0",
+          "065ceda1",
+          "2a9af006",
+          "7c7e10d6"
         ]
       },
       {
@@ -2134,7 +4074,13 @@
         "wordIds": [
           "75260317",
           "1b5c434f",
-          "670afc0c"
+          "670afc0c",
+          "26dcd64f",
+          "02673944",
+          "78039d0e",
+          "72e7307f",
+          "3c4e06b1",
+          "4a822c9f"
         ]
       },
       {
@@ -2143,7 +4089,14 @@
         "wordIds": [
           "3cbd82ec",
           "7a90a27a",
-          "7c84be0b"
+          "7c84be0b",
+          "2ee9a84f",
+          "68218dbf",
+          "5d57794e",
+          "2e4c47a1",
+          "41ce460a",
+          "61ef32c3",
+          "573b9520"
         ]
       },
       {
@@ -2152,7 +4105,48 @@
         "wordIds": [
           "6563b5eb",
           "7c1d7f5b",
-          "7e34829e"
+          "7e34829e",
+          "1c5138b8",
+          "09a92ad2",
+          "1a4ce801",
+          "273ffd1c",
+          "634226f8"
+        ]
+      },
+      {
+        "id": "30893719",
+        "name": "Pogoda",
+        "wordIds": [
+          "67d00a1a",
+          "37c04676",
+          "37ef44b5",
+          "15551a66",
+          "2867788a",
+          "788b2e9c"
+        ]
+      },
+      {
+        "id": "5382a075",
+        "name": "Ubrania",
+        "wordIds": [
+          "5b3461bd",
+          "5d855653",
+          "4eab99ae",
+          "6e0c550c",
+          "37b2a102",
+          "534ff367"
+        ]
+      },
+      {
+        "id": "2c603dd8",
+        "name": "Natura",
+        "wordIds": [
+          "52ec5983",
+          "7a0f4835",
+          "3422bf59",
+          "1044a01d",
+          "7ef8e768",
+          "22c5cacb"
         ]
       }
     ]
@@ -3088,6 +5082,896 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "191f23d1",
+        "pl": "Ptak",
+        "obcy": "Птица",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e6300e0",
+        "pl": "Ryba",
+        "obcy": "Рыба",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72ba7a7f",
+        "pl": "Koń",
+        "obcy": "Лошадь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50e2465f",
+        "pl": "Królik",
+        "obcy": "Кролик",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "56fe1e1c",
+        "pl": "Mysz",
+        "obcy": "Мышь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4cb85e8a",
+        "pl": "Krowa",
+        "obcy": "Корова",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "031b1d9e",
+        "pl": "Kurczak",
+        "obcy": "Курица",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b7518dc",
+        "pl": "Żółty",
+        "obcy": "Жёлтый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1468135e",
+        "pl": "Czarny",
+        "obcy": "Чёрный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a49c45a",
+        "pl": "Biały",
+        "obcy": "Белый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7e07d7ae",
+        "pl": "Pomarańczowy",
+        "obcy": "Оранжевый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "36998455",
+        "pl": "Różowy",
+        "obcy": "Розовый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32d330ad",
+        "pl": "Brązowy",
+        "obcy": "Коричневый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "092edef9",
+        "pl": "Cztery",
+        "obcy": "Четыре",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "539fc44f",
+        "pl": "Pięć",
+        "obcy": "Пять",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0562542c",
+        "pl": "Sześć",
+        "obcy": "Шесть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49795e63",
+        "pl": "Siedem",
+        "obcy": "Семь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2ac2db5f",
+        "pl": "Osiem",
+        "obcy": "Восемь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0301ec12",
+        "pl": "Dziewięć",
+        "obcy": "Девять",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2f75f29f",
+        "pl": "Dziesięć",
+        "obcy": "Десять",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6d139ab8",
+        "pl": "Oko",
+        "obcy": "Глаз",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26cf83b5",
+        "pl": "Ucho",
+        "obcy": "Ухо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37031ebf",
+        "pl": "Noga",
+        "obcy": "Нога",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08e80a13",
+        "pl": "Usta",
+        "obcy": "Рот",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7ef4c096",
+        "pl": "Nos",
+        "obcy": "Нос",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4306f378",
+        "pl": "Palec",
+        "obcy": "Палец",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76556bba",
+        "pl": "Ser",
+        "obcy": "Сыр",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3a115627",
+        "pl": "Jajko",
+        "obcy": "Яйцо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "723482e2",
+        "pl": "Ryż",
+        "obcy": "Рис",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "734702cd",
+        "pl": "Zupa",
+        "obcy": "Суп",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "69074e8f",
+        "pl": "Owoc",
+        "obcy": "Фрукт",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "663be31c",
+        "pl": "Warzywo",
+        "obcy": "Овощ",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0cdc4fe7",
+        "pl": "Cukier",
+        "obcy": "Сахар",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07033bd0",
+        "pl": "Sok",
+        "obcy": "Сок",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "119bd74a",
+        "pl": "Stół",
+        "obcy": "Стол",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6911f867",
+        "pl": "Krzesło",
+        "obcy": "Стул",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "35f2b85c",
+        "pl": "Okno",
+        "obcy": "Окно",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "278d83c5",
+        "pl": "Drzwi",
+        "obcy": "Дверь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4288a4f4",
+        "pl": "Ołówek",
+        "obcy": "Карандаш",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "61b36ad9",
+        "pl": "Długopis",
+        "obcy": "Ручка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "06b468cd",
+        "pl": "Plecak",
+        "obcy": "Рюкзак",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1de5bcce",
+        "pl": "Sklep",
+        "obcy": "Магазин",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0831405d",
+        "pl": "Park",
+        "obcy": "Парк",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b9db746",
+        "pl": "Autobus",
+        "obcy": "Автобус",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77fb6ebe",
+        "pl": "Pociąg",
+        "obcy": "Поезд",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3df517fc",
+        "pl": "Most",
+        "obcy": "Мост",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2978c929",
+        "pl": "Babcia",
+        "obcy": "Бабушка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "123037ce",
+        "pl": "Dziadek",
+        "obcy": "Дедушка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2183323d",
+        "pl": "Dziecko",
+        "obcy": "Ребёнок",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "310a3ac4",
+        "pl": "Dziewczyna",
+        "obcy": "Девочка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a2b6671",
+        "pl": "Chłopiec",
+        "obcy": "Мальчик",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4d2c543c",
+        "pl": "Tydzień",
+        "obcy": "Неделя",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6fcaa9a0",
+        "pl": "Miesiąc",
+        "obcy": "Месяц",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "33a9f33a",
+        "pl": "Godzina",
+        "obcy": "Час",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4f5b7d1d",
+        "pl": "Dzisiaj",
+        "obcy": "Сегодня",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c3430cf",
+        "pl": "Jutro",
+        "obcy": "Завтра",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1449cb6e",
+        "pl": "Wczoraj",
+        "obcy": "Вчера",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49ba12e5",
+        "pl": "Szybki",
+        "obcy": "Быстрый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a8fb486",
+        "pl": "Wolny",
+        "obcy": "Медленный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01066a03",
+        "pl": "Gorący",
+        "obcy": "Горячий",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6319d686",
+        "pl": "Zimny",
+        "obcy": "Холодный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65006d23",
+        "pl": "Łatwy",
+        "obcy": "Лёгкий",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "544022f8",
+        "pl": "Trudny",
+        "obcy": "Трудный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "617d3d10",
+        "pl": "Śpiewać",
+        "obcy": "Петь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "35d08a26",
+        "pl": "Tańczyć",
+        "obcy": "Танцевать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "62f883f9",
+        "pl": "Gotować",
+        "obcy": "Готовить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "054d729a",
+        "pl": "Myć",
+        "obcy": "Мыть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1fbc9d30",
+        "pl": "Słuchać",
+        "obcy": "Слушать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "79ed43d1",
+        "pl": "Podróżować",
+        "obcy": "Путешествовать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c46569f",
+        "pl": "Rysować",
+        "obcy": "Рисовать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02ee4de9",
+        "pl": "Śmiać się",
+        "obcy": "Смеяться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "004ee064",
+        "pl": "Słońce",
+        "obcy": "Солнце",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "17d82567",
+        "pl": "Deszcz",
+        "obcy": "Дождь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07bad1be",
+        "pl": "Śnieg",
+        "obcy": "Снег",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "479ce31b",
+        "pl": "Wiatr",
+        "obcy": "Ветер",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6453a7cc",
+        "pl": "Chmura",
+        "obcy": "Облако",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "666c339e",
+        "pl": "Pogoda",
+        "obcy": "Погода",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72a8bda5",
+        "pl": "Koszulka",
+        "obcy": "Футболка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3eaf2659",
+        "pl": "Spodnie",
+        "obcy": "Брюки",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4608559c",
+        "pl": "But",
+        "obcy": "Туфля",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ced133b",
+        "pl": "Kurtka",
+        "obcy": "Куртка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2758054c",
+        "pl": "Kapelusz",
+        "obcy": "Шляпа",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1741b474",
+        "pl": "Sukienka",
+        "obcy": "Платье",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6d9e048d",
+        "pl": "Drzewo",
+        "obcy": "Дерево",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07181de1",
+        "pl": "Kwiat",
+        "obcy": "Цветок",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d4468c9",
+        "pl": "Las",
+        "obcy": "Лес",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a199418",
+        "pl": "Morze",
+        "obcy": "Море",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f1f3a5c",
+        "pl": "Góra",
+        "obcy": "Гора",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37bb1b14",
+        "pl": "Rzeka",
+        "obcy": "Река",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -3134,7 +6018,15 @@
           "2eb1fd51",
           "5b323c27",
           "7a031c9e",
-          "7061a634"
+          "7061a634",
+          "617d3d10",
+          "35d08a26",
+          "62f883f9",
+          "054d729a",
+          "1fbc9d30",
+          "79ed43d1",
+          "3c46569f",
+          "02ee4de9"
         ]
       },
       {
@@ -3158,7 +6050,14 @@
           "b9b2602b5b17",
           "41e2ef8e0976",
           "1489a20f",
-          "63537924"
+          "63537924",
+          "119bd74a",
+          "6911f867",
+          "35f2b85c",
+          "278d83c5",
+          "4288a4f4",
+          "61b36ad9",
+          "06b468cd"
         ]
       },
       {
@@ -3171,7 +6070,15 @@
           "c9d5f092efdb",
           "dd956787708e",
           "1263ba1b",
-          "2a7d398a"
+          "2a7d398a",
+          "76556bba",
+          "3a115627",
+          "723482e2",
+          "734702cd",
+          "69074e8f",
+          "663be31c",
+          "0cdc4fe7",
+          "07033bd0"
         ]
       },
       {
@@ -3179,7 +6086,14 @@
         "name": "Zwierzęta",
         "wordIds": [
           "60501b12",
-          "1ee67467"
+          "1ee67467",
+          "191f23d1",
+          "0e6300e0",
+          "72ba7a7f",
+          "50e2465f",
+          "56fe1e1c",
+          "4cb85e8a",
+          "031b1d9e"
         ]
       },
       {
@@ -3192,7 +6106,12 @@
           "31d2f73c",
           "31fefc84",
           "364f8c98",
-          "5e72b45a"
+          "5e72b45a",
+          "2978c929",
+          "123037ce",
+          "2183323d",
+          "310a3ac4",
+          "1a2b6671"
         ]
       },
       {
@@ -3203,7 +6122,13 @@
           "ad9c7f87120a",
           "1516d47464a0",
           "fed5613ce159",
-          "4455cd40"
+          "4455cd40",
+          "4d2c543c",
+          "6fcaa9a0",
+          "33a9f33a",
+          "4f5b7d1d",
+          "0c3430cf",
+          "1449cb6e"
         ]
       },
       {
@@ -3211,7 +6136,13 @@
         "name": "Ciało",
         "wordIds": [
           "aec62e1e37fd",
-          "06bfd7a9c9c3"
+          "06bfd7a9c9c3",
+          "6d139ab8",
+          "26cf83b5",
+          "37031ebf",
+          "08e80a13",
+          "7ef4c096",
+          "4306f378"
         ]
       },
       {
@@ -3226,7 +6157,13 @@
           "914dbb4d9eb7",
           "9402871cc341",
           "1fa4aef5",
-          "5635dfcc"
+          "5635dfcc",
+          "49ba12e5",
+          "7a8fb486",
+          "01066a03",
+          "6319d686",
+          "65006d23",
+          "544022f8"
         ]
       },
       {
@@ -3235,7 +6172,13 @@
         "wordIds": [
           "733a0c1f",
           "088961a8",
-          "1d293d9f"
+          "1d293d9f",
+          "5b7518dc",
+          "1468135e",
+          "1a49c45a",
+          "7e07d7ae",
+          "36998455",
+          "32d330ad"
         ]
       },
       {
@@ -3244,7 +6187,14 @@
         "wordIds": [
           "5cb9fa05",
           "7a9f6aa4",
-          "77aff17b"
+          "77aff17b",
+          "092edef9",
+          "539fc44f",
+          "0562542c",
+          "49795e63",
+          "2ac2db5f",
+          "0301ec12",
+          "2f75f29f"
         ]
       },
       {
@@ -3253,7 +6203,48 @@
         "wordIds": [
           "caa47bf3bca9",
           "3487851e",
-          "0feb894d"
+          "0feb894d",
+          "1de5bcce",
+          "0831405d",
+          "2b9db746",
+          "77fb6ebe",
+          "3df517fc"
+        ]
+      },
+      {
+        "id": "30893719",
+        "name": "Pogoda",
+        "wordIds": [
+          "004ee064",
+          "17d82567",
+          "07bad1be",
+          "479ce31b",
+          "6453a7cc",
+          "666c339e"
+        ]
+      },
+      {
+        "id": "5382a075",
+        "name": "Ubrania",
+        "wordIds": [
+          "72a8bda5",
+          "3eaf2659",
+          "4608559c",
+          "1ced133b",
+          "2758054c",
+          "1741b474"
+        ]
+      },
+      {
+        "id": "2c603dd8",
+        "name": "Natura",
+        "wordIds": [
+          "6d9e048d",
+          "07181de1",
+          "7d4468c9",
+          "7a199418",
+          "7f1f3a5c",
+          "37bb1b14"
         ]
       }
     ]
