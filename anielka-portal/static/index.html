@@ -701,7 +701,8 @@
         <div class="row">
           <button id="relWin" type="button">Windows ZIP</button>
           <button id="relApk" type="button">Android APK</button>
-          <button id="relBoth" type="button">Obie paczki</button>
+          <button id="relIos" type="button">iOS ZIP</button>
+          <button id="relBoth" type="button">Win + APK</button>
         </div>
         <p id="relStatus" class="hint"></p>
         <button id="relStatusBtn" class="ghost" type="button">Odśwież status projektu</button>
@@ -1083,7 +1084,7 @@
 
     async function doRelease(kind) {
       $("relStatus").textContent = "Startuję " + kind + "…";
-      ["relWin", "relApk", "relBoth"].forEach((id) => ($(id).disabled = true));
+      ["relWin", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = true));
       try {
         const data = await api("/api/release", {
           method: "POST",
@@ -1096,11 +1097,12 @@
       } catch (e) {
         $("relStatus").textContent = "❌ " + e.message;
       } finally {
-        ["relWin", "relApk", "relBoth"].forEach((id) => ($(id).disabled = false));
+        ["relWin", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = false));
       }
     }
     $("relWin").onclick = () => doRelease("windows");
     $("relApk").onclick = () => doRelease("apk");
+    $("relIos").onclick = () => doRelease("ios");
     $("relBoth").onclick = () => doRelease("both");
     $("relStatusBtn").onclick = async () => {
       try {

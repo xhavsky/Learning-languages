@@ -1,25 +1,76 @@
-name: iOS build (macOS runner)
+name: iOS package
 
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
-      - "ios/**"
       - "lib/**"
-      - "pubspec.yaml"
       - "assets/**"
+      - "pubspec.yaml"
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+
+permissions:
+  contents: write
 
 jobs:
   ios:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-      - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build iOS (unsigned)
+        run: flutter build ios --release --no-codesign
+
+      - name: Pack ZIP
+        run: |
+          mkdir -p dist/Trener-Jezykowy-iOS
+          cp -R build/ios/iphoneos/Runner.app dist/Trener-Jezykowy-iOS/
+          cat > dist/Trener-Jezykowy-iOS/CZYTAJ-MNIE.txt <<'EOF'
+          Trener Językowy — iOS (bez podpisu Apple)
+
+          To jest Runner.app zbudowany bez codesign (GitHub nie ma konta Apple).
+
+          Na iPhonie NIE zainstalujesz tego jak APK na Androidzie.
+          Potrzebny jest Mac + Xcode (albo Apple Developer) żeby podpisać
+          aplikację i wgrać na telefon (Xcode / TestFlight).
+
+          1. Rozpakuj ZIP na Macu
+          2. Otwórz projekt w Xcode (folder ios/ w repo) albo podpisz Runner.app
+          3. Wgraj na iPhone przez kabel / TestFlight
+          EOF
+          cd dist
+          ditto -c -k --sequesterRsrc --keepParent Trener-Jezykowy-iOS Trener-Jezykowy-iOS.zip
+
       - uses: actions/upload-artifact@v4
         with:
-          name: ios-no-codesign
-          path: build/ios/iphoneos
+          name: Trener-Jezykowy-iOS
+          path: dist/Trener-Jezykowy-iOS.zip
+
+      - name: Attach to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ios-unsigned
+          name: Paczka iOS — Trener Językowy
+          body: |
+            Paczka iOS dla Anielki (**bez podpisu Apple**).
+
+            1. Pobierz **Trener-Jezykowy-iOS.zip**
+            2. Rozpakuj na **Macu**
+            3. Podpisz w Xcode / Apple Developer i wgraj na iPhone
+
+            ⚠️ Na telefonie nie zainstalujesz tego jednym kliknięciem jak APK —
+            Apple wymaga podpisu (konto deweloperskie lub Xcode + kabel).
+          files: dist/Trener-Jezykowy-iOS.zip
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

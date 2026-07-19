@@ -1313,8 +1313,8 @@ class Handler(BaseHTTPRequestHandler):
             if not _check_pin(self) and data.get("pin") != PIN:
                 return self._json(401, {"error": "Zły PIN"})
             kind = (data.get("kind") or "both").strip().lower()
-            if kind not in ("windows", "apk", "both"):
-                return self._json(400, {"error": "kind: windows | apk | both"})
+            if kind not in ("windows", "apk", "ios", "both"):
+                return self._json(400, {"error": "kind: windows | apk | ios | both"})
             result = _trigger_release(kind)
             code = 200 if result.get("ok") else 500
             # Log for Anielka in chat
@@ -1443,6 +1443,8 @@ def _trigger_release(kind: str) -> dict:
         workflows.append("windows.yml")
     if kind in ("apk", "both"):
         workflows.append("android.yml")
+    if kind == "ios":
+        workflows.append("ios.yml")
 
     started = []
     errors = []
