@@ -32,6 +32,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    // GGUF w assets — bez kompresji APK (szybszy stream-copy przy 1. starcie)
+    androidResources {
+        noCompress += "gguf"
+    }
 }
 
 kotlin {

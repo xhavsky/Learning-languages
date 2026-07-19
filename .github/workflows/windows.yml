@@ -9,6 +9,7 @@ on:
       - "assets/**"
       - "pubspec.yaml"
       - "windows/**"
+      - "scripts/**"
       - ".github/workflows/windows.yml"
 
 permissions:
@@ -27,28 +28,61 @@ jobs:
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
 
+      - name: Cache models + ollama
+        uses: actions/cache@v4
+        with:
+          path: |
+            models
+            bundled/ollama
+          key: bielik-v3-desktop-ollama-${{ hashFiles('scripts/fetch_ondevice_models.sh') }}
+
+      - name: Fetch Bielik 1.5B + Ollama (11B: auto-pull przy 1. starcie — limit GitHub 2GB)
+        shell: bash
+        run: |
+          chmod +x scripts/fetch_ondevice_models.sh
+          ./scripts/fetch_ondevice_models.sh --phone-only
+          mkdir -p bundled/ollama
+          if [[ ! -f bundled/ollama/ollama.exe ]]; then
+            curl -fsSL -o /tmp/ollama-win.zip \
+              "https://github.com/ollama/ollama/releases/latest/download/ollama-windows-amd64.zip"
+            unzip -qo /tmp/ollama-win.zip -d /tmp/ollama-win
+            find /tmp/ollama-win -name ollama.exe -exec cp -f {} bundled/ollama/ollama.exe \;
+          fi
+          test -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf
+          test -f bundled/ollama/ollama.exe
+          ls -lh models/ bundled/ollama/
       - name: Get dependencies
         run: flutter pub get
 
       - name: Build release
         run: flutter build windows --release
 
-      - name: Pack portable ZIP
+      - name: Pack portable ZIP (full LLM)
         shell: pwsh
         run: |
           $src = "build\windows\x64\runner\Release"
           $out = "Trener-Jezykowy-Windows"
-          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          New-Item -ItemType Directory -Force -Path "$out\models" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$out\bundled\ollama" | Out-Null
           Copy-Item -Recurse -Force "$src\*" $out
+          Copy-Item -Force "models\*.gguf" "$out\models\"
+          if (Test-Path "bundled\ollama\ollama.exe") {
+            Copy-Item -Force "bundled\ollama\ollama.exe" "$out\bundled\ollama\"
+          }
           @"
-          Trener Językowy — Windows (przenośna paczka)
+          Trener Językowy — paczka Windows (z lokalnym AI)
 
-          1. Rozpakuj ZIP gdzie chcesz (np. Pulpit\Trener-Jezykowy).
+          1. Rozpakuj ZIP (np. Pulpit\Trener-Jezykowy).
           2. Uruchom trener_jezykowy.exe
-          3. Jeśli Windows SmartScreen zapyta — „Więcej informacji” → „Uruchom mimo to”
-             (to normalne dla niesygnowanych aplikacji).
+          3. Nic nie instaluj ręcznie.
 
-          Nie wymaga instalacji. Można skopiować cały folder na pendrive.
+          W środku: Bielik 1.5B + Ollama. Przy pierwszym starcie z internetem
+          aplikacja sama dociągnie pełnego Bielika 11B v3 (bez klikania).
+          Bez netu działa od razu na 1.5B.
+
+          Pełny offline 11B (pendrive): złóż lokalnie package_windows_with_llm.sh
+
+          SmartScreen: „Więcej informacji” → „Uruchom mimo to”.
           "@ | Set-Content -Encoding UTF8 "$out\CZYTAJ-MNIE.txt"
           Compress-Archive -Path $out -DestinationPath "Trener-Jezykowy-Windows.zip" -Force
 
@@ -64,7 +98,7 @@ jobs:
           tag_name: windows-portable
           name: Paczka Windows — Trener Językowy
           body: |
-            Przenośna paczka dla Anielki (Windows 10/11).
+            Pełna paczka dla Anielki (Windows 10/11) — **z Bielik 11B v3 + Ollama w środku**.
 
             1. Pobierz **Trener-Jezykowy-Windows.zip**
             2. Rozpakuj

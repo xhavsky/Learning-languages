@@ -3,11 +3,11 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'bundled_ollama.dart';
 import 'models.dart';
+import 'on_device_llm.dart';
 import 'storage.dart';
 import 'theme.dart';
 import 'ui_fx.dart';
@@ -20,11 +20,9 @@ class ChatMessage {
 }
 
 const _prefsOllamaHost = 'ollamaHost';
-const _prefsOnDeviceReady = 'onDeviceLlmReady';
-const _defaultModel = 'bielik-latest:latest';
-const _onDeviceModelAsset = 'assets/data/on_device_tutor.json';
+const _defaultModel = 'bielik-full';
 
-/// Zapisany adres Ollamy na TYM urządzeniu (opcjonalnie, np. lokalny PC).
+/// Zapisany adres Ollamy na TYM urządzeniu (opcjonalnie).
 Future<String> loadOllamaHostPref() async {
   final prefs = await SharedPreferences.getInstance();
   return (prefs.getString(_prefsOllamaHost) ?? '').trim();
@@ -41,14 +39,16 @@ class LocalLlmSession {
     required this.kind,
     required this.label,
     this.baseUrl,
+    this.model,
   });
 
-  /// ollama | ondevice
+  /// ollama | gguf | script
   final String kind;
   final String label;
   final String? baseUrl;
+  final String? model;
 
-  bool get isLive => kind == 'ollama' || kind == 'ondevice';
+  bool get isLive => kind == 'ollama' || kind == 'gguf' || kind == 'script';
 }
 
 Future<String?> _ollamaChatAt({
@@ -57,7 +57,7 @@ Future<String?> _ollamaChatAt({
   required String systemPrompt,
   String model = _defaultModel,
   Duration connectTimeout = const Duration(seconds: 4),
-  Duration readTimeout = const Duration(seconds: 90),
+  Duration readTimeout = const Duration(seconds: 120),
 }) async {
   final client = HttpClient();
   try {
@@ -111,50 +111,117 @@ List<String> _ollamaCandidateBases(String customHost) {
 
   add(customHost);
   add('http://127.0.0.1:11434');
-  // Emulator Android → host PC (tylko gdy Ollama na tym samym komputerze)
   if (Platform.isAndroid) add('http://10.0.2.2:11434');
   return out;
 }
 
-/// Kopiuje wbudowany model językowy do katalogu aplikacji (raz).
-Future<File> ensureOnDeviceModelInstalled() async {
-  final prefs = await SharedPreferences.getInstance();
-  final dir = await getApplicationDocumentsDirectory();
-  final file = File('${dir.path}/on_device_tutor.json');
-  if (!await file.exists()) {
-    final raw = await rootBundle.loadString(_onDeviceModelAsset);
-    await file.writeAsString(raw);
+Future<String?> _pickOllamaModel(String baseUrl) async {
+  final client = HttpClient();
+  try {
+    final root = baseUrl.replaceAll(RegExp(r'/$'), '');
+    final uri = Uri.parse('$root/api/tags');
+    final req = await client.getUrl(uri).timeout(const Duration(seconds: 2));
+    final res = await req.close().timeout(const Duration(seconds: 4));
+    final body = await res.transform(utf8.decoder).join();
+    if (res.statusCode != 200) return null;
+    final decoded = jsonDecode(body) as Map<String, dynamic>;
+    final models = decoded['models'];
+    if (models is! List) return null;
+    final names = <String>[
+      for (final m in models)
+        if (m is Map && m['name'] is String) m['name'] as String,
+    ];
+    const preferred = [
+      'bielik-full',
+      'bielik-full:latest',
+      'SpeakLeash/bielik-11b-v3.0-instruct:latest',
+      'SpeakLeash/bielik-11b-v3.0-instruct:Q4_K_M',
+      'bielik-latest:latest',
+      'bielik:latest',
+    ];
+    for (final p in preferred) {
+      final hit = names.where(
+        (t) => t == p || t.startsWith('${p.split(':').first}:'),
+      );
+      if (hit.isNotEmpty) return hit.first;
+    }
+    final bielik = names.where((t) => t.toLowerCase().contains('bielik'));
+    if (bielik.isNotEmpty) return bielik.first;
+    return names.isEmpty ? null : names.first;
+  } catch (_) {
+    return null;
+  } finally {
+    client.close(force: true);
   }
-  await prefs.setBool(_prefsOnDeviceReady, true);
-  return file;
 }
 
-/// Szuka modelu NA URZĄDZENIU: lokalna Ollama (opcjonalnie) albo wbudowany tutor.
+/// Szuka modelu NA URZĄDZENIU: Ollama (system / bundlowana) → GGUF → skrypt.
 /// NIGDY nie łączy z portalem ani chmurą.
 Future<LocalLlmSession> discoverLocalLlm({String? customHost}) async {
   final host = customHost ?? await loadOllamaHostPref();
-  final system = 'Ping. Odpowiedz jednym słowem: OK';
-  for (final base in _ollamaCandidateBases(host)) {
-    final probe = await _ollamaChatAt(
-      baseUrl: base,
-      history: const [],
-      systemPrompt: system,
-      connectTimeout: const Duration(seconds: 2),
-      readTimeout: const Duration(seconds: 20),
-    );
-    if (probe != null) {
-      return LocalLlmSession(
-        kind: 'ollama',
-        baseUrl: base,
-        label: 'Model na urządzeniu: Ollama ($base) — bez portalu / chmury',
+  final desktop = !Platform.isAndroid && !Platform.isIOS;
+
+  // 1) Desktop: bundlowana / systemowa Ollama + Bielik 11B v3
+  if (desktop) {
+    final bundled = BundledOllama.instance;
+    if (await bundled.ensureReady()) {
+      final probe = await _ollamaChatAt(
+        baseUrl: bundled.baseUrl,
+        history: const [],
+        systemPrompt: 'Ping. Odpowiedz jednym słowem: OK',
+        model: bundled.modelName,
+        connectTimeout: const Duration(seconds: 3),
+        readTimeout: const Duration(seconds: 60),
       );
+      if (probe != null) {
+        return LocalLlmSession(
+          kind: 'ollama',
+          baseUrl: bundled.baseUrl,
+          model: bundled.modelName,
+          label:
+              'Bielik 11B v3 (Ollama${bundled.isStarted ? ' · bundled' : ''}) — lokalnie',
+        );
+      }
+    }
+
+    // Systemowa Ollama (bez naszego sidecar), jeśli już działa
+    for (final base in _ollamaCandidateBases(host)) {
+      final model = await _pickOllamaModel(base);
+      if (model == null) continue;
+      final probe = await _ollamaChatAt(
+        baseUrl: base,
+        history: const [],
+        systemPrompt: 'Ping. Odpowiedz jednym słowem: OK',
+        model: model,
+        connectTimeout: const Duration(seconds: 2),
+        readTimeout: const Duration(seconds: 45),
+      );
+      if (probe != null) {
+        return LocalLlmSession(
+          kind: 'ollama',
+          baseUrl: base,
+          model: model,
+          label: 'Bielik / Ollama ($model) — lokalnie',
+        );
+      }
     }
   }
 
-  await ensureOnDeviceModelInstalled();
-  return const LocalLlmSession(
-    kind: 'ondevice',
-    label: 'Model językowy na urządzeniu (wbudowany) — bez internetu i portalu',
+  // 2) GGUF via llama.cpp (telefon: 1.5B; PC fallback: 1.5B lub 11B jeśli leży obok)
+  final gguf = OnDeviceLlm.instance;
+  if (await gguf.ensureLoaded(preferDesktop: desktop)) {
+    return LocalLlmSession(
+      kind: 'gguf',
+      label: gguf.labelForLoaded(),
+    );
+  }
+
+  // 3) Awaryjny skrypt (bez udawania „pełnego LLM”)
+  return LocalLlmSession(
+    kind: 'script',
+    label: gguf.lastError != null
+        ? 'Tryb awaryjny (brak modelu): ${gguf.lastError}'
+        : 'Tryb awaryjny — brak lokalnego modelu LLM',
   );
 }
 
@@ -171,9 +238,17 @@ Future<String?> localLlmReply({
       baseUrl: session.baseUrl!,
       history: history,
       systemPrompt: systemPrompt,
+      model: session.model ?? _defaultModel,
     );
   }
-  // Wbudowany model na urządzeniu — zawsze działa offline.
+  if (session.kind == 'gguf') {
+    return OnDeviceLlm.instance.chat(
+      history: [
+        for (final m in history) LlmTurn(role: m.role, text: m.text),
+      ],
+      systemPrompt: systemPrompt,
+    );
+  }
   return fallbackTutorReply(
     lang: lang,
     words: words,
@@ -496,7 +571,7 @@ class _DailyChatPageState extends State<DailyChatPage> {
   var _userTurns = 0;
   String? _status;
   LocalLlmSession _session = const LocalLlmSession(
-    kind: 'ondevice',
+    kind: 'script',
     label: 'Przygotowuję model na urządzeniu…',
   );
 
@@ -517,7 +592,10 @@ class _DailyChatPageState extends State<DailyChatPage> {
   }
 
   Future<void> _boot() async {
-    setState(() => _busy = true);
+    setState(() {
+      _busy = true;
+      _status = 'Przygotowuję lokalny model (nic nie ściągaj — jest w paczce)…';
+    });
     final system = buildTutorSystemPrompt(
       lang: widget.lang,
       words: widget.pack.words,
@@ -593,8 +671,8 @@ class _DailyChatPageState extends State<DailyChatPage> {
       words: widget.pack.words,
       userTurns: _userTurns,
     );
-    if (reply == null && _session.kind == 'ollama') {
-      // Ollama padła — wróć na wbudowany model na urządzeniu.
+    if (reply == null && (_session.kind == 'ollama' || _session.kind == 'gguf')) {
+      // Silnik padł — spróbuj ponownie (np. GGUF po Ollamie).
       final again = await discoverLocalLlm();
       _session = again;
       _status = again.label;

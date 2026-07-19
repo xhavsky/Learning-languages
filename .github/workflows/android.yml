@@ -9,6 +9,7 @@ on:
       - "assets/**"
       - "pubspec.yaml"
       - "android/**"
+      - "scripts/**"
       - ".github/workflows/android.yml"
 
 permissions:
@@ -24,6 +25,21 @@ jobs:
         with:
           channel: stable
 
+      - name: Cache Bielik phone GGUF
+        uses: actions/cache@v4
+        with:
+          path: models
+          key: bielik-1.5b-v3-q4km-${{ hashFiles('scripts/fetch_ondevice_models.sh') }}
+
+      - name: Fetch phone model + embed in APK assets
+        run: |
+          chmod +x scripts/fetch_ondevice_models.sh
+          ./scripts/fetch_ondevice_models.sh --phone-only
+          mkdir -p android/app/src/main/assets/models
+          cp -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf \
+            android/app/src/main/assets/models/
+          ls -lh android/app/src/main/assets/models/
+
       - name: Get dependencies
         run: flutter pub get
 
@@ -34,6 +50,7 @@ jobs:
         run: |
           mkdir -p dist
           cp build/app/outputs/flutter-apk/app-release.apk dist/trener-jezykowy.apk
+          ls -lh dist/trener-jezykowy.apk
 
       - uses: actions/upload-artifact@v6
         with:
@@ -47,10 +64,11 @@ jobs:
           tag_name: android-apk
           name: APK Android — Trener Językowy
           body: |
-            APK dla Anielki (Android).
+            APK dla Anielki (Android) — **z lokalnym Bielik 1.5B v3 w środku**.
 
             1. Pobierz **trener-jezykowy.apk**
             2. Zainstaluj (pozwól na „nieznane źródła” jeśli trzeba)
+            3. Nic więcej nie ściągaj — model wypakuje się przy pierwszej rozmowie AI
           files: dist/trener-jezykowy.apk
           make_latest: false
         env:
