@@ -89,6 +89,18 @@ def wav_to_mp3(wav: Path, mp3: Path) -> None:
     )
 
 
+def speak_text(text: str, lang_code: str) -> str:
+    """Prepare phrase so Piper reads it clearly (esp. short words)."""
+    t = text.strip()
+    if not t:
+        return t
+    # Short single tokens: end with period so voice finishes cleanly.
+    if " " not in t and len(t) <= 12:
+        if not t.endswith((".", "!", "?", "…")):
+            t = f"{t}."
+    return t
+
+
 def synthesize_piper(text: str, lang_code: str, out_mp3: Path) -> None:
     model = PIPER_MODELS.get(lang_code)
     if model is None or not model.exists():
@@ -96,11 +108,29 @@ def synthesize_piper(text: str, lang_code: str, out_mp3: Path) -> None:
     piper = shutil.which("piper")
     if not piper:
         raise RuntimeError("piper not found on PATH")
+    spoken = speak_text(text, lang_code)
+    # length_scale > 1 = wolniej i wyraźniej (lektor zrozumiały dla nauki)
+    length = os.environ.get("PIPER_LENGTH_SCALE", "1.25")
+    cmd = [
+        piper,
+        "-m",
+        str(model),
+        "-f",
+        "",  # filled below
+        "--length-scale",
+        length,
+        "--sentence-silence",
+        "0.35",
+    ]
+    # Spanish sharvard: speaker 0 usually clearer for single words
+    if lang_code == "es":
+        cmd.extend(["-s", os.environ.get("PIPER_ES_SPEAKER", "0")])
     with tempfile.TemporaryDirectory() as td:
         wav = Path(td) / "out.wav"
+        cmd[cmd.index("-f") + 1] = str(wav)
         proc = subprocess.run(
-            [piper, "-m", str(model), "-f", str(wav)],
-            input=text.encode("utf-8"),
+            cmd,
+            input=spoken.encode("utf-8"),
             capture_output=True,
             check=False,
         )
@@ -163,6 +193,8 @@ def main() -> int:
         except json.JSONDecodeError:
             pass
 
+    force = os.environ.get("FORCE_REGEN", "0") == "1"
+    # Domyślnie regeneruj tylko brakujące; FORCE_REGEN=1 = wszystkie na nowo (wyraźniej).
     total = done = skipped = 0
     for lang_name, w in iter_words(baza):
         lang_code = LANG_MAP.get(lang_name)
@@ -176,7 +208,7 @@ def main() -> int:
         fname = audio_key(lang_code, obcy)
         out = AUDIO_DIR / fname
         key = f"{lang_name}|{obcy}"
-        if out.exists() and out.stat().st_size > 500:
+        if not force and out.exists() and out.stat().st_size > 500:
             print(f"skip  {fname}")
             manifest["entries"][key] = {
                 "file": fname,
@@ -189,6 +221,8 @@ def main() -> int:
             continue
         print(f"gen   {fname}  ({obcy!r}, {lang_code})")
         try:
+            if out.exists():
+                out.unlink()
             engine = synthesize(obcy, lang_code, out)
         except Exception as e:  # noqa: BLE001
             print(f"  FAIL {e}", file=sys.stderr)
@@ -201,6 +235,7 @@ def main() -> int:
             "pl": w.get("pl", ""),
             "id": w.get("id"),
             "engine": engine,
+            "clarity": "length_scale=1.25",
         }
         done += 1
         print(f"  ok   {out.stat().st_size} bytes via {engine}")

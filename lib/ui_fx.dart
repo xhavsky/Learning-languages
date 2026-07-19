@@ -19,6 +19,7 @@ class GradientScaffoldBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
     final g = palette.gradient(bright);
+    final seed = palette.seed;
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -28,7 +29,41 @@ class GradientScaffoldBody extends StatelessWidget {
           stops: const [0.0, 0.45, 1.0],
         ),
       ),
-      child: child,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Delikatne „światło” w rogu — mniej płasko, nadal spójne z paletą.
+          IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: const Alignment(-0.85, -0.9),
+                  radius: 1.15,
+                  colors: [
+                    seed.withValues(alpha: bright ? 0.18 : 0.22),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: const Alignment(0.95, 0.85),
+                  radius: 0.95,
+                  colors: [
+                    seed.withValues(alpha: bright ? 0.10 : 0.16),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          child,
+        ],
+      ),
     );
   }
 }
@@ -56,10 +91,18 @@ class SoftPanel extends StatelessWidget {
       margin: margin,
       padding: padding,
       decoration: BoxDecoration(
-        color: scheme.surface.withValues(alpha: bright ? 0.88 : 0.72),
+        color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
         borderRadius: BorderRadius.circular(radius),
         border: Border.all(
-          color: scheme.outlineVariant.withValues(alpha: 0.35),
+          color: scheme.outlineVariant.withValues(alpha: 0.28),
+        ),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            scheme.surface.withValues(alpha: bright ? 0.95 : 0.78),
+            scheme.primaryContainer.withValues(alpha: bright ? 0.22 : 0.14),
+          ],
         ),
         boxShadow: softShadows(context),
       ),
