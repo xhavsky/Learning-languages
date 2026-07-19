@@ -31,4 +31,6 @@ dist/
 
 # Portal runtime
 anielka-portal/data/
+anielka-portal/__pycache__/
+scripts/.trellis_mascot_jobs.json
 

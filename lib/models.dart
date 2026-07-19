@@ -160,17 +160,33 @@ Map<String, LangPack> parseBaza(Map<String, dynamic> raw) {
   final out = <String, LangPack>{};
   for (final e in raw.entries) {
     final v = e.value;
-    if (v is Map<String, dynamic> && v['words'] is List) {
-      final words = (v['words'] as List)
-          .map((w) => Word.fromJson(w as Map<String, dynamic>))
-          .toList();
-      final groups = (v['groups'] as List? ?? [])
-          .map((g) => WordGroup.fromJson(g as Map<String, dynamic>))
-          .toList();
+    if (v is Map) {
+      final m = Map<String, dynamic>.from(v);
+      final wordsRaw = m['words'];
+      if (wordsRaw is! List) continue;
+      final words = <Word>[];
+      for (final w in wordsRaw) {
+        if (w is Map) {
+          words.add(Word.fromJson(Map<String, dynamic>.from(w)));
+        }
+      }
+      final groups = <WordGroup>[];
+      final groupsRaw = m['groups'];
+      if (groupsRaw is List) {
+        for (final g in groupsRaw) {
+          if (g is Map) {
+            groups.add(WordGroup.fromJson(Map<String, dynamic>.from(g)));
+          }
+        }
+      }
       out[e.key] = LangPack(words: words, groups: groups);
     } else if (v is List) {
-      final words =
-          v.map((w) => Word.fromJson(w as Map<String, dynamic>)).toList();
+      final words = <Word>[];
+      for (final w in v) {
+        if (w is Map) {
+          words.add(Word.fromJson(Map<String, dynamic>.from(w)));
+        }
+      }
       out[e.key] = LangPack(words: words, groups: []);
     }
   }

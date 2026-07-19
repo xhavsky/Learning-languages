@@ -1,0 +1,18 @@
+{
+  "spec": "1.0",
+  "mascot_height": 1.0,
+  "note": "Kalibracja po normalizacji mascot_*.glb — ewentualnie dostroić ręcznie.",
+  "sockets": {
+    "head": { "pos": [0.0, 0.78, 0.05], "rot_euler_deg": [0, 0, 0], "scale": 1.0 },
+    "face": { "pos": [0.0, 0.62, 0.22], "rot_euler_deg": [0, 0, 0], "scale": 1.0 },
+    "neck": { "pos": [0.0, 0.48, 0.08], "rot_euler_deg": [0, 0, 0], "scale": 1.0 },
+    "body": { "pos": [0.0, 0.32, 0.0], "rot_euler_deg": [0, 0, 0], "scale": 1.0 },
+    "special": { "pos": [0.0, 0.40, -0.15], "rot_euler_deg": [0, 0, 0], "scale": 1.0 }
+  },
+  "home_anchors": {
+    "bowl": { "pos": [-0.35, 0.0, 0.25], "scale": 0.35 },
+    "bed": { "pos": [0.35, 0.0, -0.1], "scale": 0.55 },
+    "toy": { "pos": [-0.25, 0.0, -0.2], "scale": 0.3 },
+    "decor": { "pos": [0.4, 0.0, 0.3], "scale": 0.35 }
+  }
+}

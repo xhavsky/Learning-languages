@@ -26,17 +26,26 @@ class OnDeviceLlm {
 
   bool get isReady => _chat != null && _loadedPath != null;
 
-  Future<File?> resolveGgufPath({bool preferDesktop = false}) async {
+  Future<File?> resolveGgufPath({
+    bool preferDesktop = false,
+    LlmProgressCallback? onProgress,
+  }) async {
     if (preferDesktop && !Platform.isAndroid && !Platform.isIOS) {
       final big = await BundledModelExtract.ensureDesktopGguf();
       if (big != null) return big;
     }
-    return BundledModelExtract.ensurePhoneGguf();
+    return BundledModelExtract.ensurePhoneGguf(onProgress: onProgress);
   }
 
-  Future<bool> ensureLoaded({bool preferDesktop = false}) async {
+  Future<bool> ensureLoaded({
+    bool preferDesktop = false,
+    LlmProgressCallback? onProgress,
+  }) async {
     lastError = null;
-    final file = await resolveGgufPath(preferDesktop: preferDesktop);
+    final file = await resolveGgufPath(
+      preferDesktop: preferDesktop,
+      onProgress: onProgress,
+    );
     if (file == null) {
       lastError = BundledModelExtract.lastError ??
           'Brak zbundlowanego modelu w paczce aplikacji.';
@@ -45,6 +54,14 @@ class OnDeviceLlm {
     if (_chat != null && _loadedPath == file.path) return true;
 
     await dispose();
+    onProgress?.call(
+      const LlmPrepareProgress(
+        phase: 'load',
+        message:
+            'Ładuję model do pamięci (jednorazowo przy tej sesji)… '
+            'Może chwilę potrwać na telefonie.',
+      ),
+    );
     try {
       final gpu = (!Platform.isAndroid && !Platform.isIOS) ? 99 : 0;
       _modelRepo = LlamaCppRepository();
@@ -59,6 +76,13 @@ class OnDeviceLlm {
         nGpuLayers: gpu,
       );
       _loadedPath = file.path;
+      onProgress?.call(
+        const LlmPrepareProgress(
+          phase: 'ready',
+          message: 'Model gotowy.',
+          progress: 1,
+        ),
+      );
       return true;
     } catch (e) {
       lastError = e.toString();
