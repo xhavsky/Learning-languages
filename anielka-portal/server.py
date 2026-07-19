@@ -163,8 +163,13 @@ def _workspace_recent_edits() -> dict | None:
             if Path(dirpath).name == "data" and "anielka-portal" in Path(dirpath).parts:
                 dirnames[:] = []
                 continue
+            # Portal sam zapisuje seed — nie traktuj jako pracy taty
+            if Path(dirpath).as_posix().endswith("/assets/data"):
+                continue
             for name in filenames:
                 if name.endswith((".swp", ".tmp", "~")):
+                    continue
+                if name in ("portal.json", "meta.json", "chat.json", "local_busy.json"):
                     continue
                 fp = Path(dirpath) / name
                 try:
