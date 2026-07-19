@@ -48,10 +48,167 @@ WORKSPACE = os.environ.get("ANIELKA_WORKSPACE", str(REPO))
 _lock = threading.Lock()
 _jobs: queue.Queue[str] = queue.Queue()
 _busy = False
+_progress: dict = {
+    "busy": False,
+    "percent": 0,
+    "stage": "idle",
+    "detail": "",
+    "steps": [],
+    "startedAt": None,
+    "elapsedSec": 0,
+    "toolCount": 0,
+}
 
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _progress_snapshot() -> dict:
+    with _lock:
+        p = dict(_progress)
+        steps = list(_progress.get("steps") or [])
+    if p.get("startedAt"):
+        try:
+            start = datetime.fromisoformat(p["startedAt"])
+            p["elapsedSec"] = max(0, int((datetime.now(timezone.utc) - start).total_seconds()))
+        except ValueError:
+            p["elapsedSec"] = 0
+    p["steps"] = steps[-12:]
+    p["busy"] = _busy
+    return p
+
+
+def _set_progress(
+    *,
+    stage: str | None = None,
+    detail: str | None = None,
+    percent: int | None = None,
+    bump: int = 0,
+    step: str | None = None,
+    reset: bool = False,
+) -> None:
+    global _progress
+    with _lock:
+        if reset:
+            _progress = {
+                "busy": True,
+                "percent": 3,
+                "stage": "start",
+                "detail": "Startuję asystenta…",
+                "steps": [],
+                "startedAt": _now(),
+                "elapsedSec": 0,
+                "toolCount": 0,
+            }
+        if stage is not None:
+            _progress["stage"] = stage
+        if detail is not None:
+            _progress["detail"] = detail
+        if percent is not None:
+            _progress["percent"] = max(0, min(99, int(percent)))
+        elif bump:
+            _progress["percent"] = max(
+                0, min(92, int(_progress.get("percent") or 0) + bump)
+            )
+        if step:
+            steps = list(_progress.get("steps") or [])
+            steps.append({"ts": _now(), "text": step})
+            _progress["steps"] = steps[-40:]
+        _progress["busy"] = _busy
+
+
+def _friendly_tool(name: str) -> str:
+    n = (name or "").lower()
+    mapping = {
+        "shell": "Uruchamiam polecenie w terminalu",
+        "bash": "Uruchamiam polecenie w terminalu",
+        "read": "Czytam plik",
+        "write": "Zapisuję plik",
+        "streplace": "Edytuję kod",
+        "search_replace": "Edytuję kod",
+        "grep": "Szukam w kodzie",
+        "glob": "Szukam plików",
+        "editnotebook": "Edytuję notebook",
+        "todowrite": "Aktualizuję listę zadań",
+        "webfetch": "Pobieram stronę",
+        "websearch": "Szukam w internecie",
+        "delete": "Usuwam plik",
+        "readlints": "Sprawdzam błędy",
+    }
+    for key, label in mapping.items():
+        if key in n:
+            return label
+    if name:
+        return f"Narzędzie: {name}"
+    return "Pracuję nad projektem"
+
+
+def _ingest_stream_event(obj: dict) -> None:
+    """Update progress from Cursor agent stream-json event."""
+    et = str(obj.get("type") or obj.get("event") or "").lower()
+    subtype = str(obj.get("subtype") or "").lower()
+
+    # Nested message / tool shapes vary by CLI version
+    tool = (
+        obj.get("tool")
+        or obj.get("name")
+        or (obj.get("tool_call") or {}).get("name")
+        or (obj.get("toolCall") or {}).get("name")
+        or ""
+    )
+    if isinstance(tool, dict):
+        tool = tool.get("name") or tool.get("tool") or ""
+
+    if et in ("system", "init", "status") and subtype in ("init", "started", ""):
+        _set_progress(stage="start", detail="Asystent wystartował", percent=8, step="Start")
+        return
+
+    if et in ("thinking", "reasoning") or "thinking" in et:
+        _set_progress(
+            stage="thinking",
+            detail="Myślę, co zrobić…",
+            bump=2,
+            step="Myślenie",
+        )
+        return
+
+    if et in ("assistant", "message", "text", "agent") and not tool:
+        text = obj.get("text") or obj.get("content") or ""
+        if isinstance(text, list):
+            text = " ".join(
+                str(p.get("text") or p) if isinstance(p, dict) else str(p) for p in text
+            )
+        snippet = str(text).strip().replace("\n", " ")[:80]
+        detail = f"Piszę odpowiedź… {snippet}" if snippet else "Piszę odpowiedź…"
+        _set_progress(stage="writing", detail=detail, bump=3, step="Odpowiedź")
+        return
+
+    if et in ("tool_call", "tool_use", "tool", "function_call") or tool:
+        if subtype in ("completed", "end", "result", "success"):
+            with _lock:
+                _progress["toolCount"] = int(_progress.get("toolCount") or 0) + 1
+                count = _progress["toolCount"]
+            label = _friendly_tool(str(tool))
+            _set_progress(
+                stage="tool",
+                detail=f"Zrobione: {label} ({count})",
+                bump=4,
+                step=f"✓ {label}",
+            )
+        else:
+            label = _friendly_tool(str(tool))
+            _set_progress(
+                stage="tool",
+                detail=label + "…",
+                bump=5,
+                step=label,
+            )
+        return
+
+    if et in ("result", "done", "completed"):
+        _set_progress(stage="finishing", detail="Kończę i przygotowuję odpowiedź…", percent=95)
+        return
 
 
 def _load_chat() -> list[dict]:
@@ -146,32 +303,183 @@ def _run_agent(user_text: str) -> str:
         "agent",
         "-p",
         "--force",
+        "--trust",
         "--output-format",
-        "text",
+        "stream-json",
+        "--stream-partial-output",
         prompt,
     ]
     env = os.environ.copy()
-    # Prefer working directory of the project
+    _set_progress(
+        reset=True,
+        stage="start",
+        detail="Uruchamiam asystenta Cursor…",
+        percent=5,
+        step="Start asystenta",
+    )
+
     try:
-        proc = subprocess.run(
+        proc = subprocess.Popen(
             cmd,
             cwd=WORKSPACE,
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
-            timeout=900,
             env=env,
+            bufsize=1,
         )
-    except subprocess.TimeoutExpired:
-        return "⏰ Agent pracował zbyt długo (timeout 15 min). Spróbuj krótszą prośbę."
     except FileNotFoundError:
         return "Nie znaleziono `cursor` na komputerze taty. Tata musi mieć Cursor CLI."
 
-    out = (proc.stdout or "").strip()
-    err = (proc.stderr or "").strip()
-    if proc.returncode != 0 and not out:
+    final_text_parts: list[str] = []
+    stderr_chunks: list[str] = []
+    deadline = time.time() + 900
+    last_creep_sec = -1
+
+    def _read_stderr() -> None:
+        assert proc.stderr is not None
+        for line in proc.stderr:
+            stderr_chunks.append(line)
+            if time.time() > deadline:
+                break
+
+    err_thread = threading.Thread(target=_read_stderr, daemon=True)
+    err_thread.start()
+
+    assert proc.stdout is not None
+    try:
+        while True:
+            if time.time() > deadline:
+                proc.kill()
+                return "⏰ Agent pracował zbyt długo (timeout 15 min). Spróbuj krótszą prośbę."
+            line = proc.stdout.readline()
+            if not line:
+                if proc.poll() is not None:
+                    break
+                # Soft heartbeat while waiting for next event
+                with _lock:
+                    pct = int(_progress.get("percent") or 10)
+                    started = _progress.get("startedAt")
+                    detail_now = _progress.get("detail") or "Nadal pracuję…"
+                elapsed = 0
+                if started:
+                    try:
+                        elapsed = int(
+                            (
+                                datetime.now(timezone.utc)
+                                - datetime.fromisoformat(started)
+                            ).total_seconds()
+                        )
+                    except ValueError:
+                        elapsed = 0
+                # Slow creep so the bar never looks frozen
+                if (
+                    pct < 85
+                    and elapsed > 0
+                    and elapsed % 8 == 0
+                    and elapsed != last_creep_sec
+                ):
+                    last_creep_sec = elapsed
+                    _set_progress(detail=detail_now, bump=1)
+                time.sleep(0.15)
+                continue
+
+            raw = line.strip()
+            if not raw:
+                continue
+            try:
+                obj = json.loads(raw)
+            except json.JSONDecodeError:
+                # Fallback plain text line
+                if raw and not raw.startswith("{"):
+                    final_text_parts.append(raw)
+                    _set_progress(
+                        stage="writing",
+                        detail="Piszę odpowiedź…",
+                        bump=2,
+                    )
+                continue
+
+            if not isinstance(obj, dict):
+                continue
+            _ingest_stream_event(obj)
+
+            # Collect final / text payloads
+            et = str(obj.get("type") or "").lower()
+            if et in ("result", "done", "completed"):
+                result = obj.get("result") or obj.get("text") or obj.get("message")
+                if isinstance(result, dict):
+                    result = result.get("text") or result.get("content") or ""
+                if result:
+                    final_text_parts.append(str(result).strip())
+            elif et in ("assistant", "message", "text"):
+                content = obj.get("text") or obj.get("content") or obj.get("message")
+                if isinstance(content, dict):
+                    content = content.get("content") or content.get("text") or ""
+                if isinstance(content, list):
+                    bits = []
+                    for part in content:
+                        if isinstance(part, dict):
+                            bits.append(str(part.get("text") or ""))
+                        else:
+                            bits.append(str(part))
+                    content = "".join(bits)
+                if content and et == "result":
+                    final_text_parts.append(str(content).strip())
+                elif content and obj.get("subtype") in ("complete", "final", None):
+                    # Keep last assistant text as candidate answer
+                    final_text_parts.append(str(content).strip())
+    finally:
+        try:
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        err_thread.join(timeout=2)
+
+    err = "".join(stderr_chunks).strip()
+    # Prefer last non-empty collected chunk; dedupe consecutive duplicates
+    parts = [p for p in final_text_parts if p]
+    out = ""
+    if parts:
+        # Last substantial chunk is usually the final answer
+        out = parts[-1]
+        if len(out) < 40 and len(parts) > 1:
+            out = "\n\n".join(parts[-3:])
+
+    if proc.returncode not in (0, None) and not out:
         return f"Coś poszło nie tak (kod {proc.returncode}).\n{err[-2000:]}"
     if not out:
+        # Last-resort: plain text mode if stream produced nothing useful
+        _set_progress(
+            stage="fallback",
+            detail="Drugie podejście (tryb tekstowy)…",
+            percent=40,
+            step="Fallback text",
+        )
+        try:
+            fallback = subprocess.run(
+                [
+                    CURSOR_BIN,
+                    "agent",
+                    "-p",
+                    "--force",
+                    "--trust",
+                    "--output-format",
+                    "text",
+                    prompt,
+                ],
+                cwd=WORKSPACE,
+                capture_output=True,
+                text=True,
+                timeout=900,
+                env=env,
+            )
+            out = (fallback.stdout or "").strip() or (fallback.stderr or "").strip()
+        except Exception as e:  # noqa: BLE001
+            return f"Błąd agenta: {e}\n{err[-1500:]}"
+    if not out:
         return err[-2000:] or "(pusta odpowiedź)"
+    _set_progress(stage="done", detail="Gotowe!", percent=99, step="Gotowe")
     return out
 
 
@@ -186,7 +494,18 @@ def _worker() -> None:
             _jobs.task_done()
             continue
         _busy = True
-        _append("system", "🤖 Myślę i pracuję nad projektem… czekaj chwilę.", status="working")
+        _set_progress(
+            reset=True,
+            stage="queued",
+            detail="Przyjęłam prośbę — zaraz zaczynam",
+            percent=4,
+            step="W kolejce",
+        )
+        _append(
+            "system",
+            "🤖 Pracuję nad Twoją prośbą — śledź pasek postępu powyżej.",
+            status="working",
+        )
         try:
             answer = _run_agent(user["text"])
             _append("assistant", answer, replyTo=msg_id)
@@ -194,6 +513,11 @@ def _worker() -> None:
             _append("assistant", f"Błąd: {e}", replyTo=msg_id, status="error")
         finally:
             _busy = False
+            with _lock:
+                _progress["busy"] = False
+                _progress["percent"] = 100
+                _progress["stage"] = "idle"
+                _progress["detail"] = "Gotowe"
             _jobs.task_done()
 
 
@@ -249,6 +573,7 @@ class Handler(BaseHTTPRequestHandler):
                 {
                     "ok": True,
                     "busy": _busy,
+                    "progress": _progress_snapshot(),
                     "url": TAILSCALE_URL,
                     "urlIp": TAILSCALE_IP_URL,
                 },
@@ -268,7 +593,14 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
             with _lock:
                 chat = _load_chat()
-            return self._json(200, {"messages": chat, "busy": _busy})
+            return self._json(
+                200,
+                {"messages": chat, "busy": _busy, "progress": _progress_snapshot()},
+            )
+        if path == "/api/progress":
+            if not _check_pin(self):
+                return self._json(401, {"error": "Zły PIN. Poproś tatę."})
+            return self._json(200, _progress_snapshot())
         if path == "/api/status":
             if not _check_pin(self):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
