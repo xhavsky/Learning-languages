@@ -130,6 +130,70 @@ def _detect_local_agent_process() -> bool:
     return False
 
 
+_local_files_cache: dict = {"at": 0.0, "info": None}
+
+
+def _workspace_recent_edits() -> dict | None:
+    """Detect dad editing project files (any Cursor window / editor)."""
+    now_t = time.time()
+    if now_t - float(_local_files_cache["at"]) < 2.0:
+        return _local_files_cache["info"]  # type: ignore[return-value]
+
+    ws = Path(WORKSPACE)
+    cutoff = now_t - 120
+    skip_parts = {
+        ".git",
+        "node_modules",
+        ".dart_tool",
+        "__pycache__",
+        "build",
+        ".idea",
+        ".vscode",
+    }
+    latest_mt = 0.0
+    latest_path = ""
+    try:
+        for dirpath, dirnames, filenames in os.walk(ws):
+            dirnames[:] = [
+                d
+                for d in dirnames
+                if d not in skip_parts and not d.startswith(".")
+            ]
+            # keep anielka-portal but skip its data/
+            if Path(dirpath).name == "data" and "anielka-portal" in Path(dirpath).parts:
+                dirnames[:] = []
+                continue
+            for name in filenames:
+                if name.endswith((".swp", ".tmp", "~")):
+                    continue
+                fp = Path(dirpath) / name
+                try:
+                    mt = fp.stat().st_mtime
+                except OSError:
+                    continue
+                if mt >= cutoff and mt > latest_mt:
+                    latest_mt = mt
+                    latest_path = str(fp)
+    except OSError:
+        _local_files_cache["at"] = now_t
+        _local_files_cache["info"] = None
+        return None
+
+    info = None
+    if latest_path:
+        info = {
+            "busy": True,
+            "source": "files",
+            "detail": "Tata zmienia pliki lokalnie: " + _short_path(latest_path),
+            "path": latest_path,
+            "updatedAt": _now(),
+            "startedAt": datetime.fromtimestamp(latest_mt, tz=timezone.utc).isoformat(),
+        }
+    _local_files_cache["at"] = now_t
+    _local_files_cache["info"] = info
+    return info
+
+
 def _local_work_active() -> dict | None:
     """Return local-busy info for portal UI, or None."""
     file_busy = _read_local_busy_file()
@@ -142,7 +206,7 @@ def _local_work_active() -> dict | None:
             "detail": "Tata ma otwartą lokalną sesję Cursora przy tym projekcie…",
             "updatedAt": _now(),
         }
-    return None
+    return _workspace_recent_edits()
 
 
 def _progress_snapshot() -> dict:
