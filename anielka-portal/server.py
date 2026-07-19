@@ -91,8 +91,8 @@ def _read_local_busy_file() -> dict | None:
 
 
 def _detect_local_agent_process() -> bool:
-    """Fallback: Cursor/agent process running (often cwd is ~, not the project)."""
-    ws = str(Path(WORKSPACE).resolve())
+    """True only for an active agent *job* on this project — not the idle cursor-agent daemon."""
+    ws = str(Path(WORKSPACE).resolve()).lower()
     try:
         for entry in Path("/proc").iterdir():
             if not entry.name.isdigit():
@@ -105,26 +105,25 @@ def _detect_local_agent_process() -> bool:
             low = cmd.lower()
             if "anielka-portal" in low or "server.py" in low:
                 continue
-            # Strong signals: CLI agent / composer worker
-            strong = (
-                "cursor agent" in low
-                or "cursor-agent" in low
-                or "/cursor " in low and " agent" in low
-                or "composer" in low and "agent" in low
+            # Idle Cursor CLI daemon is always running — ignore it
+            if "cursor-agent" in low and " -p" not in low and " --print" not in low:
+                # unless it's clearly a one-shot agent invocation with -p/--print
+                if "agent -p" not in low and "agent --print" not in low:
+                    continue
+            # Real headless/print agent jobs
+            is_print_agent = (
+                ("agent -p" in low or "agent --print" in low or " -p " in low)
+                and ("cursor" in low or "cursor-agent" in low)
             )
-            if strong:
+            if not is_print_agent:
+                continue
+            # Must be this project (cmdline or cwd)
+            if "learning-languages" in low or ws in low:
                 return True
-            # Weaker: cursor + this project path in cmdline
-            if ("cursor" in low or "composer" in low) and (
-                "learning-languages" in low or ws.lower() in low
-            ):
-                return True
-            # cwd is the project
             try:
-                cwd = (entry / "cwd").resolve()
-                if str(cwd) == ws or str(cwd).startswith(ws + os.sep):
-                    if "cursor" in low or "node" in low or "composer" in low:
-                        return True
+                cwd = str((entry / "cwd").resolve()).lower()
+                if cwd == ws or cwd.startswith(ws + os.sep):
+                    return True
             except OSError:
                 continue
     except OSError:
@@ -142,7 +141,7 @@ def _workspace_recent_edits() -> dict | None:
         return _local_files_cache["info"]  # type: ignore[return-value]
 
     ws = Path(WORKSPACE)
-    cutoff = now_t - 120
+    cutoff = now_t - 45
     skip_parts = {
         ".git",
         "node_modules",
