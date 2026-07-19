@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/portal-busy.sh start"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": ".cursor/hooks/portal-busy.sh ping"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/portal-busy.sh edit"
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/portal-busy.sh stop"
+      }
+    ],
+    "sessionEnd": [
+      {
+        "command": ".cursor/hooks/portal-busy.sh stop"
+      }
+    ]
+  }
+}

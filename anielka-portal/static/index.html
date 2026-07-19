@@ -616,7 +616,7 @@
         <h2>Jak pracujemy (żeby się nie zderzyć)</h2>
         <ol>
           <li><strong>Jeden projekt</strong> — ten sam folder / GitHub <code>main</code>. Nie ma drugiego „WIP”.</li>
-          <li><strong>Jedna osoba naraz przy kodzie</strong> — jeśli tu świeci pasek „asystent pracuje”, tata <em>nie</em> edytuje równolegle w Cursorze.</li>
+          <li><strong>Jedna osoba naraz przy kodzie</strong> — jeśli tu świeci pasek („asystent” albo „tata lokalnie”), druga osoba czeka.</li>
           <li><strong>Jedna prośba naraz</strong> — Anielka czeka na koniec (pasek postępu), dopiero potem następna zmiana.</li>
           <li><strong>Mówcie głośno</strong> — w czacie: „biorę słówka”, „biorę UI”, „robię release”.</li>
           <li><strong>Commit przed paczką</strong> — Release tylko gdy zmiany są zapisane w Gicie (inaczej przycisk odmówi).</li>
@@ -787,6 +787,7 @@
         writing: "Pisanie odpowiedzi",
         finishing: "Kończenie",
         fallback: "Tryb zapasowy",
+        local: "Praca lokalna (tata)",
         done: "Gotowe",
       };
       return map[stage] || stage || "?";
@@ -894,9 +895,16 @@
         else box.scrollTop = prevTop;
       }
       renderProgress(progress || {}, busy);
-      $("status").innerHTML = busy
-        ? '<span class="busy">Asystent pracuje — tata: nie edytuj równolegle</span>'
-        : "Gotowe do nowej wiadomości.";
+      const src = progress && progress.source;
+      if (busy && src === "local") {
+        $("status").innerHTML =
+          '<span class="busy">Tata pracuje lokalnie w Cursorze — poczekaj na wolny pasek</span>';
+      } else if (busy) {
+        $("status").innerHTML =
+          '<span class="busy">Asystent (portal) pracuje — tata: nie edytuj równolegle</span>';
+      } else {
+        $("status").textContent = "Gotowe do nowej wiadomości.";
+      }
       $("send").disabled = !!busy;
     }
 

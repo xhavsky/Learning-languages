@@ -26,6 +26,7 @@ DATA = Path(os.environ.get("ANIELKA_PORTAL_DATA", str(ROOT / "data")))
 HISTORY = DATA / "chat.json"
 META = DATA / "meta.json"
 GH_IDENTITY = DATA / "github_identity.json"
+LOCAL_BUSY = DATA / "local_busy.json"
 
 HOST = os.environ.get("ANIELKA_PORTAL_HOST", "0.0.0.0")
 PORT = int(os.environ.get("ANIELKA_PORTAL_PORT", "7474"))
@@ -65,6 +66,85 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def _read_local_busy_file() -> dict | None:
+    """Busy flag written by Cursor project hooks (.cursor/hooks/portal-busy.sh)."""
+    if not LOCAL_BUSY.exists():
+        return None
+    try:
+        data = json.loads(LOCAL_BUSY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not data.get("busy"):
+        return None
+    updated = data.get("updatedAt") or data.get("startedAt")
+    if updated:
+        try:
+            age = (
+                datetime.now(timezone.utc) - datetime.fromisoformat(updated)
+            ).total_seconds()
+            # Hooks should heartbeat; stale lock = ignore
+            if age > 240:
+                return None
+        except ValueError:
+            pass
+    return data
+
+
+def _detect_local_agent_process() -> bool:
+    """Fallback: Cursor/agent process touching this workspace."""
+    ws = str(Path(WORKSPACE).resolve())
+    markers = (
+        "cursor",
+        "Cursor",
+        "composer",
+        "agent",
+    )
+    try:
+        proc = Path("/proc")
+        for entry in proc.iterdir():
+            if not entry.name.isdigit():
+                continue
+            try:
+                cmdline = (entry / "cmdline").read_bytes().replace(b"\x00", b" ")
+                cmd = cmdline.decode("utf-8", "replace")
+            except OSError:
+                continue
+            if ws not in cmd and "Learning-languages" not in cmd:
+                # Also accept cwd == workspace
+                try:
+                    cwd = (entry / "cwd").resolve()
+                    if str(cwd) != ws and not str(cwd).startswith(ws + os.sep):
+                        continue
+                except OSError:
+                    continue
+            low = cmd.lower()
+            if not any(m.lower() in low for m in markers):
+                continue
+            # Ignore the portal itself / plain editors without agent
+            if "anielka-portal" in low or "server.py" in low:
+                continue
+            if "cursor" in low or "composer" in low or "agent" in low:
+                return True
+    except OSError:
+        return False
+    return False
+
+
+def _local_work_active() -> dict | None:
+    """Return local-busy info for portal UI, or None."""
+    file_busy = _read_local_busy_file()
+    if file_busy:
+        return file_busy
+    if _detect_local_agent_process():
+        return {
+            "busy": True,
+            "source": "process",
+            "detail": "Tata ma otwartą lokalną sesję Cursora przy tym projekcie…",
+            "updatedAt": _now(),
+        }
+    return None
+
+
 def _progress_snapshot() -> dict:
     with _lock:
         p = dict(_progress)
@@ -73,15 +153,66 @@ def _progress_snapshot() -> dict:
     if p.get("startedAt"):
         try:
             start = datetime.fromisoformat(p["startedAt"])
-            p["elapsedSec"] = max(0, int((datetime.now(timezone.utc) - start).total_seconds()))
+            p["elapsedSec"] = max(
+                0, int((datetime.now(timezone.utc) - start).total_seconds())
+            )
         except ValueError:
             p["elapsedSec"] = 0
     p["steps"] = steps[-14:]
     p["recentFiles"] = files[-8:]
-    p["busy"] = _busy
-    # Drop internal counters from API if any
     p.pop("_lastStepKey", None)
+
+    local = _local_work_active()
+    if _busy:
+        p["busy"] = True
+        p["source"] = "portal"
+        return p
+
+    if local:
+        started = local.get("startedAt") or local.get("updatedAt")
+        elapsed = 0
+        if started:
+            try:
+                elapsed = max(
+                    0,
+                    int(
+                        (
+                            datetime.now(timezone.utc) - datetime.fromisoformat(started)
+                        ).total_seconds()
+                    ),
+                )
+            except ValueError:
+                elapsed = 0
+        # Gentle pulse so the bar looks alive
+        pulse = 28 + int(18 * (0.5 + 0.5 * __import__("math").sin(time.time() / 2.5)))
+        path = local.get("path") or ""
+        steps_local = [{"ts": _now(), "text": "Sesja lokalna (tata / Cursor)"}]
+        if path:
+            steps_local.append(
+                {"ts": _now(), "text": "Plik: " + _short_path(str(path))}
+            )
+        return {
+            "busy": True,
+            "source": local.get("source") or "local",
+            "percent": pulse,
+            "stage": "local",
+            "detail": local.get("detail")
+            or "Tata pracuje lokalnie w Cursorze…",
+            "steps": steps_local,
+            "recentFiles": [_short_path(str(path))] if path else [],
+            "startedAt": started,
+            "elapsedSec": elapsed,
+            "toolCount": 0,
+            "headline": local.get("detail") or "Praca lokalna",
+        }
+
+    p["busy"] = False
+    p["source"] = "idle"
     return p
+
+
+def _combined_busy() -> bool:
+    return bool(_busy or _local_work_active())
 
 
 def _short_path(path: str) -> str:
@@ -894,7 +1025,7 @@ class Handler(BaseHTTPRequestHandler):
                 200,
                 {
                     "ok": True,
-                    "busy": _busy,
+                    "busy": _combined_busy(),
                     "progress": _progress_snapshot(),
                     "url": TAILSCALE_URL,
                     "urlIp": TAILSCALE_IP_URL,
@@ -917,7 +1048,11 @@ class Handler(BaseHTTPRequestHandler):
                 chat = _load_chat()
             return self._json(
                 200,
-                {"messages": chat, "busy": _busy, "progress": _progress_snapshot()},
+                {
+                    "messages": chat,
+                    "busy": _combined_busy(),
+                    "progress": _progress_snapshot(),
+                },
             )
         if path == "/api/progress":
             if not _check_pin(self):
@@ -976,6 +1111,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(400, {"error": "Wpisz wiadomość"})
             if len(text) > 8000:
                 return self._json(400, {"error": "Za długa wiadomość"})
+            if _combined_busy() and not _busy:
+                return self._json(
+                    409,
+                    {
+                        "error": (
+                            "Tata właśnie pracuje lokalnie w Cursorze. "
+                            "Poczekaj, aż zniknie pasek postępu — wtedy wyślij prośbę."
+                        )
+                    },
+                )
             if _busy:
                 return self._json(
                     409,
