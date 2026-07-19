@@ -583,7 +583,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               const SizedBox(height: 8),
                           itemBuilder: (_, i) {
                             final c = items[i];
-                            return SoftSurface(
+                            return SoftPanel(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
