@@ -2,6 +2,30 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+/// Gatunek maskotki.
+enum MascotSpecies { cat, dog }
+
+/// Domyślny kolor futerka (kremowy — jak Kicia na obrazku).
+const defaultMascotColorArgb = 0xFFFFCC80;
+
+/// Paleta kolorów do wyboru.
+const mascotColorPresets = <Color>[
+  Color(0xFFFFCC80), // kremowy
+  Color(0xFFFF8A65), // rudy
+  Color(0xFFBDBDBD), // szary
+  Color(0xFF5D4037), // brązowy
+  Color(0xFF212121), // czarny
+  Color(0xFFFFF8E1), // biały
+  Color(0xFFF48FB1), // różowy
+  Color(0xFF90CAF9), // błękitny
+];
+
+String mascotSpeciesLabel(MascotSpecies s) =>
+    s == MascotSpecies.cat ? 'Kot' : 'Pies';
+
+String mascotName(MascotSpecies s) =>
+    s == MascotSpecies.cat ? 'Kicia' : 'Piesek';
+
 /// Slot garderoby — jedno ubranko na slot.
 enum MascotSlot { head, neck, face, body, special }
 
@@ -300,10 +324,10 @@ const mascotHomeShop = <HomeItem>[
     id: 'bowl_pink',
     name: 'Miska różowa',
     emoji: '🥣',
-    blurb: 'Różowa miseczka na smaczki-słówka.',
+    blurb: 'Prawdziwa różowa miseczka na smaczki-słówka.',
     slot: HomeSlot.bowl,
     price: 8,
-    color: Color(0xFFF48FB1),
+    color: Color(0xFFFF69B4),
   ),
   HomeItem(
     id: 'bowl_gold',
@@ -312,7 +336,7 @@ const mascotHomeShop = <HomeItem>[
     blurb: 'Złota miska dla prawdziwej królowej.',
     slot: HomeSlot.bowl,
     price: 15,
-    color: Color(0xFFFFD54F),
+    color: Color(0xFFFFD700),
   ),
   HomeItem(
     id: 'bed_soft',
@@ -321,7 +345,7 @@ const mascotHomeShop = <HomeItem>[
     blurb: 'Mięciutkie posłanie — drzemka po nauce.',
     slot: HomeSlot.bed,
     price: 12,
-    color: Color(0xFF90CAF9),
+    color: Color(0xFF64B5F6),
   ),
   HomeItem(
     id: 'bed_castle',
@@ -330,16 +354,16 @@ const mascotHomeShop = <HomeItem>[
     blurb: 'Posłanie jak mały zamek!',
     slot: HomeSlot.bed,
     price: 28,
-    color: Color(0xFFCE93D8),
+    color: Color(0xFFBA68C8),
   ),
   HomeItem(
     id: 'toy_mouse',
     name: 'Myszka na sznurku',
     emoji: '🐭',
-    blurb: 'Ulubiona zabawka Kici.',
+    blurb: 'Ulubiona zabawka do gonienia.',
     slot: HomeSlot.toy,
     price: 10,
-    color: Color(0xFFFFAB91),
+    color: Color(0xFFFF8A65),
   ),
   HomeItem(
     id: 'toy_ball',
@@ -348,7 +372,7 @@ const mascotHomeShop = <HomeItem>[
     blurb: 'Piłeczka — bawi się między quizami.',
     slot: HomeSlot.toy,
     price: 9,
-    color: Color(0xFF80CBC4),
+    color: Color(0xFF26A69A),
   ),
   HomeItem(
     id: 'plant_catnip',
@@ -366,7 +390,7 @@ const mascotHomeShop = <HomeItem>[
     blurb: 'Miękkie światło na wieczorne słówka.',
     slot: HomeSlot.decor,
     price: 16,
-    color: Color(0xFFFFF59D),
+    color: Color(0xFFFFEE58),
   ),
 ];
 
@@ -460,12 +484,14 @@ String homeSlotLabel(HomeSlot slot) => switch (slot) {
       HomeSlot.decor => 'Dekoracja',
     };
 
-/// Kreskówkowa Kicia z namalowanymi ubrankami (naprawdę „ma je na sobie”).
+/// Kreskówkowa maskotka z namalowanymi ubrankami i pokoikiem.
 class DressedKicia extends StatelessWidget {
   const DressedKicia({
     super.key,
     required this.equipped,
     this.placedHome = const {},
+    this.species = MascotSpecies.cat,
+    this.furColor = const Color(defaultMascotColorArgb),
     this.size = 220,
   });
 
@@ -474,6 +500,8 @@ class DressedKicia extends StatelessWidget {
 
   /// HomeSlot.name → homeItemId
   final Map<String, String> placedHome;
+  final MascotSpecies species;
+  final Color furColor;
   final double size;
 
   List<MascotItem> get _worn {
@@ -498,6 +526,7 @@ class DressedKicia extends StatelessWidget {
   Widget build(BuildContext context) {
     final worn = _worn;
     final home = _home;
+    final tinted = furColor.toARGB32() != defaultMascotColorArgb;
     return SizedBox(
       width: size,
       height: size,
@@ -505,48 +534,517 @@ class DressedKicia extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
-          // Przezroczyste tło — widać gradient aplikacji.
-          Image.asset(
-            'assets/images/kicia_base.png',
-            fit: BoxFit.contain,
-            width: size,
-            height: size,
-            filterQuality: FilterQuality.medium,
-          ),
+          if (species == MascotSpecies.cat)
+            tinted
+                ? ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      furColor.withValues(alpha: 0.55),
+                      BlendMode.modulate,
+                    ),
+                    child: Image.asset(
+                      'assets/images/kicia_base.png',
+                      fit: BoxFit.contain,
+                      width: size,
+                      height: size,
+                      filterQuality: FilterQuality.medium,
+                    ),
+                  )
+                : Image.asset(
+                    'assets/images/kicia_base.png',
+                    fit: BoxFit.contain,
+                    width: size,
+                    height: size,
+                    filterQuality: FilterQuality.medium,
+                  )
+          else
+            CustomPaint(
+              size: Size(size, size),
+              painter: _DogPainter(furColor),
+            ),
           Positioned.fill(
             child: CustomPaint(
               painter: _OutfitPainter(worn),
             ),
           ),
-          for (final h in home) _homeBadge(h),
+          for (final h in home) _homeArt(h),
         ],
       ),
     );
   }
 
-  Widget _homeBadge(HomeItem item) {
+  Widget _homeArt(HomeItem item) {
     final (Alignment align, double dx, double dy) = switch (item.slot) {
-      HomeSlot.bowl => (Alignment.bottomLeft, 4.0, -4.0),
-      HomeSlot.bed => (Alignment.bottomRight, -4.0, -2.0),
-      HomeSlot.toy => (Alignment.centerLeft, -2.0, 18.0),
-      HomeSlot.decor => (Alignment.topRight, -2.0, 8.0),
+      HomeSlot.bowl => (Alignment.bottomLeft, 2.0, -2.0),
+      HomeSlot.bed => (Alignment.bottomRight, -2.0, -2.0),
+      HomeSlot.toy => (Alignment.centerLeft, -4.0, 22.0),
+      HomeSlot.decor => (Alignment.topRight, -2.0, 10.0),
     };
+    final artSize = size * 0.28;
     return Align(
       alignment: align,
       child: Transform.translate(
         offset: Offset(dx, dy),
-        child: Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: item.color.withValues(alpha: 0.85),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white70, width: 1.5),
-          ),
-          child: Text(item.emoji, style: TextStyle(fontSize: size * 0.12)),
-        ),
+        child: HomeItemArt(item: item, size: artSize),
       ),
     );
   }
+}
+
+/// Miniaturka rzeczy ze sklepu / pokoiku — prawdziwy rysunek, nie kolorowe tło.
+class HomeItemArt extends StatelessWidget {
+  const HomeItemArt({super.key, required this.item, this.size = 48});
+
+  final HomeItem item;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(
+        painter: _HomeItemPainter(item),
+      ),
+    );
+  }
+}
+
+/// Miniaturka ubranka do sklepu / listy.
+class OutfitThumb extends StatelessWidget {
+  const OutfitThumb({super.key, required this.item, this.size = 48});
+
+  final MascotItem item;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            item.color.withValues(alpha: 0.95),
+            item.color.withValues(alpha: 0.55),
+            Colors.white.withValues(alpha: 0.35),
+          ],
+        ),
+        border: Border.all(color: Colors.white, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: item.color.withValues(alpha: 0.35),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(item.emoji, style: TextStyle(fontSize: size * 0.42)),
+      ),
+    );
+  }
+}
+
+class _HomeItemPainter extends CustomPainter {
+  _HomeItemPainter(this.item);
+
+  final HomeItem item;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    switch (item.id) {
+      case 'bowl_pink':
+      case 'bowl_gold':
+        _paintBowl(canvas, w, h, item.color);
+      case 'bed_soft':
+        _paintBedSoft(canvas, w, h, item.color);
+      case 'bed_castle':
+        _paintBedCastle(canvas, w, h, item.color);
+      case 'toy_mouse':
+        _paintMouse(canvas, w, h, item.color);
+      case 'toy_ball':
+        _paintBall(canvas, w, h, item.color);
+      case 'plant_catnip':
+        _paintPlant(canvas, w, h, item.color);
+      case 'lamp_moon':
+        _paintMoon(canvas, w, h, item.color);
+      default:
+        final p = Paint()..color = item.color;
+        canvas.drawCircle(Offset(w / 2, h / 2), w * 0.35, p);
+    }
+  }
+
+  void _paintBowl(Canvas canvas, double w, double h, Color color) {
+    // Cień
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.78),
+        width: w * 0.7,
+        height: h * 0.12,
+      ),
+      Paint()..color = Colors.black26,
+    );
+    // Korpus miski — sam kolor (różowy / złoty), bez kolorowego tła
+    final bowl = Path()
+      ..moveTo(w * 0.18, h * 0.38)
+      ..quadraticBezierTo(w * 0.12, h * 0.72, w * 0.28, h * 0.78)
+      ..lineTo(w * 0.72, h * 0.78)
+      ..quadraticBezierTo(w * 0.88, h * 0.72, w * 0.82, h * 0.38)
+      ..close();
+    final fill = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color.lerp(color, Colors.white, 0.25)!,
+          color,
+          Color.lerp(color, Colors.black, 0.15)!,
+        ],
+      ).createShader(Rect.fromLTWH(0, h * 0.3, w, h * 0.55));
+    canvas.drawPath(bowl, fill);
+    canvas.drawPath(
+      bowl,
+      Paint()
+        ..color = Color.lerp(color, Colors.black, 0.25)!
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.8,
+    );
+    // Wewnętrzna elipsa (pokarm / połysk)
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.42),
+        width: w * 0.58,
+        height: h * 0.18,
+      ),
+      Paint()..color = Color.lerp(color, Colors.white, 0.45)!,
+    );
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.44),
+        width: w * 0.42,
+        height: h * 0.10,
+      ),
+      Paint()..color = const Color(0xFFFFE0B2).withValues(alpha: 0.85),
+    );
+    // Błysk
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.38, h * 0.52),
+        width: w * 0.08,
+        height: h * 0.16,
+      ),
+      Paint()..color = Colors.white.withValues(alpha: 0.55),
+    );
+  }
+
+  void _paintBedSoft(Canvas canvas, double w, double h, Color color) {
+    final base = RRect.fromRectAndRadius(
+      Rect.fromLTRB(w * 0.12, h * 0.45, w * 0.88, h * 0.82),
+      const Radius.circular(16),
+    );
+    canvas.drawRRect(
+      base,
+      Paint()
+        ..shader = LinearGradient(
+          colors: [color, Color.lerp(color, Colors.white, 0.35)!],
+        ).createShader(Rect.fromLTWH(0, 0, w, h)),
+    );
+    canvas.drawOval(
+      Rect.fromLTRB(w * 0.22, h * 0.38, w * 0.78, h * 0.62),
+      Paint()..color = Color.lerp(color, Colors.white, 0.4)!,
+    );
+    canvas.drawRRect(
+      base,
+      Paint()
+        ..color = Colors.white70
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+  }
+
+  void _paintBedCastle(Canvas canvas, double w, double h, Color color) {
+    final wall = Paint()..color = color;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(w * 0.18, h * 0.42, w * 0.82, h * 0.82),
+        const Radius.circular(6),
+      ),
+      wall,
+    );
+    for (final x in [0.22, 0.42, 0.62]) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(w * x, h * 0.22, w * (x + 0.16), h * 0.45),
+          const Radius.circular(3),
+        ),
+        wall,
+      );
+    }
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(w * 0.38, h * 0.55, w * 0.62, h * 0.82),
+        const Radius.circular(4),
+      ),
+      Paint()..color = Color.lerp(color, Colors.black, 0.25)!,
+    );
+    canvas.drawCircle(
+      Offset(w * 0.5, h * 0.18),
+      w * 0.06,
+      Paint()..color = const Color(0xFFFFD54F),
+    );
+  }
+
+  void _paintMouse(Canvas canvas, double w, double h, Color color) {
+    final body = Paint()..color = color;
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.48, h * 0.55),
+        width: w * 0.55,
+        height: h * 0.38,
+      ),
+      body,
+    );
+    canvas.drawCircle(Offset(w * 0.72, h * 0.42), w * 0.14, body);
+    canvas.drawCircle(
+      Offset(w * 0.68, h * 0.28),
+      w * 0.08,
+      Paint()..color = Color.lerp(color, Colors.pink, 0.3)!,
+    );
+    canvas.drawCircle(
+      Offset(w * 0.80, h * 0.30),
+      w * 0.08,
+      Paint()..color = Color.lerp(color, Colors.pink, 0.3)!,
+    );
+    canvas.drawCircle(
+      Offset(w * 0.76, h * 0.40),
+      w * 0.025,
+      Paint()..color = Colors.black87,
+    );
+    final string = Paint()
+      ..color = Colors.brown.shade400
+      ..strokeWidth = 1.5
+      ..style = PaintingStyle.stroke;
+    canvas.drawArc(
+      Rect.fromLTRB(w * 0.05, h * 0.35, w * 0.35, h * 0.7),
+      0.2,
+      2.2,
+      false,
+      string,
+    );
+  }
+
+  void _paintBall(Canvas canvas, double w, double h, Color color) {
+    final c = Offset(w * 0.5, h * 0.5);
+    canvas.drawCircle(
+      c,
+      w * 0.32,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Color.lerp(color, Colors.white, 0.4)!,
+            color,
+            Color.lerp(color, Colors.black, 0.2)!,
+          ],
+        ).createShader(Rect.fromCircle(center: c, radius: w * 0.32)),
+    );
+    canvas.drawArc(
+      Rect.fromCircle(center: c, radius: w * 0.32),
+      -0.4,
+      2.2,
+      false,
+      Paint()
+        ..color = Colors.white54
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.5,
+    );
+    canvas.drawCircle(
+      Offset(w * 0.5, h * 0.5),
+      w * 0.06,
+      Paint()..color = const Color(0xFFFFD54F),
+    );
+  }
+
+  void _paintPlant(Canvas canvas, double w, double h, Color color) {
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(w * 0.32, h * 0.55, w * 0.68, h * 0.88),
+        const Radius.circular(6),
+      ),
+      Paint()..color = const Color(0xFF8D6E63),
+    );
+    final leaf = Paint()..color = color;
+    for (final (dx, dy, rx, ry) in [
+      (0.5, 0.42, 0.12, 0.28),
+      (0.36, 0.38, 0.10, 0.24),
+      (0.64, 0.38, 0.10, 0.24),
+    ]) {
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * dx, h * dy),
+          width: w * rx * 2,
+          height: h * ry,
+        ),
+        leaf,
+      );
+    }
+  }
+
+  void _paintMoon(Canvas canvas, double w, double h, Color color) {
+    final c = Offset(w * 0.5, h * 0.48);
+    canvas.drawCircle(
+      c,
+      w * 0.28,
+      Paint()
+        ..color = color.withValues(alpha: 0.35)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+    );
+    canvas.drawCircle(c, w * 0.26, Paint()..color = color);
+    canvas.drawCircle(
+      Offset(w * 0.60, h * 0.42),
+      w * 0.18,
+      Paint()..color = const Color(0xFF1A237E).withValues(alpha: 0.15),
+    );
+    canvas.drawCircle(
+      Offset(w * 0.42, h * 0.40),
+      w * 0.04,
+      Paint()..color = Colors.white70,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _HomeItemPainter oldDelegate) =>
+      oldDelegate.item.id != item.id;
+}
+
+/// Rysunek pieska (gdy wybrany gatunek = pies).
+class _DogPainter extends CustomPainter {
+  _DogPainter(this.fur);
+
+  final Color fur;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final body = Paint()..color = fur;
+    final dark = Paint()..color = Color.lerp(fur, Colors.black, 0.22)!;
+    final light = Paint()..color = Color.lerp(fur, Colors.white, 0.35)!;
+
+    // Uszy
+    final leftEar = Path()
+      ..moveTo(w * 0.28, h * 0.28)
+      ..lineTo(w * 0.18, h * 0.08)
+      ..lineTo(w * 0.38, h * 0.22)
+      ..close();
+    final rightEar = Path()
+      ..moveTo(w * 0.72, h * 0.28)
+      ..lineTo(w * 0.82, h * 0.08)
+      ..lineTo(w * 0.62, h * 0.22)
+      ..close();
+    canvas.drawPath(leftEar, dark);
+    canvas.drawPath(rightEar, dark);
+    canvas.drawPath(
+      Path()
+        ..moveTo(w * 0.29, h * 0.26)
+        ..lineTo(w * 0.22, h * 0.12)
+        ..lineTo(w * 0.36, h * 0.22)
+        ..close(),
+      Paint()..color = const Color(0xFFFFCDD2),
+    );
+    canvas.drawPath(
+      Path()
+        ..moveTo(w * 0.71, h * 0.26)
+        ..lineTo(w * 0.78, h * 0.12)
+        ..lineTo(w * 0.64, h * 0.22)
+        ..close(),
+      Paint()..color = const Color(0xFFFFCDD2),
+    );
+
+    // Głowa
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.38),
+        width: w * 0.52,
+        height: h * 0.42,
+      ),
+      body,
+    );
+    // Pyszczek
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.48),
+        width: w * 0.28,
+        height: h * 0.18,
+      ),
+      light,
+    );
+    // Oczy
+    canvas.drawCircle(Offset(w * 0.40, h * 0.34), w * 0.045, Paint()..color = Colors.black87);
+    canvas.drawCircle(Offset(w * 0.60, h * 0.34), w * 0.045, Paint()..color = Colors.black87);
+    canvas.drawCircle(Offset(w * 0.415, h * 0.325), w * 0.015, Paint()..color = Colors.white);
+    canvas.drawCircle(Offset(w * 0.615, h * 0.325), w * 0.015, Paint()..color = Colors.white);
+    // Nosek
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.46),
+        width: w * 0.08,
+        height: h * 0.05,
+      ),
+      Paint()..color = Colors.black87,
+    );
+    // Uśmiech
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: Offset(w * 0.5, h * 0.50),
+        width: w * 0.16,
+        height: h * 0.10,
+      ),
+      0.15,
+      math.pi - 0.3,
+      false,
+      Paint()
+        ..color = Colors.black54
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..strokeCap = StrokeCap.round,
+    );
+    // Ciało
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(w * 0.28, h * 0.55, w * 0.72, h * 0.88),
+        const Radius.circular(28),
+      ),
+      body,
+    );
+    // Łapki
+    canvas.drawOval(
+      Rect.fromLTRB(w * 0.30, h * 0.82, w * 0.44, h * 0.94),
+      dark,
+    );
+    canvas.drawOval(
+      Rect.fromLTRB(w * 0.56, h * 0.82, w * 0.70, h * 0.94),
+      dark,
+    );
+    // Ogon
+    canvas.drawArc(
+      Rect.fromLTRB(w * 0.68, h * 0.58, w * 0.95, h * 0.85),
+      -0.8,
+      1.6,
+      false,
+      Paint()
+        ..color = fur
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = w * 0.06
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _DogPainter oldDelegate) =>
+      oldDelegate.fur.toARGB32() != fur.toARGB32();
 }
 
 class _OutfitPainter extends CustomPainter {
@@ -862,7 +1360,7 @@ class _OutfitPainter extends CustomPainter {
   }
 }
 
-/// Widget kotka: kreskówka w stroju + pokoik + status karmienia.
+/// Widget maskotki: kreskówka w stroju + pokoik + status karmienia.
 class MascotCard extends StatelessWidget {
   const MascotCard({
     super.key,
@@ -873,10 +1371,14 @@ class MascotCard extends StatelessWidget {
     required this.equipped,
     required this.goldenPaws,
     this.placedHome = const {},
+    this.species = MascotSpecies.cat,
+    this.furColor = const Color(defaultMascotColorArgb),
     this.compact = false,
     this.onTapWardrobe,
     this.onTapShop,
     this.onEquip,
+    this.onSpeciesChanged,
+    this.onColorChanged,
   });
 
   final int playerLevel;
@@ -885,17 +1387,22 @@ class MascotCard extends StatelessWidget {
   final List<String> unlockedIds;
   final Map<String, String> equipped;
   final Map<String, String> placedHome;
+  final MascotSpecies species;
+  final Color furColor;
   final int goldenPaws;
   final bool compact;
   final VoidCallback? onTapWardrobe;
   final VoidCallback? onTapShop;
   final void Function(MascotItem item)? onEquip;
+  final void Function(MascotSpecies species)? onSpeciesChanged;
+  final void Function(Color color)? onColorChanged;
 
   @override
   Widget build(BuildContext context) {
     final items = unlockedMascotItems(unlockedIds);
     final need =
         (mascotDailyFeedGoal - wordsToday).clamp(0, mascotDailyFeedGoal);
+    final name = mascotName(species);
     final hungerLabel = fedToday
         ? 'Syta i szczęśliwa! (+nauka dziś ✓)'
         : need == 0
@@ -912,7 +1419,7 @@ class MascotCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'Kicia — maskotka Treningu',
+                  '$name — maskotka Treningu',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -935,10 +1442,68 @@ class MascotCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
+          if (onSpeciesChanged != null) ...[
+            SegmentedButton<MascotSpecies>(
+              segments: const [
+                ButtonSegment(
+                  value: MascotSpecies.cat,
+                  label: Text('🐱 Kot'),
+                ),
+                ButtonSegment(
+                  value: MascotSpecies.dog,
+                  label: Text('🐶 Pies'),
+                ),
+              ],
+              selected: {species},
+              onSelectionChanged: (s) => onSpeciesChanged!(s.first),
+            ),
+            const SizedBox(height: 8),
+          ],
+          if (onColorChanged != null) ...[
+            Text(
+              'Kolor futerka',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 6),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final c in mascotColorPresets)
+                  GestureDetector(
+                    onTap: () => onColorChanged!(c),
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: c,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: furColor.toARGB32() == c.toARGB32()
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.white,
+                          width: furColor.toARGB32() == c.toARGB32() ? 3 : 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.15),
+                            blurRadius: 3,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
           Center(
             child: DressedKicia(
               equipped: equipped,
               placedHome: placedHome,
+              species: species,
+              furColor: furColor,
               size: portraitSize,
             ),
           ),
@@ -956,7 +1521,9 @@ class MascotCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  'Miaaa… jem słówka!',
+                  species == MascotSpecies.dog
+                      ? 'Hau! Jem słówka!'
+                      : 'Miaaa… jem słówka!',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
@@ -1008,11 +1575,7 @@ class MascotCard extends StatelessWidget {
                 for (final it in items)
                   FilterChip(
                     selected: equipped[it.slot.name] == it.id,
-                    avatar: CircleAvatar(
-                      backgroundColor: it.color,
-                      child:
-                          Text(it.emoji, style: const TextStyle(fontSize: 12)),
-                    ),
+                    avatar: OutfitThumb(item: it, size: 28),
                     label: Text(it.name),
                     visualDensity: VisualDensity.compact,
                     onSelected: onEquip == null ? null : (_) => onEquip!(it),
@@ -1023,7 +1586,7 @@ class MascotCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                'Awansuj na poziom 2 albo zajrzyj do sklepu — Kicia dostanie ubranko!',
+                'Awansuj na poziom 2 albo zajrzyj do sklepu — $name dostanie ubranko!',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),

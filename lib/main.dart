@@ -539,6 +539,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       placedHome: Map<String, String>.from(
                         _store.stats.placedHome,
                       ),
+                      species: _store.stats.mascotSpecies,
+                      furColor: Color(_store.stats.mascotColorArgb),
                       size: 140,
                     ),
                   ),
@@ -776,6 +778,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         equipped: Map<String, String>.from(equipped),
                         placedHome:
                             Map<String, String>.from(_store.stats.placedHome),
+                        species: _store.stats.mascotSpecies,
+                        furColor: Color(_store.stats.mascotColorArgb),
                         size: 180,
                       ),
                     ),
@@ -785,14 +789,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         children: [
                           for (final item in mascotWardrobe)
                             ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: unlockedIds.contains(item.id)
-                                    ? item.color
-                                    : Colors.grey.shade400,
-                                child: Text(
-                                  item.emoji,
-                                  style: const TextStyle(fontSize: 20),
-                                ),
+                              leading: Opacity(
+                                opacity:
+                                    unlockedIds.contains(item.id) ? 1 : 0.45,
+                                child: OutfitThumb(item: item, size: 44),
                               ),
                               title: Text(item.name),
                               subtitle: Text(
@@ -1637,9 +1637,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       equipped: _store.stats.equippedMascot,
                       placedHome: _store.stats.placedHome,
                       goldenPaws: _store.stats.goldenPaws,
+                      species: _store.stats.mascotSpecies,
+                      furColor: Color(_store.stats.mascotColorArgb),
                       onTapWardrobe: _openWardrobe,
                       onTapShop: _openShop,
                       onEquip: _equipMascot,
+                      onSpeciesChanged: (s) async {
+                        setState(() => _store.stats.mascotSpecies = s);
+                        await _store.save();
+                      },
+                      onColorChanged: (c) async {
+                        setState(
+                          () => _store.stats.mascotColorArgb = c.toARGB32(),
+                        );
+                        await _store.save();
+                      },
                     ),
                     SoftPanel(
                       margin: const EdgeInsets.only(bottom: 12),
@@ -2555,11 +2567,43 @@ class WordsPage extends StatefulWidget {
 
 class _WordsPageState extends State<WordsPage> {
   final _filterCtrl = TextEditingController();
+  final _categoryScroll = ScrollController();
   String _query = '';
   String? _categoryFilter; // null = wszystkie
+  bool _canScrollCategories = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _categoryScroll.addListener(_updateCategoryArrow);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateCategoryArrow());
+  }
+
+  void _updateCategoryArrow() {
+    if (!_categoryScroll.hasClients) return;
+    final max = _categoryScroll.position.maxScrollExtent;
+    final atEnd = _categoryScroll.offset >= max - 8;
+    final can = max > 8 && !atEnd;
+    if (can != _canScrollCategories) {
+      setState(() => _canScrollCategories = can);
+    }
+  }
+
+  void _scrollCategoriesRight() {
+    if (!_categoryScroll.hasClients) return;
+    final next = (_categoryScroll.offset + 140)
+        .clamp(0.0, _categoryScroll.position.maxScrollExtent);
+    _categoryScroll.animateTo(
+      next,
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOutCubic,
+    );
+  }
 
   @override
   void dispose() {
+    _categoryScroll.removeListener(_updateCategoryArrow);
+    _categoryScroll.dispose();
     _filterCtrl.dispose();
     super.dispose();
   }
@@ -2713,34 +2757,69 @@ class _WordsPageState extends State<WordsPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
                 child: Text(
-                  'Kategoria (przesuń pasek →)',
+                  'Kategoria',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               SizedBox(
                 height: 44,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: FilterChip(
-                        label: const Text('Wszystkie'),
-                        selected: _categoryFilter == null,
-                        onSelected: (_) =>
-                            setState(() => _categoryFilter = null),
+                    Expanded(
+                      child: NotificationListener<ScrollMetricsNotification>(
+                        onNotification: (_) {
+                          _updateCategoryArrow();
+                          return false;
+                        },
+                        child: ListView(
+                          controller: _categoryScroll,
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 12, right: 4),
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: FilterChip(
+                                label: const Text('Wszystkie'),
+                                selected: _categoryFilter == null,
+                                onSelected: (_) =>
+                                    setState(() => _categoryFilter = null),
+                              ),
+                            ),
+                            for (final g in widget.pack.groups)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: FilterChip(
+                                  label: Text(g.name),
+                                  selected: _categoryFilter == g.id,
+                                  onSelected: (_) => setState(
+                                    () => _categoryFilter =
+                                        _categoryFilter == g.id
+                                            ? null
+                                            : g.id,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
-                    for (final g in widget.pack.groups)
+                    if (_canScrollCategories)
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: FilterChip(
-                          label: Text(g.name),
-                          selected: _categoryFilter == g.id,
-                          onSelected: (_) => setState(
-                            () => _categoryFilter =
-                                _categoryFilter == g.id ? null : g.id,
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Material(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer,
+                          shape: const CircleBorder(),
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: _scrollCategoriesRight,
+                            child: const Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Icon(Icons.arrow_forward_ios, size: 16),
+                            ),
                           ),
                         ),
                       ),
@@ -2898,9 +2977,10 @@ class _ShopPageState extends State<ShopPage>
   Widget build(BuildContext context) {
     final outfits = shopExclusiveOutfits();
     final paws = widget.stats.goldenPaws;
+    final petName = mascotName(widget.stats.mascotSpecies);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sklep Kici'),
+        title: Text('Sklep $petName'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
@@ -2935,12 +3015,14 @@ class _ShopPageState extends State<ShopPage>
                     DressedKicia(
                       equipped: widget.stats.equippedMascot,
                       placedHome: widget.stats.placedHome,
+                      species: widget.stats.mascotSpecies,
+                      furColor: Color(widget.stats.mascotColorArgb),
                       size: 150,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Złote łapki: +$pawsPerCorrect za poprawną odpowiedź, '
-                      '+$pawsFeedBonus gdy Kicia najedzona, '
+                      '+$pawsFeedBonus gdy $petName najedzona, '
                       '+$pawsPerLevelUp za poziom, '
                       '+$pawsDailyChat za rozmowę AI.',
                       textAlign: TextAlign.center,
@@ -2957,46 +3039,63 @@ class _ShopPageState extends State<ShopPage>
                   ListView.separated(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
                     itemCount: outfits.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: 8),
+                    separatorBuilder: (_, _) => const SizedBox(height: 10),
                     itemBuilder: (_, i) {
                       final item = outfits[i];
                       final owned =
                           widget.stats.unlockedMascotIds.contains(item.id);
                       final price = item.shopPrice ?? 0;
+                      final equipped =
+                          widget.stats.equippedMascot[item.slot.name] ==
+                              item.id;
                       return SoftPanel(
                         margin: EdgeInsets.zero,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: item.color,
-                            child: Text(
-                              item.emoji,
-                              style: const TextStyle(fontSize: 22),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 4,
                           ),
-                          title: Text(item.name),
-                          subtitle: Text(
-                            '${slotLabel(item.slot)} · ${item.blurb}',
-                          ),
-                          trailing: owned
-                              ? TextButton(
-                                  onPressed: () async {
-                                    widget.stats.toggleEquipMascot(item);
-                                    widget.onChanged();
-                                    setState(() {});
-                                  },
-                                  child: Text(
-                                    widget.stats.equippedMascot[item.slot.name] ==
-                                            item.id
-                                        ? 'Zdjęte'
-                                        : 'Ubierz',
-                                  ),
-                                )
-                              : FilledButton(
-                                  onPressed: paws >= price
-                                      ? () => _buyOutfit(item)
-                                      : null,
-                                  child: Text('$price 🐾'),
+                          child: Row(
+                            children: [
+                              OutfitThumb(item: item, size: 56),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      '${slotLabel(item.slot)} · ${item.blurb}',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
                                 ),
+                              ),
+                              owned
+                                  ? FilledButton.tonal(
+                                      onPressed: () async {
+                                        widget.stats.toggleEquipMascot(item);
+                                        widget.onChanged();
+                                        setState(() {});
+                                      },
+                                      child: Text(equipped ? 'Zdjęte' : 'Ubierz'),
+                                    )
+                                  : FilledButton(
+                                      onPressed: paws >= price
+                                          ? () => _buyOutfit(item)
+                                          : null,
+                                      child: Text('$price 🐾'),
+                                    ),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -3004,7 +3103,7 @@ class _ShopPageState extends State<ShopPage>
                   ListView.separated(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
                     itemCount: mascotHomeShop.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: 8),
+                    separatorBuilder: (_, _) => const SizedBox(height: 10),
                     itemBuilder: (_, i) {
                       final item = mascotHomeShop[i];
                       final owned =
@@ -3013,33 +3112,65 @@ class _ShopPageState extends State<ShopPage>
                           widget.stats.placedHome[item.slot.name] == item.id;
                       return SoftPanel(
                         margin: EdgeInsets.zero,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: item.color,
-                            child: Text(
-                              item.emoji,
-                              style: const TextStyle(fontSize: 22),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 6,
                           ),
-                          title: Text(item.name),
-                          subtitle: Text(
-                            '${homeSlotLabel(item.slot)} · ${item.blurb}',
-                          ),
-                          trailing: owned
-                              ? TextButton(
-                                  onPressed: () {
-                                    widget.stats.togglePlaceHome(item);
-                                    widget.onChanged();
-                                    setState(() {});
-                                  },
-                                  child: Text(placed ? 'Schowaj' : 'Wystaw'),
-                                )
-                              : FilledButton(
-                                  onPressed: paws >= item.price
-                                      ? () => _buyHome(item)
-                                      : null,
-                                  child: Text('${item.price} 🐾'),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainerHighest
+                                      .withValues(alpha: 0.45),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
+                                child: Center(
+                                  child: HomeItemArt(item: item, size: 52),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      '${homeSlotLabel(item.slot)} · ${item.blurb}',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              owned
+                                  ? FilledButton.tonal(
+                                      onPressed: () {
+                                        widget.stats.togglePlaceHome(item);
+                                        widget.onChanged();
+                                        setState(() {});
+                                      },
+                                      child: Text(placed ? 'Schowaj' : 'Wystaw'),
+                                    )
+                                  : FilledButton(
+                                      onPressed: paws >= item.price
+                                          ? () => _buyHome(item)
+                                          : null,
+                                      child: Text('${item.price} 🐾'),
+                                    ),
+                            ],
+                          ),
                         ),
                       );
                     },

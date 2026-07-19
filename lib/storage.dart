@@ -30,6 +30,8 @@ class AppStats {
     this.wordsToday = 0,
     this.wordsDay = '',
     this.goldenPaws = 0,
+    this.mascotSpecies = MascotSpecies.cat,
+    this.mascotColorArgb = defaultMascotColorArgb,
     List<String>? unlockedMascotIds,
     Map<String, String>? equippedMascot,
     List<String>? ownedHomeIds,
@@ -78,6 +80,12 @@ class AppStats {
 
   /// Ustawione w pokoiku: HomeSlot.name → homeItemId.
   Map<String, String> placedHome;
+
+  /// Kot albo pies.
+  MascotSpecies mascotSpecies;
+
+  /// Kolor futerka (ARGB).
+  int mascotColorArgb;
 
   double get sessionAccuracy =>
       sessionTotal == 0 ? 0 : sessionCorrect / sessionTotal;
@@ -243,6 +251,8 @@ class AppStats {
       'equippedMascot': equippedMascot,
       'ownedHomeIds': ownedHomeIds,
       'placedHome': placedHome,
+      'mascotSpecies': mascotSpecies.name,
+      'mascotColorArgb': mascotColorArgb,
     };
   }
 
@@ -278,6 +288,10 @@ class AppStats {
         if (k is String && v is String) placed[k] = v;
       });
     }
+    final speciesRaw = json['mascotSpecies'] as String? ?? 'cat';
+    final species = speciesRaw == 'dog' ? MascotSpecies.dog : MascotSpecies.cat;
+    final colorArgb =
+        json['mascotColorArgb'] as int? ?? defaultMascotColorArgb;
     final s = AppStats(
       streakDays: json['streakDays'] as int? ?? 0,
       lastPlayDay: json['lastPlayDay'] as String? ?? '',
@@ -290,6 +304,8 @@ class AppStats {
       wordsToday: json['wordsToday'] as int? ?? 0,
       wordsDay: json['wordsDay'] as String? ?? '',
       goldenPaws: json['goldenPaws'] as int? ?? 0,
+      mascotSpecies: species,
+      mascotColorArgb: colorArgb,
       unlockedMascotIds: unlocked,
       equippedMascot: equipped,
       ownedHomeIds: ownedHome,

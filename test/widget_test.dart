@@ -182,6 +182,24 @@ dom - house
     expect(scarves.map((e) => e.color.toARGB32()).toSet().length, scarves.length);
   });
 
+  test('mascot species and color persist in json', () {
+    final s = AppStats(
+      mascotSpecies: MascotSpecies.dog,
+      mascotColorArgb: 0xFF5D4037,
+    );
+    final round = AppStats.fromJson(s.toJson());
+    expect(round.mascotSpecies, MascotSpecies.dog);
+    expect(round.mascotColorArgb, 0xFF5D4037);
+    expect(mascotName(MascotSpecies.cat), 'Kicia');
+    expect(mascotName(MascotSpecies.dog), 'Piesek');
+  });
+
+  test('pink bowl uses pink color not just pink-ish bg', () {
+    final bowl = mascotHomeShop.firstWhere((e) => e.id == 'bowl_pink');
+    expect(bowl.color.toARGB32(), 0xFFFF69B4);
+    expect(bowl.slot, HomeSlot.bowl);
+  });
+
   test('golden paws earn and shop buy', () {
     final s = AppStats();
     expect(s.goldenPaws, 0);
