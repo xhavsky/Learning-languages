@@ -31,6 +31,17 @@ fi
 cp -f "$ROOT/models/$PHONE_GGUF" "$ASSET_DIR/$PHONE_GGUF"
 echo "Model w APK assets: $ASSET_DIR/$PHONE_GGUF ($(du -h "$ASSET_DIR/$PHONE_GGUF" | cut -f1))"
 
+# Natywne liby llm_llamacpp (jeśli flutter w PATH — lokalnie)
+if command -v flutter >/dev/null 2>&1; then
+  flutter pub get || true
+fi
+if [[ -x "$ROOT/scripts/prepare_llm_android_native.sh" ]]; then
+  echo "==> Natywne biblioteki llama.cpp…"
+  ANDROID_NDK_HOME="${ANDROID_NDK_HOME:-}" "$ROOT/scripts/prepare_llm_android_native.sh" || {
+    echo "UWAGA: prepare_llm_android_native.sh nie udał się — CI buduje je sam." >&2
+  }
+fi
+
 steam-run bash -c "
   export PATH='$FLUTTER_SDK/bin:$(dirname "$UNZIP_BIN"):\$PATH'
   export ANDROID_HOME='$ANDROID_HOME'

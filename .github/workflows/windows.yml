@@ -28,7 +28,7 @@ jobs:
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
 
-      - name: Cache models + ollama
+      - name: Cache models and ollama
         uses: actions/cache@v4
         with:
           path: |
@@ -36,7 +36,7 @@ jobs:
             bundled/ollama
           key: bielik-v3-desktop-ollama-${{ hashFiles('scripts/fetch_ondevice_models.sh') }}
 
-      - name: Fetch Bielik 1.5B + Ollama (11B: auto-pull przy 1. starcie — limit GitHub 2GB)
+      - name: "Fetch Bielik 1.5B and Ollama for portable ZIP"
         shell: bash
         run: |
           chmod +x scripts/fetch_ondevice_models.sh
@@ -51,13 +51,14 @@ jobs:
           test -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf
           test -f bundled/ollama/ollama.exe
           ls -lh models/ bundled/ollama/
+
       - name: Get dependencies
         run: flutter pub get
 
       - name: Build release
         run: flutter build windows --release
 
-      - name: Pack portable ZIP (full LLM)
+      - name: Pack portable ZIP with LLM
         shell: pwsh
         run: |
           $src = "build\windows\x64\runner\Release"
@@ -70,19 +71,17 @@ jobs:
             Copy-Item -Force "bundled\ollama\ollama.exe" "$out\bundled\ollama\"
           }
           @"
-          Trener Językowy — paczka Windows (z lokalnym AI)
+          Trener Jezykowy - paczka Windows (z lokalnym AI)
 
           1. Rozpakuj ZIP (np. Pulpit\Trener-Jezykowy).
           2. Uruchom trener_jezykowy.exe
-          3. Nic nie instaluj ręcznie.
+          3. Nic nie instaluj recznie.
 
-          W środku: Bielik 1.5B + Ollama. Przy pierwszym starcie z internetem
-          aplikacja sama dociągnie pełnego Bielika 11B v3 (bez klikania).
-          Bez netu działa od razu na 1.5B.
+          W srodku: Bielik 1.5B + Ollama. Przy pierwszym starcie z internetem
+          aplikacja sama dociagnie pelnego Bielika 11B v3 (bez klikania).
+          Bez netu dziala od razu na 1.5B (Ollama importuje GGUF).
 
-          Pełny offline 11B (pendrive): złóż lokalnie package_windows_with_llm.sh
-
-          SmartScreen: „Więcej informacji” → „Uruchom mimo to”.
+          SmartScreen: Wiecej informacji -> Uruchom mimo to.
           "@ | Set-Content -Encoding UTF8 "$out\CZYTAJ-MNIE.txt"
           Compress-Archive -Path $out -DestinationPath "Trener-Jezykowy-Windows.zip" -Force
 
@@ -98,7 +97,7 @@ jobs:
           tag_name: windows-portable
           name: Paczka Windows — Trener Językowy
           body: |
-            Pełna paczka dla Anielki (Windows 10/11) — **z Bielik 11B v3 + Ollama w środku**.
+            Paczka dla Anielki (Windows 10/11) — Bielik 1.5B + Ollama w ZIP.
 
             1. Pobierz **Trener-Jezykowy-Windows.zip**
             2. Rozpakuj
