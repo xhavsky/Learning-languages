@@ -1,243 +1,493 @@
 {
-    "Angielski": [
-        {
-            "pl": "być",
-            "obcy": "to be",
-            "nauczone": false
-        },
-        {
-            "pl": "mieć",
-            "obcy": "to have",
-            "nauczone": false
-        },
-        {
-            "pl": "Dziękuję",
-            "obcy": "Thank you",
-            "nauczone": false
-        },
-        {
-            "pl": "Jeść",
-            "obcy": "to eat",
-            "nauczone": false
-        }
+  "Angielski": {
+    "words": [
+      {
+        "id": "8c485e2d1628",
+        "pl": "być",
+        "obcy": "to be",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "e533b902c85b",
+        "pl": "mieć",
+        "obcy": "to have",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "2bd4082e6649",
+        "pl": "Dziękuję",
+        "obcy": "Thank you",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "47960d0f91ee",
+        "pl": "Jeść",
+        "obcy": "to eat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      }
     ],
-    "Hiszpański": [
-        {
-            "pl": "być (trvale)",
-            "obcy": "ser",
-            "nauczone": false
-        },
-        {
-            "pl": "mieć",
-            "obcy": "tener",
-            "nauczone": false
-        },
-        {
-            "pl": "Dziękuję",
-            "obcy": "Gracias",
-            "nauczone": false
-        }
-    ],
-    "Rosyjski": [
-        {
-            "pl": "być",
-            "obcy": "быть",
-            "nauczone": false
-        },
-        {
-            "pl": "mieć",
-            "obcy": "иметь",
-            "nauczone": false
-        },
-        {
-            "pl": "mówić",
-            "obcy": "говорить",
-            "nauczone": false
-        },
-        {
-            "pl": "kochać",
-            "obcy": "любить",
-            "nauczone": false
-        },
-        {
-            "pl": "wiedzieć",
-            "obcy": "знать",
-            "nauczone": false
-        },
-        {
-            "pl": "myśleć",
-            "obcy": "думать",
-            "nauczone": false
-        },
-        {
-            "pl": "robić",
-            "obcy": "делать",
-            "nauczone": false
-        },
-        {
-            "pl": "chcieć",
-            "obcy": "хотеть",
-            "nauczone": false
-        },
-        {
-            "pl": "iść",
-            "obcy": "идти",
-            "nauczone": false
-        },
-        {
-            "pl": "widzieć",
-            "obcy": "видеть",
-            "nauczone": false
-        },
-        {
-            "pl": "dzień",
-            "obcy": "день",
-            "nauczone": false
-        },
-        {
-            "pl": "czas",
-            "obcy": "время",
-            "nauczone": false
-        },
-        {
-            "pl": "człowiek",
-            "obcy": "человек",
-            "nauczone": false
-        },
-        {
-            "pl": "rok",
-            "obcy": "год",
-            "nauczone": false
-        },
-        {
-            "pl": "życie",
-            "obcy": "жизнь",
-            "nauczone": false
-        },
-        {
-            "pl": "ręka",
-            "obcy": "рука",
-            "nauczone": false
-        },
-        {
-            "pl": "słowo",
-            "obcy": "слово",
-            "nauczone": false
-        },
-        {
-            "pl": "głowa",
-            "obcy": "голова",
-            "nauczone": false
-        },
-        {
-            "pl": "dom",
-            "obcy": "дом",
-            "nauczone": false
-        },
-        {
-            "pl": "miasto",
-            "obcy": "город",
-            "nauczone": false
-        },
-        {
-            "pl": "tak",
-            "obcy": "да",
-            "nauczone": false
-        },
-        {
-            "pl": "nie",
-            "obcy": "нет",
-            "nauczone": false
-        },
-        {
-            "pl": "dziękuję",
-            "obcy": "спасибо",
-            "nauczone": false
-        },
-        {
-            "pl": "proszę",
-            "obcy": "пожалуйста",
-            "nauczone": false
-        },
-        {
-            "pl": "dzień dobry",
-            "obcy": "здравствуйте",
-            "nauczone": false
-        },
-        {
-            "pl": "cześć",
-            "obcy": "привет",
-            "nauczone": false
-        },
-        {
-            "pl": "do widzenia",
-            "obcy": "до свидания",
-            "nauczone": false
-        },
-        {
-            "pl": "dobrze",
-            "obcy": "хорошо",
-            "nauczone": false
-        },
-        {
-            "pl": "źle",
-            "obcy": "плохо",
-            "nauczone": false
-        },
-        {
-            "pl": "nowy",
-            "obcy": "новый",
-            "nauczone": false
-        },
-        {
-            "pl": "stary",
-            "obcy": "старый",
-            "nauczone": false
-        },
-        {
-            "pl": "duży",
-            "obcy": "большой",
-            "nauczone": false
-        },
-        {
-            "pl": "mały",
-            "obcy": "маленький",
-            "nauczone": false
-        },
-        {
-            "pl": "piękny",
-            "obcy": "красивый",
-            "nauczone": false
-        },
-        {
-            "pl": "przyjaciel",
-            "obcy": "друг",
-            "nauczone": false
-        },
-        {
-            "pl": "chleb",
-            "obcy": "хлеб",
-            "nauczone": false
-        },
-        {
-            "pl": "woda",
-            "obcy": "вода",
-            "nauczone": false
-        },
-        {
-            "pl": "herbata",
-            "obcy": "чай",
-            "nauczone": false
-        },
-        {
-            "pl": "kawa",
-            "obcy": "кофе",
-            "nauczone": false
-        },
-        {
-            "pl": "obiad",
-            "obcy": "обед",
-            "nauczone": false
-        }
+    "groups": [
+      {
+        "id": "start-en",
+        "name": "Podstawy",
+        "wordIds": [
+          "8c485e2d1628",
+          "e533b902c85b",
+          "2bd4082e6649",
+          "47960d0f91ee"
+        ]
+      }
     ]
+  },
+  "Hiszpański": {
+    "words": [
+      {
+        "id": "2a1c955a7365",
+        "pl": "być (trvale)",
+        "obcy": "ser",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "3241a30a967b",
+        "pl": "mieć",
+        "obcy": "tener",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "58d29f147a20",
+        "pl": "Dziękuję",
+        "obcy": "Gracias",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      }
+    ],
+    "groups": [
+      {
+        "id": "es-podstawy",
+        "name": "Podstawy",
+        "wordIds": [
+          "2a1c955a7365",
+          "3241a30a967b",
+          "58d29f147a20"
+        ]
+      }
+    ]
+  },
+  "Rosyjski": {
+    "words": [
+      {
+        "id": "845fcf0d5c03",
+        "pl": "być",
+        "obcy": "быть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "ad04ecd27767",
+        "pl": "mieć",
+        "obcy": "иметь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "0d30eeea7844",
+        "pl": "mówić",
+        "obcy": "говорить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "d252c84ecf03",
+        "pl": "kochać",
+        "obcy": "любить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "ff5b37b2e594",
+        "pl": "wiedzieć",
+        "obcy": "знать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "5fb13ec7ea50",
+        "pl": "myśleć",
+        "obcy": "думать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "c5c46c2fdb5f",
+        "pl": "robić",
+        "obcy": "делать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "586f577f739b",
+        "pl": "chcieć",
+        "obcy": "хотеть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "20726aa826d7",
+        "pl": "iść",
+        "obcy": "идти",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "531d53101e38",
+        "pl": "widzieć",
+        "obcy": "видеть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "687f437b1510",
+        "pl": "dzień",
+        "obcy": "день",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "ad9c7f87120a",
+        "pl": "czas",
+        "obcy": "время",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "5b3ea5806879",
+        "pl": "człowiek",
+        "obcy": "человек",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "1516d47464a0",
+        "pl": "rok",
+        "obcy": "год",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "fed5613ce159",
+        "pl": "życie",
+        "obcy": "жизнь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "aec62e1e37fd",
+        "pl": "ręka",
+        "obcy": "рука",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "b9b2602b5b17",
+        "pl": "słowo",
+        "obcy": "слово",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "06bfd7a9c9c3",
+        "pl": "głowa",
+        "obcy": "голова",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "41e2ef8e0976",
+        "pl": "dom",
+        "obcy": "дом",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "caa47bf3bca9",
+        "pl": "miasto",
+        "obcy": "город",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "04fb0974cc02",
+        "pl": "tak",
+        "obcy": "да",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "6be6faeab6fc",
+        "pl": "nie",
+        "obcy": "нет",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "e91d5e383747",
+        "pl": "dziękuję",
+        "obcy": "спасибо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "f72219a81a73",
+        "pl": "proszę",
+        "obcy": "пожалуйста",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "a2ce8387460e",
+        "pl": "dzień dobry",
+        "obcy": "здравствуйте",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "972dad228d58",
+        "pl": "cześć",
+        "obcy": "привет",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "3ebb018a35d6",
+        "pl": "do widzenia",
+        "obcy": "до свидания",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "96ec75383b25",
+        "pl": "dobrze",
+        "obcy": "хорошо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "2d6f9d6a9ed5",
+        "pl": "źle",
+        "obcy": "плохо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "dec6826418c6",
+        "pl": "nowy",
+        "obcy": "новый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "47c8c07b9ae1",
+        "pl": "stary",
+        "obcy": "старый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "8fff53da3afa",
+        "pl": "duży",
+        "obcy": "большой",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "914dbb4d9eb7",
+        "pl": "mały",
+        "obcy": "маленький",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "9402871cc341",
+        "pl": "piękny",
+        "obcy": "красивый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "41bcccebb30b",
+        "pl": "przyjaciel",
+        "obcy": "друг",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "bffac34a70a4",
+        "pl": "chleb",
+        "obcy": "хлеб",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "f7e0009dd29e",
+        "pl": "woda",
+        "obcy": "вода",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "85a580812fb2",
+        "pl": "herbata",
+        "obcy": "чай",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "c9d5f092efdb",
+        "pl": "kawa",
+        "obcy": "кофе",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      },
+      {
+        "id": "dd956787708e",
+        "pl": "obiad",
+        "obcy": "обед",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null
+      }
+    ],
+    "groups": [
+      {
+        "id": "ru-powitania",
+        "name": "Powitania i podstawy",
+        "wordIds": [
+          "04fb0974cc02",
+          "6be6faeab6fc",
+          "e91d5e383747",
+          "f72219a81a73",
+          "a2ce8387460e",
+          "972dad228d58",
+          "3ebb018a35d6",
+          "96ec75383b25",
+          "2d6f9d6a9ed5"
+        ]
+      },
+      {
+        "id": "ru-czasowniki",
+        "name": "Czasowniki",
+        "wordIds": [
+          "845fcf0d5c03",
+          "ad04ecd27767",
+          "0d30eeea7844",
+          "d252c84ecf03",
+          "ff5b37b2e594",
+          "5fb13ec7ea50",
+          "c5c46c2fdb5f",
+          "586f577f739b",
+          "20726aa826d7",
+          "531d53101e38"
+        ]
+      }
+    ]
+  }
 }

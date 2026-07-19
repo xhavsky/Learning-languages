@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Generate offline TTS mp3 assets for Trener Językowy from baza.json.
 
-Primary engine: Piper (local ONNX) with female Amy / Spanish sharvard.
-Optional: COQUI via TTS_URL (XTTS tutor_female) when that stack works.
+Supports new format: { "Lang": { "words": [...], "groups": [...] } }
+and legacy: { "Lang": [ {...} ] }.
 
-Never called from the Flutter app at runtime.
+Primary: Piper ONNX (Amy EN, sharvard ES, Irina RU).
+Optional: USE_COQUI=1 for openedai XTTS.
 """
 from __future__ import annotations
 
@@ -26,7 +27,6 @@ AUDIO_DIR = ROOT / "assets" / "audio"
 MANIFEST = AUDIO_DIR / "manifest.json"
 VOICES = ROOT / "tools" / "voices"
 
-# Prefer env; coqui lazy-proxy :8000 → upstream :18000 when healthy.
 TTS_URL = os.environ.get("TTS_URL", "http://127.0.0.1:18000/v1/audio/speech")
 USE_COQUI = os.environ.get("USE_COQUI", "0") == "1"
 COQUI_VOICE = "tutor_female"
@@ -35,15 +35,27 @@ COQUI_MODEL = "tts-1-hd"
 LANG_MAP = {
     "Angielski": "en",
     "Hiszpański": "es",
-    # Cyrylica — Piper Amy nie czyta RU; pomijamy (klawiatura Anielki bez audio).
-    "Rosyjski": None,
+    "Rosyjski": "ru",
     "Rosyjski (zapis fonetyczny)": "en",
 }
 
 PIPER_MODELS = {
     "en": VOICES / "en_US-amy-medium.onnx",
     "es": VOICES / "es_ES-sharvard-medium.onnx",
+    "ru": VOICES / "ru_RU-irina-medium.onnx",
 }
+
+
+def iter_words(baza: dict):
+    for lang_name, payload in baza.items():
+        if isinstance(payload, dict) and "words" in payload:
+            words = payload["words"]
+        elif isinstance(payload, list):
+            words = payload
+        else:
+            continue
+        for w in words:
+            yield lang_name, w
 
 
 def slug(text: str) -> str:
@@ -78,9 +90,9 @@ def wav_to_mp3(wav: Path, mp3: Path) -> None:
 
 
 def synthesize_piper(text: str, lang_code: str, out_mp3: Path) -> None:
-    model = PIPER_MODELS.get(lang_code, PIPER_MODELS["en"])
-    if not model.exists():
-        raise FileNotFoundError(f"missing piper model: {model}")
+    model = PIPER_MODELS.get(lang_code)
+    if model is None or not model.exists():
+        raise FileNotFoundError(f"missing piper model for {lang_code}: {model}")
     piper = shutil.which("piper")
     if not piper:
         raise RuntimeError("piper not found on PATH")
@@ -130,8 +142,7 @@ def synthesize(text: str, lang_code: str, out_mp3: Path) -> str:
         synthesize_coqui(text, out_mp3)
         return "coqui/tutor_female"
     synthesize_piper(text, lang_code, out_mp3)
-    engine = "piper/amy" if lang_code == "en" else "piper/sharvard"
-    return engine
+    return f"piper/{lang_code}"
 
 
 def main() -> int:
@@ -142,9 +153,7 @@ def main() -> int:
     baza = json.loads(BAZA.read_text(encoding="utf-8"))
     manifest: dict = {
         "engine": "piper" if not USE_COQUI else "coqui",
-        "voice": "amy+sharvard" if not USE_COQUI else COQUI_VOICE,
-        "note": "XTTS tutor_female kept as tools/voices/tutor_female_xtts_ref.wav; "
-        "USE_COQUI=1 when openedai-speech XTTS is healthy.",
+        "voice": "amy+sharvard+irina",
         "entries": {},
     }
     if MANIFEST.exists():
@@ -155,47 +164,52 @@ def main() -> int:
             pass
 
     total = done = skipped = 0
-    for lang_name, words in baza.items():
-        lang_code = LANG_MAP.get(lang_name, "en")
-        if lang_code is None:
-            print(f"skip-lang {lang_name} (brak silnika TTS)")
-            skipped += len(words)
+    for lang_name, w in iter_words(baza):
+        lang_code = LANG_MAP.get(lang_name)
+        if not lang_code:
+            skipped += 1
             continue
-        for w in words:
-            obcy = (w.get("obcy") or "").strip()
-            if not obcy:
-                continue
-            total += 1
-            fname = audio_key(lang_code, obcy)
-            out = AUDIO_DIR / fname
-            key = f"{lang_name}|{obcy}"
-            if out.exists() and out.stat().st_size > 500:
-                print(f"skip  {fname}")
-                manifest["entries"][key] = {
-                    "file": fname,
-                    "lang": lang_code,
-                    "text": obcy,
-                    "pl": w.get("pl", ""),
-                }
-                done += 1
-                continue
-            print(f"gen   {fname}  ({obcy!r}, {lang_code})")
-            engine = synthesize(obcy, lang_code, out)
+        obcy = (w.get("obcy") or "").strip()
+        if not obcy:
+            continue
+        total += 1
+        fname = audio_key(lang_code, obcy)
+        out = AUDIO_DIR / fname
+        key = f"{lang_name}|{obcy}"
+        if out.exists() and out.stat().st_size > 500:
+            print(f"skip  {fname}")
             manifest["entries"][key] = {
                 "file": fname,
                 "lang": lang_code,
                 "text": obcy,
                 "pl": w.get("pl", ""),
-                "engine": engine,
+                "id": w.get("id"),
             }
             done += 1
-            print(f"  ok   {out.stat().st_size} bytes via {engine}")
+            continue
+        print(f"gen   {fname}  ({obcy!r}, {lang_code})")
+        try:
+            engine = synthesize(obcy, lang_code, out)
+        except Exception as e:  # noqa: BLE001
+            print(f"  FAIL {e}", file=sys.stderr)
+            skipped += 1
+            continue
+        manifest["entries"][key] = {
+            "file": fname,
+            "lang": lang_code,
+            "text": obcy,
+            "pl": w.get("pl", ""),
+            "id": w.get("id"),
+            "engine": engine,
+        }
+        done += 1
+        print(f"  ok   {out.stat().st_size} bytes via {engine}")
 
     MANIFEST.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     (AUDIO_DIR / ".gitkeep").touch()
-    print(f"done {done}/{total} (pominięte języki: {skipped}) → {MANIFEST}")
+    print(f"done {done}/{total} (skip/fail {skipped}) → {MANIFEST}")
     return 0
 
 

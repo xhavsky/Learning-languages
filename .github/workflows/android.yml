@@ -1,0 +1,57 @@
+name: Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/**"
+      - "assets/**"
+      - "pubspec.yaml"
+      - "android/**"
+      - ".github/workflows/android.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Prepare artifact
+        run: |
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk dist/trener-jezykowy.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trener-jezykowy-apk
+          path: dist/trener-jezykowy.apk
+
+      - name: Attach to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-apk
+          name: APK Android — Trener Językowy
+          body: |
+            APK dla Anielki (Android).
+
+            1. Pobierz **trener-jezykowy.apk**
+            2. Zainstaluj (pozwól na „nieznane źródła” jeśli trzeba)
+          files: dist/trener-jezykowy.apk
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
