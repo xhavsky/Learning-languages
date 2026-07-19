@@ -2570,28 +2570,34 @@ class _WordsPageState extends State<WordsPage> {
   final _categoryScroll = ScrollController();
   String _query = '';
   String? _categoryFilter; // null = wszystkie
-  bool _canScrollCategories = false;
+  bool _canScrollCategoriesLeft = false;
+  bool _canScrollCategoriesRight = false;
 
   @override
   void initState() {
     super.initState();
-    _categoryScroll.addListener(_updateCategoryArrow);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _updateCategoryArrow());
+    _categoryScroll.addListener(_updateCategoryArrows);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateCategoryArrows());
   }
 
-  void _updateCategoryArrow() {
+  void _updateCategoryArrows() {
     if (!_categoryScroll.hasClients) return;
     final max = _categoryScroll.position.maxScrollExtent;
-    final atEnd = _categoryScroll.offset >= max - 8;
-    final can = max > 8 && !atEnd;
-    if (can != _canScrollCategories) {
-      setState(() => _canScrollCategories = can);
+    final offset = _categoryScroll.offset;
+    final canLeft = max > 8 && offset > 8;
+    final canRight = max > 8 && offset < max - 8;
+    if (canLeft != _canScrollCategoriesLeft ||
+        canRight != _canScrollCategoriesRight) {
+      setState(() {
+        _canScrollCategoriesLeft = canLeft;
+        _canScrollCategoriesRight = canRight;
+      });
     }
   }
 
-  void _scrollCategoriesRight() {
+  void _scrollCategoriesBy(double delta) {
     if (!_categoryScroll.hasClients) return;
-    final next = (_categoryScroll.offset + 140)
+    final next = (_categoryScroll.offset + delta)
         .clamp(0.0, _categoryScroll.position.maxScrollExtent);
     _categoryScroll.animateTo(
       next,
@@ -2600,9 +2606,30 @@ class _WordsPageState extends State<WordsPage> {
     );
   }
 
+  Widget _categoryArrowButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Material(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        shape: const CircleBorder(),
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Icon(icon, size: 16),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
-    _categoryScroll.removeListener(_updateCategoryArrow);
+    _categoryScroll.removeListener(_updateCategoryArrows);
     _categoryScroll.dispose();
     _filterCtrl.dispose();
     super.dispose();
@@ -2765,16 +2792,36 @@ class _WordsPageState extends State<WordsPage> {
                 height: 44,
                 child: Row(
                   children: [
+                    // Strzałki przy pierwszej karcie — w lewo i w prawo.
+                    if (_canScrollCategoriesLeft || _canScrollCategoriesRight)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_canScrollCategoriesLeft)
+                              _categoryArrowButton(
+                                icon: Icons.arrow_back_ios_new,
+                                onTap: () => _scrollCategoriesBy(-140),
+                              ),
+                            if (_canScrollCategoriesRight)
+                              _categoryArrowButton(
+                                icon: Icons.arrow_forward_ios,
+                                onTap: () => _scrollCategoriesBy(140),
+                              ),
+                          ],
+                        ),
+                      ),
                     Expanded(
                       child: NotificationListener<ScrollMetricsNotification>(
                         onNotification: (_) {
-                          _updateCategoryArrow();
+                          _updateCategoryArrows();
                           return false;
                         },
                         child: ListView(
                           controller: _categoryScroll,
                           scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(left: 12, right: 4),
+                          padding: const EdgeInsets.only(left: 8, right: 12),
                           children: [
                             Padding(
                               padding:
@@ -2805,24 +2852,6 @@ class _WordsPageState extends State<WordsPage> {
                         ),
                       ),
                     ),
-                    if (_canScrollCategories)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Material(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer,
-                          shape: const CircleBorder(),
-                          child: InkWell(
-                            customBorder: const CircleBorder(),
-                            onTap: _scrollCategoriesRight,
-                            child: const Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Icon(Icons.arrow_forward_ios, size: 16),
-                            ),
-                          ),
-                        ),
-                      ),
                   ],
                 ),
               ),
