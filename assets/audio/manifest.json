@@ -1,0 +1,50 @@
+{
+  "engine": "piper",
+  "voice": "amy+sharvard",
+  "note": "XTTS tutor_female kept as tools/voices/tutor_female_xtts_ref.wav; USE_COQUI=1 when openedai-speech XTTS is healthy.",
+  "entries": {
+    "Angielski|to be": {
+      "file": "en_to_be_9a36d8b41a.mp3",
+      "lang": "en",
+      "text": "to be",
+      "pl": "być"
+    },
+    "Angielski|to have": {
+      "file": "en_to_have_d0ecebdb44.mp3",
+      "lang": "en",
+      "text": "to have",
+      "pl": "mieć"
+    },
+    "Angielski|Thank you": {
+      "file": "en_thank_you_db33026789.mp3",
+      "lang": "en",
+      "text": "Thank you",
+      "pl": "Dziękuję"
+    },
+    "Hiszpański|ser": {
+      "file": "es_ser_15a8e51d49.mp3",
+      "lang": "es",
+      "text": "ser",
+      "pl": "być (trvale)"
+    },
+    "Hiszpański|tener": {
+      "file": "es_tener_18ae2294f3.mp3",
+      "lang": "es",
+      "text": "tener",
+      "pl": "mieć"
+    },
+    "Hiszpański|Gracias": {
+      "file": "es_gracias_f0f5411744.mp3",
+      "lang": "es",
+      "text": "Gracias",
+      "pl": "Dziękuję"
+    },
+    "Angielski|to eat": {
+      "file": "en_to_eat_ba962ae714.mp3",
+      "lang": "en",
+      "text": "to eat",
+      "pl": "Jeść",
+      "engine": "piper/amy"
+    }
+  }
+}
