@@ -28,12 +28,16 @@ Zachowane w katalogu głównym i w `legacy/`:
 python3 "abc+pisanie.py"
 ```
 
-## Android / iOS
+## Android / iOS / Windows
 
 ```bash
 ./scripts/build_apk.sh          # → dist/trener-jezykowy.apk
 # iOS: ios/ + .github/workflows/ios.yml (wymaga macOS)
 ```
+
+**Windows (Anielka):** pobierz gotową paczkę z
+[Releases](https://github.com/xhavsky/Learning-languages/releases)
+→ `Trener-Jezykowy-Windows.zip` — szczegóły w [INSTALL-WINDOWS.md](INSTALL-WINDOWS.md).
 
 ## Regeneracja audio
 
