@@ -288,7 +288,9 @@ def _write_meta() -> None:
 
 SYSTEM_PREFIX = """Jesteś asystentem projektu „Trener Językowy” (Flutter).
 To projekt Anielki. Katalog: {workspace}
-Anielka i tata pracują nad TYM SAMYM kodem (gałąź main) — nie ma osobnego WIP.
+Anielka i tata pracują nad TYM SAMYM kodem (gałąź main).
+Zasady współpracy: jedna prośba naraz; gdy portal jest busy, tata nie edytuje równolegle;
+nie dublujcie tej samej zmiany lokalnie i przez portal; commit przed release.
 Anielka ma przez portal te same możliwości: zmiany w kodzie, commit na main, release.
 Odpowiadaj po polsku, krótko i jasno.
 Wiadomość od Anielki:
@@ -606,9 +608,29 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(200, _workspace_status())
         if path.startswith("/static/"):
             rel = path.removeprefix("/static/")
-            f = STATIC / rel
-            if f.is_file():
-                ctype = "text/css" if f.suffix == ".css" else "application/octet-stream"
+            assets_img = (REPO / "assets" / "images").resolve()
+            static_root = STATIC.resolve()
+            candidates: list[Path] = [(STATIC / rel).resolve()]
+            # /static/img/kitten_book.png also served from app assets
+            if rel.startswith("img/"):
+                candidates.append((assets_img / Path(rel).name).resolve())
+            for f in candidates:
+                allowed = str(f).startswith(str(static_root)) or str(f).startswith(
+                    str(assets_img)
+                )
+                if not allowed or not f.is_file():
+                    continue
+                ctype = {
+                    ".css": "text/css; charset=utf-8",
+                    ".js": "application/javascript; charset=utf-8",
+                    ".png": "image/png",
+                    ".jpg": "image/jpeg",
+                    ".jpeg": "image/jpeg",
+                    ".webp": "image/webp",
+                    ".svg": "image/svg+xml",
+                    ".ico": "image/x-icon",
+                    ".html": "text/html; charset=utf-8",
+                }.get(f.suffix.lower(), "application/octet-stream")
                 return self._bytes(200, f.read_bytes(), ctype)
         return self._json(404, {"error": "nie ma takiej strony"})
 
