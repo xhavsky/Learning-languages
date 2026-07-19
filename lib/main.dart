@@ -882,11 +882,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              'assets/images/kitten_book.png',
-                              height: 180,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxHeight: 280),
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: Image.asset(
+                                  'assets/images/kitten_book.png',
+                                  fit: BoxFit.contain,
+                                  alignment: Alignment.center,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 12),
