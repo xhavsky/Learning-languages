@@ -447,7 +447,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       final bonus = levelUpBonusXpFor(lv);
       final unlockedTitle = newTitleAtLevel(lv);
       final rank = titleForLevel(lv);
-      final outfit = mascotItemForLevel(lv);
+      final outfit = rollMascotReward(_store.stats.unlockedMascotIds);
+      if (outfit != null) {
+        _store.stats.unlockMascotItem(outfit.id);
+      }
       _store.stats.addXp(bonus);
       bonusTotal += bonus;
       if (!mounted) break;
@@ -493,24 +496,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(outfit.emoji, style: const TextStyle(fontSize: 28)),
+                      CircleAvatar(
+                        backgroundColor: outfit.color,
+                        child: Text(
+                          outfit.emoji,
+                          style: const TextStyle(fontSize: 22),
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Dla Kici: ${outfit.name}',
+                              'Losowe ubranko: ${outfit.name}!',
                               style: Theme.of(ctx)
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(fontWeight: FontWeight.w700),
                             ),
                             Text(outfit.blurb),
+                            Text(
+                              'Załóż je w garderobie 👗',
+                              style: Theme.of(ctx).textTheme.bodySmall,
+                            ),
                           ],
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: DressedKicia(
+                      equipped: Map<String, String>.from(
+                        _store.stats.equippedMascot,
+                      ),
+                      size: 140,
+                    ),
                   ),
                 ],
                 const SizedBox(height: 12),
@@ -682,69 +704,108 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  Future<void> _equipMascot(MascotItem item) async {
+    setState(() => _store.stats.toggleEquipMascot(item));
+    await _store.save();
+  }
+
   Future<void> _openWardrobe() async {
-    final level = _store.stats.playerLevel;
-    final unlocked = unlockedMascotItems(level);
     if (!mounted) return;
     await showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       showDragHandle: true,
       builder: (ctx) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Garderoba Kici',
-                style: Theme.of(ctx).textTheme.titleLarge,
+        return StatefulBuilder(
+          builder: (ctx, setSheet) {
+            final unlockedIds = _store.stats.unlockedMascotIds;
+            final unlocked = unlockedMascotItems(unlockedIds);
+            final equipped = _store.stats.equippedMascot;
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 8,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 28,
               ),
-              const SizedBox(height: 4),
-              Text(
-                'Za każdy poziom — nowe ubranko lub akcesorium. '
-                'Nakarm Kicię min. $mascotDailyFeedGoal słówkami dziennie!',
-                style: Theme.of(ctx).textTheme.bodySmall,
-              ),
-              const SizedBox(height: 12),
-              Flexible(
-                child: ListView(
-                  shrinkWrap: true,
+              child: SizedBox(
+                height: MediaQuery.of(ctx).size.height * 0.78,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    for (final item in mascotWardrobe)
-                      ListTile(
-                        leading: Text(
-                          item.emoji,
-                          style: const TextStyle(fontSize: 28),
-                        ),
-                        title: Text(item.name),
-                        subtitle: Text(
-                          level >= item.unlockLevel
-                              ? item.blurb
-                              : 'Od poziomu ${item.unlockLevel}',
-                        ),
-                        trailing: Icon(
-                          level >= item.unlockLevel
-                              ? Icons.check_circle
-                              : Icons.lock_outline,
-                          color: level >= item.unlockLevel
-                              ? Theme.of(ctx).colorScheme.primary
-                              : null,
-                        ),
+                    Text(
+                      'Garderoba Kici',
+                      style: Theme.of(ctx).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Za każdy poziom losujesz nowe ubranko. '
+                      'Stuknij, żeby ubrać Kicię (1 rzecz na slot). '
+                      'Nakarm ją min. $mascotDailyFeedGoal słówkami dziennie!',
+                      style: Theme.of(ctx).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 12),
+                    Center(
+                      child: DressedKicia(
+                        equipped: Map<String, String>.from(equipped),
+                        size: 180,
                       ),
-                    if (unlocked.isEmpty)
-                      const Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Text(
-                          'Jeszcze nic nie odblokowano — ćwicz do poziomu 2!',
-                          textAlign: TextAlign.center,
-                        ),
+                    ),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          for (final item in mascotWardrobe)
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: unlockedIds.contains(item.id)
+                                    ? item.color
+                                    : Colors.grey.shade400,
+                                child: Text(
+                                  item.emoji,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              title: Text(item.name),
+                              subtitle: Text(
+                                unlockedIds.contains(item.id)
+                                    ? '${slotLabel(item.slot)} · ${item.blurb}'
+                                    : '🔒 Jeszcze nie wylosowane',
+                              ),
+                              selected: equipped[item.slot.name] == item.id,
+                              trailing: !unlockedIds.contains(item.id)
+                                  ? const Icon(Icons.lock_outline)
+                                  : Icon(
+                                      equipped[item.slot.name] == item.id
+                                          ? Icons.checkroom
+                                          : Icons.checkroom_outlined,
+                                      color: equipped[item.slot.name] == item.id
+                                          ? Theme.of(ctx).colorScheme.primary
+                                          : null,
+                                    ),
+                              onTap: !unlockedIds.contains(item.id)
+                                  ? null
+                                  : () async {
+                                      await _equipMascot(item);
+                                      setSheet(() {});
+                                    },
+                            ),
+                          if (unlocked.isEmpty)
+                            const Padding(
+                              padding: EdgeInsets.all(12),
+                              child: Text(
+                                'Jeszcze nic nie odblokowano — ćwicz do poziomu 2!',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                        ],
                       ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
@@ -1532,7 +1593,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       playerLevel: _store.stats.playerLevel,
                       wordsToday: _store.stats.wordsToday,
                       fedToday: _store.stats.mascotFedToday,
+                      unlockedIds: _store.stats.unlockedMascotIds,
+                      equipped: _store.stats.equippedMascot,
                       onTapWardrobe: _openWardrobe,
+                      onEquip: _equipMascot,
                     ),
                     SoftPanel(
                       margin: const EdgeInsets.only(bottom: 12),

@@ -5,7 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'mascot.dart';
 import 'models.dart';
+
+/// XP potrzebne, żeby przejść z [fromLevel] na fromLevel+1.
+/// Im wyższy poziom, tym stromiej (kwadratowo).
+int xpNeededForLevel(int fromLevel) {
+  final lv = fromLevel < 1 ? 1 : fromLevel;
+  return 55 + lv * 40 + lv * lv * 8;
+}
 
 class AppStats {
   AppStats({
@@ -21,7 +29,10 @@ class AppStats {
     this.rewardedLevel = 1,
     this.wordsToday = 0,
     this.wordsDay = '',
-  });
+    List<String>? unlockedMascotIds,
+    Map<String, String>? equippedMascot,
+  })  : unlockedMascotIds = List<String>.from(unlockedMascotIds ?? const []),
+        equippedMascot = Map<String, String>.from(equippedMascot ?? const {});
 
   int streakDays;
   String lastPlayDay; // yyyy-MM-dd
@@ -48,52 +59,58 @@ class AppStats {
   /// Dzień licznika karmienia (yyyy-MM-dd).
   String wordsDay;
 
+  /// Odblokowane ubranka (id z [mascotWardrobe]).
+  List<String> unlockedMascotIds;
+
+  /// Założone ubranka: slot.name → itemId.
+  Map<String, String> equippedMascot;
+
   double get sessionAccuracy =>
       sessionTotal == 0 ? 0 : sessionCorrect / sessionTotal;
 
   /// Poziom gracza z XP (1, 2, 3…).
   int get playerLevel {
     var level = 1;
-    var need = 50;
     var left = xp;
+    var need = xpNeededForLevel(level);
     while (left >= need) {
       left -= need;
       level++;
-      need = 40 + level * 25;
+      need = xpNeededForLevel(level);
     }
     return level;
   }
 
   /// Postęp do kolejnego poziomu 0.0–1.0.
   double get levelProgress {
-    var need = 50;
     var left = xp;
     var level = 1;
+    var need = xpNeededForLevel(level);
     while (left >= need) {
       left -= need;
       level++;
-      need = 40 + level * 25;
+      need = xpNeededForLevel(level);
     }
     return need == 0 ? 1 : (left / need).clamp(0.0, 1.0);
   }
 
   /// Ile XP brakuje do kolejnego poziomu.
   int get xpToNextLevel {
-    var need = 50;
     var left = xp;
     var level = 1;
+    var need = xpNeededForLevel(level);
     while (left >= need) {
       left -= need;
       level++;
-      need = 40 + level * 25;
+      need = xpNeededForLevel(level);
     }
     return (need - left).clamp(0, need);
   }
 
   bool get chatDoneToday => lastChatDay == _dayKey(DateTime.now());
 
-  /// Minimum 3 słówka dziennie = kotek najedzony.
-  static const dailyFeedGoal = 3;
+  /// Minimum słówek dziennie = kotek najedzony.
+  static const dailyFeedGoal = mascotDailyFeedGoal;
 
   bool get mascotFedToday {
     _rollFeedDay();
@@ -116,6 +133,44 @@ class AppStats {
     return before < dailyFeedGoal && wordsToday >= dailyFeedGoal;
   }
 
+  /// Odblokowuje ubranko i zakłada je (jeśli slot wolny albo [forceEquip]).
+  void unlockMascotItem(String id, {bool forceEquip = true}) {
+    if (!unlockedMascotIds.contains(id)) {
+      unlockedMascotIds.add(id);
+    }
+    final item = mascotItemById(id);
+    if (item == null) return;
+    final slot = item.slot.name;
+    if (forceEquip || !equippedMascot.containsKey(slot)) {
+      equippedMascot[slot] = id;
+    }
+  }
+
+  /// Zakłada / zdejmuje ubranko (toggle w tym samym slocie).
+  void toggleEquipMascot(MascotItem item) {
+    if (!unlockedMascotIds.contains(item.id)) return;
+    final slot = item.slot.name;
+    if (equippedMascot[slot] == item.id) {
+      equippedMascot.remove(slot);
+    } else {
+      equippedMascot[slot] = item.id;
+    }
+  }
+
+  /// Stare zapisy bez listy ubranek → migracja po legacyUnlockLevel.
+  void ensureMascotMigration() {
+    if (unlockedMascotIds.isNotEmpty) return;
+    final migrated = migrateUnlockedFromLevel(playerLevel);
+    if (migrated.isEmpty) return;
+    unlockedMascotIds = migrated;
+    for (final id in migrated) {
+      final item = mascotItemById(id);
+      if (item != null && !equippedMascot.containsKey(item.slot.name)) {
+        equippedMascot[item.slot.name] = id;
+      }
+    }
+  }
+
   Map<String, dynamic> toJson() {
     _rollFeedDay();
     return {
@@ -128,6 +183,8 @@ class AppStats {
       'rewardedLevel': rewardedLevel,
       'wordsToday': wordsToday,
       'wordsDay': wordsDay,
+      'unlockedMascotIds': unlockedMascotIds,
+      'equippedMascot': equippedMascot,
     };
   }
 
@@ -135,6 +192,20 @@ class AppStats {
     if (json == null) return AppStats();
     final xp = json['xp'] as int? ?? 0;
     final tmp = AppStats(xp: xp);
+    final rawUnlocked = json['unlockedMascotIds'];
+    final unlocked = <String>[];
+    if (rawUnlocked is List) {
+      for (final e in rawUnlocked) {
+        if (e is String) unlocked.add(e);
+      }
+    }
+    final rawEquip = json['equippedMascot'];
+    final equipped = <String, String>{};
+    if (rawEquip is Map) {
+      rawEquip.forEach((k, v) {
+        if (k is String && v is String) equipped[k] = v;
+      });
+    }
     final s = AppStats(
       streakDays: json['streakDays'] as int? ?? 0,
       lastPlayDay: json['lastPlayDay'] as String? ?? '',
@@ -146,8 +217,11 @@ class AppStats {
       rewardedLevel: json['rewardedLevel'] as int? ?? tmp.playerLevel,
       wordsToday: json['wordsToday'] as int? ?? 0,
       wordsDay: json['wordsDay'] as String? ?? '',
+      unlockedMascotIds: unlocked,
+      equippedMascot: equipped,
     );
     s._rollFeedDay();
+    s.ensureMascotMigration();
     return s;
   }
 
