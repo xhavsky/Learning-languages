@@ -91,17 +91,10 @@ def _read_local_busy_file() -> dict | None:
 
 
 def _detect_local_agent_process() -> bool:
-    """Fallback: Cursor/agent process touching this workspace."""
+    """Fallback: Cursor/agent process running (often cwd is ~, not the project)."""
     ws = str(Path(WORKSPACE).resolve())
-    markers = (
-        "cursor",
-        "Cursor",
-        "composer",
-        "agent",
-    )
     try:
-        proc = Path("/proc")
-        for entry in proc.iterdir():
+        for entry in Path("/proc").iterdir():
             if not entry.name.isdigit():
                 continue
             try:
@@ -109,22 +102,31 @@ def _detect_local_agent_process() -> bool:
                 cmd = cmdline.decode("utf-8", "replace")
             except OSError:
                 continue
-            if ws not in cmd and "Learning-languages" not in cmd:
-                # Also accept cwd == workspace
-                try:
-                    cwd = (entry / "cwd").resolve()
-                    if str(cwd) != ws and not str(cwd).startswith(ws + os.sep):
-                        continue
-                except OSError:
-                    continue
             low = cmd.lower()
-            if not any(m.lower() in low for m in markers):
-                continue
-            # Ignore the portal itself / plain editors without agent
             if "anielka-portal" in low or "server.py" in low:
                 continue
-            if "cursor" in low or "composer" in low or "agent" in low:
+            # Strong signals: CLI agent / composer worker
+            strong = (
+                "cursor agent" in low
+                or "cursor-agent" in low
+                or "/cursor " in low and " agent" in low
+                or "composer" in low and "agent" in low
+            )
+            if strong:
                 return True
+            # Weaker: cursor + this project path in cmdline
+            if ("cursor" in low or "composer" in low) and (
+                "learning-languages" in low or ws.lower() in low
+            ):
+                return True
+            # cwd is the project
+            try:
+                cwd = (entry / "cwd").resolve()
+                if str(cwd) == ws or str(cwd).startswith(ws + os.sep):
+                    if "cursor" in low or "node" in low or "composer" in low:
+                        return True
+            except OSError:
+                continue
     except OSError:
         return False
     return False
