@@ -12,7 +12,7 @@ nix-shell -p flutter --run 'flutter run -d linux'
 
 ## Funkcje (0.0.8)
 
-- **Zestawy / kategorie tematyczne** — pasek do przesuwania na ekranie głównym
+- **Własne pule słówek** — na ekranie ćwiczeń wybierz pulę (Cała baza / Nieopanowane / Trudne / Twoja) albo utwórz nową („Nowa pula”); edycja też w ikonie folderu
 - **Import CSV / tekst** — wklej lub plik (`pl,obcy` / `pl;obcy` / `pl - obcy`)
 - **Codzienna rozmowa AI** — model językowy **na urządzeniu** (wbudowany tutor; opcjonalnie lokalna Ollama). Bez portalu i chmury; +40 XP za 3 wiadomości/dzień
 - **XP i poziomy** — punkty za odpowiedzi i rozmowy; im wyższy lvl, tym więcej XP trzeba; **nagroda za lvl**: tytuł + ciekawostka (💡) + losowe ubranko Kici + bonus XP + złote łapki; album odblokowanych nagród
