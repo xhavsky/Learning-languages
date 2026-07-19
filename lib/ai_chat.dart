@@ -134,6 +134,8 @@ Future<String?> _pickOllamaModel(String baseUrl) async {
     const preferred = [
       'bielik-full',
       'bielik-full:latest',
+      'bielik-phone',
+      'bielik-phone:latest',
       'SpeakLeash/bielik-11b-v3.0-instruct:latest',
       'SpeakLeash/bielik-11b-v3.0-instruct:Q4_K_M',
       'bielik-latest:latest',

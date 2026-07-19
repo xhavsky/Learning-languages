@@ -158,6 +158,8 @@ PARAMETER temperature 0.7
     const preferred = [
       kBundledOllamaModelName,
       'bielik-full:latest',
+      'bielik-phone',
+      'bielik-phone:latest',
       'SpeakLeash/bielik-11b-v3.0-instruct:latest',
       'SpeakLeash/bielik-11b-v3.0-instruct:Q4_K_M',
       'speakleash/bielik-11b-v3.0-instruct:Q4_K_M',
@@ -185,7 +187,14 @@ PARAMETER temperature 0.7
       if (ok) return true;
     }
 
-    // Brak lokalnego GGUF 11B (np. mały ZIP z GitHub) — cichy pull, bez klikania użytkownika.
+    // ZIP z GitHub: tylko 1.5B — zaimportuj do Ollamy (bez llama.dll / llama.cpp).
+    final phoneGguf = await findPhoneGguf();
+    if (phoneGguf != null && createBin != null) {
+      final ok = await _createModel(createBin, phoneGguf, 'bielik-phone');
+      if (ok) return true;
+    }
+
+    // Brak lokalnego GGUF 11B — cichy pull (użytkownik nic nie klika).
     if (createBin != null) {
       lastError = null;
       try {

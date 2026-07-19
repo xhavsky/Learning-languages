@@ -25,15 +25,37 @@ jobs:
         with:
           channel: stable
 
+      - name: Install ninja + NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r26d
+          link-to-sdk: true
+
+      - name: Install ninja-build
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
       - name: Cache Bielik phone GGUF
         uses: actions/cache@v4
         with:
           path: models
           key: bielik-1.5b-v3-q4km-${{ hashFiles('scripts/fetch_ondevice_models.sh') }}
 
+      - name: Cache llama.cpp source
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/llama.cpp-src
+          key: llama-cpp-src-v1
+
+      - name: Cache built jniLibs
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache/hosted/pub.dev/llm_llamacpp-*/android/src/main/jniLibs
+          key: llm-llamacpp-jni-0.1.9-${{ hashFiles('scripts/prepare_llm_android_native.sh') }}
+
       - name: Fetch phone model + embed in APK assets
         run: |
-          chmod +x scripts/fetch_ondevice_models.sh
+          chmod +x scripts/*.sh
           ./scripts/fetch_ondevice_models.sh --phone-only
           mkdir -p android/app/src/main/assets/models
           cp -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf \
@@ -42,6 +64,12 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
+
+      - name: Build llm_llamacpp native libs
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: ./scripts/prepare_llm_android_native.sh
 
       - name: Build APK
         run: flutter build apk --release
