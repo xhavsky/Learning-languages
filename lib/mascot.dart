@@ -8,19 +8,25 @@ enum MascotSpecies { cat, dog }
 /// Domyślny kolor futerka (kremowy — jak Kicia na obrazku).
 const defaultMascotColorArgb = 0xFFFFCC80;
 
-/// Paleta sierści — naturalne odcienie psa/kota + kilka zabawnych.
+/// Paleta sierści — naturalne odcienie psa (labrador, husky, spaniel…) + zabawne.
 const mascotColorPresets = <Color>[
   Color(0xFFFFCC80), // kremowy (domyślny)
+  Color(0xFFF5D5A8), // jasny labrador
   Color(0xFFE0A060), // złoty labrador
   Color(0xFFC4783A), // miodowy
+  Color(0xFFA0522D), // sienna
   Color(0xFF8D5524), // czekoladowy
   Color(0xFF5D4037), // ciemnobrązowy
-  Color(0xFFBCAAA4), // beżowy
+  Color(0xFF3E2723), // espresso
   Color(0xFFEFEBE9), // kremowy biały
+  Color(0xFFD7CCC8), // jasny beż
+  Color(0xFFBCAAA4), // beżowy
   Color(0xFF9E9E9E), // szary
+  Color(0xFF78909C), // niebieskoszary (husky)
   Color(0xFF424242), // grafitowy
   Color(0xFF212121), // czarny
-  Color(0xFFFF8A65), // rudy
+  Color(0xFFBF360C), // rudy irlandzki
+  Color(0xFFFF8A65), // morelowy
   Color(0xFFF48FB1), // różowy
   Color(0xFF81D4FA), // błękitny
 ];
@@ -30,20 +36,39 @@ String mascotColorLabel(Color c) {
   final v = c.toARGB32();
   return switch (v) {
     0xFFFFCC80 => 'Krem',
+    0xFFF5D5A8 => 'Piasek',
     0xFFE0A060 => 'Złoty',
     0xFFC4783A => 'Miód',
+    0xFFA0522D => 'Sienna',
     0xFF8D5524 => 'Czekolada',
     0xFF5D4037 => 'Brąz',
-    0xFFBCAAA4 => 'Beż',
+    0xFF3E2723 => 'Espresso',
     0xFFEFEBE9 => 'Biały',
+    0xFFD7CCC8 => 'Perła',
+    0xFFBCAAA4 => 'Beż',
     0xFF9E9E9E => 'Szary',
+    0xFF78909C => 'Husky',
     0xFF424242 => 'Grafit',
     0xFF212121 => 'Czarny',
-    0xFFFF8A65 => 'Rudy',
+    0xFFBF360C => 'Rudy',
+    0xFFFF8A65 => 'Morela',
     0xFFF48FB1 => 'Róż',
     0xFF81D4FA => 'Błękit',
     _ => 'Futro',
   };
+}
+
+/// Naturalne odcienie sierści z bazowego koloru (ciemniej / jaśniej / brzuch).
+Color furTone(Color base, {double dark = 0, double light = 0}) {
+  final hsl = HSLColor.fromColor(base);
+  final lum = base.computeLuminance();
+  // Czarna/biała sierść: mniej „wypalania”, więcej głębi.
+  final sat = lum < 0.08
+      ? hsl.saturation * 0.4
+      : (lum > 0.85 ? hsl.saturation * 0.55 : hsl.saturation);
+  var l = (hsl.lightness - dark + light).clamp(0.05, 0.96);
+  var s = (sat * (1 - dark * 0.35)).clamp(0.0, 1.0);
+  return hsl.withSaturation(s).withLightness(l).toColor();
 }
 
 String mascotSpeciesLabel(MascotSpecies s) =>
@@ -564,7 +589,7 @@ class DressedKicia extends StatelessWidget {
             tinted
                 ? ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      furColor.withValues(alpha: 0.55),
+                      furColor.withValues(alpha: 0.62),
                       BlendMode.modulate,
                     ),
                     child: Image.asset(
@@ -945,7 +970,8 @@ class _HomeItemPainter extends CustomPainter {
       oldDelegate.item.id != item.id;
 }
 
-/// Kreskówkowy pies: klapnięte uszy, pyszczek, 4 łapy, ogon — jak szczeniak.
+/// Kreskówkowy piesek siedzący: duża głowa, klapnięte uszy, pyszczek, ogon.
+/// Proporcje jak u szczeniaka (głowa ≈ ciało), żeby od razu wyglądał jak pies.
 class _DogPainter extends CustomPainter {
   _DogPainter(this.fur);
 
@@ -956,136 +982,214 @@ class _DogPainter extends CustomPainter {
     final w = size.width;
     final h = size.height;
 
-    // Cienie i odcienie sierści zależne od wybranego koloru.
     final bodyC = fur;
-    final darkC = Color.lerp(fur, const Color(0xFF1A120E), 0.32)!;
-    final midC = Color.lerp(fur, const Color(0xFF3E2723), 0.14)!;
-    final lightC = Color.lerp(fur, const Color(0xFFFFF8F0), 0.42)!;
-    final bellyC = Color.lerp(fur, const Color(0xFFFFFBF5), 0.55)!;
-    final earInC = Color.lerp(fur, const Color(0xFFFFAB91), 0.45)!;
+    final darkC = furTone(fur, dark: 0.18);
+    final midC = furTone(fur, dark: 0.08);
+    final lightC = furTone(fur, light: 0.22);
+    final bellyC = furTone(fur, light: 0.32);
+    final earInC = Color.lerp(
+      furTone(fur, light: 0.12),
+      const Color(0xFFFFAB91),
+      0.55,
+    )!;
+    final pawPadC = Color.lerp(darkC, const Color(0xFF4A148C), 0.15)!;
 
     final body = Paint()..color = bodyC;
     final dark = Paint()..color = darkC;
     final mid = Paint()..color = midC;
     final light = Paint()..color = lightC;
     final belly = Paint()..color = bellyC;
+    final outline = Paint()
+      ..color = darkC.withValues(alpha: 0.45)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w * 0.012
+      ..strokeJoin = StrokeJoin.round;
 
-    // --- Ogon (za ciałem), lekko uniesiony ---
+    // Cień pod pieskiem
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.50, h * 0.92),
+        width: w * 0.52,
+        height: h * 0.06,
+      ),
+      Paint()..color = Colors.black.withValues(alpha: 0.12),
+    );
+
+    // --- Ogon (za ciałem), zakręcony w górę jak u szczęśliwego psa ---
     final tail = Path()
-      ..moveTo(w * 0.70, h * 0.62)
-      ..quadraticBezierTo(w * 0.92, h * 0.48, w * 0.88, h * 0.32)
-      ..quadraticBezierTo(w * 0.86, h * 0.28, w * 0.82, h * 0.34)
-      ..quadraticBezierTo(w * 0.86, h * 0.48, w * 0.68, h * 0.66)
+      ..moveTo(w * 0.68, h * 0.58)
+      ..quadraticBezierTo(w * 0.90, h * 0.52, w * 0.86, h * 0.34)
+      ..quadraticBezierTo(w * 0.84, h * 0.26, w * 0.78, h * 0.32)
+      ..quadraticBezierTo(w * 0.88, h * 0.48, w * 0.66, h * 0.62)
       ..close();
-    canvas.drawPath(tail, mid);
     canvas.drawPath(
       tail,
       Paint()
-        ..color = darkC.withValues(alpha: 0.35)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.2,
+        ..shader = LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [midC, bodyC, lightC],
+        ).createShader(Rect.fromLTWH(w * 0.65, h * 0.25, w * 0.28, h * 0.4)),
     );
+    canvas.drawPath(tail, outline..strokeWidth = w * 0.008);
 
-    // --- Ciało (owal, krótsze nóżki = cute) ---
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.68),
-        width: w * 0.48,
-        height: h * 0.38,
-      ),
-      body,
+    // --- Tylne łapy (siedząc — owalne uda po bokach) ---
+    for (final sx in [-1.0, 1.0]) {
+      final hip = Path()
+        ..addOval(
+          Rect.fromCenter(
+            center: Offset(w * (0.50 + sx * 0.22), h * 0.78),
+            width: w * 0.22,
+            height: h * 0.20,
+          ),
+        );
+      canvas.drawPath(hip, mid);
+      // Stopa
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * (0.50 + sx * 0.24), h * 0.88),
+          width: w * 0.14,
+          height: h * 0.08,
+        ),
+        dark,
+      );
+      // Opuszki
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * (0.50 + sx * 0.24), h * 0.895),
+          width: w * 0.08,
+          height: h * 0.035,
+        ),
+        Paint()..color = pawPadC.withValues(alpha: 0.7),
+      );
+    }
+
+    // --- Tułów (fasolka / owal — siedząca sylwetka) ---
+    final torso = Path()
+      ..addOval(
+        Rect.fromCenter(
+          center: Offset(w * 0.50, h * 0.66),
+          width: w * 0.46,
+          height: h * 0.36,
+        ),
+      );
+    canvas.drawPath(
+      torso,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.2, -0.35),
+          radius: 0.85,
+          colors: [lightC, bodyC, midC],
+          stops: const [0.0, 0.45, 1.0],
+        ).createShader(Rect.fromLTWH(w * 0.27, h * 0.48, w * 0.46, h * 0.36)),
     );
-    // Jaśniejszy brzuszek
+    // Brzuszek / biała plama na piersi
     canvas.drawOval(
       Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.72),
-        width: w * 0.28,
+        center: Offset(w * 0.50, h * 0.70),
+        width: w * 0.26,
         height: h * 0.22,
       ),
       belly,
     );
 
-    // --- Tylne łapy ---
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(w * 0.34, h * 0.88), width: w * 0.16, height: h * 0.12),
-      dark,
-    );
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(w * 0.66, h * 0.88), width: w * 0.16, height: h * 0.12),
-      dark,
-    );
-    // --- Przednie łapy ---
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset(w * 0.38, h * 0.82), width: w * 0.12, height: h * 0.18),
-        Radius.circular(w * 0.06),
-      ),
-      mid,
-    );
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset(w * 0.62, h * 0.82), width: w * 0.12, height: h * 0.18),
-        Radius.circular(w * 0.06),
-      ),
-      mid,
-    );
-    // Opuszki łap
-    for (final x in [0.38, 0.62]) {
-      canvas.drawOval(
-        Rect.fromCenter(center: Offset(w * x, h * 0.90), width: w * 0.11, height: h * 0.07),
-        dark,
+    // --- Przednie łapy (krótkie, proste — siedzący pies) ---
+    for (final sx in [-1.0, 1.0]) {
+      final leg = RRect.fromRectAndRadius(
+        Rect.fromCenter(
+          center: Offset(w * (0.50 + sx * 0.12), h * 0.78),
+          width: w * 0.11,
+          height: h * 0.20,
+        ),
+        Radius.circular(w * 0.055),
       );
-      canvas.drawCircle(Offset(w * (x - 0.025), h * 0.885), w * 0.012, light);
-      canvas.drawCircle(Offset(w * x, h * 0.88), w * 0.012, light);
-      canvas.drawCircle(Offset(w * (x + 0.025), h * 0.885), w * 0.012, light);
+      canvas.drawRRect(leg, body);
+      canvas.drawRRect(
+        leg,
+        Paint()
+          ..color = darkC.withValues(alpha: 0.25)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.2,
+      );
+      // Łapka
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * (0.50 + sx * 0.12), h * 0.88),
+          width: w * 0.12,
+          height: h * 0.07,
+        ),
+        mid,
+      );
+      final px = w * (0.50 + sx * 0.12);
+      canvas.drawCircle(Offset(px - w * 0.025, h * 0.87), w * 0.012, light);
+      canvas.drawCircle(Offset(px, h * 0.865), w * 0.013, light);
+      canvas.drawCircle(Offset(px + w * 0.025, h * 0.87), w * 0.012, light);
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(px, h * 0.895),
+          width: w * 0.055,
+          height: h * 0.025,
+        ),
+        Paint()..color = pawPadC.withValues(alpha: 0.75),
+      );
     }
 
-    // --- Klapnięte uszy (za głową / po bokach) ---
+    // --- Klapnięte uszy (za głową, wiszą w dół — klasyka cartoon dog) ---
     Path floppyEar(bool left) {
-      final sx = left ? 1.0 : -1.0;
-      final cx = w * 0.5;
+      final sx = left ? -1.0 : 1.0;
+      final top = Offset(w * (0.50 + sx * 0.16), h * 0.22);
       return Path()
-        ..moveTo(cx + sx * w * 0.18, h * 0.28)
+        ..moveTo(top.dx, top.dy)
         ..quadraticBezierTo(
-          cx + sx * w * 0.38,
-          h * 0.22,
-          cx + sx * w * 0.36,
-          h * 0.48,
+          w * (0.50 + sx * 0.42),
+          h * 0.18,
+          w * (0.50 + sx * 0.40),
+          h * 0.42,
         )
         ..quadraticBezierTo(
-          cx + sx * w * 0.34,
+          w * (0.50 + sx * 0.38),
           h * 0.58,
-          cx + sx * w * 0.22,
+          w * (0.50 + sx * 0.22),
           h * 0.52,
         )
         ..quadraticBezierTo(
-          cx + sx * w * 0.16,
-          h * 0.42,
-          cx + sx * w * 0.18,
-          h * 0.28,
+          w * (0.50 + sx * 0.14),
+          h * 0.40,
+          top.dx,
+          top.dy,
         )
         ..close();
     }
 
-    canvas.drawPath(floppyEar(true), dark);
-    canvas.drawPath(floppyEar(false), dark);
+    for (final left in [true, false]) {
+      final ear = floppyEar(left);
+      canvas.drawPath(
+        ear,
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [bodyC, darkC],
+          ).createShader(Rect.fromLTWH(0, h * 0.15, w, h * 0.45)),
+      );
+      canvas.drawPath(ear, outline..strokeWidth = w * 0.01);
+    }
     // Różowy środek ucha
     Path earIn(bool left) {
-      final sx = left ? 1.0 : -1.0;
-      final cx = w * 0.5;
+      final sx = left ? -1.0 : 1.0;
       return Path()
-        ..moveTo(cx + sx * w * 0.20, h * 0.32)
+        ..moveTo(w * (0.50 + sx * 0.18), h * 0.28)
         ..quadraticBezierTo(
-          cx + sx * w * 0.32,
-          h * 0.30,
-          cx + sx * w * 0.30,
-          h * 0.46,
+          w * (0.50 + sx * 0.32),
+          h * 0.28,
+          w * (0.50 + sx * 0.30),
+          h * 0.44,
         )
         ..quadraticBezierTo(
-          cx + sx * w * 0.28,
-          h * 0.52,
-          cx + sx * w * 0.22,
-          h * 0.48,
+          w * (0.50 + sx * 0.26),
+          h * 0.50,
+          w * (0.50 + sx * 0.20),
+          h * 0.46,
         )
         ..close();
     }
@@ -1094,110 +1198,194 @@ class _DogPainter extends CustomPainter {
     canvas.drawPath(earIn(true), earPaint);
     canvas.drawPath(earIn(false), earPaint);
 
-    // --- Głowa (duża, okrągła) ---
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.36),
-        width: w * 0.56,
-        height: h * 0.46,
-      ),
-      body,
+    // --- Głowa (duża, okrągła — ~1:1 z tułowiem) ---
+    final headRect = Rect.fromCenter(
+      center: Offset(w * 0.50, h * 0.34),
+      width: w * 0.54,
+      height: h * 0.44,
     );
-    // Lekki cień na czole
+    canvas.drawOval(
+      headRect,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.15, -0.3),
+          radius: 0.9,
+          colors: [lightC, bodyC, midC],
+          stops: const [0.0, 0.5, 1.0],
+        ).createShader(headRect),
+    );
+    canvas.drawOval(headRect, outline..strokeWidth = w * 0.01);
+
+    // Plamka na czole (biała „blaze” jak u wielu psów)
     canvas.drawOval(
       Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.28),
-        width: w * 0.40,
-        height: h * 0.16,
+        center: Offset(w * 0.50, h * 0.26),
+        width: w * 0.12,
+        height: h * 0.18,
       ),
-      Paint()..color = midC.withValues(alpha: 0.35),
+      Paint()..color = bellyC.withValues(alpha: 0.85),
     );
 
-    // --- Pyszczek (wydłużony muzzle) ---
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.46),
-        width: w * 0.34,
-        height: h * 0.22,
-      ),
-      light,
+    // --- Pyszczek (muzzle) — wystający owal pod oczami ---
+    final muzzle = Rect.fromCenter(
+      center: Offset(w * 0.50, h * 0.44),
+      width: w * 0.36,
+      height: h * 0.22,
     );
-    // Biała plamka na piersi / pod brodą
+    canvas.drawOval(muzzle, light);
     canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.50, h * 0.54),
-        width: w * 0.16,
-        height: h * 0.08,
-      ),
-      belly,
+      muzzle,
+      Paint()
+        ..color = darkC.withValues(alpha: 0.2)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2,
+    );
+    // Linia pod noskiem
+    canvas.drawLine(
+      Offset(w * 0.50, h * 0.46),
+      Offset(w * 0.50, h * 0.52),
+      Paint()
+        ..color = darkC.withValues(alpha: 0.55)
+        ..strokeWidth = 1.6
+        ..strokeCap = StrokeCap.round,
     );
 
-    // --- Oczy (duże, nisko = cute) ---
+    // --- Oczy ---
     final eyeWhite = Paint()..color = Colors.white;
-    final eyeInk = Paint()..color = const Color(0xFF1B1B1B);
+    final eyeInk = Paint()..color = const Color(0xFF1A1512);
     final eyeShine = Paint()..color = Colors.white;
-    for (final x in [0.38, 0.62]) {
+    for (final x in [0.37, 0.63]) {
+      // Delikatny cień pod okiem
       canvas.drawOval(
-        Rect.fromCenter(center: Offset(w * x, h * 0.34), width: w * 0.11, height: h * 0.12),
+        Rect.fromCenter(
+          center: Offset(w * x, h * 0.355),
+          width: w * 0.12,
+          height: h * 0.10,
+        ),
+        Paint()..color = darkC.withValues(alpha: 0.18),
+      );
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * x, h * 0.33),
+          width: w * 0.115,
+          height: h * 0.125,
+        ),
         eyeWhite,
       );
-      canvas.drawCircle(Offset(w * x, h * 0.35), w * 0.038, eyeInk);
-      canvas.drawCircle(Offset(w * (x + 0.018), h * 0.332), w * 0.014, eyeShine);
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(w * x, h * 0.33),
+          width: w * 0.115,
+          height: h * 0.125,
+        ),
+        Paint()
+          ..color = darkC.withValues(alpha: 0.35)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.3,
+      );
+      canvas.drawCircle(Offset(w * x, h * 0.34), w * 0.042, eyeInk);
+      // Tęczówka w kolorze sierści (lekko)
+      canvas.drawCircle(
+        Offset(w * x, h * 0.34),
+        w * 0.028,
+        Paint()..color = Color.lerp(darkC, const Color(0xFF5D4037), 0.4)!,
+      );
+      canvas.drawCircle(Offset(w * x, h * 0.34), w * 0.016, eyeInk);
+      canvas.drawCircle(
+        Offset(w * (x + 0.018), h * 0.318),
+        w * 0.015,
+        eyeShine,
+      );
+      canvas.drawCircle(
+        Offset(w * (x - 0.012), h * 0.348),
+        w * 0.007,
+        eyeShine,
+      );
       // Brew
       canvas.drawArc(
-        Rect.fromCenter(center: Offset(w * x, h * 0.285), width: w * 0.10, height: h * 0.04),
-        math.pi + 0.2,
-        math.pi - 0.4,
+        Rect.fromCenter(
+          center: Offset(w * x, h * 0.268),
+          width: w * 0.11,
+          height: h * 0.04,
+        ),
+        math.pi + 0.15,
+        math.pi - 0.3,
         false,
         Paint()
           ..color = darkC
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.2
+          ..strokeWidth = 2.4
           ..strokeCap = StrokeCap.round,
       );
     }
 
-    // --- Nosek ---
+    // --- Nosek (trójkątny / serduszko — typowy pies) ---
     final nose = Path()
-      ..moveTo(w * 0.50, h * 0.42)
-      ..quadraticBezierTo(w * 0.56, h * 0.44, w * 0.50, h * 0.48)
-      ..quadraticBezierTo(w * 0.44, h * 0.44, w * 0.50, h * 0.42)
+      ..moveTo(w * 0.50, h * 0.40)
+      ..quadraticBezierTo(w * 0.575, h * 0.415, w * 0.50, h * 0.465)
+      ..quadraticBezierTo(w * 0.425, h * 0.415, w * 0.50, h * 0.40)
       ..close();
     canvas.drawPath(nose, eyeInk);
-    canvas.drawCircle(Offset(w * 0.485, h * 0.435), w * 0.012, eyeShine);
+    canvas.drawCircle(Offset(w * 0.48, h * 0.418), w * 0.014, eyeShine);
+    // Nozdrza
+    canvas.drawCircle(
+      Offset(w * 0.475, h * 0.438),
+      w * 0.008,
+      Paint()..color = const Color(0xFF3E2723),
+    );
+    canvas.drawCircle(
+      Offset(w * 0.525, h * 0.438),
+      w * 0.008,
+      Paint()..color = const Color(0xFF3E2723),
+    );
 
     // --- Uśmiech + język ---
     canvas.drawArc(
-      Rect.fromCenter(center: Offset(w * 0.50, h * 0.50), width: w * 0.18, height: h * 0.12),
-      0.2,
-      math.pi - 0.4,
+      Rect.fromCenter(
+        center: Offset(w * 0.50, h * 0.495),
+        width: w * 0.20,
+        height: h * 0.12,
+      ),
+      0.15,
+      math.pi - 0.3,
       false,
       Paint()
         ..color = const Color(0xFF3E2723)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.4
+        ..strokeWidth = 2.5
         ..strokeCap = StrokeCap.round,
     );
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(w * 0.50, h * 0.545), width: w * 0.08, height: h * 0.05),
-      Paint()..color = const Color(0xFFE57373),
+    final tongue = Path()
+      ..moveTo(w * 0.46, h * 0.52)
+      ..quadraticBezierTo(w * 0.50, h * 0.58, w * 0.54, h * 0.52)
+      ..quadraticBezierTo(w * 0.50, h * 0.545, w * 0.46, h * 0.52)
+      ..close();
+    canvas.drawPath(tongue, Paint()..color = const Color(0xFFEF9A9A));
+    canvas.drawLine(
+      Offset(w * 0.50, h * 0.525),
+      Offset(w * 0.50, h * 0.555),
+      Paint()
+        ..color = const Color(0xFFE57373)
+        ..strokeWidth = 1.2,
     );
 
-    // Wąsiki
-    final whisker = Paint()
-      ..color = darkC.withValues(alpha: 0.55)
-      ..strokeWidth = 1.4
+    // Delikatne „fufu” sierści na policzkach (bez kocich wąsów)
+    final fluff = Paint()
+      ..color = lightC.withValues(alpha: 0.9)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.2
       ..strokeCap = StrokeCap.round;
     for (final side in [-1.0, 1.0]) {
-      canvas.drawLine(
-        Offset(w * (0.50 + side * 0.08), h * 0.48),
-        Offset(w * (0.50 + side * 0.22), h * 0.46),
-        whisker,
-      );
-      canvas.drawLine(
-        Offset(w * (0.50 + side * 0.08), h * 0.50),
-        Offset(w * (0.50 + side * 0.22), h * 0.51),
-        whisker,
+      canvas.drawArc(
+        Rect.fromCenter(
+          center: Offset(w * (0.50 + side * 0.20), h * 0.42),
+          width: w * 0.10,
+          height: h * 0.08,
+        ),
+        side < 0 ? 0.6 : math.pi - 0.6,
+        side < 0 ? 1.4 : -1.4,
+        false,
+        fluff,
       );
     }
   }
@@ -1620,65 +1808,141 @@ class MascotCard extends StatelessWidget {
             const SizedBox(height: 8),
           ],
           if (onColorChanged != null) ...[
-            Text(
-              species == MascotSpecies.dog
-                  ? 'Kolor sierści pieska'
-                  : 'Kolor futerka',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const SizedBox(height: 6),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
+            Row(
               children: [
-                for (final c in mascotColorPresets)
-                  GestureDetector(
-                    onTap: () => onColorChanged!(c),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 180),
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: c,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: furColor.toARGB32() == c.toARGB32()
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.white,
-                              width: furColor.toARGB32() == c.toARGB32() ? 3.5 : 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: c.withValues(alpha: 0.45),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: furColor.toARGB32() == c.toARGB32()
-                              ? Icon(
-                                  Icons.check_rounded,
-                                  size: 20,
-                                  color: c.computeLuminance() > 0.55
-                                      ? Colors.black87
-                                      : Colors.white,
-                                )
-                              : null,
+                Expanded(
+                  child: Text(
+                    species == MascotSpecies.dog
+                        ? 'Kolor sierści — stuknij, żeby zmienić'
+                        : 'Kolor futerka — stuknij, żeby zmienić',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
-                        const SizedBox(height: 3),
-                        Text(
-                          mascotColorLabel(c),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: furColor.withValues(alpha: 0.35),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: furColor.withValues(alpha: 0.9),
+                      width: 1.5,
                     ),
                   ),
+                  child: Text(
+                    mascotColorLabel(furColor),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
+            // Mini podgląd + poziane kółka kolorów
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    gradient: RadialGradient(
+                      colors: [
+                        furTone(furColor, light: 0.2),
+                        furColor,
+                        furTone(furColor, dark: 0.15),
+                      ],
+                    ),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: furColor.withValues(alpha: 0.4),
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: species == MascotSpecies.dog
+                        ? CustomPaint(
+                            size: const Size(72, 72),
+                            painter: _DogPainter(furColor),
+                          )
+                        : ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              furColor.withValues(alpha: 0.65),
+                              BlendMode.modulate,
+                            ),
+                            child: Image.asset(
+                              'assets/images/kicia_base.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final c in mascotColorPresets)
+                        GestureDetector(
+                          onTap: () => onColorChanged!(c),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 180),
+                            width: furColor.toARGB32() == c.toARGB32() ? 40 : 34,
+                            height:
+                                furColor.toARGB32() == c.toARGB32() ? 40 : 34,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: RadialGradient(
+                                colors: [
+                                  furTone(c, light: 0.25),
+                                  c,
+                                  furTone(c, dark: 0.2),
+                                ],
+                              ),
+                              border: Border.all(
+                                color: furColor.toARGB32() == c.toARGB32()
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.white.withValues(alpha: 0.9),
+                                width: furColor.toARGB32() == c.toARGB32()
+                                    ? 3.2
+                                    : 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: c.withValues(alpha: 0.4),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: furColor.toARGB32() == c.toARGB32()
+                                ? Icon(
+                                    Icons.check_rounded,
+                                    size: 18,
+                                    color: c.computeLuminance() > 0.55
+                                        ? Colors.black87
+                                        : Colors.white,
+                                  )
+                                : null,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
           ],
           Center(
             child: DressedKicia(
@@ -1797,7 +2061,7 @@ class MascotCard extends StatelessWidget {
   }
 }
 
-/// Lekki panel bez zależności od SoftPanel z ui_fx (unikamy cyklu importów).
+/// Lekki panel — ten sam język wizualny co SoftPanel (spójny UI).
 class Softish extends StatelessWidget {
   const Softish({super.key, required this.child});
 
@@ -1811,23 +2075,29 @@ class Softish extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: scheme.outlineVariant.withValues(alpha: 0.35),
+          color: scheme.outlineVariant.withValues(alpha: 0.28),
         ),
+        color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            scheme.surface.withValues(alpha: bright ? 0.94 : 0.78),
-            scheme.primaryContainer.withValues(alpha: bright ? 0.28 : 0.16),
+            scheme.surface.withValues(alpha: bright ? 0.95 : 0.78),
+            scheme.primaryContainer.withValues(alpha: bright ? 0.22 : 0.14),
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: bright ? 0.08 : 0.35),
-            blurRadius: 14,
+            color: Colors.black.withValues(alpha: bright ? 0.10 : 0.40),
+            blurRadius: 16,
             offset: const Offset(0, 6),
+          ),
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: bright ? 0.08 : 0.12),
+            blurRadius: 24,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
