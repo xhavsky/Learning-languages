@@ -1,0 +1,8 @@
+{
+  "id": "trener-on-device-v1",
+  "name": "Trener Językowy — model na urządzeniu",
+  "version": 1,
+  "note": "Wbudowany model rozmowy (bez portalu i chmury). Kopiowany do Documents przy pierwszym uruchomieniu czatu.",
+  "engine": "ondevice-tutor",
+  "languages": ["Angielski", "Hiszpański", "Rosyjski"]
+}

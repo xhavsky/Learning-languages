@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trener_jezykowy/curiosities.dart';
 import 'package:trener_jezykowy/import_csv.dart';
+import 'package:trener_jezykowy/mascot.dart';
 import 'package:trener_jezykowy/models.dart';
 import 'package:trener_jezykowy/storage.dart';
 
@@ -127,6 +128,28 @@ dom - house
     expect(gained, 40);
     expect(s.completeDailyChat(), 0);
     expect(s.chatDoneToday, isTrue);
+  });
+
+  test('mascot feed needs 3 correct words a day', () {
+    final s = AppStats();
+    expect(s.mascotFedToday, isFalse);
+    expect(s.feedMascotOnCorrect(), isFalse);
+    expect(s.feedMascotOnCorrect(), isFalse);
+    expect(s.feedMascotOnCorrect(), isTrue);
+    expect(s.mascotFedToday, isTrue);
+    expect(s.wordsToday, 3);
+  });
+
+  test('mascot wardrobe unlocks by level', () {
+    expect(mascotItemForLevel(2)?.id, 'bow');
+    expect(mascotItemForLevel(7), isNull);
+    expect(unlockedMascotItems(1), isEmpty);
+    expect(unlockedMascotItems(5).map((e) => e.id), [
+      'bow',
+      'scarf',
+      'hat',
+      'glasses',
+    ]);
   });
 
   test('level rewards pending then claimed', () {
