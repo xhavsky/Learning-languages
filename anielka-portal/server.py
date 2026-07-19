@@ -35,11 +35,11 @@ TAILSCALE_URL = os.environ.get(
 )
 TAILSCALE_IP_URL = os.environ.get(
     "ANIELKA_PORTAL_IP_URL",
-    "http://100.68.72.119:7474",
+    "https://nixos.tail4caf1.ts.net:7475",
 )
 TAILSCALE_HTTP_URL = os.environ.get(
     "ANIELKA_PORTAL_HTTP_URL",
-    "http://nixos.tail4caf1.ts.net:7474",
+    "https://nixos.tail4caf1.ts.net:7475",
 )
 
 CURSOR_BIN = os.environ.get("CURSOR_BIN", shutil.which("cursor") or "cursor")
@@ -117,8 +117,7 @@ def _write_meta() -> None:
                     "urlIp": TAILSCALE_IP_URL,
                     "pin": PIN,
                     "note": (
-                        "Tailscale MUSI być włączony. "
-                        "OperaGX: użyj HTTPS :7475"
+                        "Publiczny Funnel HTTPS — bez Tailscale. PIN wymagany."
                     ),
                 },
                 ensure_ascii=False,

@@ -22,11 +22,10 @@ class PortalInfo {
 
   static const fallback = PortalInfo(
     url: 'https://nixos.tail4caf1.ts.net:7475',
-    urlHttp: 'http://nixos.tail4caf1.ts.net:7474',
-    urlIp: 'http://100.68.72.119:7474',
+    urlHttp: 'https://nixos.tail4caf1.ts.net:7475',
+    urlIp: 'https://nixos.tail4caf1.ts.net:7475',
     pin: '3141',
-    note:
-        'Tailscale włączony. W OperaGX: HTTPS https://nixos.tail4caf1.ts.net:7475',
+    note: 'Publiczny Funnel — wejdź z Opera bez Tailscale. PIN: 3141',
   );
 
   factory PortalInfo.fromJson(Map<String, dynamic> json) => PortalInfo(
@@ -179,13 +178,12 @@ Future<void> showAnielkaPortalSheet(
               ),
               const SizedBox(height: 6),
               Text(
-                '1. Na PC Anielki (FreeUnicorn) włącz Tailscale — Connected.\n'
-                '2. OperaGX → wklej HTTPS (ważne):\n'
+                '1. Otwórz Opera / przeglądarkę (Tailscale NIE jest potrzebny).\n'
+                '2. Wejdź na:\n'
                 '   ${portal.url}\n'
-                '3. Certyfikat Tailscale: kontynuuj / zaawansowane → wejdź.\n'
-                '4. PIN: ${portal.pin}\n'
-                '5. Napisz, co zmienić — poczekaj na odpowiedź.\n'
-                '6. Paczki: w portalu „Paczki / Release”.',
+                '3. Wpisać PIN: ${portal.pin}\n'
+                '4. Napisz, co zmienić — poczekaj na odpowiedź.\n'
+                '5. Paczki: w portalu „Paczki / Release”.',
                 style: Theme.of(ctx).textTheme.bodyMedium,
               ),
             ],

@@ -1,7 +1,7 @@
 {
   "url": "https://nixos.tail4caf1.ts.net:7475",
-  "urlHttp": "http://nixos.tail4caf1.ts.net:7474",
-  "urlIp": "http://100.68.72.119:7474",
+  "urlHttp": "https://nixos.tail4caf1.ts.net:7475",
+  "urlIp": "https://nixos.tail4caf1.ts.net:7475",
   "pin": "3141",
-  "note": "Tailscale MUSI być włączony. OperaGX: użyj HTTPS :7475"
+  "note": "Publiczny Funnel HTTPS — bez Tailscale. PIN wymagany."
 }
