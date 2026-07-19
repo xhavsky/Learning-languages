@@ -911,7 +911,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() {});
   }
 
-  Future<void> _openGroups() async {
+  Future<void> _openGroups({bool openCreate = false}) async {
     final pack = _pack;
     if (pack == null || _lang == null) return;
     await Navigator.of(context).push(
@@ -921,6 +921,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           pack: pack,
           selectedId: _groupId,
           palette: widget.palette,
+          openCreateOnStart: openCreate,
           onChanged: () async {
             await _store.save();
             setState(() {});
@@ -1601,7 +1602,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             icon: const Icon(Icons.storefront_outlined),
           ),
           IconButton(
-            tooltip: 'Kategorie',
+            tooltip: 'Pule słówek',
             onPressed: _openGroups,
             icon: const Icon(Icons.folder_special_outlined),
           ),
@@ -1736,7 +1737,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Kategoria (przesuń pasek →)',
+                            'Pula słówek (przesuń → albo utwórz własną)',
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                           const SizedBox(height: 6),
@@ -1798,6 +1799,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         },
                                       ),
                                     ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: ActionChip(
+                                    avatar: const Icon(Icons.add, size: 18),
+                                    label: const Text('Nowa pula'),
+                                    onPressed: () =>
+                                        _openGroups(openCreate: true),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -1943,8 +1954,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       SoftPanel(
                         child: Text(
                           pool.isEmpty && _poolReview
-                              ? 'Brak opanowanych w tej kategorii.'
-                              : 'Brak słówek do nauki w kategorii.\nDodaj słowa lub wybierz inną kategorię.',
+                              ? 'Brak opanowanych w tej puli.'
+                              : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
@@ -2086,6 +2097,7 @@ class GroupsPage extends StatefulWidget {
     required this.palette,
     required this.onChanged,
     required this.onSelect,
+    this.openCreateOnStart = false,
   });
 
   final String lang;
@@ -2094,6 +2106,7 @@ class GroupsPage extends StatefulWidget {
   final AppPalette palette;
   final VoidCallback onChanged;
   final ValueChanged<String> onSelect;
+  final bool openCreateOnStart;
 
   @override
   State<GroupsPage> createState() => _GroupsPageState();
@@ -2106,6 +2119,11 @@ class _GroupsPageState extends State<GroupsPage> {
   void initState() {
     super.initState();
     _selected = widget.selectedId;
+    if (widget.openCreateOnStart) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _createGroup();
+      });
+    }
   }
 
   Future<bool> _pickWords({
@@ -2148,7 +2166,7 @@ class _GroupsPageState extends State<GroupsPage> {
                       controller: nameCtrl,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: const InputDecoration(
-                        labelText: 'Nazwa kategorii',
+                        labelText: 'Nazwa puli',
                         hintText: 'np. Czasowniki na dziś',
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.label_outline),
@@ -2180,7 +2198,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Zaznacz słowa do kategorii (możesz szukać po polsku lub obcym).',
+                      'Zaznacz słowa do puli (możesz szukać po polsku lub obcym).',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
@@ -2245,7 +2263,7 @@ class _GroupsPageState extends State<GroupsPage> {
                                     .removeWhere((x) => x.id == _editingGroupId);
                                 Navigator.pop(ctx, false);
                               },
-                              child: const Text('Usuń kategorię'),
+                              child: const Text('Usuń pulę'),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -2263,7 +2281,7 @@ class _GroupsPageState extends State<GroupsPage> {
                         child: Text(
                           selected.isEmpty
                               ? 'Utwórz (wybierz słowa)'
-                              : 'Utwórz kategorię (${selected.length})',
+                              : 'Utwórz pulę (${selected.length})',
                         ),
                       ),
                   ],
@@ -2285,7 +2303,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final selected = <String>{};
     _editingGroupId = null;
     final ok = await _pickWords(
-      title: 'Nowa kategoria',
+      title: 'Nowa pula słówek',
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: true,
@@ -2299,7 +2317,7 @@ class _GroupsPageState extends State<GroupsPage> {
     if (!mounted) return;
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Podaj nazwę kategorii')),
+        const SnackBar(content: Text('Podaj nazwę puli')),
       );
       return;
     }
@@ -2309,15 +2327,23 @@ class _GroupsPageState extends State<GroupsPage> {
       );
       return;
     }
+    final id = 'g-${DateTime.now().millisecondsSinceEpoch}';
     widget.pack.groups.add(
       WordGroup(
-        id: 'g-${DateTime.now().millisecondsSinceEpoch}',
+        id: id,
         name: name,
         wordIds: selected.toList(),
       ),
     );
+    _selected = id;
+    widget.onSelect(id);
     widget.onChanged();
     setState(() {});
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Utworzono pulę „$name” — ćwiczysz z niej')),
+      );
+    }
   }
 
   Future<void> _editGroup(WordGroup g) async {
@@ -2325,7 +2351,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final nameCtrl = TextEditingController(text: g.name);
     _editingGroupId = g.id;
     final ok = await _pickWords(
-      title: 'Edytuj kategorię',
+      title: 'Edytuj pulę',
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: false,
@@ -2401,19 +2427,19 @@ class _GroupsPageState extends State<GroupsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kategorie — ${widget.lang}'),
+        title: Text('Pule słówek — ${widget.lang}'),
         actions: [
           IconButton(
             onPressed: _createGroup,
             icon: const Icon(Icons.create_new_folder_outlined),
-            tooltip: 'Nowa kategoria',
+            tooltip: 'Nowa pula',
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createGroup,
         icon: const Icon(Icons.add),
-        label: const Text('Nowa kategoria'),
+        label: const Text('Nowa pula'),
       ),
       body: GradientScaffoldBody(
         palette: widget.palette,
@@ -2423,7 +2449,7 @@ class _GroupsPageState extends State<GroupsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
               child: Text(
-                'Wybierz kategorię tematyczną albo utwórz własną z listy słówek.',
+                'Wybierz pulę do ćwiczeń albo utwórz własną: nazwa + zaznaczone słówka.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -2475,8 +2501,8 @@ class _GroupsPageState extends State<GroupsPage> {
                     padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
                     child: Text(
                       widget.pack.groups.isEmpty
-                          ? 'Kategorie (pusto — dodaj pierwszą)'
-                          : 'Kategorie tematyczne (${widget.pack.groups.length})',
+                          ? 'Twoje pule (pusto — dodaj pierwszą)'
+                          : 'Twoje pule (${widget.pack.groups.length})',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
@@ -2484,7 +2510,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     const Padding(
                       padding: EdgeInsets.fromLTRB(16, 8, 16, 20),
                       child: Text(
-                        'Kliknij „Nowa kategoria”, wpisz nazwę i zaznacz słówka.',
+                        'Kliknij „Nowa pula”, wpisz nazwę i zaznacz słówka.',
                       ),
                     )
                   else
@@ -2683,7 +2709,14 @@ class _WordsPageState extends State<WordsPage> {
                 ),
               ),
             ),
-            if (widget.pack.groups.isNotEmpty)
+            if (widget.pack.groups.isNotEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
+                child: Text(
+                  'Kategoria (przesuń pasek →)',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
               SizedBox(
                 height: 44,
                 child: ListView(
@@ -2714,6 +2747,7 @@ class _WordsPageState extends State<WordsPage> {
                   ],
                 ),
               ),
+            ],
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Align(
