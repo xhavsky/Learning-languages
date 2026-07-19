@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models.dart';
+import 'portal.dart';
 import 'storage.dart';
 import 'theme.dart';
+import 'ui_fx.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -109,13 +111,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final _store = BazaStore();
   final _answerCtrl = TextEditingController();
   final _answerFocus = FocusNode();
   final _rng = Random();
   final _importCtrl = TextEditingController();
   AudioPlayer? _player;
+
+  late final AnimationController _shakeCtrl;
+  late final AnimationController _successCtrl;
+  late final AnimationController _burstCtrl;
 
   bool _loading = true;
   String? _lang;
@@ -133,17 +139,34 @@ class _HomePageState extends State<HomePage> {
   Color? _abcHiColor;
 
   String? _banner; // inline feedback (no AlertDialog)
-  Color? _bannerColor;
+  FeedbackKind _bannerKind = FeedbackKind.info;
+  bool _bannerVisible = false;
   String? _audioHint;
+  PortalInfo _portal = PortalInfo.fallback;
 
   @override
   void initState() {
     super.initState();
+    _shakeCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 520),
+    );
+    _successCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 650),
+    );
+    _burstCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
     _boot();
   }
 
   @override
   void dispose() {
+    _shakeCtrl.dispose();
+    _successCtrl.dispose();
+    _burstCtrl.dispose();
     _answerCtrl.dispose();
     _answerFocus.dispose();
     _importCtrl.dispose();
@@ -152,11 +175,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _boot() async {
+    final portal = await PortalInfo.load();
     await _store.load();
     final lang = _store.baza.containsKey('Angielski')
         ? 'Angielski'
         : (_store.baza.keys.isNotEmpty ? _store.baza.keys.first : null);
     setState(() {
+      _portal = portal;
       _lang = lang;
       _loading = false;
     });
@@ -167,14 +192,25 @@ class _HomePageState extends State<HomePage> {
   LangPack? get _pack =>
       _lang == null ? null : _store.baza[_lang!];
 
-  void _flash(String msg, {Color? color, int ms = 1600}) {
+  void _flash(
+    String msg, {
+    FeedbackKind kind = FeedbackKind.info,
+    int ms = 1600,
+  }) {
     setState(() {
       _banner = msg;
-      _bannerColor = color;
+      _bannerKind = kind;
+      _bannerVisible = true;
     });
     Future<void>.delayed(Duration(milliseconds: ms), () {
       if (!mounted) return;
-      if (_banner == msg) setState(() => _banner = null);
+      if (_banner == msg) {
+        setState(() => _bannerVisible = false);
+        Future<void>.delayed(const Duration(milliseconds: 320), () {
+          if (!mounted) return;
+          if (_banner == msg) setState(() => _banner = null);
+        });
+      }
     });
   }
 
@@ -345,12 +381,15 @@ class _HomePageState extends State<HomePage> {
     _store.stats.recordAnswer(ok);
     await _store.save();
     if (ok) {
-      _flash('Brawo! ✓', color: Colors.green.shade700);
+      _flash('Brawo! ✓', kind: FeedbackKind.success);
+      _successCtrl.forward(from: 0);
+      _burstCtrl.forward(from: 0);
       await _playText(w.obcy);
-      await Future<void>.delayed(const Duration(milliseconds: 700));
+      await Future<void>.delayed(const Duration(milliseconds: 850));
     } else {
-      _flash('Poprawnie: $_expected', color: Colors.red.shade700, ms: 2000);
-      await Future<void>.delayed(const Duration(milliseconds: 1200));
+      _flash('Poprawnie: $_expected', kind: FeedbackKind.fail, ms: 2000);
+      await _shakeCtrl.forward(from: 0);
+      await Future<void>.delayed(const Duration(milliseconds: 900));
     }
     if (mounted) _draw();
   }
@@ -390,7 +429,7 @@ class _HomePageState extends State<HomePage> {
       if (exp.isEmpty) return;
       _flash(
         'Podpowiedź: ${exp[0]}… (${exp.length} liter)',
-        color: Theme.of(context).colorScheme.primary,
+        kind: FeedbackKind.hint,
         ms: 2500,
       );
     });
@@ -430,6 +469,7 @@ class _HomePageState extends State<HomePage> {
           lang: _lang!,
           pack: pack,
           selectedId: _groupId,
+          palette: widget.palette,
           onChanged: () async {
             await _store.save();
             setState(() {});
@@ -552,7 +592,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     final path = await _store.exportToDocuments();
                     if (ctx.mounted) Navigator.pop(ctx);
-                    _flash('Wyeksportowano:\n$path', ms: 4000);
+                    _flash('Wyeksportowano:\n$path', kind: FeedbackKind.info, ms: 4000);
                   },
                   child: const Text('Eksportuj bazę (JSON)'),
                 ),
@@ -570,11 +610,11 @@ class _HomePageState extends State<HomePage> {
                     final err = await _store.importFromPath(_importCtrl.text.trim());
                     if (ctx.mounted) Navigator.pop(ctx);
                     if (err != null) {
-                      _flash(err, color: Colors.red.shade700, ms: 3000);
+                      _flash(err, kind: FeedbackKind.fail, ms: 3000);
                     } else {
                       setState(() {});
                       _draw();
-                      _flash('Zaimportowano bazę', color: Colors.green.shade700);
+                      _flash('Zaimportowano bazę', kind: FeedbackKind.success);
                     }
                   },
                   child: const Text('Importuj z pliku'),
@@ -590,6 +630,29 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(ctx).textTheme.bodySmall,
                     );
                   },
+                ),
+                const SizedBox(height: 16),
+                Text('Dla Anielki', style: Theme.of(ctx).textTheme.titleSmall),
+                const SizedBox(height: 8),
+                FilledButton.tonal(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    showAnielkaPortalSheet(context, portal: _portal);
+                  },
+                  child: const Text('Portal WWW (adres + PIN)'),
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    showGithubPublishSheet(context, portal: _portal);
+                  },
+                  child: const Text('Opublikuj na moje GitHub'),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  _portal.url,
+                  style: Theme.of(ctx).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -657,7 +720,7 @@ class _HomePageState extends State<HomePage> {
     final pl = plCtrl.text.trim();
     final obcy = obcyCtrl.text.trim();
     if (pl.isEmpty || obcy.isEmpty) {
-      _flash('Wypełnij oba pola', color: Colors.orange.shade800);
+      _flash('Wypełnij oba pola', kind: FeedbackKind.hint);
       return;
     }
     final pack = _store.baza.putIfAbsent(
@@ -671,7 +734,7 @@ class _HomePageState extends State<HomePage> {
     ));
     await _store.save();
     setState(() {});
-    _flash('Dodano: $pl → $obcy', color: Colors.green.shade700);
+    _flash('Dodano: $pl → $obcy', kind: FeedbackKind.success);
   }
 
   Widget _keyboard() {
@@ -690,54 +753,51 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _keyCard(String title, List<List<String>> rows) {
-    return Card(
+    return SoftPanel(
       margin: const EdgeInsets.only(top: 12),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Text(title, style: Theme.of(context).textTheme.titleSmall),
-            const SizedBox(height: 8),
-            for (final row in rows)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 4,
-                  runSpacing: 4,
-                  children: [
-                    for (final l in row)
-                      SizedBox(
-                        width: 42,
-                        height: 42,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: const Size(42, 42),
-                          ),
-                          onPressed: () => _insert(l),
-                          child: Text(l, style: const TextStyle(fontSize: 16)),
+      child: Column(
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          for (final row in rows)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 4,
+                runSpacing: 4,
+                children: [
+                  for (final l in row)
+                    SizedBox(
+                      width: 42,
+                      height: 42,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(42, 42),
                         ),
+                        onPressed: () => _insert(l),
+                        child: Text(l, style: const TextStyle(fontSize: 16)),
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OutlinedButton(
-                  onPressed: () => _insert(' '),
-                  child: const Text('Spacja'),
-                ),
-                const SizedBox(width: 8),
-                FilledButton.tonal(
-                  onPressed: _backspace,
-                  child: const Text('Cofnij ←'),
-                ),
-              ],
             ),
-          ],
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton(
+                onPressed: () => _insert(' '),
+                child: const Text('Spacja'),
+              ),
+              const SizedBox(width: 8),
+              FilledButton.tonal(
+                onPressed: _backspace,
+                child: const Text('Cofnij ←'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -760,18 +820,39 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        body: GradientScaffoldBody(
+          palette: widget.palette,
+          child: const Center(child: CircularProgressIndicator()),
+        ),
+      );
     }
     final pack = _pack;
     final pool = _sessionPool();
     final allInGroup = pack?.wordsForGroup(_groupId) ?? [];
     final mastered = allInGroup.where((w) => w.level >= 3).length;
-    final pct = allInGroup.isEmpty ? 0 : (100 * mastered / allInGroup.length).round();
+    final pct =
+        allInGroup.isEmpty ? 0 : (100 * mastered / allInGroup.length).round();
 
     return Scaffold(
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         title: const Text('Trener Językowy'),
         actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 4),
+            child: Center(
+              child: Text(
+                'v0.0.1',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.55),
+                    ),
+              ),
+            ),
+          ),
           IconButton(
             tooltip: 'Zestawy',
             onPressed: _openGroups,
@@ -784,197 +865,295 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 720),
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              if (_banner != null)
-                Card(
-                  color: (_bannerColor ??
-                          Theme.of(context).colorScheme.secondaryContainer)
-                      .withValues(alpha: 0.35),
-                  child: ListTile(
-                    title: Text(
-                      _banner!,
-                      style: TextStyle(
-                        color: _bannerColor ??
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () => setState(() => _banner = null),
-                    ),
-                  ),
-                ),
-              DropdownButtonFormField<String>(
-                initialValue: _lang,
-                items: _store.baza.keys
-                    .map((k) => DropdownMenuItem(value: k, child: Text(k)))
-                    .toList(),
-                onChanged: (v) async {
-                  setState(() {
-                    _lang = v;
-                    _groupId = '__all__';
-                  });
-                  await _loadMethodForLang(v);
-                  _draw();
-                },
-                decoration: const InputDecoration(labelText: 'Język'),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Zestaw: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              Text(
-                'Sesja: ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}'
-                ' · streak ${_store.stats.streakDays} dni',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  OutlinedButton.icon(
-                    onPressed: _addWord,
-                    icon: const Icon(Icons.add),
-                    label: const Text('Słowo'),
-                  ),
-                  FilledButton.tonal(
-                    onPressed: () async {
-                      setState(() {
-                        _method = _method == GameMethod.abc
-                            ? GameMethod.typing
-                            : GameMethod.abc;
-                      });
-                      await _persistMethod();
-                      _draw();
-                    },
-                    child: Text(
-                      _method == GameMethod.abc ? 'Metoda: ABC' : 'Metoda: Pisanie',
-                    ),
-                  ),
-                  FilledButton.tonal(
-                    onPressed: () {
-                      setState(() => _poolReview = !_poolReview);
-                      _draw();
-                    },
-                    child: Text(_poolReview ? 'Pula: Powtórka' : 'Pula: Nauka'),
-                  ),
-                  if (_current != null)
-                    OutlinedButton(
-                      onPressed: () async {
-                        _current!.hard = !_current!.hard;
-                        await _store.save();
-                        _flash(
-                          _current!.hard ? 'Oznaczone jako trudne' : 'Trudne wyłączone',
-                        );
-                        setState(() {});
-                      },
-                      child: Text(_current!.hard ? '★ Trudne' : 'Trudne?'),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              if (_current == null)
-                Text(
-                  pool.isEmpty && _poolReview
-                      ? 'Brak opanowanych w tym zestawie.'
-                      : 'Brak słówek do nauki w zestawie.\nDodaj słowa lub wybierz inny zestaw.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                )
-              else ...[
-                Text(
-                  _promptLabel,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  _promptWord,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: GradientScaffoldBody(
+        palette: widget.palette,
+        child: Stack(
+          children: [
+            SuccessBurst(animation: _burstCtrl),
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 720),
+                child: ListView(
+                  padding: const EdgeInsets.all(20),
                   children: [
-                    IconButton.filledTonal(
-                      onPressed: () => _playText(_current!.obcy),
-                      iconSize: 32,
-                      icon: const Icon(Icons.volume_up),
-                    ),
-                    const SizedBox(width: 8),
-                    OutlinedButton(
-                      onPressed: _hintShown ? null : _showHint,
-                      child: const Text('Podpowiedź'),
-                    ),
-                  ],
-                ),
-                if (_audioHint != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Text(
-                      _audioHint!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
-                        fontSize: 13,
+                    SoftPanel(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            '💌 Portal współpracy (tymczasowy)',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 6),
+                          SelectableText(
+                            _portal.url,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            'PIN: ${_portal.pin} · Tailscale · release w portalu WWW',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 8),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              FilledButton.tonal(
+                                onPressed: () => showAnielkaPortalSheet(
+                                  context,
+                                  portal: _portal,
+                                ),
+                                child: const Text('Jak wejść?'),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => showGithubPublishSheet(
+                                  context,
+                                  portal: _portal,
+                                ),
+                                child: const Text('GitHub'),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                const SizedBox(height: 12),
-                if (_method == GameMethod.abc)
-                  ...List.generate(_abc.length, (i) {
-                    final sel = _abcHi == i;
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 60,
-                        child: FilledButton.tonal(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: sel ? _abcHiColor : null,
-                            foregroundColor: sel ? Colors.white : null,
+                    if (_banner != null)
+                      AnimatedFeedbackBanner(
+                        message: _banner!,
+                        kind: _bannerKind,
+                        visible: _bannerVisible,
+                        onDismiss: () => setState(() {
+                          _bannerVisible = false;
+                          _banner = null;
+                        }),
+                      ),
+                    SoftPanel(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          DropdownButtonFormField<String>(
+                            initialValue: _lang,
+                            items: _store.baza.keys
+                                .map(
+                                  (k) => DropdownMenuItem(
+                                    value: k,
+                                    child: Text(k),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (v) async {
+                              setState(() {
+                                _lang = v;
+                                _groupId = '__all__';
+                              });
+                              await _loadMethodForLang(v);
+                              _draw();
+                            },
+                            decoration:
+                                const InputDecoration(labelText: 'Język'),
                           ),
-                          onPressed: () => _checkAbc(i),
-                          child: Text(_abc[i], style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Zestaw: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            'Sesja: ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}'
+                            ' · streak ${_store.stats.streakDays} dni',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        OutlinedButton.icon(
+                          onPressed: _addWord,
+                          icon: const Icon(Icons.add),
+                          label: const Text('Słowo'),
+                        ),
+                        FilledButton.tonal(
+                          onPressed: () async {
+                            setState(() {
+                              _method = _method == GameMethod.abc
+                                  ? GameMethod.typing
+                                  : GameMethod.abc;
+                            });
+                            await _persistMethod();
+                            _draw();
+                          },
+                          child: Text(
+                            _method == GameMethod.abc
+                                ? 'Metoda: ABC'
+                                : 'Metoda: Pisanie',
+                          ),
+                        ),
+                        FilledButton.tonal(
+                          onPressed: () {
+                            setState(() => _poolReview = !_poolReview);
+                            _draw();
+                          },
+                          child: Text(
+                            _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
+                          ),
+                        ),
+                        if (_current != null)
+                          OutlinedButton(
+                            onPressed: () async {
+                              _current!.hard = !_current!.hard;
+                              await _store.save();
+                              _flash(
+                                _current!.hard
+                                    ? 'Oznaczone jako trudne'
+                                    : 'Trudne wyłączone',
+                                kind: FeedbackKind.info,
+                              );
+                              setState(() {});
+                            },
+                            child:
+                                Text(_current!.hard ? '★ Trudne' : 'Trudne?'),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    if (_current == null)
+                      SoftPanel(
+                        child: Text(
+                          pool.isEmpty && _poolReview
+                              ? 'Brak opanowanych w tym zestawie.'
+                              : 'Brak słówek do nauki w zestawie.\nDodaj słowa lub wybierz inny zestaw.',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      )
+                    else
+                      Shake(
+                        animation: _shakeCtrl,
+                        child: SuccessPulse(
+                          animation: _successCtrl,
+                          child: SoftPanel(
+                            child: Column(
+                              children: [
+                                Text(
+                                  _promptLabel,
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge,
+                                ),
+                                const SizedBox(height: 8),
+                                AnimatedPromptWord(
+                                  text: _promptWord,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton.filledTonal(
+                                      onPressed: () =>
+                                          _playText(_current!.obcy),
+                                      iconSize: 32,
+                                      icon: const Icon(Icons.volume_up),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    OutlinedButton(
+                                      onPressed:
+                                          _hintShown ? null : _showHint,
+                                      child: const Text('Podpowiedź'),
+                                    ),
+                                  ],
+                                ),
+                                if (_audioHint != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 6),
+                                    child: Text(
+                                      _audioHint!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ),
+                                const SizedBox(height: 12),
+                                if (_method == GameMethod.abc)
+                                  ...List.generate(_abc.length, (i) {
+                                    final sel = _abcHi == i;
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 60,
+                                        child: AnimatedContainer(
+                                          duration: const Duration(
+                                            milliseconds: 220,
+                                          ),
+                                          child: FilledButton.tonal(
+                                            style: FilledButton.styleFrom(
+                                              backgroundColor:
+                                                  sel ? _abcHiColor : null,
+                                              foregroundColor: sel
+                                                  ? Colors.white
+                                                  : null,
+                                              elevation: sel ? 4 : 1,
+                                            ),
+                                            onPressed: () => _checkAbc(i),
+                                            child: Text(
+                                              _abc[i],
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  })
+                                else ...[
+                                  TextField(
+                                    controller: _answerCtrl,
+                                    focusNode: _answerFocus,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 22),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Twoja odpowiedź',
+                                    ),
+                                    onSubmitted: (_) => _checkTyping(),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  GradientButton(
+                                    onPressed: _checkTyping,
+                                    label: 'Sprawdź',
+                                    palette: widget.palette,
+                                  ),
+                                  _keyboard(),
+                                ],
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    );
-                  })
-                else ...[
-                  TextField(
-                    controller: _answerCtrl,
-                    focusNode: _answerFocus,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 22),
-                    decoration: const InputDecoration(
-                      hintText: 'Twoja odpowiedź',
-                      border: OutlineInputBorder(),
-                    ),
-                    onSubmitted: (_) => _checkTyping(),
-                  ),
-                  const SizedBox(height: 12),
-                  FilledButton(
-                    onPressed: _checkTyping,
-                    child: const Text('Sprawdź'),
-                  ),
-                  _keyboard(),
-                ],
-              ],
-            ],
-          ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -987,6 +1166,7 @@ class GroupsPage extends StatefulWidget {
     required this.lang,
     required this.pack,
     required this.selectedId,
+    required this.palette,
     required this.onChanged,
     required this.onSelect,
   });
@@ -994,6 +1174,7 @@ class GroupsPage extends StatefulWidget {
   final String lang;
   final LangPack pack;
   final String selectedId;
+  final AppPalette palette;
   final VoidCallback onChanged;
   final ValueChanged<String> onSelect;
 
@@ -1204,34 +1385,54 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          _tile(
-            id: '__all__',
-            title: 'Cała baza',
-            subtitle: '${widget.pack.words.length} słów',
-          ),
-          _tile(
-            id: '__unlearned__',
-            title: 'Nieopanowane',
-            subtitle:
-                '${widget.pack.words.where((w) => w.level < 3).length} słów',
-          ),
-          _tile(
-            id: '__hard__',
-            title: 'Trudne',
-            subtitle:
-                '${widget.pack.words.where((w) => w.hard || w.level <= 1).length} słów',
-          ),
-          const Divider(),
-          for (final g in widget.pack.groups)
-            _tile(
-              id: g.id,
-              title: g.name,
-              subtitle: '${g.wordIds.length} wybranych słów',
-              onEdit: () => _editGroup(g),
+      body: GradientScaffoldBody(
+        palette: widget.palette,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          children: [
+            SoftPanel(
+              margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              padding: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  _tile(
+                    id: '__all__',
+                    title: 'Cała baza',
+                    subtitle: '${widget.pack.words.length} słów',
+                  ),
+                  _tile(
+                    id: '__unlearned__',
+                    title: 'Nieopanowane',
+                    subtitle:
+                        '${widget.pack.words.where((w) => w.level < 3).length} słów',
+                  ),
+                  _tile(
+                    id: '__hard__',
+                    title: 'Trudne',
+                    subtitle:
+                        '${widget.pack.words.where((w) => w.hard || w.level <= 1).length} słów',
+                  ),
+                ],
+              ),
             ),
-        ],
+            if (widget.pack.groups.isNotEmpty)
+              SoftPanel(
+                margin: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+                padding: EdgeInsets.zero,
+                child: Column(
+                  children: [
+                    for (final g in widget.pack.groups)
+                      _tile(
+                        id: g.id,
+                        title: g.name,
+                        subtitle: '${g.wordIds.length} wybranych słów',
+                        onEdit: () => _editGroup(g),
+                      ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

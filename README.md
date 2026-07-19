@@ -10,7 +10,7 @@ trener-jezykowy          # NixOS
 nix-shell -p flutter --run 'flutter run -d linux'
 ```
 
-## Funkcje (v1.1+)
+## Funkcje (0.0.1 — pre-alpha)
 
 - **Zestawy słówek** — grupy przez `wordIds` (bez duplikowania), Cała baza / Nieopanowane / Trudne
 - **SRS** — poziomy 0–3, powtórki wg `nextDue`
@@ -21,6 +21,7 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **Motywy kolorystyczne**: Las / Ocean / Zachód / Winogrono / Róż / Grafit + jasny/ciemny
 - Feedback **inline** (bez AlertDialog)
 - Eksport / import bazy JSON (Ustawienia)
+- **Portal współpracy** (Tailscale) — współpraca + release paczek: zobacz [COLLAB.md](COLLAB.md)
 
 ## Regeneracja audio
 
