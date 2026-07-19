@@ -1,50 +1,375 @@
 {
   "engine": "piper",
-  "voice": "amy+sharvard",
-  "note": "XTTS tutor_female kept as tools/voices/tutor_female_xtts_ref.wav; USE_COQUI=1 when openedai-speech XTTS is healthy.",
+  "voice": "amy+sharvard+irina",
   "entries": {
     "Angielski|to be": {
       "file": "en_to_be_9a36d8b41a.mp3",
       "lang": "en",
       "text": "to be",
-      "pl": "być"
+      "pl": "być",
+      "id": "8c485e2d1628"
     },
     "Angielski|to have": {
       "file": "en_to_have_d0ecebdb44.mp3",
       "lang": "en",
       "text": "to have",
-      "pl": "mieć"
+      "pl": "mieć",
+      "id": "e533b902c85b"
     },
     "Angielski|Thank you": {
       "file": "en_thank_you_db33026789.mp3",
       "lang": "en",
       "text": "Thank you",
-      "pl": "Dziękuję"
+      "pl": "Dziękuję",
+      "id": "2bd4082e6649"
     },
     "Hiszpański|ser": {
       "file": "es_ser_15a8e51d49.mp3",
       "lang": "es",
       "text": "ser",
-      "pl": "być (trvale)"
+      "pl": "być (trvale)",
+      "id": "2a1c955a7365"
     },
     "Hiszpański|tener": {
       "file": "es_tener_18ae2294f3.mp3",
       "lang": "es",
       "text": "tener",
-      "pl": "mieć"
+      "pl": "mieć",
+      "id": "3241a30a967b"
     },
     "Hiszpański|Gracias": {
       "file": "es_gracias_f0f5411744.mp3",
       "lang": "es",
       "text": "Gracias",
-      "pl": "Dziękuję"
+      "pl": "Dziękuję",
+      "id": "58d29f147a20"
     },
     "Angielski|to eat": {
       "file": "en_to_eat_ba962ae714.mp3",
       "lang": "en",
       "text": "to eat",
       "pl": "Jeść",
-      "engine": "piper/amy"
+      "id": "47960d0f91ee"
+    },
+    "Rosyjski|быть": {
+      "file": "ru_быть_b08ca50b8a.mp3",
+      "lang": "ru",
+      "text": "быть",
+      "pl": "być",
+      "id": "845fcf0d5c03",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|иметь": {
+      "file": "ru_иметь_290eafddb9.mp3",
+      "lang": "ru",
+      "text": "иметь",
+      "pl": "mieć",
+      "id": "ad04ecd27767",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|говорить": {
+      "file": "ru_говорить_e67121c520.mp3",
+      "lang": "ru",
+      "text": "говорить",
+      "pl": "mówić",
+      "id": "0d30eeea7844",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|любить": {
+      "file": "ru_любить_b2d9e17300.mp3",
+      "lang": "ru",
+      "text": "любить",
+      "pl": "kochać",
+      "id": "d252c84ecf03",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|знать": {
+      "file": "ru_знать_b7eb65a60e.mp3",
+      "lang": "ru",
+      "text": "знать",
+      "pl": "wiedzieć",
+      "id": "ff5b37b2e594",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|думать": {
+      "file": "ru_думать_d583464a0c.mp3",
+      "lang": "ru",
+      "text": "думать",
+      "pl": "myśleć",
+      "id": "5fb13ec7ea50",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|делать": {
+      "file": "ru_делать_24bf833043.mp3",
+      "lang": "ru",
+      "text": "делать",
+      "pl": "robić",
+      "id": "c5c46c2fdb5f",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|хотеть": {
+      "file": "ru_хотеть_e372ca8f22.mp3",
+      "lang": "ru",
+      "text": "хотеть",
+      "pl": "chcieć",
+      "id": "586f577f739b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|идти": {
+      "file": "ru_идти_e6c4f5f5be.mp3",
+      "lang": "ru",
+      "text": "идти",
+      "pl": "iść",
+      "id": "20726aa826d7",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|видеть": {
+      "file": "ru_видеть_cadfeae26c.mp3",
+      "lang": "ru",
+      "text": "видеть",
+      "pl": "widzieć",
+      "id": "531d53101e38",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|день": {
+      "file": "ru_день_1937f70e10.mp3",
+      "lang": "ru",
+      "text": "день",
+      "pl": "dzień",
+      "id": "687f437b1510",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|время": {
+      "file": "ru_время_ecc8ef4631.mp3",
+      "lang": "ru",
+      "text": "время",
+      "pl": "czas",
+      "id": "ad9c7f87120a",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|человек": {
+      "file": "ru_человек_1a46a3bc16.mp3",
+      "lang": "ru",
+      "text": "человек",
+      "pl": "człowiek",
+      "id": "5b3ea5806879",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|год": {
+      "file": "ru_год_41b522a058.mp3",
+      "lang": "ru",
+      "text": "год",
+      "pl": "rok",
+      "id": "1516d47464a0",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|жизнь": {
+      "file": "ru_жизнь_3f18afcac9.mp3",
+      "lang": "ru",
+      "text": "жизнь",
+      "pl": "życie",
+      "id": "fed5613ce159",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|рука": {
+      "file": "ru_рука_504cd8b69a.mp3",
+      "lang": "ru",
+      "text": "рука",
+      "pl": "ręka",
+      "id": "aec62e1e37fd",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|слово": {
+      "file": "ru_слово_44d3ffa0d3.mp3",
+      "lang": "ru",
+      "text": "слово",
+      "pl": "słowo",
+      "id": "b9b2602b5b17",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|голова": {
+      "file": "ru_голова_ac01e58357.mp3",
+      "lang": "ru",
+      "text": "голова",
+      "pl": "głowa",
+      "id": "06bfd7a9c9c3",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|дом": {
+      "file": "ru_дом_26758bc375.mp3",
+      "lang": "ru",
+      "text": "дом",
+      "pl": "dom",
+      "id": "41e2ef8e0976",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|город": {
+      "file": "ru_город_327d609558.mp3",
+      "lang": "ru",
+      "text": "город",
+      "pl": "miasto",
+      "id": "caa47bf3bca9",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|да": {
+      "file": "ru_да_66fea73910.mp3",
+      "lang": "ru",
+      "text": "да",
+      "pl": "tak",
+      "id": "04fb0974cc02",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|нет": {
+      "file": "ru_нет_706944add1.mp3",
+      "lang": "ru",
+      "text": "нет",
+      "pl": "nie",
+      "id": "6be6faeab6fc",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|спасибо": {
+      "file": "ru_спасибо_edca0d900b.mp3",
+      "lang": "ru",
+      "text": "спасибо",
+      "pl": "dziękuję",
+      "id": "e91d5e383747",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|пожалуйста": {
+      "file": "ru_пожалуйста_9b310662f8.mp3",
+      "lang": "ru",
+      "text": "пожалуйста",
+      "pl": "proszę",
+      "id": "f72219a81a73",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|здравствуйте": {
+      "file": "ru_здравствуйте_eae0bf7ce7.mp3",
+      "lang": "ru",
+      "text": "здравствуйте",
+      "pl": "dzień dobry",
+      "id": "a2ce8387460e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|привет": {
+      "file": "ru_привет_644903eb62.mp3",
+      "lang": "ru",
+      "text": "привет",
+      "pl": "cześć",
+      "id": "972dad228d58",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|до свидания": {
+      "file": "ru_до_свидания_61f9a2b863.mp3",
+      "lang": "ru",
+      "text": "до свидания",
+      "pl": "do widzenia",
+      "id": "3ebb018a35d6",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|хорошо": {
+      "file": "ru_хорошо_cd73eb42fd.mp3",
+      "lang": "ru",
+      "text": "хорошо",
+      "pl": "dobrze",
+      "id": "96ec75383b25",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|плохо": {
+      "file": "ru_плохо_10bdebe29e.mp3",
+      "lang": "ru",
+      "text": "плохо",
+      "pl": "źle",
+      "id": "2d6f9d6a9ed5",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|новый": {
+      "file": "ru_новый_eb24e5bfdc.mp3",
+      "lang": "ru",
+      "text": "новый",
+      "pl": "nowy",
+      "id": "dec6826418c6",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|старый": {
+      "file": "ru_старый_2dd8286487.mp3",
+      "lang": "ru",
+      "text": "старый",
+      "pl": "stary",
+      "id": "47c8c07b9ae1",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|большой": {
+      "file": "ru_большой_d0cf5eec1a.mp3",
+      "lang": "ru",
+      "text": "большой",
+      "pl": "duży",
+      "id": "8fff53da3afa",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|маленький": {
+      "file": "ru_маленький_9297bc68d8.mp3",
+      "lang": "ru",
+      "text": "маленький",
+      "pl": "mały",
+      "id": "914dbb4d9eb7",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|красивый": {
+      "file": "ru_красивый_38eb56d2a7.mp3",
+      "lang": "ru",
+      "text": "красивый",
+      "pl": "piękny",
+      "id": "9402871cc341",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|друг": {
+      "file": "ru_друг_4b544ce2b6.mp3",
+      "lang": "ru",
+      "text": "друг",
+      "pl": "przyjaciel",
+      "id": "41bcccebb30b",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|хлеб": {
+      "file": "ru_хлеб_f450109833.mp3",
+      "lang": "ru",
+      "text": "хлеб",
+      "pl": "chleb",
+      "id": "bffac34a70a4",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|вода": {
+      "file": "ru_вода_e12bc197bd.mp3",
+      "lang": "ru",
+      "text": "вода",
+      "pl": "woda",
+      "id": "f7e0009dd29e",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|чай": {
+      "file": "ru_чай_619224c485.mp3",
+      "lang": "ru",
+      "text": "чай",
+      "pl": "herbata",
+      "id": "85a580812fb2",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|кофе": {
+      "file": "ru_кофе_57f15dac4d.mp3",
+      "lang": "ru",
+      "text": "кофе",
+      "pl": "kawa",
+      "id": "c9d5f092efdb",
+      "engine": "piper/ru"
+    },
+    "Rosyjski|обед": {
+      "file": "ru_обед_8ef0820b24.mp3",
+      "lang": "ru",
+      "text": "обед",
+      "pl": "obiad",
+      "id": "dd956787708e",
+      "engine": "piper/ru"
     }
   }
 }

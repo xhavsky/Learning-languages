@@ -1,17 +1,29 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'models.dart';
+import 'storage.dart';
+import 'theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const TrenerApp());
 }
+
+enum GameMethod { abc, typing }
+
+enum TranslateDir { plToForeign, foreignToPl, mixed }
+
+const _cyrillicRows = [
+  ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ'],
+  ['ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э'],
+  ['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'ё'],
+];
+
+const _spanishExtras = ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü', '¿', '¡'];
 
 class TrenerApp extends StatefulWidget {
   const TrenerApp({super.key});
@@ -22,26 +34,27 @@ class TrenerApp extends StatefulWidget {
 
 class _TrenerAppState extends State<TrenerApp> {
   ThemeMode _themeMode = ThemeMode.system;
+  AppPalette _palette = AppPalette.forest;
 
   @override
   void initState() {
     super.initState();
-    _loadTheme();
+    _loadPrefs();
   }
 
-  Future<void> _loadTheme() async {
+  Future<void> _loadPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString('themeMode') ?? 'system';
     setState(() {
-      _themeMode = switch (raw) {
+      _themeMode = switch (prefs.getString('themeMode') ?? 'system') {
         'light' => ThemeMode.light,
         'dark' => ThemeMode.dark,
         _ => ThemeMode.system,
       };
+      _palette = AppPaletteX.fromName(prefs.getString('palette'));
     });
   }
 
-  Future<void> _setTheme(ThemeMode mode) async {
+  Future<void> _setThemeMode(ThemeMode mode) async {
     setState(() => _themeMode = mode);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
@@ -54,51 +67,10 @@ class _TrenerAppState extends State<TrenerApp> {
     );
   }
 
-  ThemeData _theme(Brightness brightness) {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: const Color(0xFF2E7D32),
-      brightness: brightness,
-    );
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: scheme,
-      textTheme: Typography.material2021(platform: TargetPlatform.linux)
-          .black
-          .apply(
-            fontSizeFactor: 1.15,
-            bodyColor: scheme.onSurface,
-            displayColor: scheme.onSurface,
-          )
-          .copyWith(
-            headlineMedium: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              color: scheme.onSurface,
-            ),
-            titleLarge: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
-              color: scheme.onSurface,
-            ),
-            bodyLarge: TextStyle(fontSize: 18, color: scheme.onSurface),
-            bodyMedium: TextStyle(fontSize: 16, color: scheme.onSurface),
-          ),
-      filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-          minimumSize: const Size(64, 52),
-          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          minimumSize: const Size(64, 48),
-          textStyle: const TextStyle(fontSize: 16),
-        ),
-      ),
-      inputDecorationTheme: const InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-      ),
-    );
+  Future<void> _setPalette(AppPalette p) async {
+    setState(() => _palette = p);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('palette', p.name);
   }
 
   @override
@@ -107,257 +79,236 @@ class _TrenerAppState extends State<TrenerApp> {
       title: 'Trener Językowy',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
-      theme: _theme(Brightness.light),
-      darkTheme: _theme(Brightness.dark),
+      theme: buildAppTheme(brightness: Brightness.light, palette: _palette),
+      darkTheme: buildAppTheme(brightness: Brightness.dark, palette: _palette),
       home: HomePage(
         themeMode: _themeMode,
-        onThemeModeChanged: _setTheme,
+        palette: _palette,
+        onThemeModeChanged: _setThemeMode,
+        onPaletteChanged: _setPalette,
       ),
     );
   }
 }
 
-class Word {
-  Word({required this.pl, required this.obcy, required this.nauczone});
-
-  final String pl;
-  final String obcy;
-  bool nauczone;
-
-  factory Word.fromJson(Map<String, dynamic> json) => Word(
-        pl: json['pl'] as String? ?? '',
-        obcy: json['obcy'] as String? ?? '',
-        nauczone: json['nauczone'] as bool? ?? false,
-      );
-
-  Map<String, dynamic> toJson() => {
-        'pl': pl,
-        'obcy': obcy,
-        'nauczone': nauczone,
-      };
-}
-
-/// Cyrillic keyboard layout (Anielka — abc+pisanie.py).
-const _cyrillicRows = [
-  ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ'],
-  ['ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э'],
-  ['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'ё'],
-];
-
-enum GameMethod { abc, typing }
-
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.themeMode,
+    required this.palette,
     required this.onThemeModeChanged,
+    required this.onPaletteChanged,
   });
 
   final ThemeMode themeMode;
+  final AppPalette palette;
   final ValueChanged<ThemeMode> onThemeModeChanged;
+  final ValueChanged<AppPalette> onPaletteChanged;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final _store = BazaStore();
   final _answerCtrl = TextEditingController();
   final _answerFocus = FocusNode();
   final _rng = Random();
+  final _importCtrl = TextEditingController();
   AudioPlayer? _player;
 
-  Map<String, List<Word>> _baza = {};
-  Map<String, dynamic> _manifest = {};
-  String? _jezyk;
-  bool _trybNauczone = false;
-  GameMethod _method = GameMethod.typing;
-  Word? _aktualne;
-  List<String> _abcWarianty = [];
-  String? _audioHint;
   bool _loading = true;
-  int? _abcHighlight; // index highlighted after answer
-  Color? _abcHighlightColor;
+  String? _lang;
+  String _groupId = '__all__';
+  GameMethod _method = GameMethod.typing;
+  TranslateDir _dir = TranslateDir.plToForeign;
+  bool _poolReview = false; // false=due/new, true=review mastered
+  bool _hintShown = false;
+  double _playbackRate = 1.0;
 
-  bool get _isRussian => _jezyk == 'Rosyjski';
+  Word? _current;
+  bool _askForeign = false; // true = show foreign, expect PL
+  List<String> _abc = [];
+  int? _abcHi;
+  Color? _abcHiColor;
+
+  String? _banner; // inline feedback (no AlertDialog)
+  Color? _bannerColor;
+  String? _audioHint;
 
   @override
   void initState() {
     super.initState();
-    _bootstrap();
+    _boot();
   }
 
   @override
   void dispose() {
     _answerCtrl.dispose();
     _answerFocus.dispose();
+    _importCtrl.dispose();
     _player?.dispose();
     super.dispose();
   }
 
-  Future<AudioPlayer?> _ensurePlayer() async {
+  Future<void> _boot() async {
+    await _store.load();
+    final lang = _store.baza.containsKey('Angielski')
+        ? 'Angielski'
+        : (_store.baza.keys.isNotEmpty ? _store.baza.keys.first : null);
+    setState(() {
+      _lang = lang;
+      _loading = false;
+    });
+    await _loadMethodForLang(lang);
+    _draw();
+  }
+
+  LangPack? get _pack =>
+      _lang == null ? null : _store.baza[_lang!];
+
+  void _flash(String msg, {Color? color, int ms = 1600}) {
+    setState(() {
+      _banner = msg;
+      _bannerColor = color;
+    });
+    Future<void>.delayed(Duration(milliseconds: ms), () {
+      if (!mounted) return;
+      if (_banner == msg) setState(() => _banner = null);
+    });
+  }
+
+  Future<AudioPlayer?> _playerOrNull() async {
     if (_player != null) return _player;
     try {
       _player = AudioPlayer();
       return _player;
     } catch (e) {
-      setState(() => _audioHint = 'Audio niedostępne (GStreamer): $e');
+      setState(() => _audioHint = 'Audio niedostępne: $e');
       return null;
     }
   }
 
-  Future<File> _userBazaFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/baza.json');
-  }
-
-  Future<void> _bootstrap() async {
-    final seed = await rootBundle.loadString('assets/data/baza.json');
-    final userFile = await _userBazaFile();
-    var raw = seed;
-    if (await userFile.exists()) {
-      final existing = await userFile.readAsString();
-      if (existing.trim().isNotEmpty) {
-        raw = existing;
-      }
-    } else {
-      await userFile.writeAsString(seed);
-    }
-
-    Map<String, dynamic> decoded;
-    try {
-      decoded = jsonDecode(raw) as Map<String, dynamic>;
-    } catch (_) {
-      decoded = jsonDecode(seed) as Map<String, dynamic>;
-      await userFile.writeAsString(seed);
-    }
-
-    // Merge new languages/words from seed that user file may miss.
-    final seedMap = jsonDecode(seed) as Map<String, dynamic>;
-    for (final e in seedMap.entries) {
-      decoded.putIfAbsent(e.key, () => e.value);
-      if (decoded[e.key] is List && e.value is List) {
-        final existing = (decoded[e.key] as List)
-            .map((w) => '${w['pl']}|${w['obcy']}')
-            .toSet();
-        for (final w in e.value as List) {
-          final key = '${w['pl']}|${w['obcy']}';
-          if (!existing.contains(key)) {
-            (decoded[e.key] as List).add(w);
-          }
-        }
-      }
-    }
-
-    final baza = <String, List<Word>>{};
-    for (final e in decoded.entries) {
-      baza[e.key] = (e.value as List<dynamic>)
-          .map((w) => Word.fromJson(w as Map<String, dynamic>))
-          .toList();
-    }
-
-    Map<String, dynamic> manifest = {};
-    try {
-      final m = await rootBundle.loadString('assets/audio/manifest.json');
-      if (m.trim().isNotEmpty) {
-        manifest = jsonDecode(m) as Map<String, dynamic>;
-      }
-    } catch (_) {}
-
-    setState(() {
-      _baza = baza;
-      _manifest = manifest;
-      _jezyk = baza.containsKey('Angielski')
-          ? 'Angielski'
-          : (baza.keys.isNotEmpty ? baza.keys.first : null);
-      _loading = false;
-    });
-    _losuj();
-  }
-
-  Future<void> _zapisz() async {
-    final encoded = {
-      for (final e in _baza.entries)
-        e.key: e.value.map((w) => w.toJson()).toList(),
-    };
-    final file = await _userBazaFile();
-    await file.writeAsString(const JsonEncoder.withIndent('  ').convert(encoded));
-  }
-
-  String? _audioAssetFor(String jezyk, String obcy) {
-    final entries = _manifest['entries'];
-    if (entries is! Map) return null;
-    final entry = entries['$jezyk|$obcy'];
-    if (entry is Map && entry['file'] is String) {
-      return 'audio/${entry['file']}';
-    }
-    return null;
-  }
-
-  Future<void> _playCurrent() async {
-    final w = _aktualne;
-    final j = _jezyk;
-    if (w == null || j == null) return;
-    // ABC mode shows foreign word — play that; typing plays foreign answer.
-    final text = _method == GameMethod.abc ? w.obcy : w.obcy;
-    final asset = _audioAssetFor(j, text);
+  Future<void> _playText(String text) async {
+    final lang = _lang;
+    if (lang == null) return;
+    final asset = _store.audioAsset(lang, text);
     if (asset == null) {
       setState(() {
-        _audioHint = _isRussian
-            ? 'Brak audio dla cyrylicy (generuj Piperem/Coqui później).'
-            : 'Brak lokalnego audio. Uruchom: python3 scripts/generate_tts.py';
+        _audioHint =
+            'Brak audio. Na PC: python3 scripts/generate_tts.py';
       });
       return;
     }
     setState(() => _audioHint = null);
-    final player = await _ensurePlayer();
-    if (player == null) return;
+    final p = await _playerOrNull();
+    if (p == null) return;
     try {
-      await player.stop();
-      await player.play(AssetSource(asset));
+      await p.stop();
+      await p.setPlaybackRate(_playbackRate);
+      await p.play(AssetSource(asset));
     } catch (e) {
-      setState(() => _audioHint = 'Nie udało się odtworzyć audio: $e');
+      setState(() => _audioHint = 'Odtwarzanie: $e');
     }
   }
 
-  void _losuj() {
-    final j = _jezyk;
-    if (j == null) return;
-    final words = _baza[j] ?? [];
-    final pula = words.where((w) => w.nauczone == _trybNauczone).toList();
+  Future<void> _loadMethodForLang(String? lang) async {
+    if (lang == null) return;
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString('method_$lang');
+    final rate = prefs.getDouble('playbackRate') ?? 1.0;
     setState(() {
-      _answerCtrl.clear();
-      _abcHighlight = null;
-      _abcHighlightColor = null;
-      if (pula.isEmpty) {
-        _aktualne = null;
-        _abcWarianty = [];
-      } else {
-        _aktualne = pula[_rng.nextInt(pula.length)];
-        if (_method == GameMethod.abc) {
-          _abcWarianty = _buildAbcVariants(_aktualne!, words);
-        } else {
-          _abcWarianty = [];
-        }
+      _playbackRate = rate;
+      if (raw == 'abc') {
+        _method = GameMethod.abc;
+      } else if (raw == 'typing') {
+        _method = GameMethod.typing;
+      } else if (lang == 'Rosyjski') {
+        _method = GameMethod.abc;
       }
     });
-    if (_aktualne != null && _method == GameMethod.typing && !_isRussian) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _playCurrent());
-    } else if (_aktualne != null && _method == GameMethod.abc && !_isRussian) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _playCurrent());
+  }
+
+  Future<void> _persistMethod() async {
+    final lang = _lang;
+    if (lang == null) return;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      'method_$lang',
+      _method == GameMethod.abc ? 'abc' : 'typing',
+    );
+  }
+
+  Future<void> _persistRate(double rate) async {
+    setState(() => _playbackRate = rate);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('playbackRate', rate);
+  }
+
+  List<Word> _sessionPool() {
+    final pack = _pack;
+    if (pack == null) return [];
+    var words = pack.wordsForGroup(_groupId);
+    final now = DateTime.now();
+    if (_poolReview) {
+      words = words.where((w) => w.level >= 3).toList();
+    } else {
+      words = words.where((w) {
+        if (w.level >= 3) {
+          return w.nextDue == null || !w.nextDue!.isAfter(now);
+        }
+        return true;
+      }).toList();
+      if (words.isEmpty) {
+        // fallback: any non-mastered in group
+        words = pack.wordsForGroup(_groupId).where((w) => w.level < 3).toList();
+      }
     }
-    if (_method == GameMethod.typing) {
+    return words;
+  }
+
+  void _draw() {
+    final pool = _sessionPool();
+    setState(() {
+      _answerCtrl.clear();
+      _hintShown = false;
+      _abcHi = null;
+      _abcHiColor = null;
+      if (pool.isEmpty) {
+        _current = null;
+        _abc = [];
+        return;
+      }
+      _current = pool[_rng.nextInt(pool.length)];
+      _askForeign = switch (_dir) {
+        TranslateDir.plToForeign => false,
+        TranslateDir.foreignToPl => true,
+        TranslateDir.mixed => _rng.nextBool(),
+      };
+      if (_method == GameMethod.abc) {
+        // ABC always: show foreign → pick Polish (Anielka)
+        _askForeign = true;
+        _abc = _buildAbc(_current!);
+      } else {
+        _abc = [];
+      }
+    });
+    if (_current != null) {
+      final play = _askForeign ? _current!.obcy : _current!.obcy;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _answerFocus.requestFocus();
+        _playText(play);
+        if (_method == GameMethod.typing) {
+          _answerFocus.requestFocus();
+        }
       });
     }
   }
 
-  List<String> _buildAbcVariants(Word correct, List<Word> all) {
-    // ABC (Anielka): show foreign word, choose Polish meaning.
-    final correctPl = correct.pl;
-    final others = all
+  List<String> _buildAbc(Word correct) {
+    final pack = _pack!;
+    final others = pack.words
         .map((w) => w.pl)
-        .where((pl) => pl != correctPl)
+        .where((pl) => pl != correct.pl)
         .toSet()
         .toList()
       ..shuffle(_rng);
@@ -365,111 +316,103 @@ class _HomePageState extends State<HomePage> {
     while (distractors.length < 2) {
       distractors.add(['kot', 'pies', 'dom'][distractors.length]);
     }
-    final variants = [correctPl, ...distractors]..shuffle(_rng);
-    return variants;
+    return [correct.pl, ...distractors]..shuffle(_rng);
   }
 
-  Future<void> _oznacz(bool ok) async {
-    final w = _aktualne;
-    if (w == null) return;
-    if (ok) {
-      if (!w.nauczone) {
-        w.nauczone = true;
-        await _zapisz();
-      }
-    } else {
-      if (w.nauczone) {
-        w.nauczone = false;
-        await _zapisz();
-      }
+  String get _promptLabel {
+    if (_method == GameMethod.abc || _askForeign) {
+      return 'Jak po polsku znaczy:';
     }
+    return 'Przetłumacz na język obcy:';
   }
 
-  Future<void> _sprawdzAbc(int idx) async {
-    if (_aktualne == null || _abcWarianty.isEmpty) return;
-    final chosen = _abcWarianty[idx];
-    final ok = chosen == _aktualne!.pl;
+  String get _promptWord {
+    if (_current == null) return '';
+    if (_method == GameMethod.abc || _askForeign) return _current!.obcy;
+    return _current!.pl;
+  }
+
+  String get _expected {
+    if (_current == null) return '';
+    if (_method == GameMethod.abc || _askForeign) return _current!.pl;
+    return _current!.obcy;
+  }
+
+  Future<void> _onResult(bool ok) async {
+    final w = _current;
+    if (w == null) return;
+    applySrs(w, correct: ok);
+    _store.stats.recordAnswer(ok);
+    await _store.save();
+    if (ok) {
+      _flash('Brawo! ✓', color: Colors.green.shade700);
+      await _playText(w.obcy);
+      await Future<void>.delayed(const Duration(milliseconds: 700));
+    } else {
+      _flash('Poprawnie: $_expected', color: Colors.red.shade700, ms: 2000);
+      await Future<void>.delayed(const Duration(milliseconds: 1200));
+    }
+    if (mounted) _draw();
+  }
+
+  Future<void> _checkTyping() async {
+    if (_current == null) return;
+    final user = _answerCtrl.text.trim().toLowerCase();
+    final ok = user == _expected.trim().toLowerCase();
+    await _onResult(ok);
+  }
+
+  Future<void> _checkAbc(int i) async {
+    if (_current == null || _abc.isEmpty) return;
+    final ok = _abc[i] == _expected;
     setState(() {
-      _abcHighlight = idx;
-      _abcHighlightColor = ok ? Colors.green : Colors.red;
+      _abcHi = i;
+      _abcHiColor = ok ? Colors.green : Colors.red;
     });
-    await _oznacz(ok);
     if (!ok) {
-      final goodIdx = _abcWarianty.indexOf(_aktualne!.pl);
-      if (goodIdx >= 0) {
-        await Future<void>.delayed(const Duration(milliseconds: 400));
-        if (!mounted) return;
+      final good = _abc.indexOf(_expected);
+      await Future<void>.delayed(const Duration(milliseconds: 350));
+      if (mounted && good >= 0) {
         setState(() {
-          _abcHighlight = goodIdx;
-          _abcHighlightColor = Colors.green;
+          _abcHi = good;
+          _abcHiColor = Colors.green;
         });
       }
-      await Future<void>.delayed(const Duration(milliseconds: 800));
-    } else {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
     }
-    if (mounted) _losuj();
+    await _onResult(ok);
   }
 
-  Future<void> _sprawdzPisanie() async {
-    final w = _aktualne;
-    if (w == null) return;
-    final user = _answerCtrl.text.trim().toLowerCase();
-    final ok = w.obcy.trim().toLowerCase();
-    if (user == ok) {
-      await _oznacz(true);
-      if (!mounted) return;
-      await showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text('Brawo!'),
-          content: const Text('Poprawna odpowiedź!'),
-          actions: [
-            FilledButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text('Dalej'),
-            ),
-          ],
-        ),
+  void _showHint() {
+    if (_current == null) return;
+    final exp = _expected;
+    setState(() {
+      _hintShown = true;
+      if (exp.isEmpty) return;
+      _flash(
+        'Podpowiedź: ${exp[0]}… (${exp.length} liter)',
+        color: Theme.of(context).colorScheme.primary,
+        ms: 2500,
       );
-      _losuj();
-    } else {
-      await _oznacz(false);
-      if (!mounted) return;
-      await showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text('Błąd'),
-          content: Text('Poprawna odpowiedź to:\n${w.obcy}'),
-          actions: [
-            FilledButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-      _losuj();
-    }
+    });
   }
 
-  void _wstawLitere(String litera) {
+  void _insert(String ch) {
     final t = _answerCtrl.text;
     final sel = _answerCtrl.selection;
     if (sel.isValid) {
-      final start = sel.start;
-      final end = sel.end;
-      _answerCtrl.text = t.replaceRange(start, end, litera);
-      _answerCtrl.selection = TextSelection.collapsed(offset: start + litera.length);
+      final s = sel.start;
+      final e = sel.end;
+      _answerCtrl.text = t.replaceRange(s, e, ch);
+      _answerCtrl.selection = TextSelection.collapsed(offset: s + ch.length);
     } else {
-      _answerCtrl.text = '$t$litera';
+      _answerCtrl.text = '$t$ch';
       _answerCtrl.selection =
           TextSelection.collapsed(offset: _answerCtrl.text.length);
     }
     setState(() {});
   }
 
-  void _cofnijLitere() {
+  void _backspace() {
     final t = _answerCtrl.text;
     if (t.isEmpty) return;
     _answerCtrl.text = t.substring(0, t.length - 1);
@@ -478,97 +421,284 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  Future<void> _dodajSlowo() async {
-    final plCtrl = TextEditingController();
-    final obcyCtrl = TextEditingController();
-    var jezyk = _jezyk ?? _baza.keys.first;
-    final ok = await showDialog<bool>(
+  Future<void> _openGroups() async {
+    final pack = _pack;
+    if (pack == null || _lang == null) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => GroupsPage(
+          lang: _lang!,
+          pack: pack,
+          selectedId: _groupId,
+          onChanged: () async {
+            await _store.save();
+            setState(() {});
+          },
+          onSelect: (id) {
+            setState(() => _groupId = id);
+            _draw();
+          },
+        ),
+      ),
+    );
+    setState(() {});
+    _draw();
+  }
+
+  Future<void> _openSettings() async {
+    await showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
       builder: (ctx) {
-        return StatefulBuilder(
-          builder: (ctx, setLocal) {
-            return AlertDialog(
-              title: const Text('Dodaj nowe słowo'),
-              content: SizedBox(
-                width: 420,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 8,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('Ustawienia', style: Theme.of(ctx).textTheme.titleLarge),
+                const SizedBox(height: 12),
+                Text('Motyw jasny/ciemny', style: Theme.of(ctx).textTheme.titleSmall),
+                Wrap(
+                  spacing: 8,
                   children: [
-                    DropdownButtonFormField<String>(
-                      initialValue: jezyk,
-                      items: _baza.keys
-                          .map(
-                            (k) => DropdownMenuItem(value: k, child: Text(k)),
-                          )
-                          .toList(),
-                      onChanged: (v) => setLocal(() => jezyk = v ?? jezyk),
-                      decoration: const InputDecoration(labelText: 'Język'),
+                    ChoiceChip(
+                      label: const Text('System'),
+                      selected: widget.themeMode == ThemeMode.system,
+                      onSelected: (_) =>
+                          widget.onThemeModeChanged(ThemeMode.system),
                     ),
-                    const SizedBox(height: 12),
-                    TextField(
-                      controller: plCtrl,
-                      decoration:
-                          const InputDecoration(labelText: 'Słowo po polsku'),
+                    ChoiceChip(
+                      label: const Text('Jasny'),
+                      selected: widget.themeMode == ThemeMode.light,
+                      onSelected: (_) =>
+                          widget.onThemeModeChanged(ThemeMode.light),
                     ),
-                    const SizedBox(height: 12),
-                    TextField(
-                      controller: obcyCtrl,
-                      decoration: InputDecoration(
-                        labelText: jezyk == 'Rosyjski'
-                            ? 'Tłumaczenie (cyrylica)'
-                            : 'Tłumaczenie',
-                      ),
+                    ChoiceChip(
+                      label: const Text('Ciemny'),
+                      selected: widget.themeMode == ThemeMode.dark,
+                      onSelected: (_) =>
+                          widget.onThemeModeChanged(ThemeMode.dark),
                     ),
                   ],
                 ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(ctx, false),
-                  child: const Text('Anuluj'),
+                const SizedBox(height: 16),
+                Text('Kolorystyka', style: Theme.of(ctx).textTheme.titleSmall),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final p in AppPalette.values)
+                      FilterChip(
+                        avatar: CircleAvatar(backgroundColor: p.seed),
+                        label: Text(p.label),
+                        selected: widget.palette == p,
+                        onSelected: (_) => widget.onPaletteChanged(p),
+                      ),
+                  ],
                 ),
-                FilledButton(
-                  onPressed: () => Navigator.pop(ctx, true),
-                  child: const Text('Zapisz'),
+                const SizedBox(height: 16),
+                Text('Kierunek', style: Theme.of(ctx).textTheme.titleSmall),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    ChoiceChip(
+                      label: const Text('PL → obcy'),
+                      selected: _dir == TranslateDir.plToForeign,
+                      onSelected: (_) {
+                        setState(() => _dir = TranslateDir.plToForeign);
+                        _draw();
+                      },
+                    ),
+                    ChoiceChip(
+                      label: const Text('obcy → PL'),
+                      selected: _dir == TranslateDir.foreignToPl,
+                      onSelected: (_) {
+                        setState(() => _dir = TranslateDir.foreignToPl);
+                        _draw();
+                      },
+                    ),
+                    ChoiceChip(
+                      label: const Text('Mieszany'),
+                      selected: _dir == TranslateDir.mixed,
+                      onSelected: (_) {
+                        setState(() => _dir = TranslateDir.mixed);
+                        _draw();
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text('Tempo audio', style: Theme.of(ctx).textTheme.titleSmall),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    for (final r in [0.75, 1.0, 1.25])
+                      ChoiceChip(
+                        label: Text('${r}x'),
+                        selected: (_playbackRate - r).abs() < 0.01,
+                        onSelected: (_) => _persistRate(r),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                FilledButton.tonal(
+                  onPressed: () async {
+                    final path = await _store.exportToDocuments();
+                    if (ctx.mounted) Navigator.pop(ctx);
+                    _flash('Wyeksportowano:\n$path', ms: 4000);
+                  },
+                  child: const Text('Eksportuj bazę (JSON)'),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: _importCtrl,
+                  decoration: const InputDecoration(
+                    labelText: 'Ścieżka do importu JSON',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton(
+                  onPressed: () async {
+                    final err = await _store.importFromPath(_importCtrl.text.trim());
+                    if (ctx.mounted) Navigator.pop(ctx);
+                    if (err != null) {
+                      _flash(err, color: Colors.red.shade700, ms: 3000);
+                    } else {
+                      setState(() {});
+                      _draw();
+                      _flash('Zaimportowano bazę', color: Colors.green.shade700);
+                    }
+                  },
+                  child: const Text('Importuj z pliku'),
+                ),
+                const SizedBox(height: 12),
+                Builder(
+                  builder: (_) {
+                    final miss = _store.missingAudioKeys();
+                    return Text(
+                      miss.isEmpty
+                          ? 'Audio: komplet w manifeście'
+                          : 'Brak audio: ${miss.length} haseł\n(PC: python3 scripts/generate_tts.py)',
+                      style: Theme.of(ctx).textTheme.bodySmall,
+                    );
+                  },
                 ),
               ],
-            );
-          },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _addWord() async {
+    final plCtrl = TextEditingController();
+    final obcyCtrl = TextEditingController();
+    var lang = _lang ?? _store.baza.keys.first;
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 8,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: StatefulBuilder(
+            builder: (ctx, setLocal) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text('Dodaj słowo', style: Theme.of(ctx).textTheme.titleLarge),
+                  const SizedBox(height: 12),
+                  DropdownButtonFormField<String>(
+                    initialValue: lang,
+                    items: _store.baza.keys
+                        .map((k) => DropdownMenuItem(value: k, child: Text(k)))
+                        .toList(),
+                    onChanged: (v) => setLocal(() => lang = v ?? lang),
+                    decoration: const InputDecoration(labelText: 'Język'),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: plCtrl,
+                    decoration: const InputDecoration(labelText: 'Po polsku'),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: obcyCtrl,
+                    decoration: const InputDecoration(labelText: 'Tłumaczenie'),
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: () => Navigator.pop(ctx, true),
+                    child: const Text('Zapisz'),
+                  ),
+                ],
+              );
+            },
+          ),
         );
       },
     );
     if (ok != true) return;
     final pl = plCtrl.text.trim();
     final obcy = obcyCtrl.text.trim();
-    if (pl.isEmpty || obcy.isEmpty) return;
-    setState(() {
-      _baza.putIfAbsent(jezyk, () => []);
-      _baza[jezyk]!.add(Word(pl: pl, obcy: obcy, nauczone: false));
-    });
-    await _zapisz();
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Zapisano. Audio: uruchom scripts/generate_tts.py i przebuduj.',
-        ),
-      ),
+    if (pl.isEmpty || obcy.isEmpty) {
+      _flash('Wypełnij oba pola', color: Colors.orange.shade800);
+      return;
+    }
+    final pack = _store.baza.putIfAbsent(
+      lang,
+      () => LangPack(words: [], groups: []),
     );
+    pack.words.add(Word(
+      id: Word.fromJson({'pl': pl, 'obcy': obcy}).id,
+      pl: pl,
+      obcy: obcy,
+    ));
+    await _store.save();
+    setState(() {});
+    _flash('Dodano: $pl → $obcy', color: Colors.green.shade700);
   }
 
-  Widget _cyrillicKeyboard() {
+  Widget _keyboard() {
+    if (_lang == 'Rosyjski') {
+      return _keyCard(
+        'Klawiatura rosyjska',
+        [
+          for (final row in _cyrillicRows) row,
+        ],
+      );
+    }
+    if (_lang == 'Hiszpański') {
+      return _keyCard('Znaki hiszpańskie', [_spanishExtras]);
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget _keyCard(String title, List<List<String>> rows) {
     return Card(
       margin: const EdgeInsets.only(top: 12),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            Text(
-              'Klawiatura rosyjska (Cyrylica)',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+            Text(title, style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
-            for (final row in _cyrillicRows)
+            for (final row in rows)
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Wrap(
@@ -578,31 +708,30 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     for (final l in row)
                       SizedBox(
-                        width: 40,
-                        height: 40,
+                        width: 42,
+                        height: 42,
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             padding: EdgeInsets.zero,
-                            minimumSize: const Size(40, 40),
+                            minimumSize: const Size(42, 42),
                           ),
-                          onPressed: () => _wstawLitere(l),
+                          onPressed: () => _insert(l),
                           child: Text(l, style: const TextStyle(fontSize: 16)),
                         ),
                       ),
                   ],
                 ),
               ),
-            const SizedBox(height: 6),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
-                  onPressed: () => _wstawLitere(' '),
+                  onPressed: () => _insert(' '),
                   child: const Text('Spacja'),
                 ),
                 const SizedBox(width: 8),
                 FilledButton.tonal(
-                  onPressed: _cofnijLitere,
+                  onPressed: _backspace,
                   child: const Text('Cofnij ←'),
                 ),
               ],
@@ -613,37 +742,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  String _groupLabel() {
+    final pack = _pack;
+    if (pack == null) return 'Cała baza';
+    return switch (_groupId) {
+      '__all__' => 'Cała baza',
+      '__unlearned__' => 'Nieopanowane',
+      '__hard__' => 'Trudne',
+      _ => pack.groups
+              .where((g) => g.id == _groupId)
+              .map((g) => g.name)
+              .firstOrNull ??
+          'Zestaw',
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-
-    final j = _jezyk;
-    final words = j == null ? <Word>[] : (_baza[j] ?? []);
-    final doNauki = words.where((w) => !w.nauczone).length;
-    final nauczone = words.where((w) => w.nauczone).length;
+    final pack = _pack;
+    final pool = _sessionPool();
+    final allInGroup = pack?.wordsForGroup(_groupId) ?? [];
+    final mastered = allInGroup.where((w) => w.level >= 3).length;
+    final pct = allInGroup.isEmpty ? 0 : (100 * mastered / allInGroup.length).round();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trener Językowy'),
         actions: [
-          PopupMenuButton<ThemeMode>(
-            tooltip: 'Motyw',
-            initialValue: widget.themeMode,
-            onSelected: widget.onThemeModeChanged,
-            itemBuilder: (ctx) => const [
-              PopupMenuItem(value: ThemeMode.system, child: Text('System')),
-              PopupMenuItem(value: ThemeMode.light, child: Text('Jasny')),
-              PopupMenuItem(value: ThemeMode.dark, child: Text('Ciemny')),
-            ],
-            icon: Icon(
-              widget.themeMode == ThemeMode.dark
-                  ? Icons.dark_mode
-                  : widget.themeMode == ThemeMode.light
-                      ? Icons.light_mode
-                      : Icons.brightness_auto,
-            ),
+          IconButton(
+            tooltip: 'Zestawy',
+            onPressed: _openGroups,
+            icon: const Icon(Icons.folder_special_outlined),
+          ),
+          IconButton(
+            tooltip: 'Ustawienia',
+            onPressed: _openSettings,
+            icon: const Icon(Icons.palette_outlined),
           ),
         ],
       ),
@@ -651,23 +788,54 @@ class _HomePageState extends State<HomePage> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 720),
           child: ListView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             children: [
-              Text('Wybierz język', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 8),
+              if (_banner != null)
+                Card(
+                  color: (_bannerColor ??
+                          Theme.of(context).colorScheme.secondaryContainer)
+                      .withValues(alpha: 0.35),
+                  child: ListTile(
+                    title: Text(
+                      _banner!,
+                      style: TextStyle(
+                        color: _bannerColor ??
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => setState(() => _banner = null),
+                    ),
+                  ),
+                ),
               DropdownButtonFormField<String>(
-                initialValue: _jezyk,
-                items: _baza.keys
+                initialValue: _lang,
+                items: _store.baza.keys
                     .map((k) => DropdownMenuItem(value: k, child: Text(k)))
                     .toList(),
-                onChanged: (v) {
+                onChanged: (v) async {
                   setState(() {
-                    _jezyk = v;
-                    // Russian defaults to ABC like Anielka's app
-                    if (v == 'Rosyjski') _method = GameMethod.abc;
+                    _lang = v;
+                    _groupId = '__all__';
                   });
-                  _losuj();
+                  await _loadMethodForLang(v);
+                  _draw();
                 },
+                decoration: const InputDecoration(labelText: 'Język'),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Zestaw: ${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              Text(
+                'Sesja: ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}'
+                ' · streak ${_store.stats.streakDays} dni',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 12),
               Wrap(
@@ -675,111 +843,112 @@ class _HomePageState extends State<HomePage> {
                 runSpacing: 8,
                 children: [
                   OutlinedButton.icon(
-                    onPressed: _dodajSlowo,
+                    onPressed: _addWord,
                     icon: const Icon(Icons.add),
-                    label: const Text('Dodaj słowo'),
+                    label: const Text('Słowo'),
                   ),
                   FilledButton.tonal(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         _method = _method == GameMethod.abc
                             ? GameMethod.typing
                             : GameMethod.abc;
                       });
-                      _losuj();
+                      await _persistMethod();
+                      _draw();
                     },
                     child: Text(
-                      _method == GameMethod.abc
-                          ? 'Metoda: Wybór ABC'
-                          : 'Metoda: Wpisywanie',
+                      _method == GameMethod.abc ? 'Metoda: ABC' : 'Metoda: Pisanie',
                     ),
                   ),
                   FilledButton.tonal(
                     onPressed: () {
-                      setState(() => _trybNauczone = !_trybNauczone);
-                      _losuj();
+                      setState(() => _poolReview = !_poolReview);
+                      _draw();
                     },
-                    child: Text(
-                      _trybNauczone ? 'Pula: Powtórka' : 'Pula: Nauka',
-                    ),
+                    child: Text(_poolReview ? 'Pula: Powtórka' : 'Pula: Nauka'),
                   ),
+                  if (_current != null)
+                    OutlinedButton(
+                      onPressed: () async {
+                        _current!.hard = !_current!.hard;
+                        await _store.save();
+                        _flash(
+                          _current!.hard ? 'Oznaczone jako trudne' : 'Trudne wyłączone',
+                        );
+                        setState(() {});
+                      },
+                      child: Text(_current!.hard ? '★ Trudne' : 'Trudne?'),
+                    ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Text(
-                'Do nauki: $doNauki  |  Opanowane: $nauczone',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
-              if (_aktualne == null)
+              const SizedBox(height: 20),
+              if (_current == null)
                 Text(
-                  _trybNauczone
-                      ? 'Brak słówek w puli nauczonych.\nRozwiązuj testy w trybie nauki!'
-                      : 'Gratulacje! Znasz już wszystkie słowa.\nPrzełącz na powtórki.',
+                  pool.isEmpty && _poolReview
+                      ? 'Brak opanowanych w tym zestawie.'
+                      : 'Brak słówek do nauki w zestawie.\nDodaj słowa lub wybierz inny zestaw.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium,
                 )
               else ...[
                 Text(
-                  _method == GameMethod.abc
-                      ? 'Jak po polsku znaczy słowo:'
-                      : 'Przetłumacz na język obcy:',
+                  _promptLabel,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  _method == GameMethod.abc
-                      ? _aktualne!.obcy
-                      : '"${_aktualne!.pl}"?',
+                  _promptWord,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: _method == GameMethod.abc
-                            ? const Color(0xFF1565C0)
-                            : const Color(0xFF2E7D32),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                 ),
-                const SizedBox(height: 12),
-                Center(
-                  child: IconButton.filledTonal(
-                    onPressed: _playCurrent,
-                    iconSize: 36,
-                    icon: const Icon(Icons.volume_up),
-                    tooltip: 'Powtórz wymowę',
-                  ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton.filledTonal(
+                      onPressed: () => _playText(_current!.obcy),
+                      iconSize: 32,
+                      icon: const Icon(Icons.volume_up),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      onPressed: _hintShown ? null : _showHint,
+                      child: const Text('Podpowiedź'),
+                    ),
+                  ],
                 ),
-                if (_audioHint != null) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    _audioHint!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                      fontSize: 14,
+                if (_audioHint != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Text(
+                      _audioHint!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
-                ],
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 if (_method == GameMethod.abc)
-                  ...List.generate(_abcWarianty.length, (i) {
-                    final selected = _abcHighlight == i;
+                  ...List.generate(_abc.length, (i) {
+                    final sel = _abcHi == i;
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: SizedBox(
                         width: double.infinity,
+                        height: 60,
                         child: FilledButton.tonal(
                           style: FilledButton.styleFrom(
-                            backgroundColor: selected ? _abcHighlightColor : null,
-                            foregroundColor:
-                                selected ? Colors.white : null,
-                            minimumSize: const Size.fromHeight(56),
+                            backgroundColor: sel ? _abcHiColor : null,
+                            foregroundColor: sel ? Colors.white : null,
                           ),
-                          onPressed: () => _sprawdzAbc(i),
-                          child: Text(
-                            _abcWarianty[i],
-                            style: const TextStyle(fontSize: 18),
-                          ),
+                          onPressed: () => _checkAbc(i),
+                          child: Text(_abc[i], style: const TextStyle(fontSize: 20)),
                         ),
                       ),
                     );
@@ -791,28 +960,278 @@ class _HomePageState extends State<HomePage> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 22),
                     decoration: const InputDecoration(
-                      hintText: 'Wpisz tłumaczenie',
+                      hintText: 'Twoja odpowiedź',
                       border: OutlineInputBorder(),
                     ),
-                    onSubmitted: (_) => _sprawdzPisanie(),
+                    onSubmitted: (_) => _checkTyping(),
                   ),
                   const SizedBox(height: 12),
                   FilledButton(
-                    onPressed: _sprawdzPisanie,
-                    child: const Text('Sprawdź (Enter)'),
+                    onPressed: _checkTyping,
+                    child: const Text('Sprawdź'),
                   ),
-                  if (_isRussian) _cyrillicKeyboard(),
+                  _keyboard(),
                 ],
               ],
-              const SizedBox(height: 24),
-              Text(
-                'Offline audio (Piper). Skrypty Anielki: legacy/',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GroupsPage extends StatefulWidget {
+  const GroupsPage({
+    super.key,
+    required this.lang,
+    required this.pack,
+    required this.selectedId,
+    required this.onChanged,
+    required this.onSelect,
+  });
+
+  final String lang;
+  final LangPack pack;
+  final String selectedId;
+  final VoidCallback onChanged;
+  final ValueChanged<String> onSelect;
+
+  @override
+  State<GroupsPage> createState() => _GroupsPageState();
+}
+
+class _GroupsPageState extends State<GroupsPage> {
+  late String _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = widget.selectedId;
+  }
+
+  Future<void> _createGroup() async {
+    final nameCtrl = TextEditingController();
+    final selected = <String>{};
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx, setLocal) {
+            return SizedBox(
+              height: MediaQuery.of(ctx).size.height * 0.85,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text('Nowy zestaw', style: Theme.of(ctx).textTheme.titleLarge),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: nameCtrl,
+                      decoration: const InputDecoration(
+                        labelText: 'Nazwa zestawu',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Wybierz słowa (bez duplikowania — tylko zaznaczenie):',
+                      style: Theme.of(ctx).textTheme.bodySmall,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: widget.pack.words.length,
+                        itemBuilder: (_, i) {
+                          final w = widget.pack.words[i];
+                          final on = selected.contains(w.id);
+                          return CheckboxListTile(
+                            value: on,
+                            title: Text('${w.pl} → ${w.obcy}'),
+                            subtitle: Text('poziom ${w.level}${w.hard ? " · trudne" : ""}'),
+                            onChanged: (v) {
+                              setLocal(() {
+                                if (v == true) {
+                                  selected.add(w.id);
+                                } else {
+                                  selected.remove(w.id);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.pop(ctx, true),
+                      child: const Text('Utwórz'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+    if (ok != true) return;
+    final name = nameCtrl.text.trim();
+    if (name.isEmpty || selected.isEmpty) return;
+    widget.pack.groups.add(
+      WordGroup(
+        id: 'g-${DateTime.now().millisecondsSinceEpoch}',
+        name: name,
+        wordIds: selected.toList(),
+      ),
+    );
+    widget.onChanged();
+    setState(() {});
+  }
+
+  Future<void> _editGroup(WordGroup g) async {
+    final selected = g.wordIds.toSet();
+    final nameCtrl = TextEditingController(text: g.name);
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx, setLocal) {
+            return SizedBox(
+              height: MediaQuery.of(ctx).size.height * 0.85,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text('Edytuj zestaw', style: Theme.of(ctx).textTheme.titleLarge),
+                    TextField(controller: nameCtrl),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: widget.pack.words.length,
+                        itemBuilder: (_, i) {
+                          final w = widget.pack.words[i];
+                          return CheckboxListTile(
+                            value: selected.contains(w.id),
+                            title: Text('${w.pl} → ${w.obcy}'),
+                            onChanged: (v) {
+                              setLocal(() {
+                                if (v == true) {
+                                  selected.add(w.id);
+                                } else {
+                                  selected.remove(w.id);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              widget.pack.groups.removeWhere((x) => x.id == g.id);
+                              Navigator.pop(ctx, false);
+                            },
+                            child: const Text('Usuń zestaw'),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: FilledButton(
+                            onPressed: () => Navigator.pop(ctx, true),
+                            child: const Text('Zapisz'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+    if (ok == true) {
+      g.name = nameCtrl.text.trim().isEmpty ? g.name : nameCtrl.text.trim();
+      g.wordIds = selected.toList();
+      widget.onChanged();
+      setState(() {});
+    } else {
+      widget.onChanged();
+      setState(() {});
+    }
+  }
+
+  Widget _tile({
+    required String id,
+    required String title,
+    required String subtitle,
+    VoidCallback? onEdit,
+  }) {
+    final selected = _selected == id;
+    return ListTile(
+      selected: selected,
+      leading: Icon(
+        selected ? Icons.radio_button_checked : Icons.radio_button_off,
+      ),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: onEdit == null
+          ? null
+          : IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
+      onTap: () {
+        setState(() => _selected = id);
+        widget.onSelect(id);
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Zestawy — ${widget.lang}'),
+        actions: [
+          IconButton(
+            onPressed: _createGroup,
+            icon: const Icon(Icons.create_new_folder_outlined),
+            tooltip: 'Nowy zestaw',
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          _tile(
+            id: '__all__',
+            title: 'Cała baza',
+            subtitle: '${widget.pack.words.length} słów',
+          ),
+          _tile(
+            id: '__unlearned__',
+            title: 'Nieopanowane',
+            subtitle:
+                '${widget.pack.words.where((w) => w.level < 3).length} słów',
+          ),
+          _tile(
+            id: '__hard__',
+            title: 'Trudne',
+            subtitle:
+                '${widget.pack.words.where((w) => w.hard || w.level <= 1).length} słów',
+          ),
+          const Divider(),
+          for (final g in widget.pack.groups)
+            _tile(
+              id: g.id,
+              title: g.name,
+              subtitle: '${g.wordIds.length} wybranych słów',
+              onEdit: () => _editGroup(g),
+            ),
+        ],
       ),
     );
   }
