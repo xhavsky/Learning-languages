@@ -1,7 +1,7 @@
 {
   "url": "https://REMOVED.invalid:7475",
-  "urlHttp": "http://REMOVED.invalid:7474",
-  "urlIp": "http://100.68.72.119:7474",
+  "urlHttp": "https://REMOVED.invalid:7475",
+  "urlIp": "https://REMOVED.invalid:7475",
   "pin": "",
-  "note": "Tailscale MUSI być włączony. OperaGX: użyj HTTPS :7475"
+  "note": "Endpoint HTTPS — bez Tailscale. PIN wymagany."
 }

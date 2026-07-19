@@ -843,7 +843,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.2',
+                'v0.0.3',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -918,7 +918,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'PIN: ${_portal.pin} · Tailscale · Opera: HTTPS :7475',
+                            'PIN: ${_portal.pin} · publiczny link (bez Tailscale)',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(height: 8),
