@@ -674,7 +674,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         )
                       : ListView.separated(
                           itemCount: items.length,
-                          separatorBuilder: (_, __) =>
+                          separatorBuilder: (_, _) =>
                               const SizedBox(height: 8),
                           itemBuilder: (_, i) {
                             final c = items[i];
@@ -1148,9 +1148,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Czat używa modelu językowego na tym urządzeniu '
-                      '(bez portalu i chmury). Opcjonalnie: lokalna Ollama '
-                      'na tym samym komputerze — zwykle zostaw pusto.',
+                      'Czat: na PC pełny Bielik 11B v3 (Ollama w paczce lub systemowa), '
+                      'na telefonie Bielik 1.5B v3 (GGUF). Bez portalu i chmury. '
+                      'Host Ollamy — zwykle pusto (127.0.0.1).',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),

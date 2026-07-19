@@ -1,7 +1,7 @@
 name: trener_jezykowy
 description: Trener Językowy — nauka słówek (Anielka)
 publish_to: "none"
-version: 0.0.9+11
+version: 0.0.10+12
 
 environment:
   sdk: ^3.12.2
@@ -13,6 +13,7 @@ dependencies:
   audioplayers: ^6.8.1
   path_provider: ^2.1.6
   shared_preferences: ^2.5.5
+  llm_llamacpp: ^0.1.9
 
 dev_dependencies:
   flutter_test:

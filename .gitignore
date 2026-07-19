@@ -10,6 +10,14 @@ build/
 tools/voices/*.onnx
 tools/voices/*.onnx.json
 
+# Lokalne LLM (fetch_ondevice_models.sh) — za duże na git
+models/*.gguf
+models/*.partial
+bundled/ollama/ollama
+bundled/ollama/ollama.exe
+android/app/src/main/assets/models/*.gguf
+!models/README.md
+
 # Release artifacts (build locally)
 dist/
 
