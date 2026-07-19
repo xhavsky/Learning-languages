@@ -45,6 +45,32 @@
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
+
+    /* Unified dark scrollbars */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 255, 0.45) rgba(8, 10, 20, 0.55);
+    }
+    *::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    *::-webkit-scrollbar-track {
+      background: rgba(8, 10, 20, 0.55);
+      border-radius: 999px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(94, 234, 212, 0.55), rgba(167, 139, 250, 0.65));
+      border-radius: 999px;
+      border: 2px solid rgba(8, 10, 20, 0.55);
+      box-shadow: 0 0 12px rgba(94, 234, 212, 0.25);
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(94, 234, 212, 0.8), rgba(251, 113, 133, 0.7));
+    }
+    *::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     body {
       font-family: var(--font);
       color: var(--ink);
@@ -413,16 +439,47 @@
       background-size: 200% 100%, 40px 40px;
       animation: shimmer 2.2s linear infinite, progress-stripes 0.9s linear infinite;
     }
-    #progressDetail { margin: 10px 0 0; font-weight: 700; }
-    #progressSteps {
+    #progressDetail { margin: 10px 0 0; font-weight: 700; color: var(--ink); font-size: 1.02rem; }
+    #progressMeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    #progressMeta .chip {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+    }
+    #progressMeta .chip strong { color: var(--accent); font-weight: 800; }
+    #progressFiles {
       margin: 8px 0 0;
-      padding-left: 1.15rem;
       font-size: 0.82rem;
       color: var(--muted);
-      max-height: 7.2rem;
-      overflow-y: auto;
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      word-break: break-all;
     }
-    #progressSteps li { margin: 2px 0; }
+    #progressSteps {
+      margin: 10px 0 0;
+      padding: 10px 10px 10px 1.2rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      max-height: 9rem;
+      overflow-y: auto;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,0.22);
+      list-style: decimal;
+    }
+    #progressSteps li { margin: 3px 0; padding-left: 2px; }
+    #progressSteps li.is-now {
+      color: var(--ink);
+      font-weight: 700;
+    }
 
     .composer { margin-top: 0; }
 
@@ -490,14 +547,15 @@
 
       <div id="progressCard" class="card glass" aria-live="polite">
         <div class="progress-head">
-          <strong>Co robi asystent</strong>
+          <strong>Status asystenta</strong>
           <span class="progress-pct"><span id="progressPct">0</span>%</span>
         </div>
         <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <i id="progressBar"></i>
         </div>
-        <p id="progressDetail" class="hint">…</p>
-        <p class="hint" id="progressTime" style="margin-top:4px"></p>
+        <p id="progressDetail">…</p>
+        <div id="progressMeta"></div>
+        <p id="progressFiles"></p>
         <ol id="progressSteps"></ol>
       </div>
 
@@ -587,6 +645,21 @@
       timer = setInterval(refresh, 1000);
     }
 
+    function stageLabel(stage) {
+      const map = {
+        idle: "Bezczynny",
+        start: "Start",
+        queued: "W kolejce",
+        thinking: "Analiza",
+        tool: "Praca w plikach",
+        writing: "Pisanie odpowiedzi",
+        finishing: "Kończenie",
+        fallback: "Tryb zapasowy",
+        done: "Gotowe",
+      };
+      return map[stage] || stage || "?";
+    }
+
     function renderProgress(progress, busy) {
       const card = $("progressCard");
       const active = !!(busy || (progress && progress.busy));
@@ -608,18 +681,30 @@
       card.querySelector(".bar").setAttribute("aria-valuenow", String(pct));
       $("progressDetail").textContent =
         (progress && progress.detail) || (active ? "Pracuję…" : "Gotowe");
+
       const sec = (progress && progress.elapsedSec) || 0;
-      $("progressTime").textContent = active
-        ? ("Minęło: " + sec + " s · etap: " + ((progress && progress.stage) || "?"))
-        : "Zakończono";
+      const tools = (progress && progress.toolCount) || 0;
+      const stage = (progress && progress.stage) || "?";
+      $("progressMeta").innerHTML =
+        '<span class="chip">Czas: <strong>' + sec + " s</strong></span>" +
+        '<span class="chip">Etap: <strong>' + escapeHtml(stageLabel(stage)) + "</strong></span>" +
+        '<span class="chip">Akcje: <strong>' + tools + "</strong></span>";
+
+      const files = (progress && progress.recentFiles) || [];
+      $("progressFiles").textContent = files.length
+        ? ("Ostatnie pliki: " + files.slice(-4).join(" · "))
+        : "";
+
       const steps = (progress && progress.steps) || [];
       const ol = $("progressSteps");
       ol.innerHTML = "";
-      steps.slice(-8).forEach((s) => {
+      steps.slice(-10).forEach((s, idx, arr) => {
         const li = document.createElement("li");
         li.textContent = typeof s === "string" ? s : (s.text || "");
+        if (idx === arr.length - 1 && active) li.classList.add("is-now");
         ol.appendChild(li);
       });
+      ol.scrollTop = ol.scrollHeight;
     }
 
     function render(messages, busy, progress) {

@@ -68,15 +68,87 @@ def _progress_snapshot() -> dict:
     with _lock:
         p = dict(_progress)
         steps = list(_progress.get("steps") or [])
+        files = list(_progress.get("recentFiles") or [])
     if p.get("startedAt"):
         try:
             start = datetime.fromisoformat(p["startedAt"])
             p["elapsedSec"] = max(0, int((datetime.now(timezone.utc) - start).total_seconds()))
         except ValueError:
             p["elapsedSec"] = 0
-    p["steps"] = steps[-12:]
+    p["steps"] = steps[-14:]
+    p["recentFiles"] = files[-8:]
     p["busy"] = _busy
+    # Drop internal counters from API if any
+    p.pop("_lastStepKey", None)
     return p
+
+
+def _short_path(path: str) -> str:
+    p = (path or "").strip().replace("\\", "/")
+    if not p:
+        return ""
+    # Prefer path relative to workspace
+    try:
+        ws = str(Path(WORKSPACE).resolve())
+        full = str(Path(p).resolve())
+        if full.startswith(ws + os.sep):
+            p = full[len(ws) + 1 :]
+    except OSError:
+        pass
+    parts = [x for x in p.split("/") if x]
+    if len(parts) <= 3:
+        return "/".join(parts)
+    return "/".join(parts[-3:])
+
+
+def _extract_tool_meta(obj: dict) -> tuple[str, str]:
+    """Return (tool_name, path_or_hint)."""
+    tool = (
+        obj.get("tool")
+        or obj.get("name")
+        or (obj.get("tool_call") or {}).get("name")
+        or (obj.get("toolCall") or {}).get("name")
+        or ""
+    )
+    if isinstance(tool, dict):
+        tool = tool.get("name") or tool.get("tool") or ""
+
+    inp = (
+        obj.get("input")
+        or obj.get("arguments")
+        or obj.get("args")
+        or (obj.get("tool_call") or {}).get("input")
+        or (obj.get("toolCall") or {}).get("input")
+        or {}
+    )
+    if isinstance(inp, str):
+        try:
+            inp = json.loads(inp)
+        except json.JSONDecodeError:
+            inp = {"_raw": inp}
+    if not isinstance(inp, dict):
+        inp = {}
+
+    path = (
+        inp.get("path")
+        or inp.get("file_path")
+        or inp.get("filePath")
+        or inp.get("target_file")
+        or inp.get("targetFile")
+        or inp.get("filename")
+        or ""
+    )
+    if not path and (inp.get("glob") or inp.get("glob_pattern") or inp.get("pattern")):
+        path = str(
+            inp.get("glob") or inp.get("glob_pattern") or inp.get("pattern") or ""
+        )[:80]
+    if not path and inp.get("command"):
+        cmd = str(inp.get("command")).strip().replace("\n", " ")
+        path = cmd[:70] + ("…" if len(cmd) > 70 else "")
+    if not path and (inp.get("query") or inp.get("search_term")):
+        path = str(inp.get("query") or inp.get("search_term") or "")[:70]
+
+    return str(tool or ""), str(path or "")
 
 
 def _set_progress(
@@ -86,6 +158,8 @@ def _set_progress(
     percent: int | None = None,
     bump: int = 0,
     step: str | None = None,
+    step_key: str | None = None,
+    path: str | None = None,
     reset: bool = False,
 ) -> None:
     global _progress
@@ -97,79 +171,129 @@ def _set_progress(
                 "stage": "start",
                 "detail": "Startuję asystenta…",
                 "steps": [],
+                "recentFiles": [],
                 "startedAt": _now(),
                 "elapsedSec": 0,
                 "toolCount": 0,
+                "thinkingTicks": 0,
+                "headline": "Start",
+                "_lastStepKey": "",
             }
         if stage is not None:
             _progress["stage"] = stage
         if detail is not None:
             _progress["detail"] = detail
+            _progress["headline"] = detail
         if percent is not None:
             _progress["percent"] = max(0, min(99, int(percent)))
         elif bump:
             _progress["percent"] = max(
                 0, min(92, int(_progress.get("percent") or 0) + bump)
             )
+        if path:
+            short = _short_path(path)
+            if short:
+                files = list(_progress.get("recentFiles") or [])
+                if not files or files[-1] != short:
+                    files.append(short)
+                _progress["recentFiles"] = files[-12:]
+
         if step:
+            key = (step_key or step).strip().lower()
             steps = list(_progress.get("steps") or [])
-            steps.append({"ts": _now(), "text": step})
+            last_key = str(_progress.get("_lastStepKey") or "")
+            if steps and last_key == key:
+                # Merge duplicates: "Myślenie" → "Myślenie ×4"
+                prev = steps[-1]
+                count = int(prev.get("count") or 1) + 1
+                base = prev.get("base") or prev.get("text") or step
+                # Strip old ×N
+                if " ×" in str(base):
+                    base = str(base).split(" ×", 1)[0]
+                steps[-1] = {
+                    "ts": _now(),
+                    "text": f"{base} ×{count}",
+                    "base": base,
+                    "count": count,
+                }
+            else:
+                steps.append(
+                    {
+                        "ts": _now(),
+                        "text": step,
+                        "base": step,
+                        "count": 1,
+                    }
+                )
+                _progress["_lastStepKey"] = key
             _progress["steps"] = steps[-40:]
         _progress["busy"] = _busy
 
 
-def _friendly_tool(name: str) -> str:
+def _friendly_tool(name: str, path: str = "") -> str:
     n = (name or "").lower()
-    mapping = {
-        "shell": "Uruchamiam polecenie w terminalu",
-        "bash": "Uruchamiam polecenie w terminalu",
-        "read": "Czytam plik",
-        "write": "Zapisuję plik",
-        "streplace": "Edytuję kod",
-        "search_replace": "Edytuję kod",
-        "grep": "Szukam w kodzie",
-        "glob": "Szukam plików",
-        "editnotebook": "Edytuję notebook",
-        "todowrite": "Aktualizuję listę zadań",
-        "webfetch": "Pobieram stronę",
-        "websearch": "Szukam w internecie",
-        "delete": "Usuwam plik",
-        "readlints": "Sprawdzam błędy",
-    }
-    for key, label in mapping.items():
+    mapping = [
+        ("shell", "Terminal"),
+        ("bash", "Terminal"),
+        ("read", "Czytam"),
+        ("write", "Zapisuję"),
+        ("streplace", "Edytuję"),
+        ("search_replace", "Edytuję"),
+        ("grep", "Szukam w kodzie"),
+        ("glob", "Szukam plików"),
+        ("editnotebook", "Notebook"),
+        ("todowrite", "Lista zadań"),
+        ("webfetch", "Pobieram URL"),
+        ("websearch", "Szukam w sieci"),
+        ("delete", "Usuwam"),
+        ("readlints", "Linter"),
+    ]
+    label = "Narzędzie"
+    for key, lab in mapping:
         if key in n:
-            return label
-    if name:
-        return f"Narzędzie: {name}"
-    return "Pracuję nad projektem"
+            label = lab
+            break
+    else:
+        if name:
+            label = str(name)
+    short = _short_path(path) if path else ""
+    if short:
+        return f"{label}: {short}"
+    return label
 
 
 def _ingest_stream_event(obj: dict) -> None:
     """Update progress from Cursor agent stream-json event."""
     et = str(obj.get("type") or obj.get("event") or "").lower()
     subtype = str(obj.get("subtype") or "").lower()
-
-    # Nested message / tool shapes vary by CLI version
-    tool = (
-        obj.get("tool")
-        or obj.get("name")
-        or (obj.get("tool_call") or {}).get("name")
-        or (obj.get("toolCall") or {}).get("name")
-        or ""
-    )
-    if isinstance(tool, dict):
-        tool = tool.get("name") or tool.get("tool") or ""
+    tool, path = _extract_tool_meta(obj)
 
     if et in ("system", "init", "status") and subtype in ("init", "started", ""):
-        _set_progress(stage="start", detail="Asystent wystartował", percent=8, step="Start")
+        _set_progress(
+            stage="start",
+            detail="Asystent wystartował — łączę się z projektem",
+            percent=8,
+            step="Start sesji",
+            step_key="start",
+        )
         return
 
     if et in ("thinking", "reasoning") or "thinking" in et:
+        with _lock:
+            ticks = int(_progress.get("thinkingTicks") or 0) + 1
+            _progress["thinkingTicks"] = ticks
+            tools = int(_progress.get("toolCount") or 0)
+        # Don't spam the timeline — one merged "Analizuję" entry + richer detail
+        if tools == 0:
+            detail = "Analizuję Twoją prośbę i planuję kroki…"
+        else:
+            detail = "Myślę nad kolejnym krokiem po ostatnich zmianach…"
         _set_progress(
             stage="thinking",
-            detail="Myślę, co zrobić…",
-            bump=2,
-            step="Myślenie",
+            detail=detail,
+            bump=1 if ticks % 3 == 0 else 0,
+            step="Analizuję",
+            step_key="thinking",
         )
         return
 
@@ -179,35 +303,61 @@ def _ingest_stream_event(obj: dict) -> None:
             text = " ".join(
                 str(p.get("text") or p) if isinstance(p, dict) else str(p) for p in text
             )
-        snippet = str(text).strip().replace("\n", " ")[:80]
-        detail = f"Piszę odpowiedź… {snippet}" if snippet else "Piszę odpowiedź…"
-        _set_progress(stage="writing", detail=detail, bump=3, step="Odpowiedź")
+        snippet = str(text).strip().replace("\n", " ")
+        # Ignore tiny/partial deltas for the step list
+        if len(snippet) < 12:
+            _set_progress(stage="writing", detail="Piszę odpowiedź…", bump=1)
+            return
+        short = snippet[:90] + ("…" if len(snippet) > 90 else "")
+        _set_progress(
+            stage="writing",
+            detail=f"Piszę do Ciebie: {short}",
+            bump=2,
+            step="Piszę odpowiedź",
+            step_key="writing",
+        )
         return
 
     if et in ("tool_call", "tool_use", "tool", "function_call") or tool:
+        label = _friendly_tool(str(tool), path)
         if subtype in ("completed", "end", "result", "success"):
             with _lock:
                 _progress["toolCount"] = int(_progress.get("toolCount") or 0) + 1
                 count = _progress["toolCount"]
-            label = _friendly_tool(str(tool))
             _set_progress(
                 stage="tool",
-                detail=f"Zrobione: {label} ({count})",
+                detail=f"✓ {label}  ·  łącznie {count} akcji",
                 bump=4,
                 step=f"✓ {label}",
+                step_key=f"done:{tool}:{path}",
+                path=path or None,
             )
         else:
-            label = _friendly_tool(str(tool))
             _set_progress(
                 stage="tool",
-                detail=label + "…",
+                detail=f"Teraz: {label}",
                 bump=5,
                 step=label,
+                step_key=f"run:{tool}:{path}",
+                path=path or None,
             )
         return
 
     if et in ("result", "done", "completed"):
-        _set_progress(stage="finishing", detail="Kończę i przygotowuję odpowiedź…", percent=95)
+        with _lock:
+            count = int(_progress.get("toolCount") or 0)
+        detail = (
+            f"Kończę — zrobiłem {count} akcji, składam odpowiedź…"
+            if count
+            else "Kończę i przygotowuję odpowiedź…"
+        )
+        _set_progress(
+            stage="finishing",
+            detail=detail,
+            percent=95,
+            step="Składam odpowiedź",
+            step_key="finishing",
+        )
         return
 
 
