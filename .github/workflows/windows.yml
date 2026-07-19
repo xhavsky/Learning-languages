@@ -1,0 +1,74 @@
+name: Windows package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/**"
+      - "assets/**"
+      - "pubspec.yaml"
+      - "windows/**"
+      - ".github/workflows/windows.yml"
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build release
+        run: flutter build windows --release
+
+      - name: Pack portable ZIP
+        shell: pwsh
+        run: |
+          $src = "build\windows\x64\runner\Release"
+          $out = "Trener-Jezykowy-Windows"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item -Recurse -Force "$src\*" $out
+          @"
+          Trener Językowy — Windows (przenośna paczka)
+
+          1. Rozpakuj ZIP gdzie chcesz (np. Pulpit\Trener-Jezykowy).
+          2. Uruchom trener_jezykowy.exe
+          3. Jeśli Windows SmartScreen zapyta — „Więcej informacji” → „Uruchom mimo to”
+             (to normalne dla niesygnowanych aplikacji).
+
+          Nie wymaga instalacji. Można skopiować cały folder na pendrive.
+          "@ | Set-Content -Encoding UTF8 "$out\CZYTAJ-MNIE.txt"
+          Compress-Archive -Path $out -DestinationPath "Trener-Jezykowy-Windows.zip" -Force
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Trener-Jezykowy-Windows
+          path: Trener-Jezykowy-Windows.zip
+
+      - name: Attach to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: windows-portable
+          name: Paczka Windows — Trener Językowy
+          body: |
+            Przenośna paczka dla Anielki (Windows 10/11).
+
+            1. Pobierz **Trener-Jezykowy-Windows.zip**
+            2. Rozpakuj
+            3. Uruchom `trener_jezykowy.exe`
+
+            Instrukcja: [INSTALL-WINDOWS.md](../blob/main/INSTALL-WINDOWS.md)
+          files: Trener-Jezykowy-Windows.zip
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
