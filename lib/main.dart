@@ -777,15 +777,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Garderoba Kici',
+                      'Garderoba ${mascotName(_store.stats.mascotSpecies)}',
                       style: Theme.of(ctx).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Za każdy poziom losujesz nowe ubranko. '
                       'Ekskluzywne ciuchy, miski i posłanie — w sklepie za złote łapki 🐾. '
-                      'Stuknij, żeby ubrać Kicię (1 rzecz na slot). '
-                      'Nakarm ją min. $mascotDailyFeedGoal słówkami dziennie!',
+                      'Stuknij, żeby ubrać (1 rzecz na slot). '
+                      'Nakarm min. $mascotDailyFeedGoal słówkami dziennie!',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 12),
@@ -1623,7 +1623,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.9',
+                'v0.1.0',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -1714,7 +1714,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 12),
                           Wrap(
                             alignment: WrapAlignment.center,
                             spacing: 8,
@@ -1743,20 +1743,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            '💌 Portal współpracy',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          const SectionHeader(
+                            title: 'Portal współpracy',
+                            subtitle: 'Twój projekt — wspólna praca z tatą',
+                            icon: Icons.favorite_rounded,
                           ),
-                          const SizedBox(height: 6),
                           SelectableText(
                             _portal.url,
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'PIN: ${_portal.pin} · Twój projekt — wspólna praca z tatą',
+                            'PIN: ${_portal.pin}',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 10),
                           Wrap(
                             spacing: 8,
                             runSpacing: 8,
@@ -1794,6 +1794,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          const SectionHeader(
+                            title: 'Trening',
+                            subtitle: 'Wybierz język, pulę i metodę',
+                            icon: Icons.school_rounded,
+                          ),
                           DropdownButtonFormField<String>(
                             initialValue: _lang,
                             items: _store.baza.keys
