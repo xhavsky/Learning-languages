@@ -381,7 +381,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _store.stats.recordAnswer(ok);
     await _store.save();
     if (ok) {
-      _flash('Brawo! ✓', kind: FeedbackKind.success);
+      final msg = w.nauczone
+          ? 'Nauczone! ✓ (3× z rzędu)'
+          : 'Brawo! ✓ (${w.correctStreak}/3)';
+      _flash(msg, kind: FeedbackKind.success);
       _successCtrl.forward(from: 0);
       _burstCtrl.forward(from: 0);
       await _playText(w.obcy);
@@ -477,6 +480,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           onSelect: (id) {
             setState(() => _groupId = id);
             _draw();
+          },
+        ),
+      ),
+    );
+    setState(() {});
+    _draw();
+  }
+
+  Future<void> _openWords() async {
+    final pack = _pack;
+    if (pack == null || _lang == null) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => WordsPage(
+          lang: _lang!,
+          pack: pack,
+          palette: widget.palette,
+          onChanged: () async {
+            await _store.save();
+            setState(() {});
           },
         ),
       ),
@@ -717,8 +740,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
     );
     if (ok != true) return;
-    final pl = plCtrl.text.trim();
-    final obcy = obcyCtrl.text.trim();
+    final pl = capitalizePhrase(plCtrl.text);
+    final obcy = capitalizePhrase(obcyCtrl.text);
     if (pl.isEmpty || obcy.isEmpty) {
       _flash('Wypełnij oba pola', kind: FeedbackKind.hint);
       return;
@@ -727,14 +750,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       lang,
       () => LangPack(words: [], groups: []),
     );
-    pack.words.add(Word(
-      id: Word.fromJson({'pl': pl, 'obcy': obcy}).id,
-      pl: pl,
-      obcy: obcy,
-    ));
+    final created = Word.fromJson({'pl': pl, 'obcy': obcy});
+    pack.words.add(created);
     await _store.save();
     setState(() {});
-    _flash('Dodano: $pl → $obcy', kind: FeedbackKind.success);
+    _flash('Dodano: ${created.pl} → ${created.obcy}', kind: FeedbackKind.success);
   }
 
   Widget _keyboard() {
@@ -857,6 +877,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             tooltip: 'Zestawy',
             onPressed: _openGroups,
             icon: const Icon(Icons.folder_special_outlined),
+          ),
+          IconButton(
+            tooltip: 'Słówka',
+            onPressed: _openWords,
+            icon: const Icon(Icons.menu_book_outlined),
           ),
           IconButton(
             tooltip: 'Ustawienia',
@@ -1009,6 +1034,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           onPressed: _addWord,
                           icon: const Icon(Icons.add),
                           label: const Text('Słowo'),
+                        ),
+                        OutlinedButton.icon(
+                          onPressed: _openWords,
+                          icon: const Icon(Icons.edit_note),
+                          label: const Text('Lista'),
                         ),
                         FilledButton.tonal(
                           onPressed: () async {
@@ -1223,9 +1253,14 @@ class _GroupsPageState extends State<GroupsPage> {
     _selected = widget.selectedId;
   }
 
-  Future<void> _createGroup() async {
-    final nameCtrl = TextEditingController();
-    final selected = <String>{};
+  Future<bool> _pickWords({
+    required String title,
+    required Set<String> selected,
+    required TextEditingController nameCtrl,
+    required bool createMode,
+  }) async {
+    final filterCtrl = TextEditingController();
+    var query = '';
     final ok = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -1233,53 +1268,149 @@ class _GroupsPageState extends State<GroupsPage> {
       builder: (ctx) {
         return StatefulBuilder(
           builder: (ctx, setLocal) {
+            final q = query.trim().toLowerCase();
+            final sorted = List<Word>.of(widget.pack.words)
+              ..sort((a, b) => a.pl.toLowerCase().compareTo(b.pl.toLowerCase()));
+            final filtered = q.isEmpty
+                ? sorted
+                : sorted
+                    .where(
+                      (w) =>
+                          w.pl.toLowerCase().contains(q) ||
+                          w.obcy.toLowerCase().contains(q),
+                    )
+                    .toList();
             return SizedBox(
-              height: MediaQuery.of(ctx).size.height * 0.85,
+              height: MediaQuery.of(ctx).size.height * 0.9,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('Nowy zestaw', style: Theme.of(ctx).textTheme.titleLarge),
-                    const SizedBox(height: 8),
+                    Text(title, style: Theme.of(ctx).textTheme.titleLarge),
+                    const SizedBox(height: 10),
                     TextField(
                       controller: nameCtrl,
+                      textCapitalization: TextCapitalization.sentences,
                       decoration: const InputDecoration(
                         labelText: 'Nazwa zestawu',
+                        hintText: 'np. Czasowniki na dziś',
                         border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.label_outline),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: filterCtrl,
+                      onChanged: (v) => setLocal(() => query = v),
+                      decoration: InputDecoration(
+                        labelText: 'Szukaj słówka',
+                        border: const OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: query.isEmpty
+                            ? null
+                            : IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  filterCtrl.clear();
+                                  setLocal(() => query = '');
+                                },
+                              ),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Wybierz słowa (bez duplikowania — tylko zaznaczenie):',
+                      'Zaznaczone: ${selected.length} · Widoczne: ${filtered.length}',
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Zaznacz słowa do zestawu (możesz szukać po polsku lub obcym).',
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
+                    const SizedBox(height: 8),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: widget.pack.words.length,
-                        itemBuilder: (_, i) {
-                          final w = widget.pack.words[i];
-                          final on = selected.contains(w.id);
-                          return CheckboxListTile(
-                            value: on,
-                            title: Text('${w.pl} → ${w.obcy}'),
-                            subtitle: Text('poziom ${w.level}${w.hard ? " · trudne" : ""}'),
-                            onChanged: (v) {
-                              setLocal(() {
-                                if (v == true) {
-                                  selected.add(w.id);
-                                } else {
-                                  selected.remove(w.id);
-                                }
-                              });
-                            },
-                          );
-                        },
+                      child: SoftPanel(
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
+                        child: filtered.isEmpty
+                            ? const Center(child: Text('Brak słówek'))
+                            : ListView.separated(
+                                itemCount: filtered.length,
+                                separatorBuilder: (_, _) =>
+                                    const Divider(height: 1),
+                                itemBuilder: (_, i) {
+                                  final w = filtered[i];
+                                  final on = selected.contains(w.id);
+                                  return CheckboxListTile(
+                                    value: on,
+                                    dense: true,
+                                    title: Text(
+                                      w.pl,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    subtitle: Text('→ ${w.obcy}'),
+                                    secondary: Text(
+                                      w.nauczone
+                                          ? '✓'
+                                          : '${w.correctStreak}/3',
+                                      style: TextStyle(
+                                        color: w.nauczone
+                                            ? Colors.green
+                                            : Theme.of(ctx)
+                                                .colorScheme
+                                                .outline,
+                                      ),
+                                    ),
+                                    onChanged: (v) {
+                                      setLocal(() {
+                                        if (v == true) {
+                                          selected.add(w.id);
+                                        } else {
+                                          selected.remove(w.id);
+                                        }
+                                      });
+                                    },
+                                  );
+                                },
+                              ),
                       ),
                     ),
-                    FilledButton(
-                      onPressed: () => Navigator.pop(ctx, true),
-                      child: const Text('Utwórz'),
-                    ),
+                    const SizedBox(height: 12),
+                    if (!createMode)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                widget.pack.groups
+                                    .removeWhere((x) => x.id == _editingGroupId);
+                                Navigator.pop(ctx, false);
+                              },
+                              child: const Text('Usuń zestaw'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: FilledButton(
+                              onPressed: () => Navigator.pop(ctx, true),
+                              child: const Text('Zapisz'),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      FilledButton(
+                        onPressed: () => Navigator.pop(ctx, true),
+                        child: Text(
+                          selected.isEmpty
+                              ? 'Utwórz (wybierz słowa)'
+                              : 'Utwórz zestaw (${selected.length})',
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -1288,9 +1419,41 @@ class _GroupsPageState extends State<GroupsPage> {
         );
       },
     );
-    if (ok != true) return;
+    filterCtrl.dispose();
+    return ok == true;
+  }
+
+  String? _editingGroupId;
+
+  Future<void> _createGroup() async {
+    final nameCtrl = TextEditingController();
+    final selected = <String>{};
+    _editingGroupId = null;
+    final ok = await _pickWords(
+      title: 'Nowy zestaw',
+      selected: selected,
+      nameCtrl: nameCtrl,
+      createMode: true,
+    );
+    if (!ok) {
+      nameCtrl.dispose();
+      return;
+    }
     final name = nameCtrl.text.trim();
-    if (name.isEmpty || selected.isEmpty) return;
+    nameCtrl.dispose();
+    if (!mounted) return;
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Podaj nazwę zestawu')),
+      );
+      return;
+    }
+    if (selected.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Zaznacz przynajmniej jedno słówko')),
+      );
+      return;
+    }
     widget.pack.groups.add(
       WordGroup(
         id: 'g-${DateTime.now().millisecondsSinceEpoch}',
@@ -1305,79 +1468,21 @@ class _GroupsPageState extends State<GroupsPage> {
   Future<void> _editGroup(WordGroup g) async {
     final selected = g.wordIds.toSet();
     final nameCtrl = TextEditingController(text: g.name);
-    final ok = await showModalBottomSheet<bool>(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      builder: (ctx) {
-        return StatefulBuilder(
-          builder: (ctx, setLocal) {
-            return SizedBox(
-              height: MediaQuery.of(ctx).size.height * 0.85,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Text('Edytuj zestaw', style: Theme.of(ctx).textTheme.titleLarge),
-                    TextField(controller: nameCtrl),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: widget.pack.words.length,
-                        itemBuilder: (_, i) {
-                          final w = widget.pack.words[i];
-                          return CheckboxListTile(
-                            value: selected.contains(w.id),
-                            title: Text('${w.pl} → ${w.obcy}'),
-                            onChanged: (v) {
-                              setLocal(() {
-                                if (v == true) {
-                                  selected.add(w.id);
-                                } else {
-                                  selected.remove(w.id);
-                                }
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              widget.pack.groups.removeWhere((x) => x.id == g.id);
-                              Navigator.pop(ctx, false);
-                            },
-                            child: const Text('Usuń zestaw'),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: FilledButton(
-                            onPressed: () => Navigator.pop(ctx, true),
-                            child: const Text('Zapisz'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
+    _editingGroupId = g.id;
+    final ok = await _pickWords(
+      title: 'Edytuj zestaw',
+      selected: selected,
+      nameCtrl: nameCtrl,
+      createMode: false,
     );
-    if (ok == true) {
-      g.name = nameCtrl.text.trim().isEmpty ? g.name : nameCtrl.text.trim();
+    final name = nameCtrl.text.trim();
+    nameCtrl.dispose();
+    if (ok) {
+      g.name = name.isEmpty ? g.name : name;
       g.wordIds = selected.toList();
-      widget.onChanged();
-      setState(() {});
-    } else {
-      widget.onChanged();
-      setState(() {});
     }
+    widget.onChanged();
+    setState(() {});
   }
 
   Widget _tile({
@@ -1385,23 +1490,56 @@ class _GroupsPageState extends State<GroupsPage> {
     required String title,
     required String subtitle,
     VoidCallback? onEdit,
+    List<String>? preview,
   }) {
     final selected = _selected == id;
-    return ListTile(
-      selected: selected,
-      leading: Icon(
-        selected ? Icons.radio_button_checked : Icons.radio_button_off,
-      ),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      trailing: onEdit == null
-          ? null
-          : IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
-      onTap: () {
-        setState(() => _selected = id);
-        widget.onSelect(id);
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ListTile(
+          selected: selected,
+          leading: Icon(
+            selected ? Icons.radio_button_checked : Icons.radio_button_off,
+          ),
+          title: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+          ),
+          subtitle: Text(subtitle),
+          trailing: onEdit == null
+              ? null
+              : IconButton(icon: const Icon(Icons.edit_outlined), onPressed: onEdit),
+          onTap: () {
+            setState(() => _selected = id);
+            widget.onSelect(id);
+          },
+        ),
+        if (preview != null && preview.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(72, 0, 16, 12),
+            child: Text(
+              preview.join(' · '),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.65),
+                  ),
+            ),
+          ),
+      ],
     );
+  }
+
+  List<String> _previewFor(List<String> ids) {
+    return ids
+        .map(widget.pack.byId)
+        .whereType<Word>()
+        .take(6)
+        .map((w) => w.pl)
+        .toList();
   }
 
   @override
@@ -1417,27 +1555,52 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _createGroup,
+        icon: const Icon(Icons.add),
+        label: const Text('Nowy zestaw'),
+      ),
       body: GradientScaffoldBody(
         palette: widget.palette,
         child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 88),
           children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+              child: Text(
+                'Wybierz zestaw do nauki albo utwórz własny z listy słówek.',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
             SoftPanel(
-              margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              margin: const EdgeInsets.fromLTRB(16, 4, 16, 8),
               padding: EdgeInsets.zero,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                    child: Text(
+                      'Szybki wybór',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
                   _tile(
                     id: '__all__',
                     title: 'Cała baza',
                     subtitle: '${widget.pack.words.length} słów',
+                    preview: _previewFor(
+                      widget.pack.words.take(6).map((w) => w.id).toList(),
+                    ),
                   ),
+                  const Divider(height: 1),
                   _tile(
                     id: '__unlearned__',
                     title: 'Nieopanowane',
                     subtitle:
                         '${widget.pack.words.where((w) => w.level < 3).length} słów',
                   ),
+                  const Divider(height: 1),
                   _tile(
                     id: '__hard__',
                     title: 'Trudne',
@@ -1447,22 +1610,288 @@ class _GroupsPageState extends State<GroupsPage> {
                 ],
               ),
             ),
-            if (widget.pack.groups.isNotEmpty)
-              SoftPanel(
-                margin: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-                padding: EdgeInsets.zero,
-                child: Column(
-                  children: [
-                    for (final g in widget.pack.groups)
+            SoftPanel(
+              margin: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+              padding: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                    child: Text(
+                      widget.pack.groups.isEmpty
+                          ? 'Twoje zestawy (pusto — dodaj pierwszy)'
+                          : 'Twoje zestawy (${widget.pack.groups.length})',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                  if (widget.pack.groups.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(16, 8, 16, 20),
+                      child: Text(
+                        'Kliknij „Nowy zestaw”, wpisz nazwę i zaznacz słówka.',
+                      ),
+                    )
+                  else
+                    for (final g in widget.pack.groups) ...[
                       _tile(
                         id: g.id,
                         title: g.name,
-                        subtitle: '${g.wordIds.length} wybranych słów',
+                        subtitle: '${g.wordIds.length} słów',
                         onEdit: () => _editGroup(g),
+                        preview: _previewFor(g.wordIds),
                       ),
-                  ],
+                      if (g != widget.pack.groups.last)
+                        const Divider(height: 1),
+                    ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WordsPage extends StatefulWidget {
+  const WordsPage({
+    super.key,
+    required this.lang,
+    required this.pack,
+    required this.palette,
+    required this.onChanged,
+  });
+
+  final String lang;
+  final LangPack pack;
+  final AppPalette palette;
+  final VoidCallback onChanged;
+
+  @override
+  State<WordsPage> createState() => _WordsPageState();
+}
+
+class _WordsPageState extends State<WordsPage> {
+  final _filterCtrl = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _filterCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _deleteWord(Word w) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Usunąć słówko?'),
+        content: Text('${w.pl} → ${w.obcy}'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Anuluj'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Usuń'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    widget.pack.removeWord(w.id);
+    widget.onChanged();
+    setState(() {});
+  }
+
+  Future<void> _editWord(Word w) async {
+    final plCtrl = TextEditingController(text: w.pl);
+    final obcyCtrl = TextEditingController(text: w.obcy);
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 8,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text('Edytuj słówko', style: Theme.of(ctx).textTheme.titleLarge),
+              const SizedBox(height: 12),
+              TextField(
+                controller: plCtrl,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: const InputDecoration(labelText: 'Po polsku'),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: obcyCtrl,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: const InputDecoration(labelText: 'Tłumaczenie'),
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                child: const Text('Zapisz'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    if (ok != true) {
+      plCtrl.dispose();
+      obcyCtrl.dispose();
+      return;
+    }
+    final pl = capitalizePhrase(plCtrl.text);
+    final obcy = capitalizePhrase(obcyCtrl.text);
+    plCtrl.dispose();
+    obcyCtrl.dispose();
+    if (pl.isEmpty || obcy.isEmpty) return;
+    final idx = widget.pack.words.indexWhere((x) => x.id == w.id);
+    if (idx < 0) return;
+    widget.pack.words[idx] = Word(
+      id: w.id,
+      pl: pl,
+      obcy: obcy,
+      level: w.level,
+      hard: w.hard,
+      nextDue: w.nextDue,
+      correctStreak: w.correctStreak,
+    );
+    widget.onChanged();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final q = _query.trim().toLowerCase();
+    final sorted = List<Word>.of(widget.pack.words)
+      ..sort((a, b) => a.pl.toLowerCase().compareTo(b.pl.toLowerCase()));
+    final list = q.isEmpty
+        ? sorted
+        : sorted
+            .where(
+              (w) =>
+                  w.pl.toLowerCase().contains(q) ||
+                  w.obcy.toLowerCase().contains(q),
+            )
+            .toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Słówka — ${widget.lang}'),
+      ),
+      body: GradientScaffoldBody(
+        palette: widget.palette,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+              child: TextField(
+                controller: _filterCtrl,
+                onChanged: (v) => setState(() => _query = v),
+                decoration: InputDecoration(
+                  labelText: 'Szukaj',
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _query.isEmpty
+                      ? null
+                      : IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _filterCtrl.clear();
+                            setState(() => _query = '');
+                          },
+                        ),
                 ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${list.length} słówek · przesuń w lewo, żeby usunąć',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: SoftPanel(
+                margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                padding: EdgeInsets.zero,
+                child: list.isEmpty
+                    ? const Center(child: Text('Brak słówek'))
+                    : ListView.separated(
+                        itemCount: list.length,
+                        separatorBuilder: (_, _) => const Divider(height: 1),
+                        itemBuilder: (_, i) {
+                          final w = list[i];
+                          return Dismissible(
+                            key: ValueKey(w.id),
+                            direction: DismissDirection.endToStart,
+                            background: Container(
+                              alignment: Alignment.centerRight,
+                              padding: const EdgeInsets.only(right: 20),
+                              color: Theme.of(context).colorScheme.error,
+                              child: const Icon(Icons.delete, color: Colors.white),
+                            ),
+                            confirmDismiss: (_) async {
+                              await _deleteWord(w);
+                              return false;
+                            },
+                            child: ListTile(
+                              title: Text(
+                                w.pl,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 17,
+                                ),
+                              ),
+                              subtitle: Text('→ ${w.obcy}'),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    w.nauczone ? '✓' : '${w.correctStreak}/3',
+                                    style: TextStyle(
+                                      color: w.nauczone
+                                          ? Colors.green
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .outline,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    tooltip: 'Edytuj',
+                                    icon: const Icon(Icons.edit_outlined),
+                                    onPressed: () => _editWord(w),
+                                  ),
+                                  IconButton(
+                                    tooltip: 'Usuń',
+                                    icon: const Icon(Icons.delete_outline),
+                                    onPressed: () => _deleteWord(w),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ),
           ],
         ),
       ),
