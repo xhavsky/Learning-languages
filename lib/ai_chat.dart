@@ -39,7 +39,7 @@ Future<String?> ollamaReply({
           'model': model,
           'stream': false,
           'messages': messages,
-          'options': {'temperature': 0.7, 'num_predict': 180},
+          'options': {'temperature': 0.85, 'num_predict': 160},
         }),
       ),
     );
@@ -65,19 +65,36 @@ String buildTutorSystemPrompt({
   required List<Word> words,
 }) {
   final sample = (List<Word>.of(words)..shuffle(Random()))
-      .take(24)
-      .map((w) => '${w.pl} = ${w.obcy}')
-      .join('; ');
+      .take(18)
+      .map((w) => w.obcy)
+      .join(', ');
   return '''
-Jesteś miłą nauczycielką języków dla nastolatki Anielki w aplikacji „Trener Językowy”.
+Jesteś przyjaciółką-trenerką Anielki w aplikacji „Trener Językowy”.
 Język nauki: $lang.
-Prowadź krótką codzienną rozmowę (1–3 zdania na odpowiedź).
-Mów głównie w języku obcym ($lang), ale możesz dodać krótką polską podpowiedź w nawiasie.
-Używaj prostych słów. Zachęcaj, poprawiaj delikatnie błędy.
-Wplataj słówka z jej bazy, np.: $sample
-Nie pisz długich list ani kodu. Nie wspominaj, że jesteś modelem AI — jesteś trenerką.
+
+CEL: prawdziwa rozmowa, nie quiz ze słówek.
+
+ZASADY:
+1. 1–2 krótkie zdania na odpowiedź. Mów głównie po $lang; polski tylko gdy naprawdę trzeba (1 krótkie słowo w nawiasie).
+2. Naprzemiennie: czasem TY pytasz o nią (dzień, hobby, jedzenie, szkoła, rodzina, plany), czasem ONA ma zapytać Ciebie — proś o to wprost.
+3. Reaguj na to, co napisała (emocja, detal). Nie ignoruj jej wiadomości.
+4. Wplataj naturalnie słowa z jej bazy ($sample), ALE:
+   - NIGDY nie dawaj gotowej odpowiedzi / tłumaczenia w tej samej wiadomości co pytanie.
+   - NIGDY nie dawaj hintów ani podpowiedzi (ani pierwszej litery, ani liczby liter, ani „hint: …”).
+   - Jeśli utknie: zachęć krótko („spróbuj jeszcze raz”) i idź dalej z rozmową — bez zdradzania słowa.
+5. Unikaj powtarzania tego samego pytania. Zmieniaj temat co 1–2 tury.
+6. Nie pisz list, kodu ani meta o AI. Jesteś miłą koleżanką-trenerką.
 ''';
 }
+
+/// Stan rozmowy offline — zapamiętuje ostatnie słówko / temat, żeby nie powtarzać.
+class _FallbackBrain {
+  Word? pendingWord;
+  String? lastTopic;
+  final usedTopics = <String>{};
+}
+
+final _fallbackBrain = _FallbackBrain();
 
 String fallbackTutorReply({
   required String lang,
@@ -87,49 +104,231 @@ String fallbackTutorReply({
 }) {
   final rng = Random();
   final pool = words.isEmpty
-      ? [Word(id: 'x', pl: 'Cześć', obcy: 'Hello')]
+      ? [Word(id: 'x', pl: 'cześć', obcy: 'hello')]
       : words;
-  final w = pool[rng.nextInt(pool.length)];
-
-  if (userTurns <= 1) {
-    return switch (lang) {
-      'Hiszpański' =>
-        '¡Hola! 😊 Dziś porozmawiajmy po hiszpańsku. Jak powiedzieć „${w.pl}”? (podpowiedź: ${w.obcy})',
-      'Rosyjski' =>
-        'Привет! 😊 Сегодня поговорим по-русски. Как сказать „${w.pl}”? (подсказка: ${w.obcy})',
-      _ =>
-        'Hi! 😊 Today let\'s chat in English. How do you say „${w.pl}”? (hint: ${w.obcy})',
-    };
-  }
 
   final lastUser = history.reversed
       .where((m) => m.role == 'user')
+      .map((m) => m.text.trim())
+      .firstOrNull;
+  final lastAssistant = history.reversed
+      .where((m) => m.role == 'assistant')
       .map((m) => m.text)
       .firstOrNull;
-  final okish = lastUser != null &&
-      (lastUser.toLowerCase().contains(w.obcy.toLowerCase()) ||
-          lastUser.trim().length >= 2);
 
-  if (okish) {
-    final next = pool[rng.nextInt(pool.length)];
+  // Otwarcie — pytanie o nią, bez quizu ze spoilerem.
+  if (userTurns <= 1 && (lastUser == null || lastUser.isEmpty)) {
+    return _opening(lang, rng);
+  }
+
+  // Jeśli wcześniej pytaliśmy o słówko — sprawdź odpowiedź delikatnie.
+  final pending = _fallbackBrain.pendingWord;
+  if (pending != null && lastUser != null) {
+    final u = lastUser.toLowerCase();
+    final ok = u.contains(pending.obcy.toLowerCase()) ||
+        u.contains(pending.pl.toLowerCase()) ||
+        // krótkie „tak / yes / sí / да” po wcześniejszej zachęcie
+        RegExp(r'^(tak|yes|ok|sí|si|да|хорошо|jasne|pewnie)\b',
+                caseSensitive: false)
+            .hasMatch(u);
+    _fallbackBrain.pendingWord = null;
+    if (ok) {
+      return _praiseThenAskAboutHer(lang, rng, pool);
+    }
+    // Bez hintów — zachęta i nowe pytanie.
+    return _encourageThenContinue(lang, rng, pool);
+  }
+
+  // Co 3. turę — poproś, żeby ONA zapytała.
+  if (userTurns >= 2 && userTurns % 3 == 0) {
+    return _askHerToAsk(lang, rng);
+  }
+
+  // Reakcja na treść + nowe pytanie / mini-ćwiczenie bez spoilera.
+  final reacted = _reactToUser(lang, lastUser, rng);
+  final next = _nextBeat(lang, pool, rng, lastAssistant);
+  return '$reacted $next'.trim();
+}
+
+String _opening(String lang, Random rng) {
+  final opts = switch (lang) {
+    'Hiszpański' => [
+      '¡Hola! 😊 ¿Qué tal tu día hoy?',
+      '¡Hey! ¿Qué hiciste hoy?',
+      '¡Buenas! ¿Tienes hambre o estás bien?',
+    ],
+    'Rosyjski' => [
+      'Привет! 😊 Как прошёл твой день?',
+      'Привет! Что интересного сегодня?',
+      'Здравствуй! Как настроение?',
+    ],
+    _ => [
+      'Hi! 😊 How was your day?',
+      'Hey! What did you do today?',
+      'Hello! Are you tired or full of energy?',
+    ],
+  };
+  return opts[rng.nextInt(opts.length)];
+}
+
+String _praiseThenAskAboutHer(String lang, Random rng, List<Word> pool) {
+  final w = pool[rng.nextInt(pool.length)];
+  final praise = switch (lang) {
+    'Hiszpański' => ['¡Genial!', '¡Muy bien!', '¡Sí!'],
+    'Rosyjski' => ['Молодец!', 'Отлично!', 'Класс!'],
+    _ => ['Nice!', 'Great!', 'Yes!'],
+  }[rng.nextInt(3)];
+
+  // Czasem pytanie o życie, czasem poproś o użycie słowa BEZ podawania tłumaczenia.
+  if (rng.nextBool()) {
     return switch (lang) {
       'Hiszpański' =>
-        '¡Muy bien! 🌟 A teraz: użyj słowa „${next.obcy}" (${next.pl}) w krótkim zdaniu.',
+        '$praise Ahora cuéntame: ¿cuál es tu comida favorita?',
+      'Rosyjski' => '$praise А теперь скажи: какая у тебя любимая еда?',
+      _ => '$praise Now tell me: what\'s your favourite food?',
+    };
+  }
+  _fallbackBrain.pendingWord = w;
+  return switch (lang) {
+    'Hiszpański' =>
+      '$praise Usa la palabra „${w.obcy}” en una frase corta sobre ti.',
+    'Rosyjski' =>
+      '$praise Используй слово „${w.obcy}” в коротком предложении о себе.',
+    _ =>
+      '$praise Use the word „${w.obcy}” in a short sentence about yourself.',
+  };
+}
+
+String _encourageThenContinue(String lang, Random rng, List<Word> pool) {
+  final nudge = switch (lang) {
+    'Hiszpański' => [
+      'Casi… inténtalo otra vez 🙂',
+      'No pasa nada — prueba de nuevo.',
+      'Cerca… una vez más.',
+    ],
+    'Rosyjski' => [
+      'Почти… попробуй ещё раз 🙂',
+      'Ничего — ещё раз.',
+      'Близко… давай снова.',
+    ],
+    _ => [
+      'Almost… try once more 🙂',
+      'No worries — give it another go.',
+      'Close… one more try.',
+    ],
+  }[rng.nextInt(3)];
+  final next = _nextBeat(lang, pool, rng, null);
+  return '$nudge $next'.trim();
+}
+
+String _askHerToAsk(String lang, Random rng) {
+  final opts = switch (lang) {
+    'Hiszpański' => [
+      'Ahora tú: pregúntame algo. Por ejemplo sobre mi día o mi comida favorita.',
+      '¡Tu turno! Hazme una pregunta en español.',
+    ],
+    'Rosyjski' => [
+      'Теперь ты: задай мне вопрос. Например про мой день или любимую еду.',
+      'Твой ход! Задай мне вопрос по-русски.',
+    ],
+    _ => [
+      'Your turn: ask me something — about my day or my favourite food.',
+      'Now you ask me a question in English!',
+    ],
+  };
+  return opts[rng.nextInt(opts.length)];
+}
+
+String _reactToUser(String lang, String? lastUser, Random rng) {
+  if (lastUser == null || lastUser.isEmpty) {
+    return switch (lang) {
+      'Hiszpański' => 'Vale.',
+      'Rosyjski' => 'Ок.',
+      _ => 'Okay.',
+    };
+  }
+  final u = lastUser.toLowerCase();
+  if (RegExp(r'(smut|sad|tired|zmęcz|уста|triste|cansad)').hasMatch(u)) {
+    return switch (lang) {
+      'Hiszpański' => 'Ay, lo siento…',
+      'Rosyjski' => 'Ой, жаль…',
+      _ => 'Aww, sorry…',
+    };
+  }
+  if (RegExp(r'(lubię|like|love|gust|нрав|koch)').hasMatch(u)) {
+    return switch (lang) {
+      'Hiszpański' => '¡Qué guay!',
+      'Rosyjski' => 'Круто!',
+      _ => 'Cool!',
+    };
+  }
+  if (lastUser.length <= 3) {
+    return switch (lang) {
+      'Hiszpański' => 'Cuéntame un poco más.',
+      'Rosyjski' => 'Расскажи чуть больше.',
+      _ => 'Tell me a bit more.',
+    };
+  }
+  final soft = switch (lang) {
+    'Hiszpański' => ['Entiendo.', 'Interesante.', 'Vale, gracias.'],
+    'Rosyjski' => ['Поняла.', 'Интересно.', 'Спасибо.'],
+    _ => ['I see.', 'Interesting.', 'Thanks for sharing.'],
+  };
+  return soft[rng.nextInt(soft.length)];
+}
+
+String _nextBeat(
+  String lang,
+  List<Word> pool,
+  Random rng,
+  String? lastAssistant,
+) {
+  final topics = switch (lang) {
+    'Hiszpański' => [
+      '¿Qué música te gusta?',
+      '¿Prefieres gatos o perros?',
+      '¿Qué comes normalmente en el desayuno?',
+      'Si pudieras viajar mañana, ¿a dónde?',
+      '¿Qué haces después de la escuela?',
+    ],
+    'Rosyjski' => [
+      'Какая музыка тебе нравится?',
+      'Кошки или собаки — что больше?',
+      'Что обычно ешь на завтрак?',
+      'Если бы завтра можно было куда-то поехать — куда?',
+      'Что делаешь после школы?',
+    ],
+    _ => [
+      'What music do you like?',
+      'Cats or dogs — which one more?',
+      'What do you usually eat for breakfast?',
+      'If you could travel tomorrow, where?',
+      'What do you do after school?',
+    ],
+  };
+
+  // Unikaj powtórzenia tego samego tematu.
+  final fresh = topics
+      .where((t) => lastAssistant == null || !lastAssistant.contains(t))
+      .toList();
+  final pickFrom = fresh.isEmpty ? topics : fresh;
+
+  // Co drugi raz — ćwiczenie ze słówkiem bez spoilera PL.
+  if (rng.nextBool()) {
+    final w = pool[rng.nextInt(pool.length)];
+    _fallbackBrain.pendingWord = w;
+    return switch (lang) {
+      'Hiszpański' =>
+          '¿Puedes usar „${w.obcy}” en una frase? (sin mirar la app)',
       'Rosyjski' =>
-        'Молодец! 🌟 Теперь используй слово „${next.obcy}" (${next.pl}) в коротком предложении.',
-      _ =>
-        'Great job! 🌟 Now use the word „${next.obcy}" (${next.pl}) in a short sentence.',
+          'Можешь использовать „${w.obcy}” в предложении? (не подглядывай)',
+      _ => 'Can you use „${w.obcy}” in a sentence? (no peeking)',
     };
   }
 
-  return switch (lang) {
-    'Hiszpański' =>
-      'Casi — spróbuj jeszcze raz. Możesz napisać: ${w.obcy}. ¿Cómo estás hoy?',
-    'Rosyjski' =>
-      'Почти — spróbuj jeszcze raz. Możesz napisać: ${w.obcy}. Как дела сегодня?',
-    _ =>
-      'Almost — try again. You can write: ${w.obcy}. How are you today?',
-  };
+  final topic = pickFrom[rng.nextInt(pickFrom.length)];
+  _fallbackBrain.lastTopic = topic;
+  return topic;
 }
 
 /// Ekran codziennej rozmowy z AI (Ollama) + tryb offline.
@@ -165,6 +364,9 @@ class _DailyChatPageState extends State<DailyChatPage> {
   @override
   void initState() {
     super.initState();
+    _fallbackBrain.pendingWord = null;
+    _fallbackBrain.lastTopic = null;
+    _fallbackBrain.usedTopics.clear();
     _boot();
   }
 
