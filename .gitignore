@@ -1,0 +1,22 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+
+# Large Piper ONNX models (download via generate_tts / README)
+tools/voices/*.onnx
+tools/voices/*.onnx.json
+
+# Release artifacts (build locally)
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# Misc
+*.log
+.flutter-plugins-dependencies
