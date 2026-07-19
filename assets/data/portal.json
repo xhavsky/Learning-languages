@@ -1,6 +1,7 @@
 {
-  "url": "http://REMOVED.invalid:7474",
+  "url": "https://REMOVED.invalid:7475",
+  "urlHttp": "http://REMOVED.invalid:7474",
   "urlIp": "http://100.68.72.119:7474",
   "pin": "",
-  "note": "Tylko Tailscale · tymczasowy portal dla Anielki"
+  "note": "Tailscale MUSI być włączony. OperaGX: użyj HTTPS :7475"
 }

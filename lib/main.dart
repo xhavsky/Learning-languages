@@ -843,7 +843,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.0.1',
+                'v0.0.2',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme
@@ -879,6 +879,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     SoftPanel(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.asset(
+                              'assets/images/kitten_book.png',
+                              height: 180,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Trener Językowy',
+                            style: Theme.of(context).textTheme.headlineMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'Ucz się słówek z uroczym kotkiem 📚',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SoftPanel(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
@@ -891,7 +918,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'PIN: ${_portal.pin} · Tailscale · release w portalu WWW',
+                            'PIN: ${_portal.pin} · Tailscale · Opera: HTTPS :7475',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(height: 8),
