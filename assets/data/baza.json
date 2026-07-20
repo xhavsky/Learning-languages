@@ -3499,7 +3499,7 @@
       },
       {
         "id": "en-powitania",
-        "name": "Powitania",
+        "name": "Zwroty grzecznościowe",
         "wordIds": [
           "2bd4082e6649",
           "2621be01",
@@ -3565,7 +3565,7 @@
       },
       {
         "id": "en-rodzina",
-        "name": "Rodzina",
+        "name": "Rodzina i ludzie",
         "wordIds": [
           "6ad53535",
           "0ceb8b57",
@@ -3612,7 +3612,7 @@
       },
       {
         "id": "en-przymiotniki",
-        "name": "Przymiotniki",
+        "name": "Opisy",
         "wordIds": [
           "02bbf073",
           "5a0800fc",
@@ -3714,7 +3714,7 @@
       },
       {
         "id": "en-dom2",
-        "name": "Dom (więcej)",
+        "name": "Więcej o domu",
         "wordIds": [
           "5d454d212dac",
           "c5ccace931ad",
@@ -3730,7 +3730,7 @@
       },
       {
         "id": "en-emocje",
-        "name": "Emocje i cechy",
+        "name": "Nastroje i cechy",
         "wordIds": [
           "7f81c1cc0921",
           "4e5f0bb6f0e4",
@@ -3771,7 +3771,7 @@
       },
       {
         "id": "en-jedzenie2",
-        "name": "Jedzenie (więcej)",
+        "name": "Więcej o jedzeniu",
         "wordIds": [
           "99447cd5d758",
           "1f1bee105919",
@@ -3800,7 +3800,7 @@
       },
       {
         "id": "en-swiat",
-        "name": "Świat i natura",
+        "name": "Krajobraz i niebo",
         "wordIds": [
           "f2652dd5307d",
           "9a28edfa9948",
@@ -3814,7 +3814,7 @@
       },
       {
         "id": "en-czas2",
-        "name": "Czasowniki (więcej)",
+        "name": "Więcej czasowników",
         "wordIds": [
           "16e57737cad6",
           "a19169584192",
@@ -3829,7 +3829,7 @@
       },
       {
         "id": "en-codzien",
-        "name": "Codzienność",
+        "name": "Sprawy codzienne",
         "wordIds": [
           "c1e26429298c",
           "1580ac89a8de",
@@ -3879,7 +3879,7 @@
       },
       {
         "id": "en-a94d354c",
-        "name": "Dom (sprzęty)",
+        "name": "Sprzęty domowe",
         "wordIds": [
           "41f5dc26",
           "128de00c",
@@ -3913,7 +3913,7 @@
       },
       {
         "id": "en-dca62a31",
-        "name": "Zwierzęta (więcej)",
+        "name": "Więcej o zwierzętach",
         "wordIds": [
           "0c20a0dc",
           "1e17ca46",
@@ -3929,7 +3929,7 @@
       },
       {
         "id": "en-0c6e9fd7",
-        "name": "Pory roku",
+        "name": "Pory roku i zjawiska",
         "wordIds": [
           "4ec79500",
           "0459fa7b",
@@ -3943,7 +3943,7 @@
       },
       {
         "id": "en-802a28e2",
-        "name": "Czas wolny",
+        "name": "Hobby i nauka",
         "wordIds": [
           "497ec328",
           "1cede5a9",
@@ -3959,7 +3959,7 @@
       },
       {
         "id": "en-7376cf1f",
-        "name": "Uczucia i słowa",
+        "name": "Uczucia i pojęcia",
         "wordIds": [
           "500c1891",
           "24533017",
@@ -7521,7 +7521,7 @@
       },
       {
         "id": "es-powitania",
-        "name": "Powitania",
+        "name": "Zwroty grzecznościowe",
         "wordIds": [
           "58d29f147a20",
           "685044ba",
@@ -7587,7 +7587,7 @@
       },
       {
         "id": "es-rodzina",
-        "name": "Rodzina",
+        "name": "Rodzina i ludzie",
         "wordIds": [
           "1befb1ee",
           "1085ddfa",
@@ -7634,7 +7634,7 @@
       },
       {
         "id": "es-przymiotniki",
-        "name": "Przymiotniki",
+        "name": "Opisy",
         "wordIds": [
           "02b992e6",
           "5a082a4f",
@@ -7736,7 +7736,7 @@
       },
       {
         "id": "es-dom2",
-        "name": "Dom (więcej)",
+        "name": "Więcej o domu",
         "wordIds": [
           "54abdb47fd3b",
           "15ed9226fc32",
@@ -7752,7 +7752,7 @@
       },
       {
         "id": "es-emocje",
-        "name": "Emocje i cechy",
+        "name": "Nastroje i cechy",
         "wordIds": [
           "44505a442be7",
           "4308f76fd0df",
@@ -7793,7 +7793,7 @@
       },
       {
         "id": "es-jedzenie2",
-        "name": "Jedzenie (więcej)",
+        "name": "Więcej o jedzeniu",
         "wordIds": [
           "99447cd5d758",
           "1f1bee105919",
@@ -7822,7 +7822,7 @@
       },
       {
         "id": "es-swiat",
-        "name": "Świat i natura",
+        "name": "Krajobraz i niebo",
         "wordIds": [
           "b17e0a0cc29c",
           "348a64ebaf1e",
@@ -7836,7 +7836,7 @@
       },
       {
         "id": "es-czas2",
-        "name": "Czasowniki (więcej)",
+        "name": "Więcej czasowników",
         "wordIds": [
           "f66dca098be4",
           "ecd621962ed4",
@@ -7851,7 +7851,7 @@
       },
       {
         "id": "es-codzien",
-        "name": "Codzienność",
+        "name": "Sprawy codzienne",
         "wordIds": [
           "de87568d9c7d",
           "fa8fbc748116",
@@ -7901,7 +7901,7 @@
       },
       {
         "id": "es-a94d354c",
-        "name": "Dom (sprzęty)",
+        "name": "Sprzęty domowe",
         "wordIds": [
           "4eeb5d76",
           "3ec87f90",
@@ -7935,7 +7935,7 @@
       },
       {
         "id": "es-dca62a31",
-        "name": "Zwierzęta (więcej)",
+        "name": "Więcej o zwierzętach",
         "wordIds": [
           "6198d64f",
           "773ee95f",
@@ -7951,7 +7951,7 @@
       },
       {
         "id": "es-0c6e9fd7",
-        "name": "Pory roku",
+        "name": "Pory roku i zjawiska",
         "wordIds": [
           "6895ce46",
           "0899262b",
@@ -7965,7 +7965,7 @@
       },
       {
         "id": "es-802a28e2",
-        "name": "Czas wolny",
+        "name": "Hobby i nauka",
         "wordIds": [
           "497ec328",
           "41df610a",
@@ -7981,7 +7981,7 @@
       },
       {
         "id": "es-7376cf1f",
-        "name": "Uczucia i słowa",
+        "name": "Uczucia i pojęcia",
         "wordIds": [
           "486db027",
           "6677568d",
@@ -11541,7 +11541,7 @@
       },
       {
         "id": "ru-powitania",
-        "name": "Powitania",
+        "name": "Zwroty grzecznościowe",
         "wordIds": [
           "04fb0974cc02",
           "6be6faeab6fc",
@@ -11608,7 +11608,7 @@
       },
       {
         "id": "ru-rodzina",
-        "name": "Rodzina",
+        "name": "Rodzina i ludzie",
         "wordIds": [
           "5b3ea5806879",
           "41bcccebb30b",
@@ -11657,7 +11657,7 @@
       },
       {
         "id": "ru-przymiotniki",
-        "name": "Przymiotniki",
+        "name": "Opisy",
         "wordIds": [
           "96ec75383b25",
           "2d6f9d6a9ed5",
@@ -11759,7 +11759,7 @@
       },
       {
         "id": "ru-dom2",
-        "name": "Dom (więcej)",
+        "name": "Więcej o domu",
         "wordIds": [
           "ba57d0074979",
           "568ef469e9d8",
@@ -11775,7 +11775,7 @@
       },
       {
         "id": "ru-emocje",
-        "name": "Emocje i cechy",
+        "name": "Nastroje i cechy",
         "wordIds": [
           "f0a4f0948669",
           "965f2ab069e7",
@@ -11816,7 +11816,7 @@
       },
       {
         "id": "ru-jedzenie2",
-        "name": "Jedzenie (więcej)",
+        "name": "Więcej o jedzeniu",
         "wordIds": [
           "4a677512f374",
           "08a1611e82d9",
@@ -11845,7 +11845,7 @@
       },
       {
         "id": "ru-swiat",
-        "name": "Świat i natura",
+        "name": "Krajobraz i niebo",
         "wordIds": [
           "39a3283b400a",
           "bf338dc100c2",
@@ -11859,7 +11859,7 @@
       },
       {
         "id": "ru-czas2",
-        "name": "Czasowniki (więcej)",
+        "name": "Więcej czasowników",
         "wordIds": [
           "68bddb414514",
           "ad47ef7d42b4",
@@ -11874,7 +11874,7 @@
       },
       {
         "id": "ru-codzien",
-        "name": "Codzienność",
+        "name": "Sprawy codzienne",
         "wordIds": [
           "a79283bd52d3",
           "b901596c50cc",
@@ -11924,7 +11924,7 @@
       },
       {
         "id": "ru-a94d354c",
-        "name": "Dom (sprzęty)",
+        "name": "Sprzęty domowe",
         "wordIds": [
           "1c55b02d",
           "48cb49c4",
@@ -11958,7 +11958,7 @@
       },
       {
         "id": "ru-dca62a31",
-        "name": "Zwierzęta (więcej)",
+        "name": "Więcej o zwierzętach",
         "wordIds": [
           "4b70ba5a",
           "2f91ce26",
@@ -11974,7 +11974,7 @@
       },
       {
         "id": "ru-0c6e9fd7",
-        "name": "Pory roku",
+        "name": "Pory roku i zjawiska",
         "wordIds": [
           "6aa6711e",
           "27bd9ee2",
@@ -11988,7 +11988,7 @@
       },
       {
         "id": "ru-802a28e2",
-        "name": "Czas wolny",
+        "name": "Hobby i nauka",
         "wordIds": [
           "01b98c35",
           "2270c1cd",
@@ -12004,7 +12004,7 @@
       },
       {
         "id": "ru-7376cf1f",
-        "name": "Uczucia i słowa",
+        "name": "Uczucia i pojęcia",
         "wordIds": [
           "12c93fa3",
           "1e38048d",

@@ -1908,16 +1908,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ],
                       ),
                     ),
-                    if (_banner != null)
-                      AnimatedFeedbackBanner(
-                        message: _banner!,
-                        kind: _bannerKind,
-                        visible: _bannerVisible,
-                        onDismiss: () => setState(() {
-                          _bannerVisible = false;
-                          _banner = null;
-                        }),
-                      ),
                     SoftPanel(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2036,52 +2026,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ' · streak ${_store.stats.streakDays} dni',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Text(
-                                'Poz. ${_store.stats.playerLevel}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: LinearProgressIndicator(
-                                    value: _store.stats.levelProgress,
-                                    minHeight: 10,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '${_store.stats.xp} XP',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            titleForLevel(_store.stats.playerLevel).title,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
-                            '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 6),
-                          TextButton(
-                            onPressed: _openCuriosityAlbum,
-                            child: const Text('Album nagród / ciekawostki'),
                           ),
                         ],
                       ),
@@ -2298,10 +2242,93 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
+                    const SizedBox(height: 12),
+                    SoftPanel(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SectionHeader(
+                            title: 'Twój poziom',
+                            subtitle: 'XP za poprawne odpowiedzi',
+                            icon: Icons.military_tech_rounded,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Poz. ${_store.stats.playerLevel}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: LinearProgressIndicator(
+                                    value: _store.stats.levelProgress,
+                                    minHeight: 10,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                '${_store.stats.xp} XP',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            titleForLevel(_store.stats.playerLevel).title,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
+                            '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 6),
+                          TextButton(
+                            onPressed: _openCuriosityAlbum,
+                            child: const Text('Album nagród / ciekawostki'),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
+            if (_banner != null)
+              Positioned(
+                top: 8,
+                left: 16,
+                right: 16,
+                child: SafeArea(
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 720),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: AnimatedFeedbackBanner(
+                          message: _banner!,
+                          kind: _bannerKind,
+                          visible: _bannerVisible,
+                          onDismiss: () => setState(() {
+                            _bannerVisible = false;
+                            _banner = null;
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
