@@ -113,7 +113,7 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
-/// Soft page backdrop with palette gradient + subtle vignette.
+/// Soft page backdrop with palette gradient + floating orbs.
 class GradientScaffoldBody extends StatelessWidget {
   const GradientScaffoldBody({
     super.key,
@@ -129,6 +129,7 @@ class GradientScaffoldBody extends StatelessWidget {
     final bright = Theme.of(context).brightness == Brightness.light;
     final g = palette.gradient(bright);
     final seed = palette.seed;
+    final accent = palette.accent;
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -141,7 +142,6 @@ class GradientScaffoldBody extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // Delikatne „światło” w rogu — mniej płasko, nadal spójne z paletą.
           IgnorePointer(
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -149,7 +149,7 @@ class GradientScaffoldBody extends StatelessWidget {
                   center: const Alignment(-0.85, -0.9),
                   radius: 1.15,
                   colors: [
-                    seed.withValues(alpha: bright ? 0.18 : 0.22),
+                    seed.withValues(alpha: bright ? 0.22 : 0.26),
                     Colors.transparent,
                   ],
                 ),
@@ -163,14 +163,295 @@ class GradientScaffoldBody extends StatelessWidget {
                   center: const Alignment(0.95, 0.85),
                   radius: 0.95,
                   colors: [
-                    seed.withValues(alpha: bright ? 0.10 : 0.16),
+                    accent.withValues(alpha: bright ? 0.16 : 0.18),
                     Colors.transparent,
                   ],
                 ),
               ),
             ),
           ),
+          IgnorePointer(
+            child: _FloatingOrbs(seed: seed, accent: accent, bright: bright),
+          ),
           child,
+        ],
+      ),
+    );
+  }
+}
+
+/// Delikatne „baloniki” w tle — apka żyje, nie przeszkadza.
+class _FloatingOrbs extends StatefulWidget {
+  const _FloatingOrbs({
+    required this.seed,
+    required this.accent,
+    required this.bright,
+  });
+
+  final Color seed;
+  final Color accent;
+  final bool bright;
+
+  @override
+  State<_FloatingOrbs> createState() => _FloatingOrbsState();
+}
+
+class _FloatingOrbsState extends State<_FloatingOrbs>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 10),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, _) {
+        final t = _ctrl.value * math.pi * 2;
+        return CustomPaint(
+          painter: _OrbsPainter(
+            t: t,
+            seed: widget.seed,
+            accent: widget.accent,
+            bright: widget.bright,
+          ),
+          size: Size.infinite,
+        );
+      },
+    );
+  }
+}
+
+class _OrbsPainter extends CustomPainter {
+  _OrbsPainter({
+    required this.t,
+    required this.seed,
+    required this.accent,
+    required this.bright,
+  });
+
+  final double t;
+  final Color seed;
+  final Color accent;
+  final bool bright;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..style = PaintingStyle.fill;
+    final specs = <(Alignment, double, Color)>[
+      (const Alignment(-0.7, -0.55), 70, seed),
+      (const Alignment(0.75, -0.2), 55, accent),
+      (const Alignment(-0.35, 0.7), 90, seed),
+      (const Alignment(0.55, 0.55), 48, accent),
+    ];
+    for (var i = 0; i < specs.length; i++) {
+      final (align, baseR, color) = specs[i];
+      final wobble = math.sin(t + i * 1.3) * 12;
+      final r = baseR + math.cos(t * 0.8 + i) * 6;
+      final center = Offset(
+        (align.x + 1) / 2 * size.width + wobble,
+        (align.y + 1) / 2 * size.height + math.cos(t + i) * 10,
+      );
+      paint.color = color.withValues(alpha: bright ? 0.11 : 0.14);
+      canvas.drawCircle(center, r, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _OrbsPainter old) =>
+      old.t != t || old.seed != seed || old.accent != accent;
+}
+
+/// Pasek misji dnia + streak — na górze ekranu nauki.
+class DailyMissionBanner extends StatelessWidget {
+  const DailyMissionBanner({
+    super.key,
+    required this.wordsToday,
+    required this.dailyGoal,
+    required this.streakDays,
+    required this.palette,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final int wordsToday;
+  final int dailyGoal;
+  final int streakDays;
+  final AppPalette palette;
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final progress = (wordsToday / dailyGoal).clamp(0.0, 1.0);
+    final done = wordsToday >= dailyGoal;
+    return SoftPanel(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: Theme.of(context).textTheme.titleLarge),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: scheme.onSurface.withValues(alpha: 0.72),
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              _StreakBadge(days: streakDays, accent: palette.accent),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      done
+                          ? 'Misja dnia zaliczona!'
+                          : 'Misja dnia: $wordsToday / $dailyGoal słówek',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: done ? palette.seed : scheme.onSurface,
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 12,
+                        backgroundColor:
+                            scheme.primaryContainer.withValues(alpha: 0.45),
+                        color: done ? palette.accent : scheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 14),
+              _SessionRing(
+                progress: progress,
+                accent: done ? palette.accent : scheme.primary,
+                label: done ? '✓' : '$wordsToday',
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StreakBadge extends StatelessWidget {
+  const _StreakBadge({required this.days, required this.accent});
+
+  final int days;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.92, end: 1),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.elasticOut,
+      builder: (_, scale, child) => Transform.scale(scale: scale, child: child),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              accent.withValues(alpha: 0.95),
+              accent.withValues(alpha: 0.7),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: accent.withValues(alpha: 0.35),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.local_fire_department_rounded,
+                color: Colors.white, size: 22),
+            const SizedBox(width: 4),
+            Text(
+              '$days',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SessionRing extends StatelessWidget {
+  const _SessionRing({
+    required this.progress,
+    required this.accent,
+    required this.label,
+  });
+
+  final double progress;
+  final Color accent;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 58,
+      height: 58,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: 58,
+            height: 58,
+            child: CircularProgressIndicator(
+              value: progress,
+              strokeWidth: 6,
+              backgroundColor: accent.withValues(alpha: 0.18),
+              color: accent,
+              strokeCap: StrokeCap.round,
+            ),
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: label.length > 2 ? 14 : 16,
+              color: accent,
+            ),
+          ),
         ],
       ),
     );
@@ -203,15 +484,18 @@ class SoftPanel extends StatelessWidget {
         color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
         borderRadius: BorderRadius.circular(radius),
         border: Border.all(
-          color: scheme.outlineVariant.withValues(alpha: 0.28),
+          color: scheme.primary.withValues(alpha: bright ? 0.18 : 0.28),
+          width: 1.4,
         ),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            scheme.surface.withValues(alpha: bright ? 0.95 : 0.78),
-            scheme.primaryContainer.withValues(alpha: bright ? 0.22 : 0.14),
+            scheme.surface.withValues(alpha: bright ? 0.96 : 0.80),
+            scheme.primaryContainer.withValues(alpha: bright ? 0.28 : 0.18),
+            scheme.tertiaryContainer.withValues(alpha: bright ? 0.12 : 0.10),
           ],
+          stops: const [0.0, 0.55, 1.0],
         ),
         boxShadow: softShadows(context),
       ),

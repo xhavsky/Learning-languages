@@ -58,7 +58,7 @@ class TrenerApp extends StatefulWidget {
 
 class _TrenerAppState extends State<TrenerApp> {
   ThemeMode _themeMode = ThemeMode.system;
-  AppPalette _palette = AppPalette.forest;
+  AppPalette _palette = AppPalette.mint;
 
   @override
   void initState() {
@@ -1751,7 +1751,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 6),
             child: Center(
               child: Text(
-                'v0.0.16',
+                'v0.0.17',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context)
@@ -1806,74 +1806,42 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: ListView(
                   padding: const EdgeInsets.all(20),
                   children: [
-                    MascotCard(
-                      playerLevel: _store.stats.playerLevel,
+                    // —— NAUKA NA GÓRZE ——
+                    DailyMissionBanner(
                       wordsToday: _store.stats.wordsToday,
-                      fedToday: _store.stats.mascotFedToday,
-                      unlockedIds: _store.stats.unlockedMascotIds,
-                      equipped: _store.stats.equippedMascot,
-                      placedHome: _store.stats.placedHome,
-                      goldenPaws: _store.stats.goldenPaws,
-                      species: _store.stats.mascotSpecies,
-                      furColor: Color(_store.stats.mascotColorArgb),
-                      onTapWardrobe: _openWardrobe,
-                      onTapShop: _openShop,
-                      onEquip: _equipMascot,
-                      onSpeciesChanged: (s) async {
-                        setState(() => _store.stats.mascotSpecies = s);
-                        await _store.save();
-                      },
-                      onColorChanged: (c) async {
-                        setState(
-                          () => _store.stats.mascotColorArgb = c.toARGB32(),
-                        );
-                        await _store.save();
-                      },
+                      dailyGoal: mascotDailyFeedGoal,
+                      streakDays: _store.stats.streakDays,
+                      palette: widget.palette,
+                      title: _store.stats.mascotSpecies == MascotSpecies.dog
+                          ? 'Czas na naukę z Pieskiem!'
+                          : 'Czas na naukę z Kicią!',
+                      subtitle: _store.stats.mascotSpecies == MascotSpecies.dog
+                          ? 'Każde słówko karmi Twojego Pieska'
+                          : 'Każde słówko karmi Twoją Kicię',
                     ),
                     SoftPanel(
                       margin: const EdgeInsets.only(bottom: 12),
-                      child: Column(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 8,
+                        runSpacing: 8,
                         children: [
-                          Text(
-                            _store.stats.mascotSpecies == MascotSpecies.dog
-                                ? 'Czas na naukę z Pieskiem!'
-                                : 'Czas na naukę z Kicią!',
-                            style: Theme.of(context).textTheme.titleLarge,
-                            textAlign: TextAlign.center,
+                          _HomeStatChip(
+                            icon: Icons.military_tech_rounded,
+                            label: 'Poziom ${_store.stats.playerLevel}',
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            _store.stats.mascotSpecies == MascotSpecies.dog
-                                ? 'Każde słówko karmi Twojego Pieska'
-                                : 'Każde słówko karmi Twoją Kicię',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withValues(alpha: 0.72),
-                                ),
+                          _HomeStatChip(
+                            icon: Icons.pets_rounded,
+                            label: '${_store.stats.goldenPaws} łapek',
                           ),
-                          const SizedBox(height: 14),
-                          Wrap(
-                            alignment: WrapAlignment.center,
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: [
-                              _HomeStatChip(
-                                icon: Icons.local_fire_department_rounded,
-                                label: 'Poziom ${_store.stats.playerLevel}',
-                              ),
-                              _HomeStatChip(
-                                icon: Icons.pets_rounded,
-                                label: '${_store.stats.goldenPaws} łapek',
-                              ),
-                              _HomeStatChip(
-                                icon: Icons.menu_book_rounded,
-                                label:
-                                    '${_pack?.words.length ?? 0} słówek',
-                              ),
-                            ],
+                          _HomeStatChip(
+                            icon: Icons.menu_book_rounded,
+                            label: '${_pack?.words.length ?? 0} słówek',
+                          ),
+                          _HomeStatChip(
+                            icon: Icons.bolt_rounded,
+                            label:
+                                'Sesja ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}',
                           ),
                         ],
                       ),
@@ -2129,13 +2097,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           child: SoftPanel(
                             child: Column(
                               children: [
-                                Text(
-                                  _promptLabel,
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      Theme.of(context).textTheme.titleLarge,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: widget.palette.buttonGradient(
+                                        Theme.of(context).brightness ==
+                                            Brightness.light,
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    _promptLabel,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 12),
                                 AnimatedPromptWord(
                                   text: _promptWord,
                                   style: Theme.of(context)
@@ -2303,6 +2289,54 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
+                    ),
+                    // —— MASKOTKA I RESZTA NA DOLE ——
+                    const SizedBox(height: 8),
+                    SoftPanel(
+                      margin: const EdgeInsets.only(bottom: 8, top: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.pets_rounded,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Twój zwierzak — garderoba i kolory',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    MascotCard(
+                      playerLevel: _store.stats.playerLevel,
+                      wordsToday: _store.stats.wordsToday,
+                      fedToday: _store.stats.mascotFedToday,
+                      unlockedIds: _store.stats.unlockedMascotIds,
+                      equipped: _store.stats.equippedMascot,
+                      placedHome: _store.stats.placedHome,
+                      goldenPaws: _store.stats.goldenPaws,
+                      species: _store.stats.mascotSpecies,
+                      furColor: Color(_store.stats.mascotColorArgb),
+                      onTapWardrobe: _openWardrobe,
+                      onTapShop: _openShop,
+                      onEquip: _equipMascot,
+                      onSpeciesChanged: (s) async {
+                        setState(() => _store.stats.mascotSpecies = s);
+                        await _store.save();
+                      },
+                      onColorChanged: (c) async {
+                        setState(
+                          () => _store.stats.mascotColorArgb = c.toARGB32(),
+                        );
+                        await _store.save();
+                      },
                     ),
                     SoftPanel(
                       margin: const EdgeInsets.only(top: 12),
@@ -3553,9 +3587,21 @@ class _HomeStatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: scheme.primaryContainer.withValues(alpha: 0.85),
+        gradient: LinearGradient(
+          colors: [
+            scheme.primaryContainer.withValues(alpha: 0.95),
+            scheme.tertiaryContainer.withValues(alpha: 0.55),
+          ],
+        ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: scheme.primary.withValues(alpha: 0.40)),
+        boxShadow: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.12),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
