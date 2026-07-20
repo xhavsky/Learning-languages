@@ -38,7 +38,8 @@ fi
 
 if command -v flutter >/dev/null 2>&1; then
   flutter pub get
-  chmod +x scripts/patch_webview_cef_gpu.sh
+  chmod +x scripts/patch_llm_llamacpp_linux.sh scripts/patch_webview_cef_gpu.sh
+  ./scripts/patch_llm_llamacpp_linux.sh || true
   ./scripts/patch_webview_cef_gpu.sh || true
   flutter build linux --release || true
 fi
