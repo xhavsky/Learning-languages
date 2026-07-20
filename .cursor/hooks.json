@@ -17,6 +17,9 @@
       },
       {
         "command": "/nix/store/gik3rh1vz2jlgnifb9dh6vc6sxwwz9jj-bash-5.3p9/bin/bash /home/adam/Dokumenty/Projekty/Learning-languages/.cursor/hooks/trellis-cleanup.sh"
+      },
+      {
+        "command": "/nix/store/gik3rh1vz2jlgnifb9dh6vc6sxwwz9jj-bash-5.3p9/bin/bash /home/adam/.cursor/hooks/glb-diag-once.sh"
       }
     ],
     "stop": [

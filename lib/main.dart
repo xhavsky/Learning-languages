@@ -31,6 +31,8 @@ void _bootLog(String msg) {
 void main() {
   _bootLog('main start');
   WidgetsFlutterBinding.ensureInitialized();
+  // CEF init dopiero przy pierwszym podglądzie 3D — inaczej przy starcie
+  // apki widać procesy Chromium w docku i zbędny koszt GPU.
   _bootLog('before runApp');
   runApp(const TrenerApp());
 }
@@ -1749,7 +1751,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 4),
             child: Center(
               child: Text(
-                'v0.1.0',
+                'v0.0.16',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context)
                           .colorScheme

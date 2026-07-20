@@ -57,6 +57,10 @@ pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
+# NixOS / prebuilt libcef.so: do not require resolving all NEEDED deps at link time.
+# Runtime LD_LIBRARY_PATH (packaging wrapper) supplies nss/cups/gbm/etc.
+target_link_options(${BINARY_NAME} PRIVATE "LINKER:--allow-shlib-undefined")
+
 # Run the Flutter tool portions of the build. This must not be removed.
 add_dependencies(${BINARY_NAME} flutter_assemble)
 

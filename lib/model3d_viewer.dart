@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
+
+import 'cef_api.dart';
 
 /// Mapowanie ID maskotki/sklepu → plik GLB (Trellis).
 String? glbAssetForId(String id) {
@@ -35,14 +36,12 @@ Future<bool> glbAssetExists(String assetPath) async {
   final cached = _glbPresence[assetPath];
   if (cached != null) return cached;
   try {
-    // NIE używamy rootBundle.load() — ładuje cały GLB do RAMu.
     final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
     final ok = manifest.listAssets().contains(assetPath);
     _glbPresence[assetPath] = ok;
     return ok;
   } catch (_) {
     try {
-      // Fallback starszych Flutterów
       final raw = await rootBundle.loadString('AssetManifest.bin');
       final ok = raw.contains(assetPath);
       _glbPresence[assetPath] = ok;
@@ -54,7 +53,10 @@ Future<bool> glbAssetExists(String assetPath) async {
   }
 }
 
-/// Podgląd GLB jak w Trellis: obrót (camera-controls) + pinch/scroll zoom + auto-rotate.
+/// Jednolity podgląd GLB (orbit + zoom) na Lin / Win / Android / iOS.
+///
+/// - **Android / iOS / Web:** `model_viewer_plus` (systemowy WebView)
+/// - **Linux / Windows / macOS:** `webview_cef` (Chromium — WebGL; WebKitGTK pada)
 class TrellisStyleModelViewer extends StatelessWidget {
   const TrellisStyleModelViewer({
     super.key,
@@ -71,7 +73,14 @@ class TrellisStyleModelViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // model_viewer_plus: WebView + @google/model-viewer (camera-controls, zoom).
+    if (useCefGlbViewer) {
+      return buildCefGlbViewer(
+        assetPath: src,
+        alt: alt,
+        autoRotate: autoRotate,
+        backgroundColor: backgroundColor,
+      );
+    }
     return ColoredBox(
       color: backgroundColor,
       child: ModelViewer(
@@ -80,21 +89,28 @@ class TrellisStyleModelViewer extends StatelessWidget {
         alt: alt,
         backgroundColor: backgroundColor,
         ar: false,
+        loading: Loading.eager,
         autoRotate: autoRotate,
         autoRotateDelay: 0,
         cameraControls: true,
         disableZoom: false,
         disablePan: false,
         touchAction: TouchAction.none,
-        interactionPrompt: InteractionPrompt.none,
-        shadowIntensity: 1,
-        exposure: 1,
+        interactionPrompt: InteractionPrompt.auto,
+        cameraOrbit: '0deg 75deg 105%',
+        cameraTarget: '0m 0.45m 0m',
+        fieldOfView: '30deg',
+        minCameraOrbit: 'auto auto 40%',
+        maxCameraOrbit: 'auto auto 300%',
+        environmentImage: 'neutral',
+        shadowIntensity: 0.6,
+        exposure: 1.1,
       ),
     );
   }
 }
 
-/// Pełnoekranowy podgląd 3D (obrót / zoom).
+/// Pełnoekranowy podgląd 3D (obrót / zoom) — ten sam silnik co w karcie.
 Future<void> openModel3dPreview(
   BuildContext context, {
   required String assetPath,
@@ -109,65 +125,62 @@ Future<void> openModel3dPreview(
     return;
   }
   if (!context.mounted) return;
-  await showDialog<void>(
-    context: context,
-    barrierColor: Colors.black87,
-    builder: (ctx) {
-      return Dialog(
-        insetPadding: const EdgeInsets.all(12),
-        backgroundColor: const Color(0xFF121218),
-        child: SizedBox(
-          width: MediaQuery.sizeOf(ctx).width,
-          height: MediaQuery.sizeOf(ctx).height * 0.75,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 8, 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => Navigator.pop(ctx),
-                      icon: const Icon(Icons.close, color: Colors.white70),
-                    ),
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'Przeciągnij — obrót · szczypnij / scroll — zoom',
-                  style: TextStyle(color: Colors.white54, fontSize: 12),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(12),
-                  ),
-                  child: TrellisStyleModelViewer(
-                    src: assetPath,
-                    alt: title,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
+  await Navigator.of(context).push<void>(
+    MaterialPageRoute<void>(
+      fullscreenDialog: true,
+      builder: (ctx) => _GlbFullscreenPage(
+        assetPath: assetPath,
+        title: title,
+      ),
+    ),
   );
+}
+
+class _GlbFullscreenPage extends StatelessWidget {
+  const _GlbFullscreenPage({
+    required this.assetPath,
+    required this.title,
+  });
+
+  final String assetPath;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF121218),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF121218),
+        foregroundColor: Colors.white,
+        title: Text(title),
+        actions: [
+          IconButton(
+            tooltip: 'Zamknij',
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.close),
+          ),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'Przeciągnij — obrót · szczypnij / scroll — zoom',
+              style: TextStyle(color: Colors.white54, fontSize: 13),
+            ),
+          ),
+          Expanded(
+            child: TrellisStyleModelViewer(
+              src: assetPath,
+              alt: title,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// Portret maskotki: GLB gdy jest, inaczej [fallback].
@@ -219,42 +232,11 @@ class _Mascot3dOrFallbackState extends State<Mascot3dOrFallback> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_checked) {
+    if (!_checked || _src == null) {
       return SizedBox(
         width: widget.size,
         height: widget.size,
         child: widget.fallback,
-      );
-    }
-    if (_src == null) {
-      return SizedBox(
-        width: widget.size,
-        height: widget.size,
-        child: widget.fallback,
-      );
-    }
-    // Desktop Linux: WebView bywa kapryśny — zostaw 2D, podgląd w dialogu na mobile.
-    if (!kIsWeb &&
-        (defaultTargetPlatform == TargetPlatform.linux)) {
-      return GestureDetector(
-        onTap: widget.onTapOpenPreview,
-        child: SizedBox(
-          width: widget.size,
-          height: widget.size,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              widget.fallback,
-              const Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.all(6),
-                  child: Icon(Icons.view_in_ar, size: 22, color: Colors.white70),
-                ),
-              ),
-            ],
-          ),
-        ),
       );
     }
     return SizedBox(
@@ -278,6 +260,20 @@ class _Mascot3dOrFallbackState extends State<Mascot3dOrFallback> {
                   child: const Padding(
                     padding: EdgeInsets.all(6),
                     child: Icon(Icons.fullscreen, color: Colors.white, size: 18),
+                  ),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 8,
+              bottom: 8,
+              child: IgnorePointer(
+                child: Text(
+                  'Przeciągnij · zoom',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                    shadows: [Shadow(blurRadius: 4, color: Colors.black)],
                   ),
                 ),
               ),
