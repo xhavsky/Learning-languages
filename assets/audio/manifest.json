@@ -11863,8 +11863,330 @@
       "lang": "es",
       "text": "Tener esperanza",
       "pl": "Mieć nadzieję",
-      "id": "60c39e47",
+      "id": "60c39e47"
+    },
+    "Angielski|Hello, how are you?": {
+      "file": "en_hello_how_are_you_cc93df7cfe.mp3",
+      "lang": "en",
+      "text": "Hello, how are you?",
+      "pl": "Cześć, jak się masz?",
+      "id": "0a8ecc93",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|My name is Anna.": {
+      "file": "en_my_name_is_anna_b0959bce54.mp3",
+      "lang": "en",
+      "text": "My name is Anna.",
+      "pl": "Nazywam się Anna.",
+      "id": "22663d93",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I like cats.": {
+      "file": "en_i_like_cats_0f8a8813b3.mp3",
+      "lang": "en",
+      "text": "I like cats.",
+      "pl": "Lubię koty.",
+      "id": "71a174ed",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Where is the school?": {
+      "file": "en_where_is_the_school_fa2c41e3bb.mp3",
+      "lang": "en",
+      "text": "Where is the school?",
+      "pl": "Gdzie jest szkoła?",
+      "id": "09d51743",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I am hungry.": {
+      "file": "en_i_am_hungry_7057209c73.mp3",
+      "lang": "en",
+      "text": "I am hungry.",
+      "pl": "Jestem głodny.",
+      "id": "08103629",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Good morning!": {
+      "file": "en_good_morning_53759505f9.mp3",
+      "lang": "en",
+      "text": "Good morning!",
+      "pl": "Dzień dobry!",
+      "id": "615c86d5",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|See you tomorrow.": {
+      "file": "en_see_you_tomorrow_b366dc932a.mp3",
+      "lang": "en",
+      "text": "See you tomorrow.",
+      "pl": "Do zobaczenia jutro.",
+      "id": "49011446",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Can you help me?": {
+      "file": "en_can_you_help_me_b33ca26135.mp3",
+      "lang": "en",
+      "text": "Can you help me?",
+      "pl": "Czy możesz mi pomóc?",
+      "id": "04ddca20",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I don't understand.": {
+      "file": "en_i_dont_understand_77c2d03304.mp3",
+      "lang": "en",
+      "text": "I don't understand.",
+      "pl": "Nie rozumiem.",
+      "id": "75025d29",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|This is my friend.": {
+      "file": "en_this_is_my_friend_ff26dcea1e.mp3",
+      "lang": "en",
+      "text": "This is my friend.",
+      "pl": "To jest mój przyjaciel.",
+      "id": "63176a9e",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|How much does it cost?": {
+      "file": "en_how_much_does_it_cost_79073c1edb.mp3",
+      "lang": "en",
+      "text": "How much does it cost?",
+      "pl": "Ile to kosztuje?",
+      "id": "25643b4c",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|My name is Anielka.": {
+      "file": "en_my_name_is_anielka_fb0654245a.mp3",
+      "lang": "en",
+      "text": "My name is Anielka.",
+      "pl": "Mam na imię Anielka.",
+      "id": "411fd5e9",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¡Hola! ¿Cómo estás?": {
+      "file": "es_hola_cómo_estás_d5f9165159.mp3",
+      "lang": "es",
+      "text": "¡Hola! ¿Cómo estás?",
+      "pl": "Cześć, jak się masz?",
+      "id": "469bd623",
       "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me llamo Ana.": {
+      "file": "es_me_llamo_ana_e583cab5ca.mp3",
+      "lang": "es",
+      "text": "Me llamo Ana.",
+      "pl": "Nazywam się Anna.",
+      "id": "2dbe3865",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me gustan los gatos.": {
+      "file": "es_me_gustan_los_gatos_e64020dac6.mp3",
+      "lang": "es",
+      "text": "Me gustan los gatos.",
+      "pl": "Lubię koty.",
+      "id": "0d23828a",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Dónde está la escuela?": {
+      "file": "es_dónde_está_la_escuela_2d254b6abd.mp3",
+      "lang": "es",
+      "text": "¿Dónde está la escuela?",
+      "pl": "Gdzie jest szkoła?",
+      "id": "3a171f26",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Tengo hambre.": {
+      "file": "es_tengo_hambre_70874a9b8f.mp3",
+      "lang": "es",
+      "text": "Tengo hambre.",
+      "pl": "Jestem głodny.",
+      "id": "6694aa0d",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¡Buenos días!": {
+      "file": "es_buenos_días_6939af8250.mp3",
+      "lang": "es",
+      "text": "¡Buenos días!",
+      "pl": "Dzień dobry!",
+      "id": "3ca2d89c",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Hasta mañana.": {
+      "file": "es_hasta_mañana_8a009c1929.mp3",
+      "lang": "es",
+      "text": "Hasta mañana.",
+      "pl": "Do zobaczenia jutro.",
+      "id": "45b4c769",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Puedes ayudarme?": {
+      "file": "es_puedes_ayudarme_2e1b1c146f.mp3",
+      "lang": "es",
+      "text": "¿Puedes ayudarme?",
+      "pl": "Czy możesz mi pomóc?",
+      "id": "74ade4d9",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|No entiendo.": {
+      "file": "es_no_entiendo_e68f35418c.mp3",
+      "lang": "es",
+      "text": "No entiendo.",
+      "pl": "Nie rozumiem.",
+      "id": "55a3fa5d",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Este es mi amigo.": {
+      "file": "es_este_es_mi_amigo_9ca8ec4b2c.mp3",
+      "lang": "es",
+      "text": "Este es mi amigo.",
+      "pl": "To jest mój przyjaciel.",
+      "id": "740e8b8e",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Cuánto cuesta?": {
+      "file": "es_cuánto_cuesta_ffef716624.mp3",
+      "lang": "es",
+      "text": "¿Cuánto cuesta?",
+      "pl": "Ile to kosztuje?",
+      "id": "06297440",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me llamo Anielka.": {
+      "file": "es_me_llamo_anielka_1bddfd2118.mp3",
+      "lang": "es",
+      "text": "Me llamo Anielka.",
+      "pl": "Mam na imię Anielka.",
+      "id": "2934d859",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Привет, как дела?": {
+      "file": "ru_привет_как_дела_70200404ac.mp3",
+      "lang": "ru",
+      "text": "Привет, как дела?",
+      "pl": "Cześć, jak się masz?",
+      "id": "63381382",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Меня зовут Анна.": {
+      "file": "ru_меня_зовут_анна_467b4ca2fb.mp3",
+      "lang": "ru",
+      "text": "Меня зовут Анна.",
+      "pl": "Nazywam się Anna.",
+      "id": "70fffa3d",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я люблю кошек.": {
+      "file": "ru_я_люблю_кошек_d373f8cd16.mp3",
+      "lang": "ru",
+      "text": "Я люблю кошек.",
+      "pl": "Lubię koty.",
+      "id": "6c8bbcf3",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Где школа?": {
+      "file": "ru_где_школа_d081540635.mp3",
+      "lang": "ru",
+      "text": "Где школа?",
+      "pl": "Gdzie jest szkoła?",
+      "id": "3115f56e",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я голодный.": {
+      "file": "ru_я_голодный_edbc539d0b.mp3",
+      "lang": "ru",
+      "text": "Я голодный.",
+      "pl": "Jestem głodny.",
+      "id": "47415373",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Доброе утро!": {
+      "file": "ru_доброе_утро_4051a06b9f.mp3",
+      "lang": "ru",
+      "text": "Доброе утро!",
+      "pl": "Dzień dobry!",
+      "id": "5817aa1f",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Увидимся завтра.": {
+      "file": "ru_увидимся_завтра_77f1023637.mp3",
+      "lang": "ru",
+      "text": "Увидимся завтра.",
+      "pl": "Do zobaczenia jutro.",
+      "id": "2b322627",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Ты можешь мне помочь?": {
+      "file": "ru_ты_можешь_мне_помочь_66d2ed5ef4.mp3",
+      "lang": "ru",
+      "text": "Ты можешь мне помочь?",
+      "pl": "Czy możesz mi pomóc?",
+      "id": "0f803542",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я не понимаю.": {
+      "file": "ru_я_не_понимаю_54486ec17f.mp3",
+      "lang": "ru",
+      "text": "Я не понимаю.",
+      "pl": "Nie rozumiem.",
+      "id": "44c813a5",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Это мой друг.": {
+      "file": "ru_это_мой_друг_100ec96cca.mp3",
+      "lang": "ru",
+      "text": "Это мой друг.",
+      "pl": "To jest mój przyjaciel.",
+      "id": "37772384",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Сколько это стоит?": {
+      "file": "ru_сколько_это_стоит_fe2d68be0f.mp3",
+      "lang": "ru",
+      "text": "Сколько это стоит?",
+      "pl": "Ile to kosztuje?",
+      "id": "0776c9a0",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Меня зовут Анелька.": {
+      "file": "ru_меня_зовут_анелька_d08720c9a5.mp3",
+      "lang": "ru",
+      "text": "Меня зовут Анелька.",
+      "pl": "Mam na imię Anielka.",
+      "id": "12bfade9",
+      "engine": "piper/ru",
       "clarity": "length_scale=1.25"
     }
   }

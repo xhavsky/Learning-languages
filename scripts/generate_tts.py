@@ -47,9 +47,11 @@ PIPER_MODELS = {
 
 
 def iter_words(baza: dict):
+    """Yield (lang, word_dict) for vocabulary words and example sentences."""
     for lang_name, payload in baza.items():
         if isinstance(payload, dict) and "words" in payload:
-            words = payload["words"]
+            words = list(payload["words"] or [])
+            words.extend(payload.get("sentences") or [])
         elif isinstance(payload, list):
             words = payload
         else:

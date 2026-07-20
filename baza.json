@@ -6322,6 +6322,128 @@
           "5ca2a2c3"
         ]
       }
+    ],
+    "sentences": [
+      {
+        "id": "0a8ecc93",
+        "pl": "Cześć, jak się masz?",
+        "obcy": "Hello, how are you?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "22663d93",
+        "pl": "Nazywam się Anna.",
+        "obcy": "My name is Anna.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "71a174ed",
+        "pl": "Lubię koty.",
+        "obcy": "I like cats.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "09d51743",
+        "pl": "Gdzie jest szkoła?",
+        "obcy": "Where is the school?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08103629",
+        "pl": "Jestem głodny.",
+        "obcy": "I am hungry.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "615c86d5",
+        "pl": "Dzień dobry!",
+        "obcy": "Good morning!",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49011446",
+        "pl": "Do zobaczenia jutro.",
+        "obcy": "See you tomorrow.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "04ddca20",
+        "pl": "Czy możesz mi pomóc?",
+        "obcy": "Can you help me?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "75025d29",
+        "pl": "Nie rozumiem.",
+        "obcy": "I don't understand.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63176a9e",
+        "pl": "To jest mój przyjaciel.",
+        "obcy": "This is my friend.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "25643b4c",
+        "pl": "Ile to kosztuje?",
+        "obcy": "How much does it cost?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "411fd5e9",
+        "pl": "Mam na imię Anielka.",
+        "obcy": "My name is Anielka.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      }
     ]
   },
   "Hiszpański": {
@@ -12645,6 +12767,128 @@
           "31f0d59d",
           "6262118c"
         ]
+      }
+    ],
+    "sentences": [
+      {
+        "id": "469bd623",
+        "pl": "Cześć, jak się masz?",
+        "obcy": "¡Hola! ¿Cómo estás?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2dbe3865",
+        "pl": "Nazywam się Anna.",
+        "obcy": "Me llamo Ana.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0d23828a",
+        "pl": "Lubię koty.",
+        "obcy": "Me gustan los gatos.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3a171f26",
+        "pl": "Gdzie jest szkoła?",
+        "obcy": "¿Dónde está la escuela?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6694aa0d",
+        "pl": "Jestem głodny.",
+        "obcy": "Tengo hambre.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ca2d89c",
+        "pl": "Dzień dobry!",
+        "obcy": "¡Buenos días!",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "45b4c769",
+        "pl": "Do zobaczenia jutro.",
+        "obcy": "Hasta mañana.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74ade4d9",
+        "pl": "Czy możesz mi pomóc?",
+        "obcy": "¿Puedes ayudarme?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "55a3fa5d",
+        "pl": "Nie rozumiem.",
+        "obcy": "No entiendo.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "740e8b8e",
+        "pl": "To jest mój przyjaciel.",
+        "obcy": "Este es mi amigo.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "06297440",
+        "pl": "Ile to kosztuje?",
+        "obcy": "¿Cuánto cuesta?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2934d859",
+        "pl": "Mam na imię Anielka.",
+        "obcy": "Me llamo Anielka.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ]
   },
@@ -19003,6 +19247,128 @@
           "0b9f366b",
           "0404650d"
         ]
+      }
+    ],
+    "sentences": [
+      {
+        "id": "63381382",
+        "pl": "Cześć, jak się masz?",
+        "obcy": "Привет, как дела?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70fffa3d",
+        "pl": "Nazywam się Anna.",
+        "obcy": "Меня зовут Анна.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6c8bbcf3",
+        "pl": "Lubię koty.",
+        "obcy": "Я люблю кошек.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3115f56e",
+        "pl": "Gdzie jest szkoła?",
+        "obcy": "Где школа?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47415373",
+        "pl": "Jestem głodny.",
+        "obcy": "Я голодный.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5817aa1f",
+        "pl": "Dzień dobry!",
+        "obcy": "Доброе утро!",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b322627",
+        "pl": "Do zobaczenia jutro.",
+        "obcy": "Увидимся завтра.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f803542",
+        "pl": "Czy możesz mi pomóc?",
+        "obcy": "Ты можешь мне помочь?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "44c813a5",
+        "pl": "Nie rozumiem.",
+        "obcy": "Я не понимаю.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37772384",
+        "pl": "To jest mój przyjaciel.",
+        "obcy": "Это мой друг.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0776c9a0",
+        "pl": "Ile to kosztuje?",
+        "obcy": "Сколько это стоит?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12bfade9",
+        "pl": "Mam na imię Anielka.",
+        "obcy": "Меня зовут Анелька.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ]
   }
