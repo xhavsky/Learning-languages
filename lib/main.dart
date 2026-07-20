@@ -1867,48 +1867,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     SoftPanel(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SectionHeader(
-                            title: 'Portal Anielki',
-                            subtitle: 'Twój projekt — wspólna praca z tatą',
-                            icon: Icons.favorite_rounded,
-                          ),
-                          SelectableText(
-                            _portal.url,
-                            style: const TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            'PIN: ${_portal.pin}',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: [
-                              FilledButton.tonal(
-                                onPressed: () => showAnielkaPortalSheet(
-                                  context,
-                                  portal: _portal,
-                                ),
-                                child: const Text('Jak wejść?'),
-                              ),
-                              OutlinedButton(
-                                onPressed: () => showGithubPublishSheet(
-                                  context,
-                                  portal: _portal,
-                                ),
-                                child: const Text('GitHub'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SoftPanel(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -2296,6 +2254,48 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           TextButton(
                             onPressed: _openCuriosityAlbum,
                             child: const Text('Album nagród / ciekawostki'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SoftPanel(
+                      margin: const EdgeInsets.only(top: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SectionHeader(
+                            title: 'Portal Anielki',
+                            subtitle: 'Twój projekt — wspólna praca z tatą',
+                            icon: Icons.favorite_rounded,
+                          ),
+                          SelectableText(
+                            _portal.url,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            'PIN: ${_portal.pin}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              FilledButton.tonal(
+                                onPressed: () => showAnielkaPortalSheet(
+                                  context,
+                                  portal: _portal,
+                                ),
+                                child: const Text('Jak wejść?'),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => showGithubPublishSheet(
+                                  context,
+                                  portal: _portal,
+                                ),
+                                child: const Text('GitHub'),
+                              ),
+                            ],
                           ),
                         ],
                       ),
