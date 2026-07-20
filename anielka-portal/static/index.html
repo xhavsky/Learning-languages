@@ -1871,7 +1871,7 @@
       <details class="panel glass">
         <summary>
           <span>Paczki do pobrania</span>
-          <span class="panel__hint">Windows · APK · iOS</span>
+          <span class="panel__hint">Windows · Linux · APK · iOS</span>
         </summary>
         <div class="panel__body">
           <p class="hint" style="margin-top:0">
@@ -1880,9 +1880,10 @@
           </p>
           <div class="row">
             <button id="relWin" type="button" class="sm">Windows</button>
+            <button id="relLinux" type="button" class="sm">Linux</button>
             <button id="relApk" type="button" class="sm">APK</button>
             <button id="relIos" type="button" class="sm">iOS</button>
-            <button id="relBoth" type="button" class="sm">Win+APK</button>
+            <button id="relBoth" type="button" class="sm">Wszystkie</button>
           </div>
           <p id="relStatus" class="hint"></p>
           <button id="relStatusBtn" class="ghost sm" type="button">Odśwież status Gita</button>
@@ -2665,7 +2666,7 @@
 
     async function doRelease(kind) {
       $("relStatus").textContent = "Startuję " + kind + "…";
-      ["relWin", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = true));
+      ["relWin", "relLinux", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = true));
       try {
         const data = await api("/api/release", { method: "POST", body: JSON.stringify({ pin, kind }) });
         $("relStatus").textContent = data.ok
@@ -2676,10 +2677,11 @@
       } catch (e) {
         $("relStatus").textContent = "❌ " + e.message;
       } finally {
-        ["relWin", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = false));
+        ["relWin", "relLinux", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = false));
       }
     }
     $("relWin").onclick = () => doRelease("windows");
+    $("relLinux").onclick = () => doRelease("linux");
     $("relApk").onclick = () => doRelease("apk");
     $("relIos").onclick = () => doRelease("ios");
     $("relBoth").onclick = () => doRelease("both");

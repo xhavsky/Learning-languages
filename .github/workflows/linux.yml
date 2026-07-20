@@ -1,0 +1,122 @@
+name: Linux package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/**"
+      - "assets/**"
+      - "pubspec.yaml"
+      - "linux/**"
+      - "scripts/**"
+      - ".github/workflows/linux.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Linux build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            clang cmake ninja-build pkg-config zip zstd \
+            libgtk-3-dev liblzma-dev libstdc++-12-dev \
+            libnss3-dev libnspr4-dev libatk1.0-dev libatk-bridge2.0-dev \
+            libcups2-dev libdrm-dev libxkbcommon-dev libxcomposite-dev \
+            libxdamage-dev libxrandr-dev libgbm-dev libasound2-dev \
+            libpango1.0-dev libx11-dev libxext-dev libxfixes-dev \
+            libxi-dev libxrender-dev libxtst-dev libdbus-1-dev
+
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Cache models and ollama
+        uses: actions/cache@v4
+        with:
+          path: |
+            models
+            bundled/ollama
+          key: bielik-v3-ollama-linux-${{ hashFiles('scripts/fetch_ondevice_models.sh', 'scripts/bundle_ollama_linux.sh') }}
+
+      - name: "Fetch Bielik 1.5B and Ollama for portable ZIP"
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/fetch_ondevice_models.sh --phone-only
+          ./scripts/bundle_ollama_linux.sh
+          test -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf
+          test -x bundled/ollama/ollama
+          test -d bundled/ollama/lib/ollama
+          ls -lh models/ bundled/ollama/
+          du -sh bundled/ollama bundled/ollama/lib
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Patch webview_cef (GPU + cache)
+        run: ./scripts/patch_webview_cef_gpu.sh || true
+
+      - name: Build release
+        run: flutter build linux --release
+
+      - name: Pack portable ZIP with LLM
+        run: |
+          SRC=build/linux/x64/release/bundle
+          OUT=Trener-Jezykowy-Linux
+          rm -rf "$OUT"
+          cp -a "$SRC" "$OUT"
+          mkdir -p "$OUT/models" "$OUT/bundled/ollama"
+          cp -f models/*.gguf "$OUT/models/"
+          cp -a bundled/ollama/. "$OUT/bundled/ollama/"
+          chmod +x "$OUT/trener_jezykowy" "$OUT/bundled/ollama/ollama"
+          test -d "$OUT/bundled/ollama/lib/ollama"
+          cat > "$OUT/CZYTAJ-MNIE.txt" <<'EOF'
+          Trener Jezykowy - paczka Linux (z lokalnym AI)
+
+          1. Rozpakuj ZIP (np. ~/Trener-Jezykowy).
+          2. Uruchom: ./trener_jezykowy
+          3. Nic nie instaluj recznie.
+
+          W srodku: Bielik 1.5B + Ollama (z bibliotekami lib/). Przy pierwszym
+          starcie z internetem aplikacja sama dociagnie pelnego Bielika 11B v3.
+          Bez netu dziala od razu na 1.5B.
+
+          Nie usuwaj folderu bundled/ollama/lib — bez niego AI nie dziala.
+          EOF
+          zip -r -q Trener-Jezykowy-Linux.zip "$OUT"
+          ls -lh Trener-Jezykowy-Linux.zip
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Trener-Jezykowy-Linux
+          path: Trener-Jezykowy-Linux.zip
+
+      - name: Attach to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: linux-portable
+          name: Paczka Linux — Trener Językowy
+          body: |
+            Paczka dla Anielki (Linux x86_64) — Bielik 1.5B + Ollama w ZIP.
+
+            1. Pobierz **Trener-Jezykowy-Linux.zip**
+            2. Rozpakuj
+            3. Uruchom `./trener_jezykowy`
+
+            **Ważne:** w ZIP musi być folder `bundled/ollama/lib/` (biblioteki).
+
+            Na typowym Ubuntu/Fedora działa od razu. NixOS: `nix develop` albo odpowiednie `LD_LIBRARY_PATH`.
+          files: Trener-Jezykowy-Linux.zip
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

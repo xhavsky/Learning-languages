@@ -1,25 +1,45 @@
 #!/usr/bin/env bash
-# Pełna paczka Linux: app + Bielik 1.5B + 11B v3 + Ollama sidecar.
-# Użytkownik rozpakowuje i uruchamia — nic nie ściąga.
+# Paczka Linux: app + Bielik 1.5B + Ollama sidecar (lib/).
+# Domyślnie jak Windows CI (1.5B; 11B dociąga się przy 1. starcie z netem).
+# Pełna z 11B w ZIP: ./scripts/package_linux_with_llm.sh --full
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+FULL=0
+for arg in "$@"; do
+  case "$arg" in
+    --full) FULL=1 ;;
+    *) echo "Nieznany argument: $arg" >&2; exit 1 ;;
+  esac
+done
+
 echo "==> Modele + Ollama…"
-./scripts/fetch_ondevice_models.sh --all
+if [[ "$FULL" == 1 ]]; then
+  ./scripts/fetch_ondevice_models.sh --all
+else
+  ./scripts/fetch_ondevice_models.sh --phone-only
+  ./scripts/bundle_ollama_linux.sh
+fi
 
 if [[ ! -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf ]]; then
   echo "Brak modelu 1.5B" >&2; exit 1
 fi
-if [[ ! -f models/Bielik-11B-v3.0-Instruct.Q4_K_M.gguf ]]; then
-  echo "Brak modelu 11B" >&2; exit 1
+if [[ "$FULL" == 1 && ! -f models/Bielik-11B-v3.0-Instruct.Q4_K_M.gguf ]]; then
+  echo "Brak modelu 11B (--full)" >&2; exit 1
 fi
 if [[ ! -x bundled/ollama/ollama ]]; then
   echo "Brak bundled/ollama/ollama" >&2; exit 1
 fi
+if [[ ! -d bundled/ollama/lib/ollama ]]; then
+  echo "Brak bundled/ollama/lib/ollama — uruchom scripts/bundle_ollama_linux.sh" >&2
+  exit 1
+fi
 
 if command -v flutter >/dev/null 2>&1; then
   flutter pub get
+  chmod +x scripts/patch_webview_cef_gpu.sh
+  ./scripts/patch_webview_cef_gpu.sh || true
   flutter build linux --release || true
 fi
 
@@ -30,9 +50,29 @@ if [[ ! -d "$PREFIX" ]]; then
 fi
 
 mkdir -p "$PREFIX/models" "$PREFIX/bundled/ollama"
-cp -f "$ROOT/models/"*.gguf "$PREFIX/models/"
-cp -f "$ROOT/bundled/ollama/ollama" "$PREFIX/bundled/ollama/ollama"
+if [[ "$FULL" == 1 ]]; then
+  cp -f "$ROOT/models/"*.gguf "$PREFIX/models/"
+else
+  cp -f "$ROOT/models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf" "$PREFIX/models/"
+fi
+# Cały sidecar Ollamy (bin + lib/)
+cp -a "$ROOT/bundled/ollama/." "$PREFIX/bundled/ollama/"
 chmod +x "$PREFIX/bundled/ollama/ollama"
+
+cat > "$PREFIX/CZYTAJ-MNIE.txt" <<'EOF'
+Trener Jezykowy - paczka Linux (z lokalnym AI)
+
+1. Rozpakuj ZIP (np. ~/Trener-Jezykowy).
+2. Uruchom: ./trener_jezykowy
+3. Nic nie instaluj recznie.
+
+W srodku: Bielik 1.5B + Ollama (z bibliotekami lib/). Przy pierwszym
+starcie z internetem aplikacja sama dociagnie pelnego Bielika 11B v3.
+Bez netu dziala od razu na 1.5B.
+
+Nie usuwaj folderu bundled/ollama/lib — bez niego AI nie dziala.
+Na NixOS moze byc potrzebny nix develop / LD_LIBRARY_PATH (GTK, CEF).
+EOF
 
 DIST="$ROOT/dist"
 mkdir -p "$DIST"

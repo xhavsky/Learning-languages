@@ -45,11 +45,11 @@ Builder (raz przed releasem):
 ```bash
 ./scripts/fetch_ondevice_models.sh --all          # cache lokalny
 ./scripts/build_apk.sh                             # APK z 1.5B w środku
-./scripts/package_linux_with_llm.sh                # Linux ZIP z 11B + Ollama
+./scripts/package_linux_with_llm.sh                # Linux ZIP (1.5B + Ollama; --full = +11B)
 ./scripts/package_windows_with_llm.sh              # Windows ZIP (po flutter build windows)
 ```
 
-CI na `main` też pakuje modele do artefaktów (cache HuggingFace).
+CI na `main` buduje Windows / Linux / Android (modele w artefaktach, cache HuggingFace).
 
 ## Regeneracja audio
 
@@ -57,13 +57,15 @@ CI na `main` też pakuje modele do artefaktów (cache HuggingFace).
 python3 scripts/generate_tts.py
 ```
 
-## Android / Windows
+## Android / Windows / Linux
 
 ```bash
 ./scripts/build_apk.sh          # → dist/trener-jezykowy.apk (+ GGUF jeśli pobrany)
 ```
 
-**Windows:** [Releases](https://github.com/xhavsky/Learning-languages/releases) → `Trener-Jezykowy-Windows.zip` — [INSTALL-WINDOWS.md](INSTALL-WINDOWS.md). Pełna paczka z AI w środku.
+**Windows:** [Releases](https://github.com/xhavsky/Learning-languages/releases) → `Trener-Jezykowy-Windows.zip` — [INSTALL-WINDOWS.md](INSTALL-WINDOWS.md). Paczka z AI w środku.
+
+**Linux:** ten sam Releases → `Trener-Jezykowy-Linux.zip` (Bielik 1.5B + Ollama; rozpakuj i `./trener_jezykowy`).
 
 **Android:** ten sam Releases → `trener-jezykowy.apk` (Bielik 1.5B v3 wbudowany; przy 1. rozmowie wypakuje się sam).
 

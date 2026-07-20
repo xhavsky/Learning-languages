@@ -56,34 +56,16 @@ if [[ "$WANT_DESKTOP" == 1 ]]; then
 fi
 
 if [[ "$WANT_OLLAMA" == 1 ]]; then
-  mkdir -p "$OLLAMA_DIR"
   OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
-  ARCH="$(uname -m)"
-  case "$ARCH" in
-    x86_64|amd64) ARCH=amd64 ;;
-    aarch64|arm64) ARCH=arm64 ;;
-  esac
-  # Oficjalne release Ollama (Linux tgz / Windows zip)
   if [[ "$OS" == "linux" ]]; then
-    OLLAMA_TGZ="https://github.com/ollama/ollama/releases/latest/download/ollama-linux-${ARCH}.tgz"
-    TMP="$(mktemp -d)"
-    echo "Pobieram Ollama Linux ($ARCH)…"
-    curl -L --fail -o "$TMP/ollama.tgz" "$OLLAMA_TGZ"
-    tar -xzf "$TMP/ollama.tgz" -C "$TMP"
-    # Layout release bywa różny — szukamy binarki
-    BIN="$(find "$TMP" -type f -name ollama | head -1)"
-    if [[ -z "$BIN" ]]; then
-      echo "Nie znaleziono binarki ollama w archiwum" >&2
-      exit 1
-    fi
-    cp "$BIN" "$OLLAMA_DIR/ollama"
-    chmod +x "$OLLAMA_DIR/ollama"
-    rm -rf "$TMP"
-    echo "Ollama → $OLLAMA_DIR/ollama"
+    # Pełny layout (bin + lib/) — sam ollama bez lib/ nie wczyta modelu
+    chmod +x "$ROOT/scripts/bundle_ollama_linux.sh"
+    "$ROOT/scripts/bundle_ollama_linux.sh"
   elif [[ "$OS" == "mingw"* ]] || [[ "$OS" == "msys"* ]] || [[ "$OS" == "cygwin"* ]]; then
-    echo "Windows: pobierz ollama.exe z https://ollama.com/download i połóż w bundled/ollama/"
+    chmod +x "$ROOT/scripts/bundle_ollama_windows.sh"
+    "$ROOT/scripts/bundle_ollama_windows.sh"
   else
-    echo "OS=$OS — ręcznie skopiuj binarkę Ollamy do $OLLAMA_DIR"
+    echo "OS=$OS — ręcznie: ./scripts/bundle_ollama_linux.sh lub bundle_ollama_windows.sh" >&2
   fi
 fi
 
