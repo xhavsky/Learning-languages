@@ -30,12 +30,15 @@ TMP="$(mktemp -d)"
 cleanup() { rm -rf "$TMP"; }
 trap cleanup EXIT
 
-echo "Pobieram ollama-windows-amd64.zip…"
+echo "Pobieram ollama-windows-amd64.zip..."
 curl -fsSL -o "$TMP/ollama.zip" \
   "https://github.com/ollama/ollama/releases/latest/download/ollama-windows-amd64.zip"
 
+# Windows CI (cp1252): polskie znaki w print() wywalaja UnicodeEncodeError
+export PYTHONIOENCODING=utf-8
+export PYTHONUTF8=1
 python3 - "$TMP/ollama.zip" "$OUT" "$WITH_CUDA" <<'PY'
-import sys, zipfile, os, shutil
+import sys, zipfile, shutil
 from pathlib import Path
 
 zip_path, out_s, with_cuda = sys.argv[1], Path(sys.argv[2]), sys.argv[3] == "1"
@@ -64,12 +67,13 @@ with zipfile.ZipFile(zip_path) as zf:
 exe = out / "ollama.exe"
 ggml = out / "lib" / "ollama" / "ggml.dll"
 if not exe.is_file() or not ggml.is_file():
-    raise SystemExit(f"Niepełna paczka Ollamy: exe={exe.exists()} ggml={ggml.exists()}")
-print(f"Złożono: {out}")
+    raise SystemExit(f"Niepelna paczka Ollamy: exe={exe.exists()} ggml={ggml.exists()}")
+# ASCII-only logs — runner Windows nie drukuje "ł" na cp1252
+print(f"Zlozono: {out}")
 print(f"  ollama.exe = {exe.stat().st_size // (1024*1024)} MB")
 lib = out / "lib" / "ollama"
 n = sum(1 for _ in lib.rglob("*") if _.is_file())
-print(f"  lib/ollama plików: {n}")
+print(f"  lib/ollama plikow: {n}")
 PY
 
 echo "Gotowe: $OUT"
