@@ -90,8 +90,11 @@ ThemeData buildAppTheme({
       centerTitle: false,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.50 : 0.72),
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.82 : 0.94),
       foregroundColor: scheme.onSurface,
+      surfaceTintColor: Colors.transparent,
+      iconTheme: IconThemeData(color: scheme.primary, size: 26),
+      actionsIconTheme: IconThemeData(color: scheme.primary, size: 26),
       titleTextStyle: TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.w800,

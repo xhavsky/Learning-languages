@@ -4,6 +4,59 @@ import 'package:flutter/material.dart';
 
 import 'theme.dart';
 
+/// Czytelna ikona w AppBarze: jasne tło + mocniejszy kontrast.
+class ToolbarIconButton extends StatelessWidget {
+  const ToolbarIconButton({
+    super.key,
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+    this.active = false,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback? onPressed;
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final bright = Theme.of(context).brightness == Brightness.light;
+    final bg = active
+        ? scheme.primary
+        : scheme.primaryContainer.withValues(alpha: bright ? 0.95 : 0.88);
+    final fg = active ? scheme.onPrimary : scheme.onPrimaryContainer;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      child: Tooltip(
+        message: tooltip,
+        child: Material(
+          color: bg,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: BorderSide(
+              color: scheme.primary.withValues(alpha: active ? 0 : 0.35),
+              width: 1.5,
+            ),
+          ),
+          elevation: bright ? 1.5 : 0,
+          shadowColor: scheme.primary.withValues(alpha: 0.35),
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: BorderRadius.circular(14),
+            child: SizedBox(
+              width: 44,
+              height: 44,
+              child: Icon(icon, size: 26, color: fg),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// Tytuł sekcji z delikatną kreską — spójne nagłówki w całej apce.
 class SectionHeader extends StatelessWidget {
   const SectionHeader({

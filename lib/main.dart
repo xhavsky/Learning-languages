@@ -1748,45 +1748,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         title: const Text('Trener Językowy'),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 4),
+            padding: const EdgeInsets.only(right: 6),
             child: Center(
               child: Text(
                 'v0.0.16',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withValues(alpha: 0.55),
+                          .withValues(alpha: 0.45),
                     ),
               ),
             ),
           ),
-          IconButton(
+          ToolbarIconButton(
             tooltip: _audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
             onPressed: () => _persistAudioEnabled(!_audioEnabled),
-            icon: Icon(
-              _audioEnabled ? Icons.volume_up_rounded : Icons.volume_off_rounded,
-            ),
+            active: _audioEnabled,
+            icon: _audioEnabled
+                ? Icons.volume_up_rounded
+                : Icons.volume_off_rounded,
           ),
-          IconButton(
-            tooltip: 'Sklep Kici',
+          ToolbarIconButton(
+            tooltip: 'Sklep',
             onPressed: _openShop,
-            icon: const Icon(Icons.storefront_outlined),
+            icon: Icons.storefront_rounded,
           ),
-          IconButton(
+          ToolbarIconButton(
             tooltip: 'Pule słówek',
             onPressed: _openGroups,
-            icon: const Icon(Icons.folder_special_outlined),
+            icon: Icons.folder_special_rounded,
           ),
-          IconButton(
+          ToolbarIconButton(
             tooltip: 'Słówka',
             onPressed: _openWords,
-            icon: const Icon(Icons.menu_book_outlined),
+            icon: Icons.menu_book_rounded,
           ),
-          IconButton(
-            tooltip: 'Ustawienia',
-            onPressed: _openSettings,
-            icon: const Icon(Icons.palette_outlined),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: ToolbarIconButton(
+              tooltip: 'Ustawienia',
+              onPressed: _openSettings,
+              icon: Icons.palette_rounded,
+            ),
           ),
         ],
       ),
@@ -1830,19 +1835,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: Column(
                         children: [
                           Text(
-                            'Trener Językowy',
-                            style: Theme.of(context).textTheme.headlineMedium,
+                            _store.stats.mascotSpecies == MascotSpecies.dog
+                                ? 'Czas na naukę z Pieskiem!'
+                                : 'Czas na naukę z Kicią!',
+                            style: Theme.of(context).textTheme.titleLarge,
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Text(
                             _store.stats.mascotSpecies == MascotSpecies.dog
-                                ? 'Ucz się słówek i karm Pieska nauką'
-                                : 'Ucz się słówek i karm Kicię nauką',
+                                ? 'Każde słówko karmi Twojego Pieska'
+                                : 'Każde słówko karmi Twoją Kicię',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.72),
+                                ),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 14),
                           Wrap(
                             alignment: WrapAlignment.center,
                             spacing: 8,
@@ -1989,80 +2001,114 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        OutlinedButton.icon(
-                          onPressed: _addWord,
-                          icon: const Icon(Icons.add),
-                          label: const Text('Słowo'),
-                        ),
-                        OutlinedButton.icon(
-                          onPressed: _importWordsSheet,
-                          icon: const Icon(Icons.upload_file_outlined),
-                          label: const Text('Import CSV'),
-                        ),
-                        OutlinedButton.icon(
-                          onPressed: _openWords,
-                          icon: const Icon(Icons.edit_note),
-                          label: const Text('Lista'),
-                        ),
-                        FilledButton.icon(
-                          onPressed: _openDailyChat,
-                          icon: Icon(
-                            _store.stats.chatDoneToday
-                                ? Icons.chat_bubble
-                                : Icons.chat_bubble_outline,
+                    SoftPanel(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SectionHeader(
+                            title: 'Szybkie akcje',
+                            subtitle: 'Dodawaj, ćwicz i gaduś z AI',
+                            icon: Icons.bolt_rounded,
                           ),
-                          label: Text(
-                            _store.stats.chatDoneToday
-                                ? 'Rozmowa ✓'
-                                : 'AI na urządzeniu',
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              FilledButton.tonalIcon(
+                                onPressed: _addWord,
+                                icon: const Icon(Icons.add_rounded),
+                                label: const Text('Słowo'),
+                              ),
+                              FilledButton.tonalIcon(
+                                onPressed: _importWordsSheet,
+                                icon: const Icon(Icons.upload_file_rounded),
+                                label: const Text('Import CSV'),
+                              ),
+                              FilledButton.tonalIcon(
+                                onPressed: _openWords,
+                                icon: const Icon(Icons.edit_note_rounded),
+                                label: const Text('Lista'),
+                              ),
+                              FilledButton.icon(
+                                onPressed: _openDailyChat,
+                                icon: Icon(
+                                  _store.stats.chatDoneToday
+                                      ? Icons.chat_bubble_rounded
+                                      : Icons.chat_bubble_outline_rounded,
+                                ),
+                                label: Text(
+                                  _store.stats.chatDoneToday
+                                      ? 'Rozmowa ✓'
+                                      : 'AI na urządzeniu',
+                                ),
+                              ),
+                              FilterChip(
+                                selected: _method == GameMethod.abc,
+                                avatar: Icon(
+                                  _method == GameMethod.abc
+                                      ? Icons.abc_rounded
+                                      : Icons.keyboard_rounded,
+                                  size: 18,
+                                ),
+                                label: Text(
+                                  _method == GameMethod.abc
+                                      ? 'Metoda: ABC'
+                                      : 'Metoda: Pisanie',
+                                ),
+                                onSelected: (_) async {
+                                  setState(() {
+                                    _method = _method == GameMethod.abc
+                                        ? GameMethod.typing
+                                        : GameMethod.abc;
+                                  });
+                                  await _persistMethod();
+                                  _draw();
+                                },
+                              ),
+                              FilterChip(
+                                selected: !_poolReview,
+                                avatar: Icon(
+                                  _poolReview
+                                      ? Icons.replay_rounded
+                                      : Icons.school_rounded,
+                                  size: 18,
+                                ),
+                                label: Text(
+                                  _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
+                                ),
+                                onSelected: (_) {
+                                  setState(() => _poolReview = !_poolReview);
+                                  _draw();
+                                },
+                              ),
+                              if (_current != null)
+                                FilterChip(
+                                  selected: _current!.hard,
+                                  avatar: Icon(
+                                    _current!.hard
+                                        ? Icons.star_rounded
+                                        : Icons.star_outline_rounded,
+                                    size: 18,
+                                  ),
+                                  label: Text(
+                                    _current!.hard ? 'Trudne ★' : 'Trudne?',
+                                  ),
+                                  onSelected: (_) async {
+                                    _current!.hard = !_current!.hard;
+                                    await _store.save();
+                                    _flash(
+                                      _current!.hard
+                                          ? 'Oznaczone jako trudne'
+                                          : 'Trudne wyłączone',
+                                      kind: FeedbackKind.info,
+                                    );
+                                    setState(() {});
+                                  },
+                                ),
+                            ],
                           ),
-                        ),
-                        FilledButton.tonal(
-                          onPressed: () async {
-                            setState(() {
-                              _method = _method == GameMethod.abc
-                                  ? GameMethod.typing
-                                  : GameMethod.abc;
-                            });
-                            await _persistMethod();
-                            _draw();
-                          },
-                          child: Text(
-                            _method == GameMethod.abc
-                                ? 'Metoda: ABC'
-                                : 'Metoda: Pisanie',
-                          ),
-                        ),
-                        FilledButton.tonal(
-                          onPressed: () {
-                            setState(() => _poolReview = !_poolReview);
-                            _draw();
-                          },
-                          child: Text(
-                            _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
-                          ),
-                        ),
-                        if (_current != null)
-                          OutlinedButton(
-                            onPressed: () async {
-                              _current!.hard = !_current!.hard;
-                              await _store.save();
-                              _flash(
-                                _current!.hard
-                                    ? 'Oznaczone jako trudne'
-                                    : 'Trudne wyłączone',
-                                kind: FeedbackKind.info,
-                              );
-                              setState(() {});
-                            },
-                            child:
-                                Text(_current!.hard ? '★ Trudne' : 'Trudne?'),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 16),
                     if (_current == null)
@@ -3505,22 +3551,22 @@ class _HomeStatChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: scheme.primary.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: scheme.primary.withValues(alpha: 0.28)),
+        color: scheme.primaryContainer.withValues(alpha: 0.85),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.primary.withValues(alpha: 0.40)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 18, color: scheme.primary),
-          const SizedBox(width: 6),
+          Icon(icon, size: 20, color: scheme.primary),
+          const SizedBox(width: 7),
           Text(
             label,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: scheme.onSurface,
+                  fontWeight: FontWeight.w800,
+                  color: scheme.onPrimaryContainer,
                 ),
           ),
         ],
