@@ -17,6 +17,8 @@ permissions:
 jobs:
   ios:
     runs-on: macos-latest
+    env:
+      SKIP_LLM_NATIVE: "1"
     steps:
       - uses: actions/checkout@v5
 
@@ -26,6 +28,11 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
+
+      - name: Patch llm hook (skip iOS native on CI)
+        run: |
+          chmod +x scripts/patch_llm_hook_skip_ios_ci.sh
+          ./scripts/patch_llm_hook_skip_ios_ci.sh
 
       - name: Build iOS (unsigned via xcodebuild)
         run: |

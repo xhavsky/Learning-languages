@@ -33,6 +33,12 @@ android {
         }
     }
 
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     // GGUF w assets — bez kompresji APK (szybszy stream-copy przy 1. starcie)
     androidResources {
         noCompress += "gguf"
