@@ -55,6 +55,12 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Patch llm_llamacpp Windows CMake (empty install DESTINATION)
+        shell: bash
+        run: |
+          chmod +x scripts/patch_llm_llamacpp_windows.sh
+          ./scripts/patch_llm_llamacpp_windows.sh
+
       - name: Build release
         run: flutter build windows --release
 

@@ -45,13 +45,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/llama.cpp-src
-          key: llama-cpp-src-v1
+          # bump when cmake flags change (e.g. LLAMA_BUILD_APP)
+          key: llama-cpp-src-v2-no-app
 
       - name: Cache built jniLibs
         uses: actions/cache@v4
         with:
           path: ~/.pub-cache/hosted/pub.dev/llm_llamacpp-*/android/src/main/jniLibs
-          key: llm-llamacpp-jni-0.1.9-${{ hashFiles('scripts/prepare_llm_android_native.sh') }}
+          key: llm-llamacpp-jni-0.1.9-v2-${{ hashFiles('scripts/prepare_llm_android_native.sh') }}
 
       - name: Fetch phone model + embed in APK assets
         run: |
