@@ -1994,10 +1994,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       runSpacing: 8,
                       children: [
                         _HomeStatChip(
-                          icon: Icons.military_tech_rounded,
-                          label: l10n.levelChip(_store.stats.playerLevel),
-                        ),
-                        _HomeStatChip(
                           icon: Icons.pets_rounded,
                           label: l10n.pawsChip(_store.stats.goldenPaws),
                         ),
@@ -2422,68 +2418,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                           ),
                         );
-                final poziom = SoftPanel(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SectionHeader(
-                          title: l10n.yourLevel,
-                          subtitle: l10n.yourLevelSubtitle,
-                          icon: Icons.military_tech_rounded,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              l10n.levelShortNum(_store.stats.playerLevel),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontWeight: FontWeight.w700),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: LinearProgressIndicator(
-                                  value: _store.stats.levelProgress,
-                                  minHeight: 10,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              '${_store.stats.xp} XP',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          titleForLevel(
-                            _store.stats.playerLevel,
-                            uiLang: widget.uiLang,
-                          ).title,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          l10n.toNextLevel(
-                            _store.stats.xpToNextLevel,
-                            sessionXp: _store.stats.sessionXp,
-                          ),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 6),
-                        TextButton(
-                          onPressed: _openCuriosityAlbum,
-                          child: Text(l10n.album),
-                        ),
-                      ],
-                    ),
-                  );
                 final mascotHeader = SoftPanel(
                     margin: EdgeInsets.zero,
                     padding: const EdgeInsets.symmetric(
@@ -2541,6 +2475,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
+                            flex: 4,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              children: [
+                                akcje,
+                                const SizedBox(height: 14),
+                                stats,
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
                             flex: 5,
                             child: Column(
                               crossAxisAlignment:
@@ -2549,21 +2496,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 trening,
                                 const SizedBox(height: 14),
                                 quiz,
-                                const SizedBox(height: 14),
-                                akcje,
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.stretch,
-                              children: [
-                                stats,
-                                const SizedBox(height: 14),
-                                poziom,
                               ],
                             ),
                           ),
@@ -2571,13 +2503,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       )
                     else ...[
                       // Telefon: środek = trening + quiz; maskotka w osobnej zakładce
+                      akcje,
+                      const SizedBox(height: 12),
                       stats,
                       const SizedBox(height: 12),
                       trening,
                       const SizedBox(height: 12),
                       quiz,
-                      const SizedBox(height: 12),
-                      akcje,
                     ],
                   ],
                 );
