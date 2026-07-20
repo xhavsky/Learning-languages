@@ -5815,2330 +5815,6056 @@
       "lang": "en",
       "text": "Firefighter",
       "pl": "Strażak",
-      "id": "0f6cef21",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0f6cef21"
     },
     "Angielski|Police officer": {
       "file": "en_police_officer_876866c099.mp3",
       "lang": "en",
       "text": "Police officer",
       "pl": "Policjant",
-      "id": "17f1b14c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "17f1b14c"
     },
     "Angielski|Cook": {
       "file": "en_cook_71579bc546.mp3",
       "lang": "en",
       "text": "Cook",
       "pl": "Kucharz",
-      "id": "3a03594a",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3a03594a"
     },
     "Angielski|Nurse": {
       "file": "en_nurse_beeca873ae.mp3",
       "lang": "en",
       "text": "Nurse",
       "pl": "Pielęgniarka",
-      "id": "266e15f1",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "266e15f1"
     },
     "Angielski|Driver": {
       "file": "en_driver_eace544394.mp3",
       "lang": "en",
       "text": "Driver",
       "pl": "Kierowca",
-      "id": "5a31a133",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5a31a133"
     },
     "Angielski|Seller": {
       "file": "en_seller_8c1e541698.mp3",
       "lang": "en",
       "text": "Seller",
       "pl": "Sprzedawca",
-      "id": "43b59e23",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "43b59e23"
     },
     "Angielski|Artist": {
       "file": "en_artist_cd0a507a26.mp3",
       "lang": "en",
       "text": "Artist",
       "pl": "Artysta",
-      "id": "3bd36799",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3bd36799"
     },
     "Angielski|Musician": {
       "file": "en_musician_c4e354ec1f.mp3",
       "lang": "en",
       "text": "Musician",
       "pl": "Muzyk",
-      "id": "5636e4a9",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5636e4a9"
     },
     "Angielski|Farmer": {
       "file": "en_farmer_e746b1e79d.mp3",
       "lang": "en",
       "text": "Farmer",
       "pl": "Rolnik",
-      "id": "62b849de",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "62b849de"
     },
     "Angielski|Bicycle": {
       "file": "en_bicycle_2a17c7e344.mp3",
       "lang": "en",
       "text": "Bicycle",
       "pl": "Rower",
-      "id": "742e9e0a",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "742e9e0a"
     },
     "Angielski|Airplane": {
       "file": "en_airplane_2480255b6f.mp3",
       "lang": "en",
       "text": "Airplane",
       "pl": "Samolot",
-      "id": "1f16840d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1f16840d"
     },
     "Angielski|Ship": {
       "file": "en_ship_fa5ca89a87.mp3",
       "lang": "en",
       "text": "Ship",
       "pl": "Statek",
-      "id": "706f1afe",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "706f1afe"
     },
     "Angielski|Station": {
       "file": "en_station_535b3ac937.mp3",
       "lang": "en",
       "text": "Station",
       "pl": "Stacja",
-      "id": "3d15f1f2",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3d15f1f2"
     },
     "Angielski|Airport": {
       "file": "en_airport_c28782815a.mp3",
       "lang": "en",
       "text": "Airport",
       "pl": "Lotnisko",
-      "id": "7966769a",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "7966769a"
     },
     "Angielski|Suitcase": {
       "file": "en_suitcase_41ce66baa5.mp3",
       "lang": "en",
       "text": "Suitcase",
       "pl": "Walizka",
-      "id": "5c977e30",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5c977e30"
     },
     "Angielski|Passport": {
       "file": "en_passport_4e728d1c45.mp3",
       "lang": "en",
       "text": "Passport",
       "pl": "Pas",
-      "id": "1f0a362c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1f0a362c"
     },
     "Angielski|City map": {
       "file": "en_city_map_2326813ddb.mp3",
       "lang": "en",
       "text": "City map",
       "pl": "Mapa miasta",
-      "id": "0e8286ad",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0e8286ad"
     },
     "Angielski|Taxi": {
       "file": "en_taxi_02e37e51af.mp3",
       "lang": "en",
       "text": "Taxi",
       "pl": "Taxi",
-      "id": "1176853c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1176853c"
     },
     "Angielski|Metro": {
       "file": "en_metro_cd260d580d.mp3",
       "lang": "en",
       "text": "Metro",
       "pl": "Metro",
-      "id": "013e5076",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "013e5076"
     },
     "Angielski|Fridge": {
       "file": "en_fridge_e476fed959.mp3",
       "lang": "en",
       "text": "Fridge",
       "pl": "Lodówka",
-      "id": "41f5dc26",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "41f5dc26"
     },
     "Angielski|Oven": {
       "file": "en_oven_e7aaa3808d.mp3",
       "lang": "en",
       "text": "Oven",
       "pl": "Piekarnik",
-      "id": "128de00c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "128de00c"
     },
     "Angielski|Dishwasher": {
       "file": "en_dishwasher_a3b26b1e3d.mp3",
       "lang": "en",
       "text": "Dishwasher",
       "pl": "Zmywarka",
-      "id": "403755ca",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "403755ca"
     },
     "Angielski|Washing machine": {
       "file": "en_washing_machine_1a353ce68c.mp3",
       "lang": "en",
       "text": "Washing machine",
       "pl": "Pralka",
-      "id": "781ae3d1",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "781ae3d1"
     },
     "Angielski|Television": {
       "file": "en_television_106c763c8e.mp3",
       "lang": "en",
       "text": "Television",
       "pl": "Telewizor",
-      "id": "5bc3408d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5bc3408d"
     },
     "Angielski|Remote control": {
       "file": "en_remote_control_afa352db31.mp3",
       "lang": "en",
       "text": "Remote control",
       "pl": "Pilot",
-      "id": "3ea8dd47",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3ea8dd47"
     },
     "Angielski|Plug": {
       "file": "en_plug_be0c51fb45.mp3",
       "lang": "en",
       "text": "Plug",
       "pl": "Wtyczka",
-      "id": "227a6e61",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "227a6e61"
     },
     "Angielski|Battery": {
       "file": "en_battery_d901b86ddd.mp3",
       "lang": "en",
       "text": "Battery",
       "pl": "Bateria",
-      "id": "02b5bc2b",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "02b5bc2b"
     },
     "Angielski|Scissors": {
       "file": "en_scissors_a33bc93eee.mp3",
       "lang": "en",
       "text": "Scissors",
       "pl": "Nożyczki",
-      "id": "19da40e0",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "19da40e0"
     },
     "Angielski|Glue": {
       "file": "en_glue_77cbeaf1be.mp3",
       "lang": "en",
       "text": "Glue",
       "pl": "Klej",
-      "id": "66543eab",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "66543eab"
     },
     "Angielski|Breakfast": {
       "file": "en_breakfast_9709c0c1a2.mp3",
       "lang": "en",
       "text": "Breakfast",
       "pl": "Śniadanie",
-      "id": "3e303ae1",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3e303ae1"
     },
     "Angielski|Lunch": {
       "file": "en_lunch_f941250aac.mp3",
       "lang": "en",
       "text": "Lunch",
       "pl": "Obiad",
-      "id": "435b2d07",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "435b2d07"
     },
     "Angielski|Dinner": {
       "file": "en_dinner_471887a38d.mp3",
       "lang": "en",
       "text": "Dinner",
       "pl": "Kolacja",
-      "id": "054fec6d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "054fec6d"
     },
     "Angielski|Sandwich": {
       "file": "en_sandwich_f830c7b8ba.mp3",
       "lang": "en",
       "text": "Sandwich",
       "pl": "Kanapka",
-      "id": "322756ba",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "322756ba"
     },
     "Angielski|Salad": {
       "file": "en_salad_068f27d9d0.mp3",
       "lang": "en",
       "text": "Salad",
       "pl": "Sałatka",
-      "id": "661fff42",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "661fff42"
     },
     "Angielski|Tomato soup": {
       "file": "en_tomato_soup_b3d946c25a.mp3",
       "lang": "en",
       "text": "Tomato soup",
       "pl": "Zupa pomidorowa",
-      "id": "68a92772",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "68a92772"
     },
     "Angielski|Pasta": {
       "file": "en_pasta_46247ce884.mp3",
       "lang": "en",
       "text": "Pasta",
       "pl": "Makaron",
-      "id": "697e65fa",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "697e65fa"
     },
     "Angielski|Meat": {
       "file": "en_meat_596fdde5cf.mp3",
       "lang": "en",
       "text": "Meat",
       "pl": "Mięso",
-      "id": "615df3ce",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "615df3ce"
     },
     "Angielski|Fried fish": {
       "file": "en_fried_fish_572325bf2f.mp3",
       "lang": "en",
       "text": "Fried fish",
       "pl": "Ryba smażona",
-      "id": "625d0945",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "625d0945"
     },
     "Angielski|Yogurt": {
       "file": "en_yogurt_abd7ab242a.mp3",
       "lang": "en",
       "text": "Yogurt",
       "pl": "Jogurt",
-      "id": "32a9a72d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "32a9a72d"
     },
     "Angielski|Orange juice": {
       "file": "en_orange_juice_466b77307c.mp3",
       "lang": "en",
       "text": "Orange juice",
       "pl": "Sok pomarańczowy",
-      "id": "21554661",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "21554661"
     },
     "Angielski|Butterfly": {
       "file": "en_butterfly_10e6b5ce72.mp3",
       "lang": "en",
       "text": "Butterfly",
       "pl": "Motyl",
-      "id": "0c20a0dc",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0c20a0dc"
     },
     "Angielski|Bee": {
       "file": "en_bee_1d8106dadf.mp3",
       "lang": "en",
       "text": "Bee",
       "pl": "Pszczoła",
-      "id": "1e17ca46",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1e17ca46"
     },
     "Angielski|Frog": {
       "file": "en_frog_ace317ed5d.mp3",
       "lang": "en",
       "text": "Frog",
       "pl": "Żaba",
-      "id": "5e93033c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5e93033c"
     },
     "Angielski|Snake": {
       "file": "en_snake_ee0db306c1.mp3",
       "lang": "en",
       "text": "Snake",
       "pl": "Wąż",
-      "id": "34434392",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "34434392"
     },
     "Angielski|Bear": {
       "file": "en_bear_b34e45dd51.mp3",
       "lang": "en",
       "text": "Bear",
       "pl": "Niedźwiedź",
-      "id": "4509bc47",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "4509bc47"
     },
     "Angielski|Wolf": {
       "file": "en_wolf_9d5927ba87.mp3",
       "lang": "en",
       "text": "Wolf",
       "pl": "Wilk",
-      "id": "15edb39d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "15edb39d"
     },
     "Angielski|Fox": {
       "file": "en_fox_8744340695.mp3",
       "lang": "en",
       "text": "Fox",
       "pl": "Lis",
-      "id": "0adc5269",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0adc5269"
     },
     "Angielski|Elephant": {
       "file": "en_elephant_737370a454.mp3",
       "lang": "en",
       "text": "Elephant",
       "pl": "Słoń",
-      "id": "5f3c91e9",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "5f3c91e9"
     },
     "Angielski|Giraffe": {
       "file": "en_giraffe_ea1ac60cd6.mp3",
       "lang": "en",
       "text": "Giraffe",
       "pl": "Żyrafa",
-      "id": "2f6e639f",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2f6e639f"
     },
     "Angielski|Penguin": {
       "file": "en_penguin_7e92965f19.mp3",
       "lang": "en",
       "text": "Penguin",
       "pl": "Pingwin",
-      "id": "4ef6825a",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "4ef6825a"
     },
     "Angielski|Spring": {
       "file": "en_spring_8ee28cd1b9.mp3",
       "lang": "en",
       "text": "Spring",
       "pl": "Wiosna",
-      "id": "4ec79500",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "4ec79500"
     },
     "Angielski|Summer": {
       "file": "en_summer_62062b6c29.mp3",
       "lang": "en",
       "text": "Summer",
       "pl": "Lato",
-      "id": "0459fa7b",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0459fa7b"
     },
     "Angielski|Autumn": {
       "file": "en_autumn_7a2e514799.mp3",
       "lang": "en",
       "text": "Autumn",
       "pl": "Jesień",
-      "id": "23e13d82",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "23e13d82"
     },
     "Angielski|Winter": {
       "file": "en_winter_b754d95dbb.mp3",
       "lang": "en",
       "text": "Winter",
       "pl": "Zima",
-      "id": "1522a3de",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1522a3de"
     },
     "Angielski|Storm": {
       "file": "en_storm_e3589c079b.mp3",
       "lang": "en",
       "text": "Storm",
       "pl": "Burza",
-      "id": "12464b53",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "12464b53"
     },
     "Angielski|Rainbow": {
       "file": "en_rainbow_d9fd1d50c3.mp3",
       "lang": "en",
       "text": "Rainbow",
       "pl": "Tęcza",
-      "id": "3dd5e63f",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3dd5e63f"
     },
     "Angielski|Fog": {
       "file": "en_fog_6d20b3ccfa.mp3",
       "lang": "en",
       "text": "Fog",
       "pl": "Mgła",
-      "id": "2e8b3cbb",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2e8b3cbb"
     },
     "Angielski|Heatwave": {
       "file": "en_heatwave_bf4b3f0443.mp3",
       "lang": "en",
       "text": "Heatwave",
       "pl": "Upał",
-      "id": "1e380409",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1e380409"
     },
     "Angielski|Hobby": {
       "file": "en_hobby_ea8051744d.mp3",
       "lang": "en",
       "text": "Hobby",
       "pl": "Hobby",
-      "id": "497ec328",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "497ec328"
     },
     "Angielski|Board game": {
       "file": "en_board_game_b5a3ee8c2f.mp3",
       "lang": "en",
       "text": "Board game",
       "pl": "Gra planszowa",
-      "id": "1cede5a9",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "1cede5a9"
     },
     "Angielski|Puzzle": {
       "file": "en_puzzle_c74ea39fd2.mp3",
       "lang": "en",
       "text": "Puzzle",
       "pl": "Puzzle",
-      "id": "2b8391bc",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2b8391bc"
     },
     "Angielski|Swimming pool": {
       "file": "en_swimming_pool_244201044a.mp3",
       "lang": "en",
       "text": "Swimming pool",
       "pl": "Basen",
-      "id": "6bb9c580",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "6bb9c580"
     },
     "Angielski|Cinema": {
       "file": "en_cinema_86308ad6e2.mp3",
       "lang": "en",
       "text": "Cinema",
       "pl": "Kino",
-      "id": "7c2fe9ee",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "7c2fe9ee"
     },
     "Angielski|Museum": {
       "file": "en_museum_c7c69b5da3.mp3",
       "lang": "en",
       "text": "Museum",
       "pl": "Muzeum",
-      "id": "46437e83",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "46437e83"
     },
     "Angielski|Library": {
       "file": "en_library_e81daab0b9.mp3",
       "lang": "en",
       "text": "Library",
       "pl": "Biblioteka",
-      "id": "0507927d",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0507927d"
     },
     "Angielski|Dictionary": {
       "file": "en_dictionary_b11eb06a44.mp3",
       "lang": "en",
       "text": "Dictionary",
       "pl": "Słownik",
-      "id": "2825db19",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2825db19"
     },
     "Angielski|Exam": {
       "file": "en_exam_c3f584ee00.mp3",
       "lang": "en",
       "text": "Exam",
       "pl": "Egzamin",
-      "id": "3a0eb9d2",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3a0eb9d2"
     },
     "Angielski|Grade": {
       "file": "en_grade_e1adfa6947.mp3",
       "lang": "en",
       "text": "Grade",
       "pl": "Ocena",
-      "id": "0e07745f",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0e07745f"
     },
     "Angielski|Pride": {
       "file": "en_pride_67192a9720.mp3",
       "lang": "en",
       "text": "Pride",
       "pl": "Duma",
-      "id": "500c1891",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "500c1891"
     },
     "Angielski|Fear": {
       "file": "en_fear_21127c9e59.mp3",
       "lang": "en",
       "text": "Fear",
       "pl": "Strach",
-      "id": "24533017",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "24533017"
     },
     "Angielski|Boredom": {
       "file": "en_boredom_f6d289844c.mp3",
       "lang": "en",
       "text": "Boredom",
       "pl": "Nuda",
-      "id": "4a8d3e8a",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "4a8d3e8a"
     },
     "Angielski|Surprise": {
       "file": "en_surprise_10884ddc0c.mp3",
       "lang": "en",
       "text": "Surprise",
       "pl": "Niespodzianka",
-      "id": "3666d437",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "3666d437"
     },
     "Angielski|Dream": {
       "file": "en_dream_68fb30f9d5.mp3",
       "lang": "en",
       "text": "Dream",
       "pl": "Marzenie",
-      "id": "570eb4a8",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "570eb4a8"
     },
     "Angielski|Friendship": {
       "file": "en_friendship_824d02759f.mp3",
       "lang": "en",
       "text": "Friendship",
       "pl": "Przyjaźń",
-      "id": "7cb76754",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "7cb76754"
     },
     "Angielski|Truth": {
       "file": "en_truth_85a62c4e4f.mp3",
       "lang": "en",
       "text": "Truth",
       "pl": "Prawda",
-      "id": "20968fe4",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "20968fe4"
     },
     "Angielski|Lie": {
       "file": "en_lie_72d7411d8f.mp3",
       "lang": "en",
       "text": "Lie",
       "pl": "Kłamstwo",
-      "id": "23c0faa8",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "23c0faa8"
     },
     "Angielski|Silence": {
       "file": "en_silence_2eb79a7b65.mp3",
       "lang": "en",
       "text": "Silence",
       "pl": "Cisza",
-      "id": "2dff4d59",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2dff4d59"
     },
     "Angielski|Noise": {
       "file": "en_noise_b7f8cf40f7.mp3",
       "lang": "en",
       "text": "Noise",
       "pl": "Hałas",
-      "id": "0469cd39",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0469cd39"
     },
     "Angielski|Tooth": {
       "file": "en_tooth_e4a7c2e954.mp3",
       "lang": "en",
       "text": "Tooth",
       "pl": "Ząb",
-      "id": "2b820c83",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2b820c83"
     },
     "Angielski|Hair": {
       "file": "en_hair_ce66210f19.mp3",
       "lang": "en",
       "text": "Hair",
       "pl": "Włosy",
-      "id": "2fc4cd14",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2fc4cd14"
     },
     "Angielski|Skin": {
       "file": "en_skin_dc247f5d4a.mp3",
       "lang": "en",
       "text": "Skin",
       "pl": "Skóra",
-      "id": "0b6b8d2f",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0b6b8d2f"
     },
     "Angielski|Heart": {
       "file": "en_heart_3c25ab3469.mp3",
       "lang": "en",
       "text": "Heart",
       "pl": "Serce",
-      "id": "2e9af48c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2e9af48c"
     },
     "Angielski|Cough": {
       "file": "en_cough_b641e088ce.mp3",
       "lang": "en",
       "text": "Cough",
       "pl": "Kaszel",
-      "id": "2dba81d2",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2dba81d2"
     },
     "Angielski|Flu": {
       "file": "en_flu_f98bc6cb6d.mp3",
       "lang": "en",
       "text": "Flu",
       "pl": "Grypa",
-      "id": "2f503e52",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "2f503e52"
     },
     "Angielski|Medicine": {
       "file": "en_medicine_8addb61cbf.mp3",
       "lang": "en",
       "text": "Medicine",
       "pl": "Lekarstwo",
-      "id": "0866dcfa",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0866dcfa"
     },
     "Angielski|Band-aid": {
       "file": "en_band-aid_7338389895.mp3",
       "lang": "en",
       "text": "Band-aid",
       "pl": "Plastry",
-      "id": "7535ccf3",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "7535ccf3"
     },
     "Hiszpański|Maestra": {
       "file": "es_maestra_6ef0987a3e.mp3",
       "lang": "es",
       "text": "Maestra",
       "pl": "Nauczycielka",
-      "id": "46c84a48",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "46c84a48"
     },
     "Hiszpański|Bombero": {
       "file": "es_bombero_3fad30a712.mp3",
       "lang": "es",
       "text": "Bombero",
       "pl": "Strażak",
-      "id": "376cadda",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "376cadda"
     },
     "Hiszpański|Policía": {
       "file": "es_policía_30e08dfb58.mp3",
       "lang": "es",
       "text": "Policía",
       "pl": "Policjant",
-      "id": "5be44563",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5be44563"
     },
     "Hiszpański|Cocinero": {
       "file": "es_cocinero_3d46d7e032.mp3",
       "lang": "es",
       "text": "Cocinero",
       "pl": "Kucharz",
-      "id": "565ed808",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "565ed808"
     },
     "Hiszpański|Enfermera": {
       "file": "es_enfermera_a3ce706c65.mp3",
       "lang": "es",
       "text": "Enfermera",
       "pl": "Pielęgniarka",
-      "id": "554b3be5",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "554b3be5"
     },
     "Hiszpański|Conductor": {
       "file": "es_conductor_00f4730dc7.mp3",
       "lang": "es",
       "text": "Conductor",
       "pl": "Kierowca",
-      "id": "14324d3c",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "14324d3c"
     },
     "Hiszpański|Vendedor": {
       "file": "es_vendedor_ad08af210e.mp3",
       "lang": "es",
       "text": "Vendedor",
       "pl": "Sprzedawca",
-      "id": "6762f68b",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6762f68b"
     },
     "Hiszpański|Artista": {
       "file": "es_artista_22b61f79ea.mp3",
       "lang": "es",
       "text": "Artista",
       "pl": "Artysta",
-      "id": "3e998be8",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3e998be8"
     },
     "Hiszpański|Músico": {
       "file": "es_músico_362742e9df.mp3",
       "lang": "es",
       "text": "Músico",
       "pl": "Muzyk",
-      "id": "251cfd87",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "251cfd87"
     },
     "Hiszpański|Granjero": {
       "file": "es_granjero_86ba1b4817.mp3",
       "lang": "es",
       "text": "Granjero",
       "pl": "Rolnik",
-      "id": "64063ecb",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "64063ecb"
     },
     "Hiszpański|Bicicleta": {
       "file": "es_bicicleta_cf49c50fc3.mp3",
       "lang": "es",
       "text": "Bicicleta",
       "pl": "Rower",
-      "id": "07b1c807",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "07b1c807"
     },
     "Hiszpański|Avión": {
       "file": "es_avión_76fc309966.mp3",
       "lang": "es",
       "text": "Avión",
       "pl": "Samolot",
-      "id": "495f00d4",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "495f00d4"
     },
     "Hiszpański|Barco": {
       "file": "es_barco_88d57c7f82.mp3",
       "lang": "es",
       "text": "Barco",
       "pl": "Statek",
-      "id": "1c81a73d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1c81a73d"
     },
     "Hiszpański|Estación": {
       "file": "es_estación_6690fdeef8.mp3",
       "lang": "es",
       "text": "Estación",
       "pl": "Stacja",
-      "id": "21cf31de",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "21cf31de"
     },
     "Hiszpański|Aeropuerto": {
       "file": "es_aeropuerto_4a6258e0f4.mp3",
       "lang": "es",
       "text": "Aeropuerto",
       "pl": "Lotnisko",
-      "id": "76a5dbdf",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "76a5dbdf"
     },
     "Hiszpański|Maleta": {
       "file": "es_maleta_7d61b75ba7.mp3",
       "lang": "es",
       "text": "Maleta",
       "pl": "Walizka",
-      "id": "4d780c6d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "4d780c6d"
     },
     "Hiszpański|Pasaporte": {
       "file": "es_pasaporte_f444b90290.mp3",
       "lang": "es",
       "text": "Pasaporte",
       "pl": "Pas",
-      "id": "2385548b",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "2385548b"
     },
     "Hiszpański|Mapa de la ciudad": {
       "file": "es_mapa_de_la_ciudad_846e7a125f.mp3",
       "lang": "es",
       "text": "Mapa de la ciudad",
       "pl": "Mapa miasta",
-      "id": "1cb7d379",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1cb7d379"
     },
     "Hiszpański|Taxi": {
       "file": "es_taxi_9364e5e9ae.mp3",
       "lang": "es",
       "text": "Taxi",
       "pl": "Taxi",
-      "id": "1176853c",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1176853c"
     },
     "Hiszpański|Metro": {
       "file": "es_metro_d83d7fb91b.mp3",
       "lang": "es",
       "text": "Metro",
       "pl": "Metro",
-      "id": "013e5076",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "013e5076"
     },
     "Hiszpański|Nevera": {
       "file": "es_nevera_0c5190ca94.mp3",
       "lang": "es",
       "text": "Nevera",
       "pl": "Lodówka",
-      "id": "4eeb5d76",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "4eeb5d76"
     },
     "Hiszpański|Horno": {
       "file": "es_horno_07175c6b26.mp3",
       "lang": "es",
       "text": "Horno",
       "pl": "Piekarnik",
-      "id": "3ec87f90",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3ec87f90"
     },
     "Hiszpański|Lavavajillas": {
       "file": "es_lavavajillas_61e2ff2bd9.mp3",
       "lang": "es",
       "text": "Lavavajillas",
       "pl": "Zmywarka",
-      "id": "7df25be0",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "7df25be0"
     },
     "Hiszpański|Lavadora": {
       "file": "es_lavadora_65daf266ce.mp3",
       "lang": "es",
       "text": "Lavadora",
       "pl": "Pralka",
-      "id": "4d071ef3",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "4d071ef3"
     },
     "Hiszpański|Televisión": {
       "file": "es_televisión_d832e25ce8.mp3",
       "lang": "es",
       "text": "Televisión",
       "pl": "Telewizor",
-      "id": "5bc35089",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5bc35089"
     },
     "Hiszpański|Mando": {
       "file": "es_mando_d2143e1053.mp3",
       "lang": "es",
       "text": "Mando",
       "pl": "Pilot",
-      "id": "3fc86d21",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3fc86d21"
     },
     "Hiszpański|Enchufe": {
       "file": "es_enchufe_995c11de4f.mp3",
       "lang": "es",
       "text": "Enchufe",
       "pl": "Wtyczka",
-      "id": "01fca0b3",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "01fca0b3"
     },
     "Hiszpański|Pila": {
       "file": "es_pila_75039ff3fb.mp3",
       "lang": "es",
       "text": "Pila",
       "pl": "Bateria",
-      "id": "2e3257d0",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "2e3257d0"
     },
     "Hiszpański|Tijeras": {
       "file": "es_tijeras_4e8ffe93d8.mp3",
       "lang": "es",
       "text": "Tijeras",
       "pl": "Nożyczki",
-      "id": "400081cb",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "400081cb"
     },
     "Hiszpański|Pegamento": {
       "file": "es_pegamento_6fd678c340.mp3",
       "lang": "es",
       "text": "Pegamento",
       "pl": "Klej",
-      "id": "5873d7ec",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5873d7ec"
     },
     "Hiszpański|Desayuno": {
       "file": "es_desayuno_ed25f9dce0.mp3",
       "lang": "es",
       "text": "Desayuno",
       "pl": "Śniadanie",
-      "id": "14d40b26",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "14d40b26"
     },
     "Hiszpański|Almuerzo": {
       "file": "es_almuerzo_5c1b009530.mp3",
       "lang": "es",
       "text": "Almuerzo",
       "pl": "Obiad",
-      "id": "7bc10b38",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "7bc10b38"
     },
     "Hiszpański|Cena": {
       "file": "es_cena_1f87b51d75.mp3",
       "lang": "es",
       "text": "Cena",
       "pl": "Kolacja",
-      "id": "43444c50",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "43444c50"
     },
     "Hiszpański|Bocadillo": {
       "file": "es_bocadillo_001d63b0cb.mp3",
       "lang": "es",
       "text": "Bocadillo",
       "pl": "Kanapka",
-      "id": "1c79e420",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1c79e420"
     },
     "Hiszpański|Ensalada": {
       "file": "es_ensalada_e821d83608.mp3",
       "lang": "es",
       "text": "Ensalada",
       "pl": "Sałatka",
-      "id": "72e13788",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "72e13788"
     },
     "Hiszpański|Sopa de tomate": {
       "file": "es_sopa_de_tomate_ff0eb5b402.mp3",
       "lang": "es",
       "text": "Sopa de tomate",
       "pl": "Zupa pomidorowa",
-      "id": "0c123c27",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "0c123c27"
     },
     "Hiszpański|Pasta": {
       "file": "es_pasta_f850fe6ca1.mp3",
       "lang": "es",
       "text": "Pasta",
       "pl": "Makaron",
-      "id": "697e65fa",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "697e65fa"
     },
     "Hiszpański|Carne": {
       "file": "es_carne_0646b62bd6.mp3",
       "lang": "es",
       "text": "Carne",
       "pl": "Mięso",
-      "id": "49d208e8",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "49d208e8"
     },
     "Hiszpański|Pescado frito": {
       "file": "es_pescado_frito_cb9979e9ba.mp3",
       "lang": "es",
       "text": "Pescado frito",
       "pl": "Ryba smażona",
-      "id": "38068a16",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "38068a16"
     },
     "Hiszpański|Yogur": {
       "file": "es_yogur_555ebed10c.mp3",
       "lang": "es",
       "text": "Yogur",
       "pl": "Jogurt",
-      "id": "609a1e27",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "609a1e27"
     },
     "Hiszpański|Zumo de naranja": {
       "file": "es_zumo_de_naranja_4fc705d16b.mp3",
       "lang": "es",
       "text": "Zumo de naranja",
       "pl": "Sok pomarańczowy",
-      "id": "6aeab6b4",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6aeab6b4"
     },
     "Hiszpański|Mariposa": {
       "file": "es_mariposa_a452392d71.mp3",
       "lang": "es",
       "text": "Mariposa",
       "pl": "Motyl",
-      "id": "6198d64f",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6198d64f"
     },
     "Hiszpański|Abeja": {
       "file": "es_abeja_7286ecda78.mp3",
       "lang": "es",
       "text": "Abeja",
       "pl": "Pszczoła",
-      "id": "773ee95f",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "773ee95f"
     },
     "Hiszpański|Rana": {
       "file": "es_rana_d440d9f377.mp3",
       "lang": "es",
       "text": "Rana",
       "pl": "Żaba",
-      "id": "5e9837ba",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5e9837ba"
     },
     "Hiszpański|Serpiente": {
       "file": "es_serpiente_dd4a6313cd.mp3",
       "lang": "es",
       "text": "Serpiente",
       "pl": "Wąż",
-      "id": "7842b405",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "7842b405"
     },
     "Hiszpański|Oso": {
       "file": "es_oso_4d7fcfdd0a.mp3",
       "lang": "es",
       "text": "Oso",
       "pl": "Niedźwiedź",
-      "id": "6d952818",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6d952818"
     },
     "Hiszpański|Lobo": {
       "file": "es_lobo_c7a778ac0f.mp3",
       "lang": "es",
       "text": "Lobo",
       "pl": "Wilk",
-      "id": "15e8b25b",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "15e8b25b"
     },
     "Hiszpański|Zorro": {
       "file": "es_zorro_025efe4b3c.mp3",
       "lang": "es",
       "text": "Zorro",
       "pl": "Lis",
-      "id": "462b29f4",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "462b29f4"
     },
     "Hiszpański|Elefante": {
       "file": "es_elefante_b5c1de1b9d.mp3",
       "lang": "es",
       "text": "Elefante",
       "pl": "Słoń",
-      "id": "5eaca9be",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5eaca9be"
     },
     "Hiszpański|Jirafa": {
       "file": "es_jirafa_af53740f28.mp3",
       "lang": "es",
       "text": "Jirafa",
       "pl": "Żyrafa",
-      "id": "5519d75e",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5519d75e"
     },
     "Hiszpański|Pingüino": {
       "file": "es_pingüino_d954e44c48.mp3",
       "lang": "es",
       "text": "Pingüino",
       "pl": "Pingwin",
-      "id": "63b01472",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "63b01472"
     },
     "Hiszpański|Primavera": {
       "file": "es_primavera_51cc147d13.mp3",
       "lang": "es",
       "text": "Primavera",
       "pl": "Wiosna",
-      "id": "6895ce46",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6895ce46"
     },
     "Hiszpański|Verano": {
       "file": "es_verano_365acd5a5c.mp3",
       "lang": "es",
       "text": "Verano",
       "pl": "Lato",
-      "id": "0899262b",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "0899262b"
     },
     "Hiszpański|Otoño": {
       "file": "es_otoño_3d560219d5.mp3",
       "lang": "es",
       "text": "Otoño",
       "pl": "Jesień",
-      "id": "43fda15c",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "43fda15c"
     },
     "Hiszpański|Invierno": {
       "file": "es_invierno_fae9ca3d20.mp3",
       "lang": "es",
       "text": "Invierno",
       "pl": "Zima",
-      "id": "3e43a89f",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3e43a89f"
     },
     "Hiszpański|Tormenta": {
       "file": "es_tormenta_c75d148105.mp3",
       "lang": "es",
       "text": "Tormenta",
       "pl": "Burza",
-      "id": "066fb122",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "066fb122"
     },
     "Hiszpański|Arcoíris": {
       "file": "es_arcoíris_b4db0f9135.mp3",
       "lang": "es",
       "text": "Arcoíris",
       "pl": "Tęcza",
-      "id": "104d1383",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "104d1383"
     },
     "Hiszpański|Niebla": {
       "file": "es_niebla_87c995c808.mp3",
       "lang": "es",
       "text": "Niebla",
       "pl": "Mgła",
-      "id": "6a8311f0",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6a8311f0"
     },
     "Hiszpański|Ola de calor": {
       "file": "es_ola_de_calor_da68bc020c.mp3",
       "lang": "es",
       "text": "Ola de calor",
       "pl": "Upał",
-      "id": "27f0336e",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "27f0336e"
     },
     "Hiszpański|Hobby": {
       "file": "es_hobby_1822a55bc0.mp3",
       "lang": "es",
       "text": "Hobby",
       "pl": "Hobby",
-      "id": "497ec328",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "497ec328"
     },
     "Hiszpański|Juego de mesa": {
       "file": "es_juego_de_mesa_3c4e3edd06.mp3",
       "lang": "es",
       "text": "Juego de mesa",
       "pl": "Gra planszowa",
-      "id": "41df610a",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "41df610a"
     },
     "Hiszpański|Rompecabezas": {
       "file": "es_rompecabezas_89f55a0098.mp3",
       "lang": "es",
       "text": "Rompecabezas",
       "pl": "Puzzle",
-      "id": "47ac7d04",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "47ac7d04"
     },
     "Hiszpański|Piscina": {
       "file": "es_piscina_6959bc331d.mp3",
       "lang": "es",
       "text": "Piscina",
       "pl": "Basen",
-      "id": "61116ff4",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "61116ff4"
     },
     "Hiszpański|Cine": {
       "file": "es_cine_b79c760b81.mp3",
       "lang": "es",
       "text": "Cine",
       "pl": "Kino",
-      "id": "134f2ada",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "134f2ada"
     },
     "Hiszpański|Museo": {
       "file": "es_museo_8f62c832d3.mp3",
       "lang": "es",
       "text": "Museo",
       "pl": "Muzeum",
-      "id": "16e96724",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "16e96724"
     },
     "Hiszpański|Biblioteca": {
       "file": "es_biblioteca_c52013abb3.mp3",
       "lang": "es",
       "text": "Biblioteca",
       "pl": "Biblioteka",
-      "id": "1167f1c4",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1167f1c4"
     },
     "Hiszpański|Diccionario": {
       "file": "es_diccionario_97bba94dfe.mp3",
       "lang": "es",
       "text": "Diccionario",
       "pl": "Słownik",
-      "id": "76a18bb7",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "76a18bb7"
     },
     "Hiszpański|Examen": {
       "file": "es_examen_83055553f4.mp3",
       "lang": "es",
       "text": "Examen",
       "pl": "Egzamin",
-      "id": "714799fb",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "714799fb"
     },
     "Hiszpański|Nota": {
       "file": "es_nota_b8c43955b9.mp3",
       "lang": "es",
       "text": "Nota",
       "pl": "Ocena",
-      "id": "25a04a66",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "25a04a66"
     },
     "Hiszpański|Orgullo": {
       "file": "es_orgullo_b6df71ede5.mp3",
       "lang": "es",
       "text": "Orgullo",
       "pl": "Duma",
-      "id": "486db027",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "486db027"
     },
     "Hiszpański|Miedo": {
       "file": "es_miedo_5b9a3fe72a.mp3",
       "lang": "es",
       "text": "Miedo",
       "pl": "Strach",
-      "id": "6677568d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6677568d"
     },
     "Hiszpański|Aburrimiento": {
       "file": "es_aburrimiento_ddc1e5d9f5.mp3",
       "lang": "es",
       "text": "Aburrimiento",
       "pl": "Nuda",
-      "id": "416fce6d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "416fce6d"
     },
     "Hiszpański|Sorpresa": {
       "file": "es_sorpresa_ec9f2f7897.mp3",
       "lang": "es",
       "text": "Sorpresa",
       "pl": "Niespodzianka",
-      "id": "790161a9",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "790161a9"
     },
     "Hiszpański|Sueño": {
       "file": "es_sueño_4b95a6b18b.mp3",
       "lang": "es",
       "text": "Sueño",
       "pl": "Marzenie",
-      "id": "57e383c6",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "57e383c6"
     },
     "Hiszpański|Amistad": {
       "file": "es_amistad_63fb646c9e.mp3",
       "lang": "es",
       "text": "Amistad",
       "pl": "Przyjaźń",
-      "id": "24b65a47",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "24b65a47"
     },
     "Hiszpański|Verdad": {
       "file": "es_verdad_f4439ecece.mp3",
       "lang": "es",
       "text": "Verdad",
       "pl": "Prawda",
-      "id": "74ec52ab",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "74ec52ab"
     },
     "Hiszpański|Mentira": {
       "file": "es_mentira_d3bfe56018.mp3",
       "lang": "es",
       "text": "Mentira",
       "pl": "Kłamstwo",
-      "id": "3ebb665a",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3ebb665a"
     },
     "Hiszpański|Silencio": {
       "file": "es_silencio_e5d048cb3e.mp3",
       "lang": "es",
       "text": "Silencio",
       "pl": "Cisza",
-      "id": "11ea5eb2",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "11ea5eb2"
     },
     "Hiszpański|Ruido": {
       "file": "es_ruido_bd3c05438a.mp3",
       "lang": "es",
       "text": "Ruido",
       "pl": "Hałas",
-      "id": "04a4e3b0",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "04a4e3b0"
     },
     "Hiszpański|Diente": {
       "file": "es_diente_9974676544.mp3",
       "lang": "es",
       "text": "Diente",
       "pl": "Ząb",
-      "id": "2918cc84",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "2918cc84"
     },
     "Hiszpański|Pelo": {
       "file": "es_pelo_f0b8b3c6e1.mp3",
       "lang": "es",
       "text": "Pelo",
       "pl": "Włosy",
-      "id": "2fc87f6a",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "2fc87f6a"
     },
     "Hiszpański|Piel": {
       "file": "es_piel_69803a7406.mp3",
       "lang": "es",
       "text": "Piel",
       "pl": "Skóra",
-      "id": "0b6a2812",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "0b6a2812"
     },
     "Hiszpański|Corazón": {
       "file": "es_corazón_cd0d044c1b.mp3",
       "lang": "es",
       "text": "Corazón",
       "pl": "Serce",
-      "id": "7d295920",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "7d295920"
     },
     "Hiszpański|Tos": {
       "file": "es_tos_5ee90250d9.mp3",
       "lang": "es",
       "text": "Tos",
       "pl": "Kaszel",
-      "id": "5b053d00",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "5b053d00"
     },
     "Hiszpański|Gripe": {
       "file": "es_gripe_445cf7bbad.mp3",
       "lang": "es",
       "text": "Gripe",
       "pl": "Grypa",
-      "id": "1c4aa476",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "1c4aa476"
     },
     "Hiszpański|Medicina": {
       "file": "es_medicina_5c15a67b45.mp3",
       "lang": "es",
       "text": "Medicina",
       "pl": "Lekarstwo",
-      "id": "0866dcf6",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "0866dcf6"
     },
     "Hiszpański|Tirita": {
       "file": "es_tirita_17796fa0c4.mp3",
       "lang": "es",
       "text": "Tirita",
       "pl": "Plastry",
-      "id": "79fdb9e8",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "79fdb9e8"
     },
     "Rosyjski|Учительница": {
       "file": "ru_учительница_8b04e3daad.mp3",
       "lang": "ru",
       "text": "Учительница",
       "pl": "Nauczycielka",
-      "id": "1c6d0864",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1c6d0864"
     },
     "Rosyjski|Пожарный": {
       "file": "ru_пожарный_7476961ce7.mp3",
       "lang": "ru",
       "text": "Пожарный",
       "pl": "Strażak",
-      "id": "2ce3d54a",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2ce3d54a"
     },
     "Rosyjski|Полицейский": {
       "file": "ru_полицейский_0a471f4862.mp3",
       "lang": "ru",
       "text": "Полицейский",
       "pl": "Policjant",
-      "id": "520d0430",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "520d0430"
     },
     "Rosyjski|Повар": {
       "file": "ru_повар_4d489cccb4.mp3",
       "lang": "ru",
       "text": "Повар",
       "pl": "Kucharz",
-      "id": "3e9453c1",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3e9453c1"
     },
     "Rosyjski|Медсестра": {
       "file": "ru_медсестра_f41e1996ca.mp3",
       "lang": "ru",
       "text": "Медсестра",
       "pl": "Pielęgniarka",
-      "id": "1c5a4e54",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1c5a4e54"
     },
     "Rosyjski|Водитель": {
       "file": "ru_водитель_720655065a.mp3",
       "lang": "ru",
       "text": "Водитель",
       "pl": "Kierowca",
-      "id": "58e602ff",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "58e602ff"
     },
     "Rosyjski|Продавец": {
       "file": "ru_продавец_512f6a0954.mp3",
       "lang": "ru",
       "text": "Продавец",
       "pl": "Sprzedawca",
-      "id": "4757e1ae",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4757e1ae"
     },
     "Rosyjski|Художник": {
       "file": "ru_художник_7d55262986.mp3",
       "lang": "ru",
       "text": "Художник",
       "pl": "Artysta",
-      "id": "3d437f83",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3d437f83"
     },
     "Rosyjski|Музыкант": {
       "file": "ru_музыкант_efb928b762.mp3",
       "lang": "ru",
       "text": "Музыкант",
       "pl": "Muzyk",
-      "id": "624ab72e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "624ab72e"
     },
     "Rosyjski|Фермер": {
       "file": "ru_фермер_e074fcc45c.mp3",
       "lang": "ru",
       "text": "Фермер",
       "pl": "Rolnik",
-      "id": "33d18213",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "33d18213"
     },
     "Rosyjski|Велосипед": {
       "file": "ru_велосипед_2454fa0480.mp3",
       "lang": "ru",
       "text": "Велосипед",
       "pl": "Rower",
-      "id": "4ecce0cc",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4ecce0cc"
     },
     "Rosyjski|Самолёт": {
       "file": "ru_самолёт_7832bac785.mp3",
       "lang": "ru",
       "text": "Самолёт",
       "pl": "Samolot",
-      "id": "7d28de00",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7d28de00"
     },
     "Rosyjski|Корабль": {
       "file": "ru_корабль_69b8aec2d4.mp3",
       "lang": "ru",
       "text": "Корабль",
       "pl": "Statek",
-      "id": "26b7c8ac",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "26b7c8ac"
     },
     "Rosyjski|Станция": {
       "file": "ru_станция_a303798e57.mp3",
       "lang": "ru",
       "text": "Станция",
       "pl": "Stacja",
-      "id": "368e89ed",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "368e89ed"
     },
     "Rosyjski|Аэропорт": {
       "file": "ru_аэропорт_7d340995b9.mp3",
       "lang": "ru",
       "text": "Аэропорт",
       "pl": "Lotnisko",
-      "id": "5b38c98d",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "5b38c98d"
     },
     "Rosyjski|Чемодан": {
       "file": "ru_чемодан_7036d4a4f7.mp3",
       "lang": "ru",
       "text": "Чемодан",
       "pl": "Walizka",
-      "id": "601ee59e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "601ee59e"
     },
     "Rosyjski|Паспорт": {
       "file": "ru_паспорт_d08ef45bea.mp3",
       "lang": "ru",
       "text": "Паспорт",
       "pl": "Pas",
-      "id": "2082ed57",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2082ed57"
     },
     "Rosyjski|Карта города": {
       "file": "ru_карта_города_e448bf2cfb.mp3",
       "lang": "ru",
       "text": "Карта города",
       "pl": "Mapa miasta",
-      "id": "723ec613",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "723ec613"
     },
     "Rosyjski|Такси": {
       "file": "ru_такси_afa2dbe943.mp3",
       "lang": "ru",
       "text": "Такси",
       "pl": "Taxi",
-      "id": "54c15b85",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "54c15b85"
     },
     "Rosyjski|Метро": {
       "file": "ru_метро_d235ccef21.mp3",
       "lang": "ru",
       "text": "Метро",
       "pl": "Metro",
-      "id": "38b44104",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "38b44104"
     },
     "Rosyjski|Холодильник": {
       "file": "ru_холодильник_e18d0e0f74.mp3",
       "lang": "ru",
       "text": "Холодильник",
       "pl": "Lodówka",
-      "id": "1c55b02d",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1c55b02d"
     },
     "Rosyjski|Духовка": {
       "file": "ru_духовка_df06ecc0df.mp3",
       "lang": "ru",
       "text": "Духовка",
       "pl": "Piekarnik",
-      "id": "48cb49c4",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "48cb49c4"
     },
     "Rosyjski|Посудомойка": {
       "file": "ru_посудомойка_92b051679b.mp3",
       "lang": "ru",
       "text": "Посудомойка",
       "pl": "Zmywarka",
-      "id": "1eddf71e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1eddf71e"
     },
     "Rosyjski|Стиральная машина": {
       "file": "ru_стиральная_машина_e41bbf10a7.mp3",
       "lang": "ru",
       "text": "Стиральная машина",
       "pl": "Pralka",
-      "id": "173b999a",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "173b999a"
     },
     "Rosyjski|Телевизор": {
       "file": "ru_телевизор_adc1925ad8.mp3",
       "lang": "ru",
       "text": "Телевизор",
       "pl": "Telewizor",
-      "id": "566d4bab",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "566d4bab"
     },
     "Rosyjski|Пульт": {
       "file": "ru_пульт_fdd4470686.mp3",
       "lang": "ru",
       "text": "Пульт",
       "pl": "Pilot",
-      "id": "7770d249",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7770d249"
     },
     "Rosyjski|Розетка": {
       "file": "ru_розетка_d3c5d34711.mp3",
       "lang": "ru",
       "text": "Розетка",
       "pl": "Wtyczka",
-      "id": "2ed7f869",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2ed7f869"
     },
     "Rosyjski|Батарейка": {
       "file": "ru_батарейка_ba1ce12618.mp3",
       "lang": "ru",
       "text": "Батарейка",
       "pl": "Bateria",
-      "id": "5adb654b",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "5adb654b"
     },
     "Rosyjski|Ножницы": {
       "file": "ru_ножницы_3d54dada16.mp3",
       "lang": "ru",
       "text": "Ножницы",
       "pl": "Nożyczki",
-      "id": "3cc815ec",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3cc815ec"
     },
     "Rosyjski|Клей": {
       "file": "ru_клей_3bf1122ce8.mp3",
       "lang": "ru",
       "text": "Клей",
       "pl": "Klej",
-      "id": "68200a1b",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "68200a1b"
     },
     "Rosyjski|Завтрак": {
       "file": "ru_завтрак_1462344970.mp3",
       "lang": "ru",
       "text": "Завтрак",
       "pl": "Śniadanie",
-      "id": "1db69547",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1db69547"
     },
     "Rosyjski|Ужин": {
       "file": "ru_ужин_14c5383e18.mp3",
       "lang": "ru",
       "text": "Ужин",
       "pl": "Kolacja",
-      "id": "45160953",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "45160953"
     },
     "Rosyjski|Бутерброд": {
       "file": "ru_бутерброд_29e9382ac1.mp3",
       "lang": "ru",
       "text": "Бутерброд",
       "pl": "Kanapka",
-      "id": "7ed2a601",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7ed2a601"
     },
     "Rosyjski|Салат": {
       "file": "ru_салат_98b8f76919.mp3",
       "lang": "ru",
       "text": "Салат",
       "pl": "Sałatka",
-      "id": "1d8767df",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1d8767df"
     },
     "Rosyjski|Томатный суп": {
       "file": "ru_томатный_суп_5a635792e3.mp3",
       "lang": "ru",
       "text": "Томатный суп",
       "pl": "Zupa pomidorowa",
-      "id": "6a44e8b1",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6a44e8b1"
     },
     "Rosyjski|Макароны": {
       "file": "ru_макароны_53be7aceed.mp3",
       "lang": "ru",
       "text": "Макароны",
       "pl": "Makaron",
-      "id": "7880218b",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7880218b"
     },
     "Rosyjski|Мясо": {
       "file": "ru_мясо_2a60fa4196.mp3",
       "lang": "ru",
       "text": "Мясо",
       "pl": "Mięso",
-      "id": "632856f3",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "632856f3"
     },
     "Rosyjski|Жареная рыба": {
       "file": "ru_жареная_рыба_6c8e2eb558.mp3",
       "lang": "ru",
       "text": "Жареная рыба",
       "pl": "Ryba smażona",
-      "id": "51e1e0a6",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "51e1e0a6"
     },
     "Rosyjski|Йогурт": {
       "file": "ru_йогурт_1a8559d71d.mp3",
       "lang": "ru",
       "text": "Йогурт",
       "pl": "Jogurt",
-      "id": "504a1a7e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "504a1a7e"
     },
     "Rosyjski|Апельсиновый сок": {
       "file": "ru_апельсиновый_сок_d6b8ca67df.mp3",
       "lang": "ru",
       "text": "Апельсиновый сок",
       "pl": "Sok pomarańczowy",
-      "id": "3e444d41",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3e444d41"
     },
     "Rosyjski|Бабочка": {
       "file": "ru_бабочка_a300e81de5.mp3",
       "lang": "ru",
       "text": "Бабочка",
       "pl": "Motyl",
-      "id": "4b70ba5a",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4b70ba5a"
     },
     "Rosyjski|Пчела": {
       "file": "ru_пчела_b174b9248b.mp3",
       "lang": "ru",
       "text": "Пчела",
       "pl": "Pszczoła",
-      "id": "2f91ce26",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2f91ce26"
     },
     "Rosyjski|Лягушка": {
       "file": "ru_лягушка_43865e2e5e.mp3",
       "lang": "ru",
       "text": "Лягушка",
       "pl": "Żaba",
-      "id": "3ad18b82",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3ad18b82"
     },
     "Rosyjski|Змея": {
       "file": "ru_змея_e0f7b85bc1.mp3",
       "lang": "ru",
       "text": "Змея",
       "pl": "Wąż",
-      "id": "49a61bcd",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "49a61bcd"
     },
     "Rosyjski|Медведь": {
       "file": "ru_медведь_ba08239ccd.mp3",
       "lang": "ru",
       "text": "Медведь",
       "pl": "Niedźwiedź",
-      "id": "7fcfb903",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7fcfb903"
     },
     "Rosyjski|Волк": {
       "file": "ru_волк_b465cb1a8f.mp3",
       "lang": "ru",
       "text": "Волк",
       "pl": "Wilk",
-      "id": "17ae97f6",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "17ae97f6"
     },
     "Rosyjski|Лиса": {
       "file": "ru_лиса_de4e4a4efd.mp3",
       "lang": "ru",
       "text": "Лиса",
       "pl": "Lis",
-      "id": "527a99d2",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "527a99d2"
     },
     "Rosyjski|Слон": {
       "file": "ru_слон_5c7eb24224.mp3",
       "lang": "ru",
       "text": "Слон",
       "pl": "Słoń",
-      "id": "6580fc31",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6580fc31"
     },
     "Rosyjski|Жираф": {
       "file": "ru_жираф_30085105ce.mp3",
       "lang": "ru",
       "text": "Жираф",
       "pl": "Żyrafa",
-      "id": "424c0b3d",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "424c0b3d"
     },
     "Rosyjski|Пингвин": {
       "file": "ru_пингвин_8e43434bcb.mp3",
       "lang": "ru",
       "text": "Пингвин",
       "pl": "Pingwin",
-      "id": "05de7656",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "05de7656"
     },
     "Rosyjski|Весна": {
       "file": "ru_весна_0af85c4273.mp3",
       "lang": "ru",
       "text": "Весна",
       "pl": "Wiosna",
-      "id": "6aa6711e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6aa6711e"
     },
     "Rosyjski|Лето": {
       "file": "ru_лето_00f342fb27.mp3",
       "lang": "ru",
       "text": "Лето",
       "pl": "Lato",
-      "id": "27bd9ee2",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "27bd9ee2"
     },
     "Rosyjski|Осень": {
       "file": "ru_осень_fb6cae0a0e.mp3",
       "lang": "ru",
       "text": "Осень",
       "pl": "Jesień",
-      "id": "7b720715",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7b720715"
     },
     "Rosyjski|Зима": {
       "file": "ru_зима_96ed9574f6.mp3",
       "lang": "ru",
       "text": "Зима",
       "pl": "Zima",
-      "id": "7853d96e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7853d96e"
     },
     "Rosyjski|Гроза": {
       "file": "ru_гроза_6bdffa2201.mp3",
       "lang": "ru",
       "text": "Гроза",
       "pl": "Burza",
-      "id": "48e70c74",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "48e70c74"
     },
     "Rosyjski|Радуга": {
       "file": "ru_радуга_6f9ff410dd.mp3",
       "lang": "ru",
       "text": "Радуга",
       "pl": "Tęcza",
-      "id": "05f63373",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "05f63373"
     },
     "Rosyjski|Туман": {
       "file": "ru_туман_f344b0fa05.mp3",
       "lang": "ru",
       "text": "Туман",
       "pl": "Mgła",
-      "id": "70de1425",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "70de1425"
     },
     "Rosyjski|Жара": {
       "file": "ru_жара_2341512ca9.mp3",
       "lang": "ru",
       "text": "Жара",
       "pl": "Upał",
-      "id": "6f4cf34a",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6f4cf34a"
     },
     "Rosyjski|Хобби": {
       "file": "ru_хобби_67e2c14fc9.mp3",
       "lang": "ru",
       "text": "Хобби",
       "pl": "Hobby",
-      "id": "01b98c35",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "01b98c35"
     },
     "Rosyjski|Настольная игра": {
       "file": "ru_настольная_игра_d0df3d6035.mp3",
       "lang": "ru",
       "text": "Настольная игра",
       "pl": "Gra planszowa",
-      "id": "2270c1cd",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2270c1cd"
     },
     "Rosyjski|Пазл": {
       "file": "ru_пазл_1eeee988f9.mp3",
       "lang": "ru",
       "text": "Пазл",
       "pl": "Puzzle",
-      "id": "79d76773",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "79d76773"
     },
     "Rosyjski|Бассейн": {
       "file": "ru_бассейн_268c81b9a6.mp3",
       "lang": "ru",
       "text": "Бассейн",
       "pl": "Basen",
-      "id": "1ee24dfb",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1ee24dfb"
     },
     "Rosyjski|Кино": {
       "file": "ru_кино_952e817cfa.mp3",
       "lang": "ru",
       "text": "Кино",
       "pl": "Kino",
-      "id": "151cc99c",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "151cc99c"
     },
     "Rosyjski|Музей": {
       "file": "ru_музей_10073e058f.mp3",
       "lang": "ru",
       "text": "Музей",
       "pl": "Muzeum",
-      "id": "4e5e49a3",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4e5e49a3"
     },
     "Rosyjski|Библиотека": {
       "file": "ru_библиотека_60cc8f405c.mp3",
       "lang": "ru",
       "text": "Библиотека",
       "pl": "Biblioteka",
-      "id": "7870337e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7870337e"
     },
     "Rosyjski|Словарь": {
       "file": "ru_словарь_d485b08cd8.mp3",
       "lang": "ru",
       "text": "Словарь",
       "pl": "Słownik",
-      "id": "682f008b",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "682f008b"
     },
     "Rosyjski|Экзамен": {
       "file": "ru_экзамен_c5f0231308.mp3",
       "lang": "ru",
       "text": "Экзамен",
       "pl": "Egzamin",
-      "id": "7c6bee6b",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7c6bee6b"
     },
     "Rosyjski|Оценка": {
       "file": "ru_оценка_0e4dd22afe.mp3",
       "lang": "ru",
       "text": "Оценка",
       "pl": "Ocena",
-      "id": "7811441e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "7811441e"
     },
     "Rosyjski|Гордость": {
       "file": "ru_гордость_6eb4309228.mp3",
       "lang": "ru",
       "text": "Гордость",
       "pl": "Duma",
-      "id": "12c93fa3",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "12c93fa3"
     },
     "Rosyjski|Страх": {
       "file": "ru_страх_908b8bfa51.mp3",
       "lang": "ru",
       "text": "Страх",
       "pl": "Strach",
-      "id": "1e38048d",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "1e38048d"
     },
     "Rosyjski|Скука": {
       "file": "ru_скука_25e3ff9f8b.mp3",
       "lang": "ru",
       "text": "Скука",
       "pl": "Nuda",
-      "id": "6b8e9a88",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6b8e9a88"
     },
     "Rosyjski|Сюрприз": {
       "file": "ru_сюрприз_db634e0b68.mp3",
       "lang": "ru",
       "text": "Сюрприз",
       "pl": "Niespodzianka",
-      "id": "2298bbc5",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2298bbc5"
     },
     "Rosyjski|Мечта": {
       "file": "ru_мечта_c28fb2c682.mp3",
       "lang": "ru",
       "text": "Мечта",
       "pl": "Marzenie",
-      "id": "0efddd41",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "0efddd41"
     },
     "Rosyjski|Дружба": {
       "file": "ru_дружба_3ccbd2210c.mp3",
       "lang": "ru",
       "text": "Дружба",
       "pl": "Przyjaźń",
-      "id": "584074b8",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "584074b8"
     },
     "Rosyjski|Правда": {
       "file": "ru_правда_411791fab2.mp3",
       "lang": "ru",
       "text": "Правда",
       "pl": "Prawda",
-      "id": "228b2106",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "228b2106"
     },
     "Rosyjski|Ложь": {
       "file": "ru_ложь_866442f28c.mp3",
       "lang": "ru",
       "text": "Ложь",
       "pl": "Kłamstwo",
-      "id": "56286d59",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "56286d59"
     },
     "Rosyjski|Тишина": {
       "file": "ru_тишина_abe5dca257.mp3",
       "lang": "ru",
       "text": "Тишина",
       "pl": "Cisza",
-      "id": "6e69c201",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6e69c201"
     },
     "Rosyjski|Шум": {
       "file": "ru_шум_05cdf09488.mp3",
       "lang": "ru",
       "text": "Шум",
       "pl": "Hałas",
-      "id": "4dd93c80",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4dd93c80"
     },
     "Rosyjski|Зуб": {
       "file": "ru_зуб_5da01f6d0e.mp3",
       "lang": "ru",
       "text": "Зуб",
       "pl": "Ząb",
-      "id": "78c6cf40",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "78c6cf40"
     },
     "Rosyjski|Волосы": {
       "file": "ru_волосы_d4adc6fbf3.mp3",
       "lang": "ru",
       "text": "Волосы",
       "pl": "Włosy",
-      "id": "013ecbcb",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "013ecbcb"
     },
     "Rosyjski|Кожа": {
       "file": "ru_кожа_a7495bcc1f.mp3",
       "lang": "ru",
       "text": "Кожа",
       "pl": "Skóra",
-      "id": "0d31f4b0",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "0d31f4b0"
     },
     "Rosyjski|Сердце": {
       "file": "ru_сердце_af541eee1d.mp3",
       "lang": "ru",
       "text": "Сердце",
       "pl": "Serce",
-      "id": "6d23c631",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6d23c631"
     },
     "Rosyjski|Кашель": {
       "file": "ru_кашель_170f28a9fc.mp3",
       "lang": "ru",
       "text": "Кашель",
       "pl": "Kaszel",
-      "id": "4db388ac",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "4db388ac"
     },
     "Rosyjski|Грипп": {
       "file": "ru_грипп_6b94389e4a.mp3",
       "lang": "ru",
       "text": "Грипп",
       "pl": "Grypa",
-      "id": "539569ae",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "539569ae"
     },
     "Rosyjski|Лекарство": {
       "file": "ru_лекарство_a2b93b1848.mp3",
       "lang": "ru",
       "text": "Лекарство",
       "pl": "Lekarstwo",
-      "id": "40d2a99d",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "40d2a99d"
     },
     "Rosyjski|Пластырь": {
       "file": "ru_пластырь_3ead8efb60.mp3",
       "lang": "ru",
       "text": "Пластырь",
       "pl": "Plastry",
-      "id": "26d165d1",
-      "engine": "piper/ru",
+      "id": "26d165d1"
+    },
+    "Angielski|Socks": {
+      "file": "en_socks_de4217f5a3.mp3",
+      "lang": "en",
+      "text": "Socks",
+      "pl": "Skarpetki",
+      "id": "3dbcbf07"
+    },
+    "Angielski|Scarf": {
+      "file": "en_scarf_6178008ddf.mp3",
+      "lang": "en",
+      "text": "Scarf",
+      "pl": "Szalik",
+      "id": "182f4d7d"
+    },
+    "Angielski|Gloves": {
+      "file": "en_gloves_d46b200fe7.mp3",
+      "lang": "en",
+      "text": "Gloves",
+      "pl": "Rękawiczki",
+      "id": "1819e792"
+    },
+    "Angielski|Coat": {
+      "file": "en_coat_661794fec1.mp3",
+      "lang": "en",
+      "text": "Coat",
+      "pl": "Płaszcz",
+      "id": "1d7c82ce"
+    },
+    "Angielski|Sweater": {
+      "file": "en_sweater_af3b768ef2.mp3",
+      "lang": "en",
+      "text": "Sweater",
+      "pl": "Sweter",
+      "id": "23001025"
+    },
+    "Angielski|Skirt": {
+      "file": "en_skirt_b728007fe1.mp3",
+      "lang": "en",
+      "text": "Skirt",
+      "pl": "Spódnica",
+      "id": "1ffae01e"
+    },
+    "Angielski|Boots": {
+      "file": "en_boots_8b8da4ed55.mp3",
+      "lang": "en",
+      "text": "Boots",
+      "pl": "Kozaki",
+      "id": "5615b82e"
+    },
+    "Angielski|Umbrella": {
+      "file": "en_umbrella_4d1b05e262.mp3",
+      "lang": "en",
+      "text": "Umbrella",
+      "pl": "Parasol",
+      "id": "42178a10"
+    },
+    "Angielski|Pajamas": {
+      "file": "en_pajamas_0cfbc872c9.mp3",
+      "lang": "en",
+      "text": "Pajamas",
+      "pl": "Piżama",
+      "id": "4da783ad"
+    },
+    "Angielski|Belt": {
+      "file": "en_belt_a6bd715988.mp3",
+      "lang": "en",
+      "text": "Belt",
+      "pl": "Pasek",
+      "id": "54a417bf"
+    },
+    "Angielski|Glasses": {
+      "file": "en_glasses_3167719d4d.mp3",
+      "lang": "en",
+      "text": "Glasses",
+      "pl": "Okulary",
+      "id": "3dea8843"
+    },
+    "Angielski|Watch": {
+      "file": "en_watch_926d1e65f5.mp3",
+      "lang": "en",
+      "text": "Watch",
+      "pl": "Zegarek",
+      "id": "243db8c6"
+    },
+    "Angielski|Bag": {
+      "file": "en_bag_12d3f3e047.mp3",
+      "lang": "en",
+      "text": "Bag",
+      "pl": "Torba",
+      "id": "74f6d2e2"
+    },
+    "Angielski|Wallet": {
+      "file": "en_wallet_714e3addc1.mp3",
+      "lang": "en",
+      "text": "Wallet",
+      "pl": "Portfel",
+      "id": "37f57e89"
+    },
+    "Angielski|Eleven": {
+      "file": "en_eleven_cda3905f58.mp3",
+      "lang": "en",
+      "text": "Eleven",
+      "pl": "Jedenaście",
+      "id": "6a0202aa"
+    },
+    "Angielski|Twelve": {
+      "file": "en_twelve_813ef4b498.mp3",
+      "lang": "en",
+      "text": "Twelve",
+      "pl": "Dwanaście",
+      "id": "601f8510"
+    },
+    "Angielski|Thirteen": {
+      "file": "en_thirteen_03dfd7f6d3.mp3",
+      "lang": "en",
+      "text": "Thirteen",
+      "pl": "Trzynaście",
+      "id": "4cd52bbf"
+    },
+    "Angielski|Fourteen": {
+      "file": "en_fourteen_562694e3a3.mp3",
+      "lang": "en",
+      "text": "Fourteen",
+      "pl": "Czternaście",
+      "id": "4b162c1b"
+    },
+    "Angielski|Fifteen": {
+      "file": "en_fifteen_60a3f5eb58.mp3",
+      "lang": "en",
+      "text": "Fifteen",
+      "pl": "Piętnaście",
+      "id": "24230f4c"
+    },
+    "Angielski|Sixteen": {
+      "file": "en_sixteen_7ad778038b.mp3",
+      "lang": "en",
+      "text": "Sixteen",
+      "pl": "Szesnaście",
+      "id": "0963b20c"
+    },
+    "Angielski|Seventeen": {
+      "file": "en_seventeen_6d391dc606.mp3",
+      "lang": "en",
+      "text": "Seventeen",
+      "pl": "Siedemnaście",
+      "id": "7a31473f"
+    },
+    "Angielski|Eighteen": {
+      "file": "en_eighteen_674e8c4853.mp3",
+      "lang": "en",
+      "text": "Eighteen",
+      "pl": "Osiemnaście",
+      "id": "6f2e2b77"
+    },
+    "Angielski|Nineteen": {
+      "file": "en_nineteen_f0eb3d2c7d.mp3",
+      "lang": "en",
+      "text": "Nineteen",
+      "pl": "Dziewiętnaście",
+      "id": "707c3552"
+    },
+    "Angielski|Twenty": {
+      "file": "en_twenty_851cab0759.mp3",
+      "lang": "en",
+      "text": "Twenty",
+      "pl": "Dwadzieścia",
+      "id": "3d6f088d"
+    },
+    "Angielski|Aunt": {
+      "file": "en_aunt_8e72d80254.mp3",
+      "lang": "en",
+      "text": "Aunt",
+      "pl": "Ciocia",
+      "id": "1b46a364"
+    },
+    "Angielski|Uncle": {
+      "file": "en_uncle_58bae997d2.mp3",
+      "lang": "en",
+      "text": "Uncle",
+      "pl": "Wujek",
+      "id": "32846659"
+    },
+    "Angielski|Cousin": {
+      "file": "en_cousin_31fd8e2c1b.mp3",
+      "lang": "en",
+      "text": "Cousin",
+      "pl": "Kuzyn",
+      "id": "34a70f26"
+    },
+    "Angielski|Baby": {
+      "file": "en_baby_6a7844ca73.mp3",
+      "lang": "en",
+      "text": "Baby",
+      "pl": "Niemowlę",
+      "id": "30a57a1a"
+    },
+    "Angielski|Neighbor": {
+      "file": "en_neighbor_710dcdfbc3.mp3",
+      "lang": "en",
+      "text": "Neighbor",
+      "pl": "Sąsiad",
+      "id": "548574e3"
+    },
+    "Angielski|Guest": {
+      "file": "en_guest_350581f48f.mp3",
+      "lang": "en",
+      "text": "Guest",
+      "pl": "Gość",
+      "id": "137271d0"
+    },
+    "Angielski|Girlfriend": {
+      "file": "en_girlfriend_58bf690d73.mp3",
+      "lang": "en",
+      "text": "Girlfriend",
+      "pl": "Dziewczyna (partnerka)",
+      "id": "1e365753"
+    },
+    "Angielski|Boyfriend": {
+      "file": "en_boyfriend_c928f950a3.mp3",
+      "lang": "en",
+      "text": "Boyfriend",
+      "pl": "Chłopak (partner)",
+      "id": "3a43c05f"
+    },
+    "Angielski|Salt": {
+      "file": "en_salt_132bcf6b01.mp3",
+      "lang": "en",
+      "text": "Salt",
+      "pl": "Sól",
+      "id": "2005ecc6"
+    },
+    "Angielski|Pepper": {
+      "file": "en_pepper_b1a5eeb62f.mp3",
+      "lang": "en",
+      "text": "Pepper",
+      "pl": "Pieprz",
+      "id": "0bbbda72"
+    },
+    "Angielski|Cake": {
+      "file": "en_cake_2417366013.mp3",
+      "lang": "en",
+      "text": "Cake",
+      "pl": "Ciasto",
+      "id": "5b646101"
+    },
+    "Angielski|Strawberry": {
+      "file": "en_strawberry_811130ba05.mp3",
+      "lang": "en",
+      "text": "Strawberry",
+      "pl": "Truskawka",
+      "id": "34654d10"
+    },
+    "Angielski|Grape": {
+      "file": "en_grape_1dbdd618ae.mp3",
+      "lang": "en",
+      "text": "Grape",
+      "pl": "Winogrono",
+      "id": "21bcaa41"
+    },
+    "Angielski|Watermelon": {
+      "file": "en_watermelon_d56e84b3fc.mp3",
+      "lang": "en",
+      "text": "Watermelon",
+      "pl": "Arbuz",
+      "id": "33da4f02"
+    },
+    "Angielski|Onion": {
+      "file": "en_onion_542b096121.mp3",
+      "lang": "en",
+      "text": "Onion",
+      "pl": "Cebula",
+      "id": "37759bb7"
+    },
+    "Angielski|Garlic": {
+      "file": "en_garlic_368e8ab534.mp3",
+      "lang": "en",
+      "text": "Garlic",
+      "pl": "Czosnek",
+      "id": "727972f1"
+    },
+    "Angielski|Mushroom": {
+      "file": "en_mushroom_998e164d64.mp3",
+      "lang": "en",
+      "text": "Mushroom",
+      "pl": "Grzyb",
+      "id": "28deef9c"
+    },
+    "Angielski|Cereal": {
+      "file": "en_cereal_8e9e16bb76.mp3",
+      "lang": "en",
+      "text": "Cereal",
+      "pl": "Płatki",
+      "id": "04e2bc79"
+    },
+    "Angielski|Pancake": {
+      "file": "en_pancake_f90da537ee.mp3",
+      "lang": "en",
+      "text": "Pancake",
+      "pl": "Naleśnik",
+      "id": "106b4a9a"
+    },
+    "Angielski|Nut": {
+      "file": "en_nut_1030029ed4.mp3",
+      "lang": "en",
+      "text": "Nut",
+      "pl": "Orzech",
+      "id": "01599944"
+    },
+    "Angielski|Lemon": {
+      "file": "en_lemon_da6e0c7599.mp3",
+      "lang": "en",
+      "text": "Lemon",
+      "pl": "Cytryna",
+      "id": "3c08a7ef"
+    },
+    "Angielski|Pear": {
+      "file": "en_pear_bc04a7e315.mp3",
+      "lang": "en",
+      "text": "Pear",
+      "pl": "Gruszka",
+      "id": "70b7c1db"
+    },
+    "Angielski|Peach": {
+      "file": "en_peach_0ada4d0ece.mp3",
+      "lang": "en",
+      "text": "Peach",
+      "pl": "Brzoskwinia",
+      "id": "103385ac"
+    },
+    "Angielski|Cucumber": {
+      "file": "en_cucumber_2b1293ca6a.mp3",
+      "lang": "en",
+      "text": "Cucumber",
+      "pl": "Ogórek",
+      "id": "5ccd8fe5"
+    },
+    "Angielski|Duck": {
+      "file": "en_duck_8b0e69e7c9.mp3",
+      "lang": "en",
+      "text": "Duck",
+      "pl": "Kaczka",
+      "id": "6bf456b2"
+    },
+    "Angielski|Pig": {
+      "file": "en_pig_a23f255227.mp3",
+      "lang": "en",
+      "text": "Pig",
+      "pl": "Świnia",
+      "id": "1a629c8b"
+    },
+    "Angielski|Sheep": {
+      "file": "en_sheep_d493a4c2f4.mp3",
+      "lang": "en",
+      "text": "Sheep",
+      "pl": "Owca",
+      "id": "6916be25"
+    },
+    "Angielski|Goat": {
+      "file": "en_goat_24e99eb856.mp3",
+      "lang": "en",
+      "text": "Goat",
+      "pl": "Koza",
+      "id": "657f0cec"
+    },
+    "Angielski|Lion": {
+      "file": "en_lion_1cbf6a841f.mp3",
+      "lang": "en",
+      "text": "Lion",
+      "pl": "Lew",
+      "id": "03eb133a"
+    },
+    "Angielski|Tiger": {
+      "file": "en_tiger_ba43af5131.mp3",
+      "lang": "en",
+      "text": "Tiger",
+      "pl": "Tygrys",
+      "id": "63a50f8d"
+    },
+    "Angielski|Monkey": {
+      "file": "en_monkey_e72c5faa28.mp3",
+      "lang": "en",
+      "text": "Monkey",
+      "pl": "Małpa",
+      "id": "0fc2bdd0"
+    },
+    "Angielski|Dolphin": {
+      "file": "en_dolphin_1c93bf47a5.mp3",
+      "lang": "en",
+      "text": "Dolphin",
+      "pl": "Delfin",
+      "id": "0c7d9e02"
+    },
+    "Angielski|Shark": {
+      "file": "en_shark_e30e10c996.mp3",
+      "lang": "en",
+      "text": "Shark",
+      "pl": "Rekin",
+      "id": "57d2bae6"
+    },
+    "Angielski|Turtle": {
+      "file": "en_turtle_ddeffe5aac.mp3",
+      "lang": "en",
+      "text": "Turtle",
+      "pl": "Żółw",
+      "id": "190c5e8c"
+    },
+    "Angielski|Owl": {
+      "file": "en_owl_11d098ddd4.mp3",
+      "lang": "en",
+      "text": "Owl",
+      "pl": "Sowa",
+      "id": "6a9c80ae"
+    },
+    "Angielski|Parrot": {
+      "file": "en_parrot_ef7e15ab43.mp3",
+      "lang": "en",
+      "text": "Parrot",
+      "pl": "Papuga",
+      "id": "754c0002"
+    },
+    "Angielski|Crab": {
+      "file": "en_crab_b123a041f9.mp3",
+      "lang": "en",
+      "text": "Crab",
+      "pl": "Krab",
+      "id": "7459dc84"
+    },
+    "Angielski|Deer": {
+      "file": "en_deer_1f1af794bf.mp3",
+      "lang": "en",
+      "text": "Deer",
+      "pl": "Jelonek",
+      "id": "05a06c54"
+    },
+    "Angielski|Bank": {
+      "file": "en_bank_aa3a26e5e3.mp3",
+      "lang": "en",
+      "text": "Bank",
+      "pl": "Bank",
+      "id": "1709e7fc"
+    },
+    "Angielski|Post office": {
+      "file": "en_post_office_82048d1b31.mp3",
+      "lang": "en",
+      "text": "Post office",
+      "pl": "Poczta",
+      "id": "164fa763"
+    },
+    "Angielski|Restaurant": {
+      "file": "en_restaurant_0438a36818.mp3",
+      "lang": "en",
+      "text": "Restaurant",
+      "pl": "Restauracja",
+      "id": "3144f696"
+    },
+    "Angielski|Café": {
+      "file": "en_café_00c55b6fa6.mp3",
+      "lang": "en",
+      "text": "Café",
+      "pl": "Kawiarnia",
+      "id": "04bebe30"
+    },
+    "Angielski|Hotel": {
+      "file": "en_hotel_bb619c2a73.mp3",
+      "lang": "en",
+      "text": "Hotel",
+      "pl": "Hotel",
+      "id": "3e41596c"
+    },
+    "Angielski|Church": {
+      "file": "en_church_7262a7a640.mp3",
+      "lang": "en",
+      "text": "Church",
+      "pl": "Kościół",
+      "id": "3b738117"
+    },
+    "Angielski|Zoo": {
+      "file": "en_zoo_c4f33b6ec1.mp3",
+      "lang": "en",
+      "text": "Zoo",
+      "pl": "Zoo",
+      "id": "797890b8"
+    },
+    "Angielski|Playground": {
+      "file": "en_playground_4bb8527efd.mp3",
+      "lang": "en",
+      "text": "Playground",
+      "pl": "Plac zabaw",
+      "id": "57575bc8"
+    },
+    "Angielski|Farm": {
+      "file": "en_farm_8570e927c5.mp3",
+      "lang": "en",
+      "text": "Farm",
+      "pl": "Farma",
+      "id": "7807a6a7"
+    },
+    "Angielski|Theater": {
+      "file": "en_theater_9f8954ebf6.mp3",
+      "lang": "en",
+      "text": "Theater",
+      "pl": "Teatr",
+      "id": "3f7750a3"
+    },
+    "Angielski|Stadium": {
+      "file": "en_stadium_8e289defd6.mp3",
+      "lang": "en",
+      "text": "Stadium",
+      "pl": "Stadion",
+      "id": "2a1daf45"
+    },
+    "Angielski|To call": {
+      "file": "en_to_call_c043eb8c26.mp3",
+      "lang": "en",
+      "text": "To call",
+      "pl": "Dzwonić",
+      "id": "79c87ce5"
+    },
+    "Angielski|To send": {
+      "file": "en_to_send_b389ce3789.mp3",
+      "lang": "en",
+      "text": "To send",
+      "pl": "Wysyłać",
+      "id": "0137c5d1"
+    },
+    "Angielski|To bring": {
+      "file": "en_to_bring_f999d3ea93.mp3",
+      "lang": "en",
+      "text": "To bring",
+      "pl": "Przynosić",
+      "id": "69124d1a"
+    },
+    "Angielski|To put": {
+      "file": "en_to_put_be79c3656d.mp3",
+      "lang": "en",
+      "text": "To put",
+      "pl": "Kłaść",
+      "id": "2b77ad10"
+    },
+    "Angielski|To get": {
+      "file": "en_to_get_214404dfe1.mp3",
+      "lang": "en",
+      "text": "To get",
+      "pl": "Dostawać",
+      "id": "74ec6905"
+    },
+    "Angielski|To feel": {
+      "file": "en_to_feel_0ccd712a92.mp3",
+      "lang": "en",
+      "text": "To feel",
+      "pl": "Czuć",
+      "id": "6f503918"
+    },
+    "Angielski|To touch": {
+      "file": "en_to_touch_5882f722df.mp3",
+      "lang": "en",
+      "text": "To touch",
+      "pl": "Dotykać",
+      "id": "5119fad5"
+    },
+    "Angielski|To smell": {
+      "file": "en_to_smell_d60598e2b1.mp3",
+      "lang": "en",
+      "text": "To smell",
+      "pl": "Wąchać",
+      "id": "5b331a69"
+    },
+    "Angielski|To taste": {
+      "file": "en_to_taste_a746602d6b.mp3",
+      "lang": "en",
+      "text": "To taste",
+      "pl": "Smakować",
+      "id": "2becb8bc"
+    },
+    "Angielski|To choose": {
+      "file": "en_to_choose_4fb4cf1056.mp3",
+      "lang": "en",
+      "text": "To choose",
+      "pl": "Wybierać",
+      "id": "41e8b7bc"
+    },
+    "Angielski|To try": {
+      "file": "en_to_try_64954e8fd6.mp3",
+      "lang": "en",
+      "text": "To try",
+      "pl": "Próbować",
+      "id": "2c5659b3"
+    },
+    "Angielski|To need": {
+      "file": "en_to_need_e82bfddc4f.mp3",
+      "lang": "en",
+      "text": "To need",
+      "pl": "Potrzebować",
+      "id": "6a2f8f87"
+    },
+    "Angielski|To live": {
+      "file": "en_to_live_625838ba78.mp3",
+      "lang": "en",
+      "text": "To live",
+      "pl": "Mieszkać",
+      "id": "789c1476"
+    },
+    "Angielski|To grow": {
+      "file": "en_to_grow_020d0b17d4.mp3",
+      "lang": "en",
+      "text": "To grow",
+      "pl": "Rosnąć",
+      "id": "58961096"
+    },
+    "Angielski|To build": {
+      "file": "en_to_build_c3fd268102.mp3",
+      "lang": "en",
+      "text": "To build",
+      "pl": "Budować",
+      "id": "15788946"
+    },
+    "Angielski|To break": {
+      "file": "en_to_break_a9229122a3.mp3",
+      "lang": "en",
+      "text": "To break",
+      "pl": "Psuć",
+      "id": "615042c1"
+    },
+    "Angielski|To fix": {
+      "file": "en_to_fix_02cb52219a.mp3",
+      "lang": "en",
+      "text": "To fix",
+      "pl": "Naprawiać",
+      "id": "24d626c8"
+    },
+    "Angielski|To push": {
+      "file": "en_to_push_e6b5c91c4c.mp3",
+      "lang": "en",
+      "text": "To push",
+      "pl": "Pchać",
+      "id": "3ad672fe"
+    },
+    "Angielski|To pull": {
+      "file": "en_to_pull_5ed9062d54.mp3",
+      "lang": "en",
+      "text": "To pull",
+      "pl": "Ciągnąć",
+      "id": "0c1a4276"
+    },
+    "Angielski|To turn": {
+      "file": "en_to_turn_52eaac9caf.mp3",
+      "lang": "en",
+      "text": "To turn",
+      "pl": "Kręcić",
+      "id": "31b13395"
+    },
+    "Angielski|To stop": {
+      "file": "en_to_stop_5f22574362.mp3",
+      "lang": "en",
+      "text": "To stop",
+      "pl": "Zatrzymywać",
+      "id": "64c50078"
+    },
+    "Angielski|To believe": {
+      "file": "en_to_believe_77f42efc3e.mp3",
+      "lang": "en",
+      "text": "To believe",
+      "pl": "Wierzyć",
+      "id": "475dfbc2"
+    },
+    "Angielski|To hope": {
+      "file": "en_to_hope_28b3afb064.mp3",
+      "lang": "en",
+      "text": "To hope",
+      "pl": "Mieć nadzieję",
+      "id": "3c19f8db"
+    },
+    "Angielski|To invite": {
+      "file": "en_to_invite_81dbae186b.mp3",
+      "lang": "en",
+      "text": "To invite",
+      "pl": "Zapraszać",
+      "id": "2da99097"
+    },
+    "Angielski|To visit": {
+      "file": "en_to_visit_6fa5460502.mp3",
+      "lang": "en",
+      "text": "To visit",
+      "pl": "Odwiedzać",
+      "id": "58287e68"
+    },
+    "Angielski|To meet": {
+      "file": "en_to_meet_481219fc5d.mp3",
+      "lang": "en",
+      "text": "To meet",
+      "pl": "Spotykać",
+      "id": "7082d42a"
+    },
+    "Angielski|To leave": {
+      "file": "en_to_leave_45264132bc.mp3",
+      "lang": "en",
+      "text": "To leave",
+      "pl": "Wychodzić",
+      "id": "1aa67d72"
+    },
+    "Angielski|To arrive": {
+      "file": "en_to_arrive_c231f9a101.mp3",
+      "lang": "en",
+      "text": "To arrive",
+      "pl": "Przyjeżdżać",
+      "id": "581c253e"
+    },
+    "Angielski|To return": {
+      "file": "en_to_return_15386dfc3e.mp3",
+      "lang": "en",
+      "text": "To return",
+      "pl": "Wracać",
+      "id": "03c8db7c"
+    },
+    "Angielski|To stay": {
+      "file": "en_to_stay_6bd3b20d54.mp3",
+      "lang": "en",
+      "text": "To stay",
+      "pl": "Zostawać",
+      "id": "0b2f73b4"
+    },
+    "Angielski|To rest": {
+      "file": "en_to_rest_fd6ab71729.mp3",
+      "lang": "en",
+      "text": "To rest",
+      "pl": "Odpoczywać",
+      "id": "2af4f04c"
+    },
+    "Angielski|To exercise": {
+      "file": "en_to_exercise_0f299b7285.mp3",
+      "lang": "en",
+      "text": "To exercise",
+      "pl": "Ćwiczyć",
+      "id": "38940adf"
+    },
+    "Angielski|To climb": {
+      "file": "en_to_climb_3b08d8ed6e.mp3",
+      "lang": "en",
+      "text": "To climb",
+      "pl": "Wspinać się",
+      "id": "33c981ea"
+    },
+    "Angielski|To fall": {
+      "file": "en_to_fall_2549da2913.mp3",
+      "lang": "en",
+      "text": "To fall",
+      "pl": "Upadać",
+      "id": "1238ab48"
+    },
+    "Angielski|To catch": {
+      "file": "en_to_catch_9ecf084591.mp3",
+      "lang": "en",
+      "text": "To catch",
+      "pl": "Łapać",
+      "id": "47ae29bb"
+    },
+    "Angielski|To hug": {
+      "file": "en_to_hug_f362f1974f.mp3",
+      "lang": "en",
+      "text": "To hug",
+      "pl": "Przytulać",
+      "id": "7d0d3b61"
+    },
+    "Angielski|To kiss": {
+      "file": "en_to_kiss_d77e55a332.mp3",
+      "lang": "en",
+      "text": "To kiss",
+      "pl": "Całować",
+      "id": "4ced0c19"
+    },
+    "Angielski|To celebrate": {
+      "file": "en_to_celebrate_cfc411a17d.mp3",
+      "lang": "en",
+      "text": "To celebrate",
+      "pl": "Świętować",
+      "id": "6301ad48"
+    },
+    "Angielski|Toothbrush": {
+      "file": "en_toothbrush_8a34158c03.mp3",
+      "lang": "en",
+      "text": "Toothbrush",
+      "pl": "Szczoteczka",
+      "id": "1ee7eb3f"
+    },
+    "Angielski|Toothpaste": {
+      "file": "en_toothpaste_3df834c149.mp3",
+      "lang": "en",
+      "text": "Toothpaste",
+      "pl": "Pasta do zębów",
+      "id": "62890644"
+    },
+    "Angielski|Soap": {
+      "file": "en_soap_6bc026ca9f.mp3",
+      "lang": "en",
+      "text": "Soap",
+      "pl": "Mydło",
+      "id": "799cf382"
+    },
+    "Angielski|Towel": {
+      "file": "en_towel_9842e1b53f.mp3",
+      "lang": "en",
+      "text": "Towel",
+      "pl": "Ręcznik",
+      "id": "6ef62639"
+    },
+    "Angielski|Shower": {
+      "file": "en_shower_e2fd276641.mp3",
+      "lang": "en",
+      "text": "Shower",
+      "pl": "Prysznic",
+      "id": "67df1ebc"
+    },
+    "Angielski|Clock": {
+      "file": "en_clock_5c10a351f9.mp3",
+      "lang": "en",
+      "text": "Clock",
+      "pl": "Zegar",
+      "id": "4196a71f"
+    },
+    "Angielski|Calendar": {
+      "file": "en_calendar_e3e385df73.mp3",
+      "lang": "en",
+      "text": "Calendar",
+      "pl": "Kalendarz",
+      "id": "78983f36"
+    },
+    "Angielski|Comb": {
+      "file": "en_comb_16664a4c0a.mp3",
+      "lang": "en",
+      "text": "Comb",
+      "pl": "Grzebień",
+      "id": "261194a1"
+    },
+    "Angielski|Shampoo": {
+      "file": "en_shampoo_c6f62ec3e5.mp3",
+      "lang": "en",
+      "text": "Shampoo",
+      "pl": "Szampon",
+      "id": "385a260f"
+    },
+    "Angielski|Leaf": {
+      "file": "en_leaf_e8bd2caed9.mp3",
+      "lang": "en",
+      "text": "Leaf",
+      "pl": "Liść",
+      "id": "241d1a31"
+    },
+    "Angielski|Sky": {
+      "file": "en_sky_242ad35528.mp3",
+      "lang": "en",
+      "text": "Sky",
+      "pl": "Niebo",
+      "id": "5d29b37c"
+    },
+    "Angielski|Island": {
+      "file": "en_island_9fd4faaece.mp3",
+      "lang": "en",
+      "text": "Island",
+      "pl": "Wyspa",
+      "id": "44256bcf"
+    },
+    "Angielski|Desert": {
+      "file": "en_desert_b96e1cfd96.mp3",
+      "lang": "en",
+      "text": "Desert",
+      "pl": "Pustynia",
+      "id": "7faf851e"
+    },
+    "Angielski|Volcano": {
+      "file": "en_volcano_a2f4e32d8a.mp3",
+      "lang": "en",
+      "text": "Volcano",
+      "pl": "Wulkan",
+      "id": "367a19c0"
+    },
+    "Angielski|Wave": {
+      "file": "en_wave_4609067249.mp3",
+      "lang": "en",
+      "text": "Wave",
+      "pl": "Fala",
+      "id": "6d484405"
+    },
+    "Angielski|Sand": {
+      "file": "en_sand_120cd738c9.mp3",
+      "lang": "en",
+      "text": "Sand",
+      "pl": "Piasek",
+      "id": "4ab7dfcf"
+    },
+    "Angielski|Mud": {
+      "file": "en_mud_8cfe7493dc.mp3",
+      "lang": "en",
+      "text": "Mud",
+      "pl": "Błoto",
+      "id": "2788feca"
+    },
+    "Angielski|Cave": {
+      "file": "en_cave_8835018a93.mp3",
+      "lang": "en",
+      "text": "Cave",
+      "pl": "Jaskinia",
+      "id": "7bc7fe3d"
+    },
+    "Angielski|Waterfall": {
+      "file": "en_waterfall_a646ee4835.mp3",
+      "lang": "en",
+      "text": "Waterfall",
+      "pl": "Wodospad",
+      "id": "17060779"
+    },
+    "Angielski|Joy": {
+      "file": "en_joy_bad6b04154.mp3",
+      "lang": "en",
+      "text": "Joy",
+      "pl": "Radość",
+      "id": "5941665e"
+    },
+    "Angielski|Anger": {
+      "file": "en_anger_731b0b94a9.mp3",
+      "lang": "en",
+      "text": "Anger",
+      "pl": "Złość",
+      "id": "02ebb17e"
+    },
+    "Angielski|Calm": {
+      "file": "en_calm_6e2ea9b89c.mp3",
+      "lang": "en",
+      "text": "Calm",
+      "pl": "Spokój",
+      "id": "6a157a4b"
+    },
+    "Angielski|Excited": {
+      "file": "en_excited_645cb2f9a6.mp3",
+      "lang": "en",
+      "text": "Excited",
+      "pl": "Podekscytowany",
+      "id": "596dbe4c"
+    },
+    "Angielski|Worried": {
+      "file": "en_worried_93a7ad27eb.mp3",
+      "lang": "en",
+      "text": "Worried",
+      "pl": "Zmartwiony",
+      "id": "28258acc"
+    },
+    "Angielski|Shy": {
+      "file": "en_shy_6e8f1863ea.mp3",
+      "lang": "en",
+      "text": "Shy",
+      "pl": "Nieśmiały",
+      "id": "760747d3"
+    },
+    "Angielski|Jealous": {
+      "file": "en_jealous_12c7e4063c.mp3",
+      "lang": "en",
+      "text": "Jealous",
+      "pl": "Zazdrosny",
+      "id": "5bb8a71b"
+    },
+    "Angielski|Lonely": {
+      "file": "en_lonely_b1bbb2039a.mp3",
+      "lang": "en",
+      "text": "Lonely",
+      "pl": "Samotny",
+      "id": "0a50ef54"
+    },
+    "Angielski|Tablet": {
+      "file": "en_tablet_07bf84c254.mp3",
+      "lang": "en",
+      "text": "Tablet",
+      "pl": "Tablet",
+      "id": "083ad4bc"
+    },
+    "Angielski|Headphones": {
+      "file": "en_headphones_49da924db8.mp3",
+      "lang": "en",
+      "text": "Headphones",
+      "pl": "Słuchawki",
+      "id": "73680a22"
+    },
+    "Angielski|Charger": {
+      "file": "en_charger_6c23d0cb05.mp3",
+      "lang": "en",
+      "text": "Charger",
+      "pl": "Ładowarka",
+      "id": "539ccc96"
+    },
+    "Angielski|Keyboard": {
+      "file": "en_keyboard_d83855e680.mp3",
+      "lang": "en",
+      "text": "Keyboard",
+      "pl": "Klawiatura",
+      "id": "235cb1a4"
+    },
+    "Angielski|Screen": {
+      "file": "en_screen_45829ae9cf.mp3",
+      "lang": "en",
+      "text": "Screen",
+      "pl": "Ekran",
+      "id": "477b200f"
+    },
+    "Angielski|Camera": {
+      "file": "en_camera_36eed89b34.mp3",
+      "lang": "en",
+      "text": "Camera",
+      "pl": "Aparat",
+      "id": "7eaec66e"
+    },
+    "Angielski|Message": {
+      "file": "en_message_9489470137.mp3",
+      "lang": "en",
+      "text": "Message",
+      "pl": "Wiadomość",
+      "id": "07040fd3"
+    },
+    "Angielski|Email": {
+      "file": "en_email_a8b7796e2d.mp3",
+      "lang": "en",
+      "text": "Email",
+      "pl": "E-mail",
+      "id": "2c54837f"
+    },
+    "Angielski|Basketball": {
+      "file": "en_basketball_42544a3d19.mp3",
+      "lang": "en",
+      "text": "Basketball",
+      "pl": "Koszykówka",
+      "id": "5afbdf0a"
+    },
+    "Angielski|Tennis": {
+      "file": "en_tennis_baa2426b69.mp3",
+      "lang": "en",
+      "text": "Tennis",
+      "pl": "Tenis",
+      "id": "17ba8c70"
+    },
+    "Angielski|Volleyball": {
+      "file": "en_volleyball_94ea496d2b.mp3",
+      "lang": "en",
+      "text": "Volleyball",
+      "pl": "Siatkówka",
+      "id": "76dbbe2c"
+    },
+    "Angielski|Skateboard": {
+      "file": "en_skateboard_b3d1edc1f5.mp3",
+      "lang": "en",
+      "text": "Skateboard",
+      "pl": "Deskorolka",
+      "id": "7d7683d9"
+    },
+    "Angielski|Skis": {
+      "file": "en_skis_4d3d8987a8.mp3",
+      "lang": "en",
+      "text": "Skis",
+      "pl": "Narty",
+      "id": "35992a9a"
+    },
+    "Angielski|Ice skates": {
+      "file": "en_ice_skates_65064212db.mp3",
+      "lang": "en",
+      "text": "Ice skates",
+      "pl": "Łyżwy",
+      "id": "038ec243"
+    },
+    "Angielski|Arm": {
+      "file": "en_arm_9e98eaab29.mp3",
+      "lang": "en",
+      "text": "Arm",
+      "pl": "Ramię",
+      "id": "2bb127ce"
+    },
+    "Angielski|Back": {
+      "file": "en_back_faea3e04f8.mp3",
+      "lang": "en",
+      "text": "Back",
+      "pl": "Plecy",
+      "id": "335bbaa4"
+    },
+    "Angielski|Knee": {
+      "file": "en_knee_3aee227e54.mp3",
+      "lang": "en",
+      "text": "Knee",
+      "pl": "Kolano",
+      "id": "0ffcaaa5"
+    },
+    "Angielski|Foot": {
+      "file": "en_foot_7ac4f4ad86.mp3",
+      "lang": "en",
+      "text": "Foot",
+      "pl": "Stopa",
+      "id": "47e601ab"
+    },
+    "Angielski|Neck": {
+      "file": "en_neck_badb0d0a69.mp3",
+      "lang": "en",
+      "text": "Neck",
+      "pl": "Szyja",
+      "id": "12ea74d2"
+    },
+    "Angielski|Shoulder": {
+      "file": "en_shoulder_1e14e3bbbb.mp3",
+      "lang": "en",
+      "text": "Shoulder",
+      "pl": "Bark",
+      "id": "5de44e64"
+    },
+    "Angielski|Stomach": {
+      "file": "en_stomach_619807db8a.mp3",
+      "lang": "en",
+      "text": "Stomach",
+      "pl": "Brzuch",
+      "id": "7962255b"
+    },
+    "Angielski|Blood": {
+      "file": "en_blood_acf87b6b9f.mp3",
+      "lang": "en",
+      "text": "Blood",
+      "pl": "Krew",
+      "id": "0d38a897"
+    },
+    "Angielski|Bone": {
+      "file": "en_bone_dbc1fb8bf1.mp3",
+      "lang": "en",
+      "text": "Bone",
+      "pl": "Kość",
+      "id": "7f1b53d0"
+    },
+    "Angielski|Morning": {
+      "file": "en_morning_1b4f4b0f17.mp3",
+      "lang": "en",
+      "text": "Morning",
+      "pl": "Rano",
+      "id": "33fb0ff8"
+    },
+    "Angielski|Evening": {
+      "file": "en_evening_7565c04ba2.mp3",
+      "lang": "en",
+      "text": "Evening",
+      "pl": "Wieczór",
+      "id": "588d6e75"
+    },
+    "Angielski|Afternoon": {
+      "file": "en_afternoon_1bf1ed48e3.mp3",
+      "lang": "en",
+      "text": "Afternoon",
+      "pl": "Popołudnie",
+      "id": "754f1857"
+    },
+    "Angielski|Minute": {
+      "file": "en_minute_7154c2c234.mp3",
+      "lang": "en",
+      "text": "Minute",
+      "pl": "Minuta",
+      "id": "4050c180"
+    },
+    "Angielski|Second": {
+      "file": "en_second_dcfd676c83.mp3",
+      "lang": "en",
+      "text": "Second",
+      "pl": "Sekunda",
+      "id": "7c34e461"
+    },
+    "Angielski|Always": {
+      "file": "en_always_33b8ee3dcb.mp3",
+      "lang": "en",
+      "text": "Always",
+      "pl": "Zawsze",
+      "id": "77b58b1d"
+    },
+    "Angielski|Never": {
+      "file": "en_never_8bb4e3b595.mp3",
+      "lang": "en",
+      "text": "Never",
+      "pl": "Nigdy",
+      "id": "428b1e71"
+    },
+    "Angielski|Often": {
+      "file": "en_often_9d88f77a2f.mp3",
+      "lang": "en",
+      "text": "Often",
+      "pl": "Często",
+      "id": "09cc6e56"
+    },
+    "Angielski|Sometimes": {
+      "file": "en_sometimes_c1e175b214.mp3",
+      "lang": "en",
+      "text": "Sometimes",
+      "pl": "Czasami",
+      "id": "1df7730a"
+    },
+    "Angielski|Already": {
+      "file": "en_already_96864abdb7.mp3",
+      "lang": "en",
+      "text": "Already",
+      "pl": "Już",
+      "id": "7ce6e8ed"
+    },
+    "Angielski|Still": {
+      "file": "en_still_0157aa4a55.mp3",
+      "lang": "en",
+      "text": "Still",
+      "pl": "Jeszcze",
+      "id": "29d2a458"
+    },
+    "Angielski|Left": {
+      "file": "en_left_294c084532.mp3",
+      "lang": "en",
+      "text": "Left",
+      "pl": "Lewo",
+      "id": "642b0312"
+    },
+    "Angielski|Right": {
+      "file": "en_right_95f86ccf16.mp3",
+      "lang": "en",
+      "text": "Right",
+      "pl": "Prawo",
+      "id": "2e40df97"
+    },
+    "Angielski|Down": {
+      "file": "en_down_da6327768b.mp3",
+      "lang": "en",
+      "text": "Down",
+      "pl": "Dół",
+      "id": "76fac4eb"
+    },
+    "Angielski|Here": {
+      "file": "en_here_1c4383502d.mp3",
+      "lang": "en",
+      "text": "Here",
+      "pl": "Tutaj",
+      "id": "4db8aa70"
+    },
+    "Angielski|There": {
+      "file": "en_there_b7cf0ba4ca.mp3",
+      "lang": "en",
+      "text": "There",
+      "pl": "Tam",
+      "id": "6b87eb08"
+    },
+    "Angielski|Why": {
+      "file": "en_why_956f1b1855.mp3",
+      "lang": "en",
+      "text": "Why",
+      "pl": "Dlaczego",
+      "id": "4e691249"
+    },
+    "Angielski|How": {
+      "file": "en_how_17d6861f01.mp3",
+      "lang": "en",
+      "text": "How",
+      "pl": "Jak",
+      "id": "12f86268"
+    },
+    "Angielski|When": {
+      "file": "en_when_3b8a71fefc.mp3",
+      "lang": "en",
+      "text": "When",
+      "pl": "Kiedy",
+      "id": "660f199a"
+    },
+    "Angielski|Where": {
+      "file": "en_where_d82819ec7b.mp3",
+      "lang": "en",
+      "text": "Where",
+      "pl": "Gdzie",
+      "id": "51d87444"
+    },
+    "Angielski|Who": {
+      "file": "en_who_aefeeab0f3.mp3",
+      "lang": "en",
+      "text": "Who",
+      "pl": "Kto",
+      "id": "688346e8"
+    },
+    "Angielski|What": {
+      "file": "en_what_e7db0741d7.mp3",
+      "lang": "en",
+      "text": "What",
+      "pl": "Co",
+      "id": "397de454"
+    },
+    "Angielski|Eraser": {
+      "file": "en_eraser_16bc14746e.mp3",
+      "lang": "en",
+      "text": "Eraser",
+      "pl": "Gumka",
+      "id": "4f834193"
+    },
+    "Angielski|Ruler": {
+      "file": "en_ruler_1c82531783.mp3",
+      "lang": "en",
+      "text": "Ruler",
+      "pl": "Linijka",
+      "id": "284e2842"
+    },
+    "Angielski|Desk": {
+      "file": "en_desk_945fd16721.mp3",
+      "lang": "en",
+      "text": "Desk",
+      "pl": "Biurko",
+      "id": "17df9c8d"
+    },
+    "Angielski|Break": {
+      "file": "en_break_6d289b153f.mp3",
+      "lang": "en",
+      "text": "Break",
+      "pl": "Przerwa",
+      "id": "50fa51b2"
+    },
+    "Angielski|Paper": {
+      "file": "en_paper_2b20da249b.mp3",
+      "lang": "en",
+      "text": "Paper",
+      "pl": "Papier",
+      "id": "5ce12f27"
+    },
+    "Angielski|Marker": {
+      "file": "en_marker_c668f28766.mp3",
+      "lang": "en",
+      "text": "Marker",
+      "pl": "Marker",
+      "id": "00fa5e3c"
+    },
+    "Angielski|Crayons": {
+      "file": "en_crayons_5b1d990f68.mp3",
+      "lang": "en",
+      "text": "Crayons",
+      "pl": "Kredki",
+      "id": "496ec055"
+    },
+    "Angielski|School scissors": {
+      "file": "en_school_scissors_60930fb91b.mp3",
+      "lang": "en",
+      "text": "School scissors",
+      "pl": "Nożyczki szkolne",
+      "id": "70967072"
+    },
+    "Angielski|Pot": {
+      "file": "en_pot_1f8e25b13c.mp3",
+      "lang": "en",
+      "text": "Pot",
+      "pl": "Garnek",
+      "id": "27255e15"
+    },
+    "Angielski|Pan": {
+      "file": "en_pan_f0efd33467.mp3",
+      "lang": "en",
+      "text": "Pan",
+      "pl": "Patelnia",
+      "id": "3f5155dd"
+    },
+    "Angielski|Plate": {
+      "file": "en_plate_83a8696057.mp3",
+      "lang": "en",
+      "text": "Plate",
+      "pl": "Talerz",
+      "id": "47162f08"
+    },
+    "Angielski|Mug": {
+      "file": "en_mug_f978e2ae97.mp3",
+      "lang": "en",
+      "text": "Mug",
+      "pl": "Kubek",
+      "id": "651de5a1"
+    },
+    "Angielski|Fork": {
+      "file": "en_fork_9380034d2f.mp3",
+      "lang": "en",
+      "text": "Fork",
+      "pl": "Widelec",
+      "id": "72d8af47"
+    },
+    "Angielski|Knife": {
+      "file": "en_knife_1bd83ac992.mp3",
+      "lang": "en",
+      "text": "Knife",
+      "pl": "Nóż",
+      "id": "2f959640"
+    },
+    "Angielski|Spoon": {
+      "file": "en_spoon_064a690dc0.mp3",
+      "lang": "en",
+      "text": "Spoon",
+      "pl": "Łyżka",
+      "id": "24705cd0"
+    },
+    "Angielski|Glass": {
+      "file": "en_glass_7b7131969c.mp3",
+      "lang": "en",
+      "text": "Glass",
+      "pl": "Szklanka",
+      "id": "3ddaec8b"
+    },
+    "Angielski|Shelf": {
+      "file": "en_shelf_ec9b9ea188.mp3",
+      "lang": "en",
+      "text": "Shelf",
+      "pl": "Półka",
+      "id": "5450b423"
+    },
+    "Angielski|Wardrobe": {
+      "file": "en_wardrobe_155756a030.mp3",
+      "lang": "en",
+      "text": "Wardrobe",
+      "pl": "Szafa",
+      "id": "5ca2a2c3"
+    },
+    "Hiszpański|Calcetines": {
+      "file": "es_calcetines_0988d9f28e.mp3",
+      "lang": "es",
+      "text": "Calcetines",
+      "pl": "Skarpetki",
+      "id": "7f68557f"
+    },
+    "Hiszpański|Bufanda": {
+      "file": "es_bufanda_70fa036e47.mp3",
+      "lang": "es",
+      "text": "Bufanda",
+      "pl": "Szalik",
+      "id": "653e13d5"
+    },
+    "Hiszpański|Guantes": {
+      "file": "es_guantes_485d2e1ed6.mp3",
+      "lang": "es",
+      "text": "Guantes",
+      "pl": "Rękawiczki",
+      "id": "79b5f34f"
+    },
+    "Hiszpański|Abrigo": {
+      "file": "es_abrigo_f2ed376801.mp3",
+      "lang": "es",
+      "text": "Abrigo",
+      "pl": "Płaszcz",
+      "id": "2c4dc26f"
+    },
+    "Hiszpański|Jersey": {
+      "file": "es_jersey_5de10814d8.mp3",
+      "lang": "es",
+      "text": "Jersey",
+      "pl": "Sweter",
+      "id": "436293ec"
+    },
+    "Hiszpański|Falda": {
+      "file": "es_falda_b00c6fa371.mp3",
+      "lang": "es",
+      "text": "Falda",
+      "pl": "Spódnica",
+      "id": "1f3f2c59"
+    },
+    "Hiszpański|Botas": {
+      "file": "es_botas_e2f724f8c6.mp3",
+      "lang": "es",
+      "text": "Botas",
+      "pl": "Kozaki",
+      "id": "5615c8a6"
+    },
+    "Hiszpański|Paraguas": {
+      "file": "es_paraguas_80acd99696.mp3",
+      "lang": "es",
+      "text": "Paraguas",
+      "pl": "Parasol",
+      "id": "5a45e64c"
+    },
+    "Hiszpański|Pijama": {
+      "file": "es_pijama_2038247b15.mp3",
+      "lang": "es",
+      "text": "Pijama",
+      "pl": "Piżama",
+      "id": "768ee98e"
+    },
+    "Hiszpański|Cinturón": {
+      "file": "es_cinturón_0734aa79bf.mp3",
+      "lang": "es",
+      "text": "Cinturón",
+      "pl": "Pasek",
+      "id": "705ee498"
+    },
+    "Hiszpański|Gafas": {
+      "file": "es_gafas_68efff66aa.mp3",
+      "lang": "es",
+      "text": "Gafas",
+      "pl": "Okulary",
+      "id": "08096d57"
+    },
+    "Hiszpański|Reloj": {
+      "file": "es_reloj_500439cd5e.mp3",
+      "lang": "es",
+      "text": "Reloj",
+      "pl": "Zegarek",
+      "id": "23f8f82b"
+    },
+    "Hiszpański|Bolso": {
+      "file": "es_bolso_8cac30f7c3.mp3",
+      "lang": "es",
+      "text": "Bolso",
+      "pl": "Torba",
+      "id": "129420b5"
+    },
+    "Hiszpański|Cartera": {
+      "file": "es_cartera_26b0d5b5ff.mp3",
+      "lang": "es",
+      "text": "Cartera",
+      "pl": "Portfel",
+      "id": "2515e1a4"
+    },
+    "Hiszpański|Once": {
+      "file": "es_once_7465a81ada.mp3",
+      "lang": "es",
+      "text": "Once",
+      "pl": "Jedenaście",
+      "id": "1a5e152a"
+    },
+    "Hiszpański|Doce": {
+      "file": "es_doce_ecbeaaf440.mp3",
+      "lang": "es",
+      "text": "Doce",
+      "pl": "Dwanaście",
+      "id": "18943664"
+    },
+    "Hiszpański|Trece": {
+      "file": "es_trece_ba4ae0f454.mp3",
+      "lang": "es",
+      "text": "Trece",
+      "pl": "Trzynaście",
+      "id": "1ccfc481"
+    },
+    "Hiszpański|Catorce": {
+      "file": "es_catorce_916cb599d7.mp3",
+      "lang": "es",
+      "text": "Catorce",
+      "pl": "Czternaście",
+      "id": "582923e0"
+    },
+    "Hiszpański|Quince": {
+      "file": "es_quince_3e008ea9a3.mp3",
+      "lang": "es",
+      "text": "Quince",
+      "pl": "Piętnaście",
+      "id": "2d604c9c"
+    },
+    "Hiszpański|Dieciséis": {
+      "file": "es_dieciséis_0d58b5f608.mp3",
+      "lang": "es",
+      "text": "Dieciséis",
+      "pl": "Szesnaście",
+      "id": "0564abb6"
+    },
+    "Hiszpański|Diecisiete": {
+      "file": "es_diecisiete_8cc3ce3a91.mp3",
+      "lang": "es",
+      "text": "Diecisiete",
+      "pl": "Siedemnaście",
+      "id": "7466ca82"
+    },
+    "Hiszpański|Dieciocho": {
+      "file": "es_dieciocho_dc4c7e8b20.mp3",
+      "lang": "es",
+      "text": "Dieciocho",
+      "pl": "Osiemnaście",
+      "id": "6f67a429"
+    },
+    "Hiszpański|Diecinueve": {
+      "file": "es_diecinueve_dbcf513268.mp3",
+      "lang": "es",
+      "text": "Diecinueve",
+      "pl": "Dziewiętnaście",
+      "id": "146f6acd"
+    },
+    "Hiszpański|Veinte": {
+      "file": "es_veinte_ff32aa6325.mp3",
+      "lang": "es",
+      "text": "Veinte",
+      "pl": "Dwadzieścia",
+      "id": "3fdce421"
+    },
+    "Hiszpański|Tía": {
+      "file": "es_tía_40a0638b46.mp3",
+      "lang": "es",
+      "text": "Tía",
+      "pl": "Ciocia",
+      "id": "00e194de"
+    },
+    "Hiszpański|Tío": {
+      "file": "es_tío_3f116ab5fe.mp3",
+      "lang": "es",
+      "text": "Tío",
+      "pl": "Wujek",
+      "id": "7f851c8c"
+    },
+    "Hiszpański|Primo": {
+      "file": "es_primo_0dc2a5412b.mp3",
+      "lang": "es",
+      "text": "Primo",
+      "pl": "Kuzyn",
+      "id": "38189b32"
+    },
+    "Hiszpański|Bebé": {
+      "file": "es_bebé_799da448c7.mp3",
+      "lang": "es",
+      "text": "Bebé",
+      "pl": "Niemowlę",
+      "id": "30a5898e"
+    },
+    "Hiszpański|Vecino": {
+      "file": "es_vecino_5adbc7ff30.mp3",
+      "lang": "es",
+      "text": "Vecino",
+      "pl": "Sąsiad",
+      "id": "42573a07"
+    },
+    "Hiszpański|Invitado": {
+      "file": "es_invitado_64ed72d336.mp3",
+      "lang": "es",
+      "text": "Invitado",
+      "pl": "Gość",
+      "id": "0cf82758"
+    },
+    "Hiszpański|Novia": {
+      "file": "es_novia_ee8177af77.mp3",
+      "lang": "es",
+      "text": "Novia",
+      "pl": "Dziewczyna (partnerka)",
+      "id": "344b43f4"
+    },
+    "Hiszpański|Novio": {
+      "file": "es_novio_c9af3c97e9.mp3",
+      "lang": "es",
+      "text": "Novio",
+      "pl": "Chłopak (partner)",
+      "id": "2961da30"
+    },
+    "Hiszpański|Sal": {
+      "file": "es_sal_8d5edfe591.mp3",
+      "lang": "es",
+      "text": "Sal",
+      "pl": "Sól",
+      "id": "6842416e"
+    },
+    "Hiszpański|Pimienta": {
+      "file": "es_pimienta_460b7cab73.mp3",
+      "lang": "es",
+      "text": "Pimienta",
+      "pl": "Pieprz",
+      "id": "5a46c3fb"
+    },
+    "Hiszpański|Pastel": {
+      "file": "es_pastel_6e59242c91.mp3",
+      "lang": "es",
+      "text": "Pastel",
+      "pl": "Ciasto",
+      "id": "2a030cc2"
+    },
+    "Hiszpański|Fresa": {
+      "file": "es_fresa_faea2b44fa.mp3",
+      "lang": "es",
+      "text": "Fresa",
+      "pl": "Truskawka",
+      "id": "49df38c6"
+    },
+    "Hiszpański|Uva": {
+      "file": "es_uva_6c4ee5165f.mp3",
+      "lang": "es",
+      "text": "Uva",
+      "pl": "Winogrono",
+      "id": "088f7456"
+    },
+    "Hiszpański|Sandía": {
+      "file": "es_sandía_9f3e74ebf7.mp3",
+      "lang": "es",
+      "text": "Sandía",
+      "pl": "Arbuz",
+      "id": "6a272e9e"
+    },
+    "Hiszpański|Cebolla": {
+      "file": "es_cebolla_c24ed91fde.mp3",
+      "lang": "es",
+      "text": "Cebolla",
+      "pl": "Cebula",
+      "id": "25f486c0"
+    },
+    "Hiszpański|Ajo": {
+      "file": "es_ajo_b2728e23b0.mp3",
+      "lang": "es",
+      "text": "Ajo",
+      "pl": "Czosnek",
+      "id": "60a8ea03"
+    },
+    "Hiszpański|Champiñón": {
+      "file": "es_champiñón_ce462cdffd.mp3",
+      "lang": "es",
+      "text": "Champiñón",
+      "pl": "Grzyb",
+      "id": "321e867e"
+    },
+    "Hiszpański|Cereales": {
+      "file": "es_cereales_945be7fe97.mp3",
+      "lang": "es",
+      "text": "Cereales",
+      "pl": "Płatki",
+      "id": "57258ee7"
+    },
+    "Hiszpański|Tortita": {
+      "file": "es_tortita_cb641274b7.mp3",
+      "lang": "es",
+      "text": "Tortita",
+      "pl": "Naleśnik",
+      "id": "7c2847be"
+    },
+    "Hiszpański|Nuez": {
+      "file": "es_nuez_a0d1b790cb.mp3",
+      "lang": "es",
+      "text": "Nuez",
+      "pl": "Orzech",
+      "id": "29d98de5"
+    },
+    "Hiszpański|Limón": {
+      "file": "es_limón_38a2ecb4e0.mp3",
+      "lang": "es",
+      "text": "Limón",
+      "pl": "Cytryna",
+      "id": "3c0a8967"
+    },
+    "Hiszpański|Pera": {
+      "file": "es_pera_4c7b34291e.mp3",
+      "lang": "es",
+      "text": "Pera",
+      "pl": "Gruszka",
+      "id": "70b7c3d9"
+    },
+    "Hiszpański|Melocotón": {
+      "file": "es_melocotón_f7b54c037e.mp3",
+      "lang": "es",
+      "text": "Melocotón",
+      "pl": "Brzoskwinia",
+      "id": "37e006e3"
+    },
+    "Hiszpański|Pepino": {
+      "file": "es_pepino_cde55c2226.mp3",
+      "lang": "es",
+      "text": "Pepino",
+      "pl": "Ogórek",
+      "id": "6f98352e"
+    },
+    "Hiszpański|Pato": {
+      "file": "es_pato_024cd2d4fa.mp3",
+      "lang": "es",
+      "text": "Pato",
+      "pl": "Kaczka",
+      "id": "6bf98225"
+    },
+    "Hiszpański|Cerdo": {
+      "file": "es_cerdo_1555c8a5e6.mp3",
+      "lang": "es",
+      "text": "Cerdo",
+      "pl": "Świnia",
+      "id": "0b74d898"
+    },
+    "Hiszpański|Oveja": {
+      "file": "es_oveja_b4dd75509d.mp3",
+      "lang": "es",
+      "text": "Oveja",
+      "pl": "Owca",
+      "id": "68e4bddf"
+    },
+    "Hiszpański|Cabra": {
+      "file": "es_cabra_bfc20978c6.mp3",
+      "lang": "es",
+      "text": "Cabra",
+      "pl": "Koza",
+      "id": "4a23d942"
+    },
+    "Hiszpański|León": {
+      "file": "es_león_3c4d136e43.mp3",
+      "lang": "es",
+      "text": "León",
+      "pl": "Lew",
+      "id": "03eb1432"
+    },
+    "Hiszpański|Tigre": {
+      "file": "es_tigre_2efdeed637.mp3",
+      "lang": "es",
+      "text": "Tigre",
+      "pl": "Tygrys",
+      "id": "63a51113"
+    },
+    "Hiszpański|Mono": {
+      "file": "es_mono_e1b9da1600.mp3",
+      "lang": "es",
+      "text": "Mono",
+      "pl": "Małpa",
+      "id": "2bb44820"
+    },
+    "Hiszpański|Delfín": {
+      "file": "es_delfín_d560d01b48.mp3",
+      "lang": "es",
+      "text": "Delfín",
+      "pl": "Delfin",
+      "id": "1cc15f78"
+    },
+    "Hiszpański|Tiburón": {
+      "file": "es_tiburón_3a19b80e0d.mp3",
+      "lang": "es",
+      "text": "Tiburón",
+      "pl": "Rekin",
+      "id": "64ba5a06"
+    },
+    "Hiszpański|Tortuga": {
+      "file": "es_tortuga_4354ad1571.mp3",
+      "lang": "es",
+      "text": "Tortuga",
+      "pl": "Żółw",
+      "id": "7e4281a2"
+    },
+    "Hiszpański|Búho": {
+      "file": "es_búho_d31a1f7e1a.mp3",
+      "lang": "es",
+      "text": "Búho",
+      "pl": "Sowa",
+      "id": "68ef97f5"
+    },
+    "Hiszpański|Loro": {
+      "file": "es_loro_a92a590c71.mp3",
+      "lang": "es",
+      "text": "Loro",
+      "pl": "Papuga",
+      "id": "00ea386c"
+    },
+    "Hiszpański|Cangrejo": {
+      "file": "es_cangrejo_0390e7231a.mp3",
+      "lang": "es",
+      "text": "Cangrejo",
+      "pl": "Krab",
+      "id": "56b0db83"
+    },
+    "Hiszpański|Ciervo": {
+      "file": "es_ciervo_0240a165c1.mp3",
+      "lang": "es",
+      "text": "Ciervo",
+      "pl": "Jelonek",
+      "id": "1dba3b72"
+    },
+    "Hiszpański|Banco": {
+      "file": "es_banco_3bdeb3b4ca.mp3",
+      "lang": "es",
+      "text": "Banco",
+      "pl": "Bank",
+      "id": "4a3316fb"
+    },
+    "Hiszpański|Correo": {
+      "file": "es_correo_73d4e76548.mp3",
+      "lang": "es",
+      "text": "Correo",
+      "pl": "Poczta",
+      "id": "08e517cf"
+    },
+    "Hiszpański|Restaurante": {
+      "file": "es_restaurante_45128fd817.mp3",
+      "lang": "es",
+      "text": "Restaurante",
+      "pl": "Restauracja",
+      "id": "7759dc8f"
+    },
+    "Hiszpański|Hotel": {
+      "file": "es_hotel_e1622a4455.mp3",
+      "lang": "es",
+      "text": "Hotel",
+      "pl": "Hotel",
+      "id": "3e41596c"
+    },
+    "Hiszpański|Iglesia": {
+      "file": "es_iglesia_06bb08c9b0.mp3",
+      "lang": "es",
+      "text": "Iglesia",
+      "pl": "Kościół",
+      "id": "6e28ace4"
+    },
+    "Hiszpański|Zoo": {
+      "file": "es_zoo_9cb6feea2c.mp3",
+      "lang": "es",
+      "text": "Zoo",
+      "pl": "Zoo",
+      "id": "797890b8"
+    },
+    "Hiszpański|Parque infantil": {
+      "file": "es_parque_infantil_6bcc5c3167.mp3",
+      "lang": "es",
+      "text": "Parque infantil",
+      "pl": "Plac zabaw",
+      "id": "500061bc"
+    },
+    "Hiszpański|Granja": {
+      "file": "es_granja_acaafa1c19.mp3",
+      "lang": "es",
+      "text": "Granja",
+      "pl": "Farma",
+      "id": "175557c0"
+    },
+    "Hiszpański|Teatro": {
+      "file": "es_teatro_5987c5b94c.mp3",
+      "lang": "es",
+      "text": "Teatro",
+      "pl": "Teatr",
+      "id": "270994cf"
+    },
+    "Hiszpański|Estadio": {
+      "file": "es_estadio_54f409f22b.mp3",
+      "lang": "es",
+      "text": "Estadio",
+      "pl": "Stadion",
+      "id": "44dbe657"
+    },
+    "Hiszpański|Llamar": {
+      "file": "es_llamar_15b741e3c2.mp3",
+      "lang": "es",
+      "text": "Llamar",
+      "pl": "Dzwonić",
+      "id": "65b6369b"
+    },
+    "Hiszpański|Enviar": {
+      "file": "es_enviar_371f2478a0.mp3",
+      "lang": "es",
+      "text": "Enviar",
+      "pl": "Wysyłać",
+      "id": "0bb38209"
+    },
+    "Hiszpański|Traer": {
+      "file": "es_traer_0d3a7ee000.mp3",
+      "lang": "es",
+      "text": "Traer",
+      "pl": "Przynosić",
+      "id": "01186743"
+    },
+    "Hiszpański|Poner": {
+      "file": "es_poner_e75525f9d6.mp3",
+      "lang": "es",
+      "text": "Poner",
+      "pl": "Kłaść",
+      "id": "2e9b1556"
+    },
+    "Hiszpański|Conseguir": {
+      "file": "es_conseguir_2206f92fc1.mp3",
+      "lang": "es",
+      "text": "Conseguir",
+      "pl": "Dostawać",
+      "id": "5d61ee97"
+    },
+    "Hiszpański|Sentir": {
+      "file": "es_sentir_f38de435d5.mp3",
+      "lang": "es",
+      "text": "Sentir",
+      "pl": "Czuć",
+      "id": "6491e834"
+    },
+    "Hiszpański|Tocar": {
+      "file": "es_tocar_0a22771294.mp3",
+      "lang": "es",
+      "text": "Tocar",
+      "pl": "Dotykać",
+      "id": "772f83de"
+    },
+    "Hiszpański|Oler": {
+      "file": "es_oler_2f0359a433.mp3",
+      "lang": "es",
+      "text": "Oler",
+      "pl": "Wąchać",
+      "id": "222f0d0d"
+    },
+    "Hiszpański|Probar": {
+      "file": "es_probar_937a843ff4.mp3",
+      "lang": "es",
+      "text": "Probar",
+      "pl": "Smakować",
+      "id": "08934ad0"
+    },
+    "Hiszpański|Elegir": {
+      "file": "es_elegir_17a3bb2166.mp3",
+      "lang": "es",
+      "text": "Elegir",
+      "pl": "Wybierać",
+      "id": "3c099e12"
+    },
+    "Hiszpański|Intentar": {
+      "file": "es_intentar_bac0b3a9c5.mp3",
+      "lang": "es",
+      "text": "Intentar",
+      "pl": "Próbować",
+      "id": "53156baa"
+    },
+    "Hiszpański|Necesitar": {
+      "file": "es_necesitar_7de3b2ed49.mp3",
+      "lang": "es",
+      "text": "Necesitar",
+      "pl": "Potrzebować",
+      "id": "5dd0b642"
+    },
+    "Hiszpański|Vivir": {
+      "file": "es_vivir_5aebd82434.mp3",
+      "lang": "es",
+      "text": "Vivir",
+      "pl": "Mieszkać",
+      "id": "5dbb82d1"
+    },
+    "Hiszpański|Crecer": {
+      "file": "es_crecer_3d4bfca403.mp3",
+      "lang": "es",
+      "text": "Crecer",
+      "pl": "Rosnąć",
+      "id": "17af20fc"
+    },
+    "Hiszpański|Construir": {
+      "file": "es_construir_6dde123b15.mp3",
+      "lang": "es",
+      "text": "Construir",
+      "pl": "Budować",
+      "id": "7c2bd372"
+    },
+    "Hiszpański|Romper": {
+      "file": "es_romper_763a842771.mp3",
+      "lang": "es",
+      "text": "Romper",
+      "pl": "Psuć",
+      "id": "450472b4"
+    },
+    "Hiszpański|Arreglar": {
+      "file": "es_arreglar_a561abe16d.mp3",
+      "lang": "es",
+      "text": "Arreglar",
+      "pl": "Naprawiać",
+      "id": "3cc233d2"
+    },
+    "Hiszpański|Empujar": {
+      "file": "es_empujar_fd8765b837.mp3",
+      "lang": "es",
+      "text": "Empujar",
+      "pl": "Pchać",
+      "id": "2258bbad"
+    },
+    "Hiszpański|Tirar": {
+      "file": "es_tirar_382546c74b.mp3",
+      "lang": "es",
+      "text": "Tirar",
+      "pl": "Ciągnąć",
+      "id": "4bed723a"
+    },
+    "Hiszpański|Girar": {
+      "file": "es_girar_a219bcf9bf.mp3",
+      "lang": "es",
+      "text": "Girar",
+      "pl": "Kręcić",
+      "id": "4d83ed54"
+    },
+    "Hiszpański|Parar": {
+      "file": "es_parar_96ebe9fb8a.mp3",
+      "lang": "es",
+      "text": "Parar",
+      "pl": "Zatrzymywać",
+      "id": "598122c3"
+    },
+    "Hiszpański|Creer": {
+      "file": "es_creer_aa94326759.mp3",
+      "lang": "es",
+      "text": "Creer",
+      "pl": "Wierzyć",
+      "id": "01871990"
+    },
+    "Hiszpański|Invitar": {
+      "file": "es_invitar_870902cb0f.mp3",
+      "lang": "es",
+      "text": "Invitar",
+      "pl": "Zapraszać",
+      "id": "3f726896"
+    },
+    "Hiszpański|Visitar": {
+      "file": "es_visitar_9cc00ac9d0.mp3",
+      "lang": "es",
+      "text": "Visitar",
+      "pl": "Odwiedzać",
+      "id": "5eb1337a"
+    },
+    "Hiszpański|Salir": {
+      "file": "es_salir_f4a045c949.mp3",
+      "lang": "es",
+      "text": "Salir",
+      "pl": "Wychodzić",
+      "id": "561d78e7"
+    },
+    "Hiszpański|Llegar": {
+      "file": "es_llegar_13c205f0ff.mp3",
+      "lang": "es",
+      "text": "Llegar",
+      "pl": "Przyjeżdżać",
+      "id": "7977a3f1"
+    },
+    "Hiszpański|Volver": {
+      "file": "es_volver_db763d47ad.mp3",
+      "lang": "es",
+      "text": "Volver",
+      "pl": "Wracać",
+      "id": "0484ea49"
+    },
+    "Hiszpański|Quedarse": {
+      "file": "es_quedarse_ef869b07eb.mp3",
+      "lang": "es",
+      "text": "Quedarse",
+      "pl": "Zostawać",
+      "id": "55637e70"
+    },
+    "Hiszpański|Descansar": {
+      "file": "es_descansar_999910582c.mp3",
+      "lang": "es",
+      "text": "Descansar",
+      "pl": "Odpoczywać",
+      "id": "7b3945d9"
+    },
+    "Hiszpański|Hacer ejercicio": {
+      "file": "es_hacer_ejercicio_c597788099.mp3",
+      "lang": "es",
+      "text": "Hacer ejercicio",
+      "pl": "Ćwiczyć",
+      "id": "68f465aa"
+    },
+    "Hiszpański|Subir": {
+      "file": "es_subir_abe1e298b7.mp3",
+      "lang": "es",
+      "text": "Subir",
+      "pl": "Wspinać się",
+      "id": "4f25c08f"
+    },
+    "Hiszpański|Caer": {
+      "file": "es_caer_debfa3c05a.mp3",
+      "lang": "es",
+      "text": "Caer",
+      "pl": "Upadać",
+      "id": "0193a143"
+    },
+    "Hiszpański|Atrapar": {
+      "file": "es_atrapar_8a9d71447b.mp3",
+      "lang": "es",
+      "text": "Atrapar",
+      "pl": "Łapać",
+      "id": "1a028a3a"
+    },
+    "Hiszpański|Abrazar": {
+      "file": "es_abrazar_25df5db15c.mp3",
+      "lang": "es",
+      "text": "Abrazar",
+      "pl": "Przytulać",
+      "id": "25d5360f"
+    },
+    "Hiszpański|Besar": {
+      "file": "es_besar_94a3759490.mp3",
+      "lang": "es",
+      "text": "Besar",
+      "pl": "Całować",
+      "id": "54521b97"
+    },
+    "Hiszpański|Celebrar": {
+      "file": "es_celebrar_f7a1df0c1a.mp3",
+      "lang": "es",
+      "text": "Celebrar",
+      "pl": "Świętować",
+      "id": "6a75c042"
+    },
+    "Hiszpański|Cepillo de dientes": {
+      "file": "es_cepillo_de_dientes_f2f389b758.mp3",
+      "lang": "es",
+      "text": "Cepillo de dientes",
+      "pl": "Szczoteczka",
+      "id": "0af0aa0e"
+    },
+    "Hiszpański|Pasta de dientes": {
+      "file": "es_pasta_de_dientes_c54fe06e90.mp3",
+      "lang": "es",
+      "text": "Pasta de dientes",
+      "pl": "Pasta do zębów",
+      "id": "1375edbf"
+    },
+    "Hiszpański|Jabón": {
+      "file": "es_jabón_75568c0e0b.mp3",
+      "lang": "es",
+      "text": "Jabón",
+      "pl": "Mydło",
+      "id": "397c600f"
+    },
+    "Hiszpański|Toalla": {
+      "file": "es_toalla_517cca621c.mp3",
+      "lang": "es",
+      "text": "Toalla",
+      "pl": "Ręcznik",
+      "id": "6fc4bb65"
+    },
+    "Hiszpański|Ducha": {
+      "file": "es_ducha_e574a99055.mp3",
+      "lang": "es",
+      "text": "Ducha",
+      "pl": "Prysznic",
+      "id": "173149d9"
+    },
+    "Hiszpański|Reloj de pared": {
+      "file": "es_reloj_de_pared_377929310a.mp3",
+      "lang": "es",
+      "text": "Reloj de pared",
+      "pl": "Zegar",
+      "id": "02e9831c"
+    },
+    "Hiszpański|Calendario": {
+      "file": "es_calendario_be5d9cbd8b.mp3",
+      "lang": "es",
+      "text": "Calendario",
+      "pl": "Kalendarz",
+      "id": "338556dc"
+    },
+    "Hiszpański|Peine": {
+      "file": "es_peine_9ea7fe0bcc.mp3",
+      "lang": "es",
+      "text": "Peine",
+      "pl": "Grzebień",
+      "id": "1cd3982b"
+    },
+    "Hiszpański|Champú": {
+      "file": "es_champú_3a40d0bd8f.mp3",
+      "lang": "es",
+      "text": "Champú",
+      "pl": "Szampon",
+      "id": "0bad1cfb"
+    },
+    "Hiszpański|Hoja": {
+      "file": "es_hoja_8b88a43d23.mp3",
+      "lang": "es",
+      "text": "Hoja",
+      "pl": "Liść",
+      "id": "241b6f51"
+    },
+    "Hiszpański|Cielo": {
+      "file": "es_cielo_b0e15e0fdf.mp3",
+      "lang": "es",
+      "text": "Cielo",
+      "pl": "Niebo",
+      "id": "38a8261d"
+    },
+    "Hiszpański|Isla": {
+      "file": "es_isla_8e3e20e5fc.mp3",
+      "lang": "es",
+      "text": "Isla",
+      "pl": "Wyspa",
+      "id": "1de81059"
+    },
+    "Hiszpański|Desierto": {
+      "file": "es_desierto_cbf7a38cd3.mp3",
+      "lang": "es",
+      "text": "Desierto",
+      "pl": "Pustynia",
+      "id": "521531c8"
+    },
+    "Hiszpański|Volcán": {
+      "file": "es_volcán_aa05d6aed1.mp3",
+      "lang": "es",
+      "text": "Volcán",
+      "pl": "Wulkan",
+      "id": "0e25080f"
+    },
+    "Hiszpański|Ola": {
+      "file": "es_ola_0d81ae4aa7.mp3",
+      "lang": "es",
+      "text": "Ola",
+      "pl": "Fala",
+      "id": "2cd0ab98"
+    },
+    "Hiszpański|Arena": {
+      "file": "es_arena_3246019b74.mp3",
+      "lang": "es",
+      "text": "Arena",
+      "pl": "Piasek",
+      "id": "0b4e0d1c"
+    },
+    "Hiszpański|Barro": {
+      "file": "es_barro_282d9e3281.mp3",
+      "lang": "es",
+      "text": "Barro",
+      "pl": "Błoto",
+      "id": "68a09d1e"
+    },
+    "Hiszpański|Cueva": {
+      "file": "es_cueva_c21e8a5766.mp3",
+      "lang": "es",
+      "text": "Cueva",
+      "pl": "Jaskinia",
+      "id": "7d40a36e"
+    },
+    "Hiszpański|Cascada": {
+      "file": "es_cascada_8c8cfe8482.mp3",
+      "lang": "es",
+      "text": "Cascada",
+      "pl": "Wodospad",
+      "id": "7bf242d7"
+    },
+    "Hiszpański|Alegría": {
+      "file": "es_alegría_457503345c.mp3",
+      "lang": "es",
+      "text": "Alegría",
+      "pl": "Radość",
+      "id": "112b2d63"
+    },
+    "Hiszpański|Enojo": {
+      "file": "es_enojo_c8c27161e6.mp3",
+      "lang": "es",
+      "text": "Enojo",
+      "pl": "Złość",
+      "id": "03242e22"
+    },
+    "Hiszpański|Calma": {
+      "file": "es_calma_5248bb9f55.mp3",
+      "lang": "es",
+      "text": "Calma",
+      "pl": "Spokój",
+      "id": "5899cf76"
+    },
+    "Hiszpański|Emocionado": {
+      "file": "es_emocionado_077eb7641d.mp3",
+      "lang": "es",
+      "text": "Emocionado",
+      "pl": "Podekscytowany",
+      "id": "19f9a0ae"
+    },
+    "Hiszpański|Preocupado": {
+      "file": "es_preocupado_980426b56e.mp3",
+      "lang": "es",
+      "text": "Preocupado",
+      "pl": "Zmartwiony",
+      "id": "09277f3e"
+    },
+    "Hiszpański|Tímido": {
+      "file": "es_tímido_4ed49562dd.mp3",
+      "lang": "es",
+      "text": "Tímido",
+      "pl": "Nieśmiały",
+      "id": "22427431"
+    },
+    "Hiszpański|Celoso": {
+      "file": "es_celoso_f9baf68916.mp3",
+      "lang": "es",
+      "text": "Celoso",
+      "pl": "Zazdrosny",
+      "id": "30d703cd"
+    },
+    "Hiszpański|Solo": {
+      "file": "es_solo_01abe45689.mp3",
+      "lang": "es",
+      "text": "Solo",
+      "pl": "Samotny",
+      "id": "4edfd5ec"
+    },
+    "Hiszpański|Tableta": {
+      "file": "es_tableta_ba7a576bc5.mp3",
+      "lang": "es",
+      "text": "Tableta",
+      "pl": "Tablet",
+      "id": "7f1fc325"
+    },
+    "Hiszpański|Auriculares": {
+      "file": "es_auriculares_67a3f66e13.mp3",
+      "lang": "es",
+      "text": "Auriculares",
+      "pl": "Słuchawki",
+      "id": "722ea631"
+    },
+    "Hiszpański|Cargador": {
+      "file": "es_cargador_ea276ef3cd.mp3",
+      "lang": "es",
+      "text": "Cargador",
+      "pl": "Ładowarka",
+      "id": "4a15c981"
+    },
+    "Hiszpański|Teclado": {
+      "file": "es_teclado_3b994c064d.mp3",
+      "lang": "es",
+      "text": "Teclado",
+      "pl": "Klawiatura",
+      "id": "6c8e8e75"
+    },
+    "Hiszpański|Pantalla": {
+      "file": "es_pantalla_18081d2cc9.mp3",
+      "lang": "es",
+      "text": "Pantalla",
+      "pl": "Ekran",
+      "id": "2dc18dba"
+    },
+    "Hiszpański|Cámara": {
+      "file": "es_cámara_7d13a25107.mp3",
+      "lang": "es",
+      "text": "Cámara",
+      "pl": "Aparat",
+      "id": "05ba77ea"
+    },
+    "Hiszpański|Mensaje": {
+      "file": "es_mensaje_348a67e80b.mp3",
+      "lang": "es",
+      "text": "Mensaje",
+      "pl": "Wiadomość",
+      "id": "06bd9aab"
+    },
+    "Hiszpański|Correo electrónico": {
+      "file": "es_correo_electrónico_7bae72fe2b.mp3",
+      "lang": "es",
+      "text": "Correo electrónico",
+      "pl": "E-mail",
+      "id": "37a3692a"
+    },
+    "Hiszpański|Baloncesto": {
+      "file": "es_baloncesto_28b892f58d.mp3",
+      "lang": "es",
+      "text": "Baloncesto",
+      "pl": "Koszykówka",
+      "id": "65da41a5"
+    },
+    "Hiszpański|Tenis": {
+      "file": "es_tenis_f5838a0c75.mp3",
+      "lang": "es",
+      "text": "Tenis",
+      "pl": "Tenis",
+      "id": "46f57fd2"
+    },
+    "Hiszpański|Voleibol": {
+      "file": "es_voleibol_0dc7a3b8a6.mp3",
+      "lang": "es",
+      "text": "Voleibol",
+      "pl": "Siatkówka",
+      "id": "20c6c3e8"
+    },
+    "Hiszpański|Monopatín": {
+      "file": "es_monopatín_4a216e6c71.mp3",
+      "lang": "es",
+      "text": "Monopatín",
+      "pl": "Deskorolka",
+      "id": "244e4c74"
+    },
+    "Hiszpański|Esquís": {
+      "file": "es_esquís_00771bc7b0.mp3",
+      "lang": "es",
+      "text": "Esquís",
+      "pl": "Narty",
+      "id": "1c899710"
+    },
+    "Hiszpański|Patines de hielo": {
+      "file": "es_patines_de_hielo_62b59a429f.mp3",
+      "lang": "es",
+      "text": "Patines de hielo",
+      "pl": "Łyżwy",
+      "id": "7bc741a7"
+    },
+    "Hiszpański|Brazo": {
+      "file": "es_brazo_961f06b98d.mp3",
+      "lang": "es",
+      "text": "Brazo",
+      "pl": "Ramię",
+      "id": "041465f8"
+    },
+    "Hiszpański|Espalda": {
+      "file": "es_espalda_ddc905981a.mp3",
+      "lang": "es",
+      "text": "Espalda",
+      "pl": "Plecy",
+      "id": "5dbac78d"
+    },
+    "Hiszpański|Rodilla": {
+      "file": "es_rodilla_5f1ca25f84.mp3",
+      "lang": "es",
+      "text": "Rodilla",
+      "pl": "Kolano",
+      "id": "600beb7d"
+    },
+    "Hiszpański|Pie": {
+      "file": "es_pie_8ca9407cea.mp3",
+      "lang": "es",
+      "text": "Pie",
+      "pl": "Stopa",
+      "id": "6149a0af"
+    },
+    "Hiszpański|Cuello": {
+      "file": "es_cuello_64675dab1f.mp3",
+      "lang": "es",
+      "text": "Cuello",
+      "pl": "Szyja",
+      "id": "703dab8f"
+    },
+    "Hiszpański|Hombro": {
+      "file": "es_hombro_a64bcd273c.mp3",
+      "lang": "es",
+      "text": "Hombro",
+      "pl": "Bark",
+      "id": "584369dd"
+    },
+    "Hiszpański|Estómago": {
+      "file": "es_estómago_f88648abf5.mp3",
+      "lang": "es",
+      "text": "Estómago",
+      "pl": "Brzuch",
+      "id": "5f99cc75"
+    },
+    "Hiszpański|Sangre": {
+      "file": "es_sangre_8b0d3d2fd3.mp3",
+      "lang": "es",
+      "text": "Sangre",
+      "pl": "Krew",
+      "id": "364339fd"
+    },
+    "Hiszpański|Hueso": {
+      "file": "es_hueso_3d54417ffa.mp3",
+      "lang": "es",
+      "text": "Hueso",
+      "pl": "Kość",
+      "id": "64a64dc8"
+    },
+    "Hiszpański|Noche (atardecer)": {
+      "file": "es_noche_atardecer_c214a625be.mp3",
+      "lang": "es",
+      "text": "Noche (atardecer)",
+      "pl": "Wieczór",
+      "id": "6d504ef2"
+    },
+    "Hiszpański|Tarde": {
+      "file": "es_tarde_2b5bfcd3f5.mp3",
+      "lang": "es",
+      "text": "Tarde",
+      "pl": "Popołudnie",
+      "id": "1235ed81"
+    },
+    "Hiszpański|Minuto": {
+      "file": "es_minuto_8b2eff9354.mp3",
+      "lang": "es",
+      "text": "Minuto",
+      "pl": "Minuta",
+      "id": "4050c18a"
+    },
+    "Hiszpański|Segundo": {
+      "file": "es_segundo_001184936c.mp3",
+      "lang": "es",
+      "text": "Segundo",
+      "pl": "Sekunda",
+      "id": "0aa2c06c"
+    },
+    "Hiszpański|Siempre": {
+      "file": "es_siempre_4313b300d1.mp3",
+      "lang": "es",
+      "text": "Siempre",
+      "pl": "Zawsze",
+      "id": "31152517"
+    },
+    "Hiszpański|Nunca": {
+      "file": "es_nunca_859aaf9ab2.mp3",
+      "lang": "es",
+      "text": "Nunca",
+      "pl": "Nigdy",
+      "id": "4292460a"
+    },
+    "Hiszpański|A menudo": {
+      "file": "es_a_menudo_419f534c46.mp3",
+      "lang": "es",
+      "text": "A menudo",
+      "pl": "Często",
+      "id": "13a71959"
+    },
+    "Hiszpański|A veces": {
+      "file": "es_a_veces_881bfbf951.mp3",
+      "lang": "es",
+      "text": "A veces",
+      "pl": "Czasami",
+      "id": "0f94dcfb"
+    },
+    "Hiszpański|Ya": {
+      "file": "es_ya_171592cd47.mp3",
+      "lang": "es",
+      "text": "Ya",
+      "pl": "Już",
+      "id": "3c010d53"
+    },
+    "Hiszpański|Todavía": {
+      "file": "es_todavía_e8287ea668.mp3",
+      "lang": "es",
+      "text": "Todavía",
+      "pl": "Jeszcze",
+      "id": "2bcdbb82"
+    },
+    "Hiszpański|Izquierda": {
+      "file": "es_izquierda_967ad10a3d.mp3",
+      "lang": "es",
+      "text": "Izquierda",
+      "pl": "Lewo",
+      "id": "523223b3"
+    },
+    "Hiszpański|Derecha": {
+      "file": "es_derecha_7b172feb3b.mp3",
+      "lang": "es",
+      "text": "Derecha",
+      "pl": "Prawo",
+      "id": "36b62863"
+    },
+    "Hiszpański|Abajo": {
+      "file": "es_abajo_658b68df16.mp3",
+      "lang": "es",
+      "text": "Abajo",
+      "pl": "Dół",
+      "id": "682d567c"
+    },
+    "Hiszpański|Aquí": {
+      "file": "es_aquí_caf13249b6.mp3",
+      "lang": "es",
+      "text": "Aquí",
+      "pl": "Tutaj",
+      "id": "4db5a9c8"
+    },
+    "Hiszpański|Allí": {
+      "file": "es_allí_014d618ac0.mp3",
+      "lang": "es",
+      "text": "Allí",
+      "pl": "Tam",
+      "id": "5e462248"
+    },
+    "Hiszpański|Por qué": {
+      "file": "es_por_qué_d9e8b0aeb9.mp3",
+      "lang": "es",
+      "text": "Por qué",
+      "pl": "Dlaczego",
+      "id": "0ce8b1f9"
+    },
+    "Hiszpański|Cómo": {
+      "file": "es_cómo_5167c4c46c.mp3",
+      "lang": "es",
+      "text": "Cómo",
+      "pl": "Jak",
+      "id": "4c13937a"
+    },
+    "Hiszpański|Cuándo": {
+      "file": "es_cuándo_470ed71b6b.mp3",
+      "lang": "es",
+      "text": "Cuándo",
+      "pl": "Kiedy",
+      "id": "7d7dcaca"
+    },
+    "Hiszpański|Dónde": {
+      "file": "es_dónde_2bd4890c85.mp3",
+      "lang": "es",
+      "text": "Dónde",
+      "pl": "Gdzie",
+      "id": "510c055d"
+    },
+    "Hiszpański|Quién": {
+      "file": "es_quién_f3a3342f71.mp3",
+      "lang": "es",
+      "text": "Quién",
+      "pl": "Kto",
+      "id": "547e8ed4"
+    },
+    "Hiszpański|Qué": {
+      "file": "es_qué_cd5f9a6e0b.mp3",
+      "lang": "es",
+      "text": "Qué",
+      "pl": "Co",
+      "id": "2f460bb5"
+    },
+    "Hiszpański|Borrador": {
+      "file": "es_borrador_b3be3c141f.mp3",
+      "lang": "es",
+      "text": "Borrador",
+      "pl": "Gumka",
+      "id": "4255435a"
+    },
+    "Hiszpański|Regla": {
+      "file": "es_regla_c206111037.mp3",
+      "lang": "es",
+      "text": "Regla",
+      "pl": "Linijka",
+      "id": "2846d055"
+    },
+    "Hiszpański|Escritorio": {
+      "file": "es_escritorio_7e59d00f38.mp3",
+      "lang": "es",
+      "text": "Escritorio",
+      "pl": "Biurko",
+      "id": "218d40c5"
+    },
+    "Hiszpański|Recreo": {
+      "file": "es_recreo_9d9b1ea0db.mp3",
+      "lang": "es",
+      "text": "Recreo",
+      "pl": "Przerwa",
+      "id": "68e593b9"
+    },
+    "Hiszpański|Papel": {
+      "file": "es_papel_adc4f9d1c8.mp3",
+      "lang": "es",
+      "text": "Papel",
+      "pl": "Papier",
+      "id": "5ce12f21"
+    },
+    "Hiszpański|Rotulador": {
+      "file": "es_rotulador_01232015dc.mp3",
+      "lang": "es",
+      "text": "Rotulador",
+      "pl": "Marker",
+      "id": "5e7c23b2"
+    },
+    "Hiszpański|Lápices de colores": {
+      "file": "es_lápices_de_colores_e73adcec68.mp3",
+      "lang": "es",
+      "text": "Lápices de colores",
+      "pl": "Kredki",
+      "id": "3076eae7"
+    },
+    "Hiszpański|Tijeras escolares": {
+      "file": "es_tijeras_escolares_2957be26da.mp3",
+      "lang": "es",
+      "text": "Tijeras escolares",
+      "pl": "Nożyczki szkolne",
+      "id": "0b06f1b4"
+    },
+    "Hiszpański|Olla": {
+      "file": "es_olla_bb875f92b6.mp3",
+      "lang": "es",
+      "text": "Olla",
+      "pl": "Garnek",
+      "id": "3d85e452"
+    },
+    "Hiszpański|Sartén": {
+      "file": "es_sartén_0d2a162b75.mp3",
+      "lang": "es",
+      "text": "Sartén",
+      "pl": "Patelnia",
+      "id": "5f392c75"
+    },
+    "Hiszpański|Plato": {
+      "file": "es_plato_ec31f1e5cf.mp3",
+      "lang": "es",
+      "text": "Plato",
+      "pl": "Talerz",
+      "id": "47162f12"
+    },
+    "Hiszpański|Taza": {
+      "file": "es_taza_581048a62f.mp3",
+      "lang": "es",
+      "text": "Taza",
+      "pl": "Kubek",
+      "id": "3ea1b4b2"
+    },
+    "Hiszpański|Tenedor": {
+      "file": "es_tenedor_d6407b3c0e.mp3",
+      "lang": "es",
+      "text": "Tenedor",
+      "pl": "Widelec",
+      "id": "21226bba"
+    },
+    "Hiszpański|Cuchillo": {
+      "file": "es_cuchillo_3bebef6219.mp3",
+      "lang": "es",
+      "text": "Cuchillo",
+      "pl": "Nóż",
+      "id": "19bc8942"
+    },
+    "Hiszpański|Cuchara": {
+      "file": "es_cuchara_6e2eac3cf2.mp3",
+      "lang": "es",
+      "text": "Cuchara",
+      "pl": "Łyżka",
+      "id": "03448498"
+    },
+    "Hiszpański|Vaso": {
+      "file": "es_vaso_c0b6514e6d.mp3",
+      "lang": "es",
+      "text": "Vaso",
+      "pl": "Szklanka",
+      "id": "3391db58"
+    },
+    "Hiszpański|Estante": {
+      "file": "es_estante_cb79e2e178.mp3",
+      "lang": "es",
+      "text": "Estante",
+      "pl": "Półka",
+      "id": "31f0d59d"
+    },
+    "Hiszpański|Armario": {
+      "file": "es_armario_9fd7ba164d.mp3",
+      "lang": "es",
+      "text": "Armario",
+      "pl": "Szafa",
+      "id": "6262118c"
+    },
+    "Rosyjski|Носки": {
+      "file": "ru_носки_5c6e77d06f.mp3",
+      "lang": "ru",
+      "text": "Носки",
+      "pl": "Skarpetki",
+      "id": "74ec01d6"
+    },
+    "Rosyjski|Шарф": {
+      "file": "ru_шарф_e0113f03a2.mp3",
+      "lang": "ru",
+      "text": "Шарф",
+      "pl": "Szalik",
+      "id": "4083e474"
+    },
+    "Rosyjski|Перчатки": {
+      "file": "ru_перчатки_e85d3b76cd.mp3",
+      "lang": "ru",
+      "text": "Перчатки",
+      "pl": "Rękawiczki",
+      "id": "38f7af05"
+    },
+    "Rosyjski|Пальто": {
+      "file": "ru_пальто_ccb929b099.mp3",
+      "lang": "ru",
+      "text": "Пальто",
+      "pl": "Płaszcz",
+      "id": "7d10742d"
+    },
+    "Rosyjski|Свитер": {
+      "file": "ru_свитер_1f31139511.mp3",
+      "lang": "ru",
+      "text": "Свитер",
+      "pl": "Sweter",
+      "id": "08239842"
+    },
+    "Rosyjski|Юбка": {
+      "file": "ru_юбка_a10982d809.mp3",
+      "lang": "ru",
+      "text": "Юбка",
+      "pl": "Spódnica",
+      "id": "3884d1ae"
+    },
+    "Rosyjski|Сапоги": {
+      "file": "ru_сапоги_5cd9c8b34d.mp3",
+      "lang": "ru",
+      "text": "Сапоги",
+      "pl": "Kozaki",
+      "id": "3e647446"
+    },
+    "Rosyjski|Зонт": {
+      "file": "ru_зонт_d190390926.mp3",
+      "lang": "ru",
+      "text": "Зонт",
+      "pl": "Parasol",
+      "id": "1a171398"
+    },
+    "Rosyjski|Пижама": {
+      "file": "ru_пижама_c03fed1d43.mp3",
+      "lang": "ru",
+      "text": "Пижама",
+      "pl": "Piżama",
+      "id": "2dc81211"
+    },
+    "Rosyjski|Ремень": {
+      "file": "ru_ремень_d806d345ad.mp3",
+      "lang": "ru",
+      "text": "Ремень",
+      "pl": "Pasek",
+      "id": "0cdec011"
+    },
+    "Rosyjski|Очки": {
+      "file": "ru_очки_bcbecabbad.mp3",
+      "lang": "ru",
+      "text": "Очки",
+      "pl": "Okulary",
+      "id": "06315c4e"
+    },
+    "Rosyjski|Часы": {
+      "file": "ru_часы_53424917f7.mp3",
+      "lang": "ru",
+      "text": "Часы",
+      "pl": "Zegarek",
+      "id": "40e533dc"
+    },
+    "Rosyjski|Сумка": {
+      "file": "ru_сумка_b1f1a51775.mp3",
+      "lang": "ru",
+      "text": "Сумка",
+      "pl": "Torba",
+      "id": "4aed616a"
+    },
+    "Rosyjski|Кошелёк": {
+      "file": "ru_кошелёк_9c86510ba9.mp3",
+      "lang": "ru",
+      "text": "Кошелёк",
+      "pl": "Portfel",
+      "id": "149e2a23"
+    },
+    "Rosyjski|Одиннадцать": {
+      "file": "ru_одиннадцать_c1f757dce4.mp3",
+      "lang": "ru",
+      "text": "Одиннадцать",
+      "pl": "Jedenaście",
+      "id": "0db9bc91"
+    },
+    "Rosyjski|Двенадцать": {
+      "file": "ru_двенадцать_2fa189b96f.mp3",
+      "lang": "ru",
+      "text": "Двенадцать",
+      "pl": "Dwanaście",
+      "id": "3b285295"
+    },
+    "Rosyjski|Тринадцать": {
+      "file": "ru_тринадцать_49e153d5d4.mp3",
+      "lang": "ru",
+      "text": "Тринадцать",
+      "pl": "Trzynaście",
+      "id": "21636ac3"
+    },
+    "Rosyjski|Четырнадцать": {
+      "file": "ru_четырнадцать_47820a2f7b.mp3",
+      "lang": "ru",
+      "text": "Четырнадцать",
+      "pl": "Czternaście",
+      "id": "5325b0e7"
+    },
+    "Rosyjski|Пятнадцать": {
+      "file": "ru_пятнадцать_84c525ed54.mp3",
+      "lang": "ru",
+      "text": "Пятнадцать",
+      "pl": "Piętnaście",
+      "id": "123a4614"
+    },
+    "Rosyjski|Шестнадцать": {
+      "file": "ru_шестнадцать_77596f371a.mp3",
+      "lang": "ru",
+      "text": "Шестнадцать",
+      "pl": "Szesnaście",
+      "id": "7af2d2b7"
+    },
+    "Rosyjski|Семнадцать": {
+      "file": "ru_семнадцать_52e9c3ec20.mp3",
+      "lang": "ru",
+      "text": "Семнадцать",
+      "pl": "Siedemnaście",
+      "id": "712e9175"
+    },
+    "Rosyjski|Восемнадцать": {
+      "file": "ru_восемнадцать_1b36088a54.mp3",
+      "lang": "ru",
+      "text": "Восемнадцать",
+      "pl": "Osiemnaście",
+      "id": "16bd0731"
+    },
+    "Rosyjski|Девятнадцать": {
+      "file": "ru_девятнадцать_5917aa0fe3.mp3",
+      "lang": "ru",
+      "text": "Девятнадцать",
+      "pl": "Dziewiętnaście",
+      "id": "16bec4d7"
+    },
+    "Rosyjski|Двадцать": {
+      "file": "ru_двадцать_85453d43d5.mp3",
+      "lang": "ru",
+      "text": "Двадцать",
+      "pl": "Dwadzieścia",
+      "id": "30ffca12"
+    },
+    "Rosyjski|Тётя": {
+      "file": "ru_тётя_0866e0cdfc.mp3",
+      "lang": "ru",
+      "text": "Тётя",
+      "pl": "Ciocia",
+      "id": "1d18ff46"
+    },
+    "Rosyjski|Дядя": {
+      "file": "ru_дядя_57aaa1f4c0.mp3",
+      "lang": "ru",
+      "text": "Дядя",
+      "pl": "Wujek",
+      "id": "72e00540"
+    },
+    "Rosyjski|Двоюродный брат": {
+      "file": "ru_двоюродный_брат_c80a7672d9.mp3",
+      "lang": "ru",
+      "text": "Двоюродный брат",
+      "pl": "Kuzyn",
+      "id": "0b346d07"
+    },
+    "Rosyjski|Малыш": {
+      "file": "ru_малыш_4262435fff.mp3",
+      "lang": "ru",
+      "text": "Малыш",
+      "pl": "Niemowlę",
+      "id": "1c1a7220"
+    },
+    "Rosyjski|Сосед": {
+      "file": "ru_сосед_592097d112.mp3",
+      "lang": "ru",
+      "text": "Сосед",
+      "pl": "Sąsiad",
+      "id": "66d11912"
+    },
+    "Rosyjski|Гость": {
+      "file": "ru_гость_a857007264.mp3",
+      "lang": "ru",
+      "text": "Гость",
+      "pl": "Gość",
+      "id": "4abb21f8"
+    },
+    "Rosyjski|Девушка": {
+      "file": "ru_девушка_a9a0a498f7.mp3",
+      "lang": "ru",
+      "text": "Девушка",
+      "pl": "Dziewczyna (partnerka)",
+      "id": "12263f33"
+    },
+    "Rosyjski|Парень": {
+      "file": "ru_парень_d447d33134.mp3",
+      "lang": "ru",
+      "text": "Парень",
+      "pl": "Chłopak (partner)",
+      "id": "3cb608e0"
+    },
+    "Rosyjski|Соль": {
+      "file": "ru_соль_8ffdea5b78.mp3",
+      "lang": "ru",
+      "text": "Соль",
+      "pl": "Sól",
+      "id": "21cfa8be"
+    },
+    "Rosyjski|Перец": {
+      "file": "ru_перец_ed63cd6620.mp3",
+      "lang": "ru",
+      "text": "Перец",
+      "pl": "Pieprz",
+      "id": "37d6dd0b"
+    },
+    "Rosyjski|Торт": {
+      "file": "ru_торт_31c5f75214.mp3",
+      "lang": "ru",
+      "text": "Торт",
+      "pl": "Ciasto",
+      "id": "5d35d807"
+    },
+    "Rosyjski|Клубника": {
+      "file": "ru_клубника_e1e4b3f001.mp3",
+      "lang": "ru",
+      "text": "Клубника",
+      "pl": "Truskawka",
+      "id": "44f0ffe1"
+    },
+    "Rosyjski|Виноград": {
+      "file": "ru_виноград_b924419b58.mp3",
+      "lang": "ru",
+      "text": "Виноград",
+      "pl": "Winogrono",
+      "id": "6f5e1962"
+    },
+    "Rosyjski|Арбуз": {
+      "file": "ru_арбуз_14b15697d7.mp3",
+      "lang": "ru",
+      "text": "Арбуз",
+      "pl": "Arbuz",
+      "id": "35ca896f"
+    },
+    "Rosyjski|Лук": {
+      "file": "ru_лук_7addf88a9e.mp3",
+      "lang": "ru",
+      "text": "Лук",
+      "pl": "Cebula",
+      "id": "26bddf40"
+    },
+    "Rosyjski|Чеснок": {
+      "file": "ru_чеснок_62dd6a68f3.mp3",
+      "lang": "ru",
+      "text": "Чеснок",
+      "pl": "Czosnek",
+      "id": "46fcd8e9"
+    },
+    "Rosyjski|Гриб": {
+      "file": "ru_гриб_bc3ecdbe9c.mp3",
+      "lang": "ru",
+      "text": "Гриб",
+      "pl": "Grzyb",
+      "id": "022ecb6a"
+    },
+    "Rosyjski|Хлопья": {
+      "file": "ru_хлопья_94d1cc61f7.mp3",
+      "lang": "ru",
+      "text": "Хлопья",
+      "pl": "Płatki",
+      "id": "5ceaca13"
+    },
+    "Rosyjski|Блин": {
+      "file": "ru_блин_3f092841f0.mp3",
+      "lang": "ru",
+      "text": "Блин",
+      "pl": "Naleśnik",
+      "id": "2565a28a"
+    },
+    "Rosyjski|Орех": {
+      "file": "ru_орех_f2be0ef4dd.mp3",
+      "lang": "ru",
+      "text": "Орех",
+      "pl": "Orzech",
+      "id": "2ba3ef1b"
+    },
+    "Rosyjski|Лимон": {
+      "file": "ru_лимон_3966d34895.mp3",
+      "lang": "ru",
+      "text": "Лимон",
+      "pl": "Cytryna",
+      "id": "737ff97a"
+    },
+    "Rosyjski|Груша": {
+      "file": "ru_груша_088dc406fa.mp3",
+      "lang": "ru",
+      "text": "Груша",
+      "pl": "Gruszka",
+      "id": "5d129c89"
+    },
+    "Rosyjski|Персик": {
+      "file": "ru_персик_d1f09dafbb.mp3",
+      "lang": "ru",
+      "text": "Персик",
+      "pl": "Brzoskwinia",
+      "id": "2d8d4bbe"
+    },
+    "Rosyjski|Огурец": {
+      "file": "ru_огурец_d770d93d3c.mp3",
+      "lang": "ru",
+      "text": "Огурец",
+      "pl": "Ogórek",
+      "id": "2511b942"
+    },
+    "Rosyjski|Утка": {
+      "file": "ru_утка_0c24b9150e.mp3",
+      "lang": "ru",
+      "text": "Утка",
+      "pl": "Kaczka",
+      "id": "6dc591ce"
+    },
+    "Rosyjski|Свинья": {
+      "file": "ru_свинья_983d4690a2.mp3",
+      "lang": "ru",
+      "text": "Свинья",
+      "pl": "Świnia",
+      "id": "33d952bc"
+    },
+    "Rosyjski|Овца": {
+      "file": "ru_овца_d6215fc2e0.mp3",
+      "lang": "ru",
+      "text": "Овца",
+      "pl": "Owca",
+      "id": "36b85154"
+    },
+    "Rosyjski|Коза": {
+      "file": "ru_коза_1b75f85a1d.mp3",
+      "lang": "ru",
+      "text": "Коза",
+      "pl": "Koza",
+      "id": "674adaee"
+    },
+    "Rosyjski|Лев": {
+      "file": "ru_лев_09901203c7.mp3",
+      "lang": "ru",
+      "text": "Лев",
+      "pl": "Lew",
+      "id": "0450293a"
+    },
+    "Rosyjski|Тигр": {
+      "file": "ru_тигр_2925051e41.mp3",
+      "lang": "ru",
+      "text": "Тигр",
+      "pl": "Tygrys",
+      "id": "2608a895"
+    },
+    "Rosyjski|Обезьяна": {
+      "file": "ru_обезьяна_9e7497cfb4.mp3",
+      "lang": "ru",
+      "text": "Обезьяна",
+      "pl": "Małpa",
+      "id": "0f05fe28"
+    },
+    "Rosyjski|Дельфин": {
+      "file": "ru_дельфин_609dd6c573.mp3",
+      "lang": "ru",
+      "text": "Дельфин",
+      "pl": "Delfin",
+      "id": "6224877b"
+    },
+    "Rosyjski|Акула": {
+      "file": "ru_акула_0f3135a4ff.mp3",
+      "lang": "ru",
+      "text": "Акула",
+      "pl": "Rekin",
+      "id": "0e4c378f"
+    },
+    "Rosyjski|Черепаха": {
+      "file": "ru_черепаха_3cc9d6d185.mp3",
+      "lang": "ru",
+      "text": "Черепаха",
+      "pl": "Żółw",
+      "id": "5daded2f"
+    },
+    "Rosyjski|Сова": {
+      "file": "ru_сова_e9c60b8c59.mp3",
+      "lang": "ru",
+      "text": "Сова",
+      "pl": "Sowa",
+      "id": "6abecf31"
+    },
+    "Rosyjski|Попугай": {
+      "file": "ru_попугай_c9ec7cd0ec.mp3",
+      "lang": "ru",
+      "text": "Попугай",
+      "pl": "Papuga",
+      "id": "7c1299ad"
+    },
+    "Rosyjski|Краб": {
+      "file": "ru_краб_21d1a48acb.mp3",
+      "lang": "ru",
+      "text": "Краб",
+      "pl": "Krab",
+      "id": "7627777b"
+    },
+    "Rosyjski|Олень": {
+      "file": "ru_олень_d075f062d5.mp3",
+      "lang": "ru",
+      "text": "Олень",
+      "pl": "Jelonek",
+      "id": "6680d321"
+    },
+    "Rosyjski|Банк": {
+      "file": "ru_банк_6c952feaad.mp3",
+      "lang": "ru",
+      "text": "Банк",
+      "pl": "Bank",
+      "id": "18d3e3bc"
+    },
+    "Rosyjski|Почта": {
+      "file": "ru_почта_2fc4071fd7.mp3",
+      "lang": "ru",
+      "text": "Почта",
+      "pl": "Poczta",
+      "id": "3c9744dd"
+    },
+    "Rosyjski|Ресторан": {
+      "file": "ru_ресторан_b81d2d051f.mp3",
+      "lang": "ru",
+      "text": "Ресторан",
+      "pl": "Restauracja",
+      "id": "2e015ebe"
+    },
+    "Rosyjski|Кафе": {
+      "file": "ru_кафе_ef48ef2bca.mp3",
+      "lang": "ru",
+      "text": "Кафе",
+      "pl": "Kawiarnia",
+      "id": "068c5e36"
+    },
+    "Rosyjski|Отель": {
+      "file": "ru_отель_65e25a68af.mp3",
+      "lang": "ru",
+      "text": "Отель",
+      "pl": "Hotel",
+      "id": "761b1bda"
+    },
+    "Rosyjski|Церковь": {
+      "file": "ru_церковь_50058d884f.mp3",
+      "lang": "ru",
+      "text": "Церковь",
+      "pl": "Kościół",
+      "id": "016a641f"
+    },
+    "Rosyjski|Зоопарк": {
+      "file": "ru_зоопарк_dabb5050b4.mp3",
+      "lang": "ru",
+      "text": "Зоопарк",
+      "pl": "Zoo",
+      "id": "6cebe020"
+    },
+    "Rosyjski|Детская площадка": {
+      "file": "ru_детская_площадка_0ffc731f9f.mp3",
+      "lang": "ru",
+      "text": "Детская площадка",
+      "pl": "Plac zabaw",
+      "id": "768e9c95"
+    },
+    "Rosyjski|Ферма": {
+      "file": "ru_ферма_2b23ad2000.mp3",
+      "lang": "ru",
+      "text": "Ферма",
+      "pl": "Farma",
+      "id": "41385152"
+    },
+    "Rosyjski|Театр": {
+      "file": "ru_театр_1303d153b7.mp3",
+      "lang": "ru",
+      "text": "Театр",
+      "pl": "Teatr",
+      "id": "38aa3c6d"
+    },
+    "Rosyjski|Стадион": {
+      "file": "ru_стадион_29258a8899.mp3",
+      "lang": "ru",
+      "text": "Стадион",
+      "pl": "Stadion",
+      "id": "2399413a"
+    },
+    "Rosyjski|Звонить": {
+      "file": "ru_звонить_470acc78af.mp3",
+      "lang": "ru",
+      "text": "Звонить",
+      "pl": "Dzwonić",
+      "id": "1ef8206a"
+    },
+    "Rosyjski|Посылать": {
+      "file": "ru_посылать_739b677251.mp3",
+      "lang": "ru",
+      "text": "Посылать",
+      "pl": "Wysyłać",
+      "id": "655b8ee4"
+    },
+    "Rosyjski|Приносить": {
+      "file": "ru_приносить_d4a879e907.mp3",
+      "lang": "ru",
+      "text": "Приносить",
+      "pl": "Przynosić",
+      "id": "65359d2c"
+    },
+    "Rosyjski|Класть": {
+      "file": "ru_класть_7241089ef2.mp3",
+      "lang": "ru",
+      "text": "Класть",
+      "pl": "Kłaść",
+      "id": "5349e202"
+    },
+    "Rosyjski|Получать": {
+      "file": "ru_получать_f42d5a88ed.mp3",
+      "lang": "ru",
+      "text": "Получать",
+      "pl": "Dostawać",
+      "id": "21118aae"
+    },
+    "Rosyjski|Чувствовать": {
+      "file": "ru_чувствовать_f16a156250.mp3",
+      "lang": "ru",
+      "text": "Чувствовать",
+      "pl": "Czuć",
+      "id": "0ceae1f8"
+    },
+    "Rosyjski|Трогать": {
+      "file": "ru_трогать_bb42861592.mp3",
+      "lang": "ru",
+      "text": "Трогать",
+      "pl": "Dotykać",
+      "id": "68a1f24c"
+    },
+    "Rosyjski|Нюхать": {
+      "file": "ru_нюхать_a85f07af8a.mp3",
+      "lang": "ru",
+      "text": "Нюхать",
+      "pl": "Wąchać",
+      "id": "0938f249"
+    },
+    "Rosyjski|Пробовать": {
+      "file": "ru_пробовать_485fe085d7.mp3",
+      "lang": "ru",
+      "text": "Пробовать",
+      "pl": "Smakować",
+      "id": "08c0a4a8"
+    },
+    "Rosyjski|Выбирать": {
+      "file": "ru_выбирать_966e7c5bf9.mp3",
+      "lang": "ru",
+      "text": "Выбирать",
+      "pl": "Wybierać",
+      "id": "2c6cea1a"
+    },
+    "Rosyjski|Пытаться": {
+      "file": "ru_пытаться_338ebb51c4.mp3",
+      "lang": "ru",
+      "text": "Пытаться",
+      "pl": "Próbować",
+      "id": "5f9a2def"
+    },
+    "Rosyjski|Нуждаться": {
+      "file": "ru_нуждаться_67bd1e42b7.mp3",
+      "lang": "ru",
+      "text": "Нуждаться",
+      "pl": "Potrzebować",
+      "id": "49f52930"
+    },
+    "Rosyjski|Жить": {
+      "file": "ru_жить_60b5d73f9a.mp3",
+      "lang": "ru",
+      "text": "Жить",
+      "pl": "Mieszkać",
+      "id": "196e5fa7"
+    },
+    "Rosyjski|Расти": {
+      "file": "ru_расти_7a491dab83.mp3",
+      "lang": "ru",
+      "text": "Расти",
+      "pl": "Rosnąć",
+      "id": "4138e7c5"
+    },
+    "Rosyjski|Строить": {
+      "file": "ru_строить_25ef399b05.mp3",
+      "lang": "ru",
+      "text": "Строить",
+      "pl": "Budować",
+      "id": "145a1de6"
+    },
+    "Rosyjski|Ломать": {
+      "file": "ru_ломать_80eb5dd8e5.mp3",
+      "lang": "ru",
+      "text": "Ломать",
+      "pl": "Psuć",
+      "id": "7201ae08"
+    },
+    "Rosyjski|Чинить": {
+      "file": "ru_чинить_2519ddf90b.mp3",
+      "lang": "ru",
+      "text": "Чинить",
+      "pl": "Naprawiać",
+      "id": "62b3034e"
+    },
+    "Rosyjski|Толкать": {
+      "file": "ru_толкать_fed1871120.mp3",
+      "lang": "ru",
+      "text": "Толкать",
+      "pl": "Pchać",
+      "id": "3a32d35e"
+    },
+    "Rosyjski|Тянуть": {
+      "file": "ru_тянуть_8df2b5a5fa.mp3",
+      "lang": "ru",
+      "text": "Тянуть",
+      "pl": "Ciągnąć",
+      "id": "68891511"
+    },
+    "Rosyjski|Поворачивать": {
+      "file": "ru_поворачивать_ba5c91d0b6.mp3",
+      "lang": "ru",
+      "text": "Поворачивать",
+      "pl": "Kręcić",
+      "id": "614ee201"
+    },
+    "Rosyjski|Останавливать": {
+      "file": "ru_останавливать_1652e9f235.mp3",
+      "lang": "ru",
+      "text": "Останавливать",
+      "pl": "Zatrzymywać",
+      "id": "63c020c4"
+    },
+    "Rosyjski|Верить": {
+      "file": "ru_верить_0b7430ab37.mp3",
+      "lang": "ru",
+      "text": "Верить",
+      "pl": "Wierzyć",
+      "id": "65f30818"
+    },
+    "Rosyjski|Надеяться": {
+      "file": "ru_надеяться_f1b74c286a.mp3",
+      "lang": "ru",
+      "text": "Надеяться",
+      "pl": "Mieć nadzieję",
+      "id": "387c988d"
+    },
+    "Rosyjski|Приглашать": {
+      "file": "ru_приглашать_0a0ffc50f0.mp3",
+      "lang": "ru",
+      "text": "Приглашать",
+      "pl": "Zapraszać",
+      "id": "5820527a"
+    },
+    "Rosyjski|Навещать": {
+      "file": "ru_навещать_af2902df09.mp3",
+      "lang": "ru",
+      "text": "Навещать",
+      "pl": "Odwiedzać",
+      "id": "4874fca9"
+    },
+    "Rosyjski|Встречать": {
+      "file": "ru_встречать_3935a3ad2a.mp3",
+      "lang": "ru",
+      "text": "Встречать",
+      "pl": "Spotykać",
+      "id": "6b188fb9"
+    },
+    "Rosyjski|Уходить": {
+      "file": "ru_уходить_78a223e65b.mp3",
+      "lang": "ru",
+      "text": "Уходить",
+      "pl": "Wychodzić",
+      "id": "4d9d6f4a"
+    },
+    "Rosyjski|Приезжать": {
+      "file": "ru_приезжать_8e03ff99b4.mp3",
+      "lang": "ru",
+      "text": "Приезжать",
+      "pl": "Przyjeżdżać",
+      "id": "77bcb67f"
+    },
+    "Rosyjski|Возвращаться": {
+      "file": "ru_возвращаться_bd0e86e61e.mp3",
+      "lang": "ru",
+      "text": "Возвращаться",
+      "pl": "Wracać",
+      "id": "2d8dd42f"
+    },
+    "Rosyjski|Оставаться": {
+      "file": "ru_оставаться_b55db05447.mp3",
+      "lang": "ru",
+      "text": "Оставаться",
+      "pl": "Zostawać",
+      "id": "5e3e7111"
+    },
+    "Rosyjski|Отдыхать": {
+      "file": "ru_отдыхать_800466c50a.mp3",
+      "lang": "ru",
+      "text": "Отдыхать",
+      "pl": "Odpoczywać",
+      "id": "48df025d"
+    },
+    "Rosyjski|Упражняться": {
+      "file": "ru_упражняться_11f0ef2579.mp3",
+      "lang": "ru",
+      "text": "Упражняться",
+      "pl": "Ćwiczyć",
+      "id": "7debee96"
+    },
+    "Rosyjski|Карабкаться": {
+      "file": "ru_карабкаться_d817576fbd.mp3",
+      "lang": "ru",
+      "text": "Карабкаться",
+      "pl": "Wspinać się",
+      "id": "7454eddf"
+    },
+    "Rosyjski|Падать": {
+      "file": "ru_падать_0a700dfbb3.mp3",
+      "lang": "ru",
+      "text": "Падать",
+      "pl": "Upadać",
+      "id": "3899b0cf"
+    },
+    "Rosyjski|Ловить": {
+      "file": "ru_ловить_acc057b466.mp3",
+      "lang": "ru",
+      "text": "Ловить",
+      "pl": "Łapać",
+      "id": "73d3c918"
+    },
+    "Rosyjski|Обнимать": {
+      "file": "ru_обнимать_ab6ca4a200.mp3",
+      "lang": "ru",
+      "text": "Обнимать",
+      "pl": "Przytulać",
+      "id": "0f6988d8"
+    },
+    "Rosyjski|Целовать": {
+      "file": "ru_целовать_90b564c824.mp3",
+      "lang": "ru",
+      "text": "Целовать",
+      "pl": "Całować",
+      "id": "00d5afc4"
+    },
+    "Rosyjski|Праздновать": {
+      "file": "ru_праздновать_54b1cc6a1f.mp3",
+      "lang": "ru",
+      "text": "Праздновать",
+      "pl": "Świętować",
+      "id": "4b3e230f"
+    },
+    "Rosyjski|Зубная щётка": {
+      "file": "ru_зубная_щётка_c09fed42cb.mp3",
+      "lang": "ru",
+      "text": "Зубная щётка",
+      "pl": "Szczoteczka",
+      "id": "47789c34"
+    },
+    "Rosyjski|Зубная паста": {
+      "file": "ru_зубная_паста_86d30265a1.mp3",
+      "lang": "ru",
+      "text": "Зубная паста",
+      "pl": "Pasta do zębów",
+      "id": "5f2a06ce"
+    },
+    "Rosyjski|Мыло": {
+      "file": "ru_мыло_500e89394e.mp3",
+      "lang": "ru",
+      "text": "Мыло",
+      "pl": "Mydło",
+      "id": "7b646729"
+    },
+    "Rosyjski|Полотенце": {
+      "file": "ru_полотенце_eb2ce7fe77.mp3",
+      "lang": "ru",
+      "text": "Полотенце",
+      "pl": "Ręcznik",
+      "id": "1c961a8d"
+    },
+    "Rosyjski|Душ": {
+      "file": "ru_душ_53462b52f5.mp3",
+      "lang": "ru",
+      "text": "Душ",
+      "pl": "Prysznic",
+      "id": "3229be87"
+    },
+    "Rosyjski|Часы настенные": {
+      "file": "ru_часы_настенные_c276441e56.mp3",
+      "lang": "ru",
+      "text": "Часы настенные",
+      "pl": "Zegar",
+      "id": "6b44070d"
+    },
+    "Rosyjski|Календарь": {
+      "file": "ru_календарь_2d3001a46b.mp3",
+      "lang": "ru",
+      "text": "Календарь",
+      "pl": "Kalendarz",
+      "id": "419b493d"
+    },
+    "Rosyjski|Расчёска": {
+      "file": "ru_расчёска_cd1ac8274c.mp3",
+      "lang": "ru",
+      "text": "Расчёска",
+      "pl": "Grzebień",
+      "id": "0a68bbfc"
+    },
+    "Rosyjski|Шампунь": {
+      "file": "ru_шампунь_857d3cb3b9.mp3",
+      "lang": "ru",
+      "text": "Шампунь",
+      "pl": "Szampon",
+      "id": "1a8e5587"
+    },
+    "Rosyjski|Лист": {
+      "file": "ru_лист_8a20cbfddc.mp3",
+      "lang": "ru",
+      "text": "Лист",
+      "pl": "Liść",
+      "id": "25e72711"
+    },
+    "Rosyjski|Небо": {
+      "file": "ru_небо_c5cb49faca.mp3",
+      "lang": "ru",
+      "text": "Небо",
+      "pl": "Niebo",
+      "id": "49d45cca"
+    },
+    "Rosyjski|Остров": {
+      "file": "ru_остров_977a4ae743.mp3",
+      "lang": "ru",
+      "text": "Остров",
+      "pl": "Wyspa",
+      "id": "0592586f"
+    },
+    "Rosyjski|Пустыня": {
+      "file": "ru_пустыня_8b13a366c1.mp3",
+      "lang": "ru",
+      "text": "Пустыня",
+      "pl": "Pustynia",
+      "id": "3ab3342f"
+    },
+    "Rosyjski|Вулкан": {
+      "file": "ru_вулкан_eb90cc5c8a.mp3",
+      "lang": "ru",
+      "text": "Вулкан",
+      "pl": "Wulkan",
+      "id": "2539fdef"
+    },
+    "Rosyjski|Волна": {
+      "file": "ru_волна_c571451cb3.mp3",
+      "lang": "ru",
+      "text": "Волна",
+      "pl": "Fala",
+      "id": "72221fb6"
+    },
+    "Rosyjski|Песок": {
+      "file": "ru_песок_64ab3b98aa.mp3",
+      "lang": "ru",
+      "text": "Песок",
+      "pl": "Piasek",
+      "id": "4391aa3c"
+    },
+    "Rosyjski|Грязь": {
+      "file": "ru_грязь_86c478252e.mp3",
+      "lang": "ru",
+      "text": "Грязь",
+      "pl": "Błoto",
+      "id": "2039c585"
+    },
+    "Rosyjski|Пещера": {
+      "file": "ru_пещера_8b87ff2879.mp3",
+      "lang": "ru",
+      "text": "Пещера",
+      "pl": "Jaskinia",
+      "id": "77734182"
+    },
+    "Rosyjski|Водопад": {
+      "file": "ru_водопад_77b7be933a.mp3",
+      "lang": "ru",
+      "text": "Водопад",
+      "pl": "Wodospad",
+      "id": "432cb114"
+    },
+    "Rosyjski|Радость": {
+      "file": "ru_радость_e311e17f11.mp3",
+      "lang": "ru",
+      "text": "Радость",
+      "pl": "Radość",
+      "id": "7ce3591b"
+    },
+    "Rosyjski|Злость": {
+      "file": "ru_злость_b6666caf93.mp3",
+      "lang": "ru",
+      "text": "Злость",
+      "pl": "Złość",
+      "id": "1d9e959a"
+    },
+    "Rosyjski|Спокойствие": {
+      "file": "ru_спокойствие_5f35c01514.mp3",
+      "lang": "ru",
+      "text": "Спокойствие",
+      "pl": "Spokój",
+      "id": "5ea3990d"
+    },
+    "Rosyjski|Взволнованный": {
+      "file": "ru_взволнованный_1623b44f9c.mp3",
+      "lang": "ru",
+      "text": "Взволнованный",
+      "pl": "Podekscytowany",
+      "id": "6f6733c9"
+    },
+    "Rosyjski|Обеспокоенный": {
+      "file": "ru_обеспокоенный_2a8072fdc4.mp3",
+      "lang": "ru",
+      "text": "Обеспокоенный",
+      "pl": "Zmartwiony",
+      "id": "27d0bf7d"
+    },
+    "Rosyjski|Застенчивый": {
+      "file": "ru_застенчивый_8f0dadc4d1.mp3",
+      "lang": "ru",
+      "text": "Застенчивый",
+      "pl": "Nieśmiały",
+      "id": "06f48efc"
+    },
+    "Rosyjski|Ревнивый": {
+      "file": "ru_ревнивый_df9f4df0cf.mp3",
+      "lang": "ru",
+      "text": "Ревнивый",
+      "pl": "Zazdrosny",
+      "id": "7d9dad14"
+    },
+    "Rosyjski|Одинокий": {
+      "file": "ru_одинокий_ecbb5c7cd4.mp3",
+      "lang": "ru",
+      "text": "Одинокий",
+      "pl": "Samotny",
+      "id": "2b1f8605"
+    },
+    "Rosyjski|Планшет": {
+      "file": "ru_планшет_bf2b72c0ed.mp3",
+      "lang": "ru",
+      "text": "Планшет",
+      "pl": "Tablet",
+      "id": "6e5571d6"
+    },
+    "Rosyjski|Наушники": {
+      "file": "ru_наушники_0b698bff97.mp3",
+      "lang": "ru",
+      "text": "Наушники",
+      "pl": "Słuchawki",
+      "id": "5c621e0e"
+    },
+    "Rosyjski|Зарядка": {
+      "file": "ru_зарядка_b876e25e1b.mp3",
+      "lang": "ru",
+      "text": "Зарядка",
+      "pl": "Ładowarka",
+      "id": "0128091a"
+    },
+    "Rosyjski|Клавиатура": {
+      "file": "ru_клавиатура_0955a07a01.mp3",
+      "lang": "ru",
+      "text": "Клавиатура",
+      "pl": "Klawiatura",
+      "id": "216c4429"
+    },
+    "Rosyjski|Экран": {
+      "file": "ru_экран_5eb95f5d1d.mp3",
+      "lang": "ru",
+      "text": "Экран",
+      "pl": "Ekran",
+      "id": "08d6099d"
+    },
+    "Rosyjski|Камера": {
+      "file": "ru_камера_6d400051b8.mp3",
+      "lang": "ru",
+      "text": "Камера",
+      "pl": "Aparat",
+      "id": "439014a8"
+    },
+    "Rosyjski|Сообщение": {
+      "file": "ru_сообщение_9e1dc89fe6.mp3",
+      "lang": "ru",
+      "text": "Сообщение",
+      "pl": "Wiadomość",
+      "id": "5e78e5aa"
+    },
+    "Rosyjski|Электронная почта": {
+      "file": "ru_электронная_почта_a120598495.mp3",
+      "lang": "ru",
+      "text": "Электронная почта",
+      "pl": "E-mail",
+      "id": "59fa2225"
+    },
+    "Rosyjski|Баскетбол": {
+      "file": "ru_баскетбол_c6becfc920.mp3",
+      "lang": "ru",
+      "text": "Баскетбол",
+      "pl": "Koszykówka",
+      "id": "0f591b84"
+    },
+    "Rosyjski|Теннис": {
+      "file": "ru_теннис_5aa108fa31.mp3",
+      "lang": "ru",
+      "text": "Теннис",
+      "pl": "Tenis",
+      "id": "4d4e50f1"
+    },
+    "Rosyjski|Волейбол": {
+      "file": "ru_волейбол_aa6d5ed851.mp3",
+      "lang": "ru",
+      "text": "Волейбол",
+      "pl": "Siatkówka",
+      "id": "3dcf12bb"
+    },
+    "Rosyjski|Скейтборд": {
+      "file": "ru_скейтборд_472d5797bc.mp3",
+      "lang": "ru",
+      "text": "Скейтборд",
+      "pl": "Deskorolka",
+      "id": "3de32439"
+    },
+    "Rosyjski|Лыжи": {
+      "file": "ru_лыжи_31c6ffc73d.mp3",
+      "lang": "ru",
+      "text": "Лыжи",
+      "pl": "Narty",
+      "id": "3760374a"
+    },
+    "Rosyjski|Коньки": {
+      "file": "ru_коньки_2e0aeb3e01.mp3",
+      "lang": "ru",
+      "text": "Коньки",
+      "pl": "Łyżwy",
+      "id": "43720f86"
+    },
+    "Rosyjski|Рука (от плеча)": {
+      "file": "ru_рука_от_плеча_5b81c13b6d.mp3",
+      "lang": "ru",
+      "text": "Рука (от плеча)",
+      "pl": "Ramię",
+      "id": "4db3a134"
+    },
+    "Rosyjski|Спина": {
+      "file": "ru_спина_9122f9b129.mp3",
+      "lang": "ru",
+      "text": "Спина",
+      "pl": "Plecy",
+      "id": "70797ad0"
+    },
+    "Rosyjski|Колено": {
+      "file": "ru_колено_6b9b7a3dcc.mp3",
+      "lang": "ru",
+      "text": "Колено",
+      "pl": "Kolano",
+      "id": "3ac872a1"
+    },
+    "Rosyjski|Стопа": {
+      "file": "ru_стопа_1e4ef9b517.mp3",
+      "lang": "ru",
+      "text": "Стопа",
+      "pl": "Stopa",
+      "id": "6cfa9f31"
+    },
+    "Rosyjski|Шея": {
+      "file": "ru_шея_64d32e1aaa.mp3",
+      "lang": "ru",
+      "text": "Шея",
+      "pl": "Szyja",
+      "id": "5760d22f"
+    },
+    "Rosyjski|Плечо": {
+      "file": "ru_плечо_58b943b50a.mp3",
+      "lang": "ru",
+      "text": "Плечо",
+      "pl": "Bark",
+      "id": "21f7782c"
+    },
+    "Rosyjski|Живот": {
+      "file": "ru_живот_6795671d2c.mp3",
+      "lang": "ru",
+      "text": "Живот",
+      "pl": "Brzuch",
+      "id": "28a717a8"
+    },
+    "Rosyjski|Кровь": {
+      "file": "ru_кровь_bda7b7c48d.mp3",
+      "lang": "ru",
+      "text": "Кровь",
+      "pl": "Krew",
+      "id": "452f40af"
+    },
+    "Rosyjski|Кость": {
+      "file": "ru_кость_c40c63fa3b.mp3",
+      "lang": "ru",
+      "text": "Кость",
+      "pl": "Kość",
+      "id": "1c438afb"
+    },
+    "Rosyjski|Утро": {
+      "file": "ru_утро_150b5be75c.mp3",
+      "lang": "ru",
+      "text": "Утро",
+      "pl": "Rano",
+      "id": "63f6a8e9"
+    },
+    "Rosyjski|Вечер": {
+      "file": "ru_вечер_77b3b9c7f5.mp3",
+      "lang": "ru",
+      "text": "Вечер",
+      "pl": "Wieczór",
+      "id": "1ff8b13c"
+    },
+    "Rosyjski|День (после обеда)": {
+      "file": "ru_день_после_обеда_64e1d0a6f1.mp3",
+      "lang": "ru",
+      "text": "День (после обеда)",
+      "pl": "Popołudnie",
+      "id": "4b72afcc"
+    },
+    "Rosyjski|Минута": {
+      "file": "ru_минута_c50db84d92.mp3",
+      "lang": "ru",
+      "text": "Минута",
+      "pl": "Minuta",
+      "id": "778b433c"
+    },
+    "Rosyjski|Секунда": {
+      "file": "ru_секунда_37da93defb.mp3",
+      "lang": "ru",
+      "text": "Секунда",
+      "pl": "Sekunda",
+      "id": "07bf79af"
+    },
+    "Rosyjski|Всегда": {
+      "file": "ru_всегда_6763b79601.mp3",
+      "lang": "ru",
+      "text": "Всегда",
+      "pl": "Zawsze",
+      "id": "32a69d77"
+    },
+    "Rosyjski|Никогда": {
+      "file": "ru_никогда_b256b7ea57.mp3",
+      "lang": "ru",
+      "text": "Никогда",
+      "pl": "Nigdy",
+      "id": "02903c15"
+    },
+    "Rosyjski|Часто": {
+      "file": "ru_часто_050b116381.mp3",
+      "lang": "ru",
+      "text": "Часто",
+      "pl": "Często",
+      "id": "41be7644"
+    },
+    "Rosyjski|Иногда": {
+      "file": "ru_иногда_5d4fb0cf9d.mp3",
+      "lang": "ru",
+      "text": "Иногда",
+      "pl": "Czasami",
+      "id": "2cc2b43e"
+    },
+    "Rosyjski|Уже": {
+      "file": "ru_уже_5fc5fa5f95.mp3",
+      "lang": "ru",
+      "text": "Уже",
+      "pl": "Już",
+      "id": "442f5157"
+    },
+    "Rosyjski|Ещё": {
+      "file": "ru_ещё_8afd1745d5.mp3",
+      "lang": "ru",
+      "text": "Ещё",
+      "pl": "Jeszcze",
+      "id": "6ec902cd"
+    },
+    "Rosyjski|Лево": {
+      "file": "ru_лево_1194dd17d4.mp3",
+      "lang": "ru",
+      "text": "Лево",
+      "pl": "Lewo",
+      "id": "65f50231"
+    },
+    "Rosyjski|Право": {
+      "file": "ru_право_e1a5e2dacc.mp3",
+      "lang": "ru",
+      "text": "Право",
+      "pl": "Prawo",
+      "id": "659dbc76"
+    },
+    "Rosyjski|Вниз": {
+      "file": "ru_вниз_f9875cba23.mp3",
+      "lang": "ru",
+      "text": "Вниз",
+      "pl": "Dół",
+      "id": "78c446d3"
+    },
+    "Rosyjski|Здесь": {
+      "file": "ru_здесь_29c25502de.mp3",
+      "lang": "ru",
+      "text": "Здесь",
+      "pl": "Tutaj",
+      "id": "20d1f8a3"
+    },
+    "Rosyjski|Там": {
+      "file": "ru_там_0416b65621.mp3",
+      "lang": "ru",
+      "text": "Там",
+      "pl": "Tam",
+      "id": "2421cf72"
+    },
+    "Rosyjski|Почему": {
+      "file": "ru_почему_071976a9c5.mp3",
+      "lang": "ru",
+      "text": "Почему",
+      "pl": "Dlaczego",
+      "id": "60f33313"
+    },
+    "Rosyjski|Как": {
+      "file": "ru_как_6747193cf9.mp3",
+      "lang": "ru",
+      "text": "Как",
+      "pl": "Jak",
+      "id": "130731dc"
+    },
+    "Rosyjski|Когда": {
+      "file": "ru_когда_ff29d8d45b.mp3",
+      "lang": "ru",
+      "text": "Когда",
+      "pl": "Kiedy",
+      "id": "12a3a9cb"
+    },
+    "Rosyjski|Где": {
+      "file": "ru_где_466caa3fbd.mp3",
+      "lang": "ru",
+      "text": "Где",
+      "pl": "Gdzie",
+      "id": "2a3b3491"
+    },
+    "Rosyjski|Кто": {
+      "file": "ru_кто_a93d0745dd.mp3",
+      "lang": "ru",
+      "text": "Кто",
+      "pl": "Kto",
+      "id": "6891e120"
+    },
+    "Rosyjski|Что": {
+      "file": "ru_что_373d21fed4.mp3",
+      "lang": "ru",
+      "text": "Что",
+      "pl": "Co",
+      "id": "2f54eb33"
+    },
+    "Rosyjski|Ластик": {
+      "file": "ru_ластик_683f39b88f.mp3",
+      "lang": "ru",
+      "text": "Ластик",
+      "pl": "Gumka",
+      "id": "11c7debf"
+    },
+    "Rosyjski|Линейка": {
+      "file": "ru_линейка_a7fefd3f4f.mp3",
+      "lang": "ru",
+      "text": "Линейка",
+      "pl": "Linijka",
+      "id": "2bb859a6"
+    },
+    "Rosyjski|Парта": {
+      "file": "ru_парта_a6ff3c57df.mp3",
+      "lang": "ru",
+      "text": "Парта",
+      "pl": "Biurko",
+      "id": "1c30b789"
+    },
+    "Rosyjski|Перемена": {
+      "file": "ru_перемена_772879d570.mp3",
+      "lang": "ru",
+      "text": "Перемена",
+      "pl": "Przerwa",
+      "id": "14e1d004"
+    },
+    "Rosyjski|Бумага": {
+      "file": "ru_бумага_93502a70b6.mp3",
+      "lang": "ru",
+      "text": "Бумага",
+      "pl": "Papier",
+      "id": "5fa5b3c8"
+    },
+    "Rosyjski|Маркер": {
+      "file": "ru_маркер_6e5d0268da.mp3",
+      "lang": "ru",
+      "text": "Маркер",
+      "pl": "Marker",
+      "id": "38346f9b"
+    },
+    "Rosyjski|Цветные карандаши": {
+      "file": "ru_цветные_карандаши_c31d612d15.mp3",
+      "lang": "ru",
+      "text": "Цветные карандаши",
+      "pl": "Kredki",
+      "id": "3ba26019"
+    },
+    "Rosyjski|Школьные ножницы": {
+      "file": "ru_школьные_ножницы_56b8066a5c.mp3",
+      "lang": "ru",
+      "text": "Школьные ножницы",
+      "pl": "Nożyczki szkolne",
+      "id": "607b2990"
+    },
+    "Rosyjski|Кастрюля": {
+      "file": "ru_кастрюля_2a09870361.mp3",
+      "lang": "ru",
+      "text": "Кастрюля",
+      "pl": "Garnek",
+      "id": "7d2e4699"
+    },
+    "Rosyjski|Сковорода": {
+      "file": "ru_сковорода_4cfda28073.mp3",
+      "lang": "ru",
+      "text": "Сковорода",
+      "pl": "Patelnia",
+      "id": "79cd740b"
+    },
+    "Rosyjski|Тарелка": {
+      "file": "ru_тарелка_65c30598d5.mp3",
+      "lang": "ru",
+      "text": "Тарелка",
+      "pl": "Talerz",
+      "id": "172564a0"
+    },
+    "Rosyjski|Кружка": {
+      "file": "ru_кружка_66603f8470.mp3",
+      "lang": "ru",
+      "text": "Кружка",
+      "pl": "Kubek",
+      "id": "45c519ed"
+    },
+    "Rosyjski|Вилка": {
+      "file": "ru_вилка_a26f88da49.mp3",
+      "lang": "ru",
+      "text": "Вилка",
+      "pl": "Widelec",
+      "id": "1f85a2c6"
+    },
+    "Rosyjski|Нож": {
+      "file": "ru_нож_1706549921.mp3",
+      "lang": "ru",
+      "text": "Нож",
+      "pl": "Nóż",
+      "id": "6ecac710"
+    },
+    "Rosyjski|Ложка": {
+      "file": "ru_ложка_d8c52aec39.mp3",
+      "lang": "ru",
+      "text": "Ложка",
+      "pl": "Łyżka",
+      "id": "5b82a568"
+    },
+    "Rosyjski|Стакан": {
+      "file": "ru_стакан_de6e2a732c.mp3",
+      "lang": "ru",
+      "text": "Стакан",
+      "pl": "Szklanka",
+      "id": "47e4fe09"
+    },
+    "Rosyjski|Полка": {
+      "file": "ru_полка_52de628f45.mp3",
+      "lang": "ru",
+      "text": "Полка",
+      "pl": "Półka",
+      "id": "0b9f366b"
+    },
+    "Rosyjski|Шкаф": {
+      "file": "ru_шкаф_d1469bccb8.mp3",
+      "lang": "ru",
+      "text": "Шкаф",
+      "pl": "Szafa",
+      "id": "0404650d"
+    },
+    "Angielski|Up": {
+      "file": "en_up_192261ae85.mp3",
+      "lang": "en",
+      "text": "Up",
+      "pl": "W górę",
+      "id": "5608bf3b"
+    },
+    "Angielski|Hope": {
+      "file": "en_hope_fcc8cfbc99.mp3",
+      "lang": "en",
+      "text": "Hope",
+      "pl": "Nadzieja",
+      "id": "5ab960dc"
+    },
+    "Hiszpański|Arriba": {
+      "file": "es_arriba_e90cbd091c.mp3",
+      "lang": "es",
+      "text": "Arriba",
+      "pl": "W górę",
+      "id": "77015507"
+    },
+    "Hiszpański|Esperanza": {
+      "file": "es_esperanza_af0b8bd639.mp3",
+      "lang": "es",
+      "text": "Esperanza",
+      "pl": "Nadzieja",
+      "id": "22b86aa3"
+    },
+    "Rosyjski|Вверх": {
+      "file": "ru_вверх_0e4f464d3d.mp3",
+      "lang": "ru",
+      "text": "Вверх",
+      "pl": "W górę",
+      "id": "1a59301a"
+    },
+    "Rosyjski|Надежда": {
+      "file": "ru_надежда_4c03e09c60.mp3",
+      "lang": "ru",
+      "text": "Надежда",
+      "pl": "Nadzieja",
+      "id": "7fad5fbe"
+    },
+    "Hiszpański|Tener esperanza": {
+      "file": "es_tener_esperanza_5da23a8ff6.mp3",
+      "lang": "es",
+      "text": "Tener esperanza",
+      "pl": "Mieć nadzieję",
+      "id": "60c39e47",
+      "engine": "piper/es",
       "clarity": "length_scale=1.25"
     }
   }

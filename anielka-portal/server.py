@@ -6,9 +6,11 @@ PIN: ANIELKA_PORTAL_PIN (domyślnie 3141).
 """
 from __future__ import annotations
 
+import base64
 import json
 import os
 import queue
+import re
 import shutil
 import subprocess
 import threading
@@ -18,7 +20,7 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
@@ -29,8 +31,20 @@ HISTORY = DATA / "chat.json"
 META = DATA / "meta.json"
 GH_IDENTITY = DATA / "github_identity.json"
 LOCAL_BUSY = DATA / "local_busy.json"
+CHAT_IMAGES = DATA / "chat-images"
 
-HOST = os.environ.get("ANIELKA_PORTAL_HOST", "0.0.0.0")
+# Obrazki wklejane / wybierane w czacie z Anielką.
+CHAT_IMAGE_MAX = 4
+CHAT_IMAGE_MAX_BYTES = 5 * 1024 * 1024
+CHAT_IMAGE_MIME = {
+    "image/png": ".png",
+    "image/jpeg": ".jpg",
+    "image/jpg": ".jpg",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+}
+
+HOST = os.environ.get("ANIELKA_PORTAL_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ANIELKA_PORTAL_PORT", "7474"))
 PIN = os.environ.get("ANIELKA_PORTAL_PIN", "3141")
 TAILSCALE_URL = os.environ.get(
@@ -655,6 +669,98 @@ def _append(role: str, text: str, **extra) -> dict:
     return msg
 
 
+def _patch_message(msg_id: str, **fields) -> dict | None:
+    with _lock:
+        chat = _load_chat()
+        for m in chat:
+            if m.get("id") == msg_id:
+                m.update(fields)
+                _save_chat(chat)
+                return m
+    return None
+
+
+def _safe_image_stem(name: str, idx: int) -> str:
+    base = Path(name or f"obrazek-{idx + 1}").stem
+    base = re.sub(r"[^\w\-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+", "_", base, flags=re.UNICODE)
+    base = base.strip("._")[:40] or f"obrazek-{idx + 1}"
+    return base
+
+
+def _store_chat_images(msg_id: str, images: list) -> list[dict]:
+    """Zapisuje base64 / data-URL → pliki. Zwraca metadane do czatu."""
+    if not isinstance(images, list) or not images:
+        return []
+    if len(images) > CHAT_IMAGE_MAX:
+        raise ValueError(f"Max {CHAT_IMAGE_MAX} obrazki naraz")
+    out_dir = CHAT_IMAGES / msg_id
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stored: list[dict] = []
+    for i, raw in enumerate(images):
+        if not isinstance(raw, dict):
+            raise ValueError("Zły format obrazka")
+        mime = str(raw.get("mime") or "").lower().strip()
+        data_field = raw.get("data") or raw.get("dataUrl") or ""
+        if not isinstance(data_field, str) or not data_field:
+            raise ValueError("Brak danych obrazka")
+        name = str(raw.get("name") or f"obrazek-{i + 1}")
+        payload = data_field
+        m = re.match(
+            r"^data:(image/[\w.+-]+);base64,(.+)$",
+            data_field,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        if m:
+            mime = m.group(1).lower()
+            payload = m.group(2)
+        if mime not in CHAT_IMAGE_MIME:
+            raise ValueError(f"Niedozwolony typ obrazka: {mime or '?'}")
+        try:
+            blob = base64.b64decode(payload, validate=False)
+        except Exception as e:  # noqa: BLE001
+            raise ValueError(f"Nie udało się odczytać obrazka: {e}") from e
+        if not blob:
+            raise ValueError("Pusty obrazek")
+        if len(blob) > CHAT_IMAGE_MAX_BYTES:
+            raise ValueError(
+                f"Obrazek za duży (max {CHAT_IMAGE_MAX_BYTES // (1024 * 1024)} MB)"
+            )
+        ext = CHAT_IMAGE_MIME[mime]
+        fname = f"{i:02d}-{_safe_image_stem(name, i)}{ext}"
+        path = out_dir / fname
+        path.write_bytes(blob)
+        stored.append(
+            {
+                "file": fname,
+                "name": name[:120],
+                "mime": mime,
+                "bytes": len(blob),
+                "url": f"/api/chat-images/{msg_id}/{fname}",
+            }
+        )
+    return stored
+
+
+def _image_paths_for_message(msg: dict) -> list[Path]:
+    msg_id = msg.get("id") or ""
+    imgs = msg.get("images") or []
+    paths: list[Path] = []
+    for img in imgs:
+        if not isinstance(img, dict):
+            continue
+        fname = img.get("file")
+        if not fname:
+            continue
+        p = (CHAT_IMAGES / msg_id / str(fname)).resolve()
+        try:
+            p.relative_to(CHAT_IMAGES.resolve())
+        except ValueError:
+            continue
+        if p.is_file():
+            paths.append(p)
+    return paths
+
+
 def _write_meta() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
     META.write_text(
@@ -857,11 +963,20 @@ def _mirror_to_anielka() -> dict | None:
     return result
 
 
-def _run_agent(user_text: str) -> str:
+def _run_agent(user_text: str, image_paths: list[Path] | None = None) -> str:
     prompt = SYSTEM_PREFIX.format(
         workspace=WORKSPACE,
         gh_block=_gh_prompt_block(),
-    ) + user_text.strip()
+    ) + (user_text or "").strip()
+    if image_paths:
+        lines = "\n".join(f"- {p}" for p in image_paths)
+        prompt += (
+            "\n\nAnielka załączyła obrazki do tej wiadomości. "
+            "OBOWIĄZKOWO otwórz każdy plik narzędziem Read (to lokalne ścieżki "
+            "PNG/JPEG/WebP/GIF — agent widzi ich treść wizualną) i uwzględnij "
+            "to, co widać na obrazkach, w odpowiedzi i w zmianach w projekcie:\n"
+            f"{lines}\n"
+        )
     cmd = [
         CURSOR_BIN,
         "agent",
@@ -1071,7 +1186,10 @@ def _worker() -> None:
             status="working",
         )
         try:
-            answer = _run_agent(user["text"])
+            answer = _run_agent(
+                user.get("text") or "",
+                image_paths=_image_paths_for_message(user),
+            )
             _append("assistant", answer, replyTo=msg_id)
             # Mirror commits onto Anielka's GitHub so her account shows the work
             mirror = _mirror_to_anielka()
@@ -1183,6 +1301,40 @@ class Handler(BaseHTTPRequestHandler):
                     "progress": _progress_snapshot(),
                 },
             )
+        if path.startswith("/api/chat-images/"):
+            if not _check_pin(self):
+                return self._json(401, {"error": "Zły PIN. Poproś tatę."})
+            parts = path.strip("/").split("/")
+            # api chat-images <msg_id> <file>
+            if len(parts) != 4:
+                return self._json(404, {"error": "Brak obrazka"})
+            msg_id = parts[2]
+            fname = unquote(parts[3])
+            if (
+                not msg_id
+                or not fname
+                or ".." in msg_id
+                or ".." in fname
+                or "/" in fname
+                or "\\" in fname
+            ):
+                return self._json(400, {"error": "Zła ścieżka"})
+            fpath = (CHAT_IMAGES / msg_id / fname).resolve()
+            try:
+                fpath.relative_to(CHAT_IMAGES.resolve())
+            except ValueError:
+                return self._json(400, {"error": "Zła ścieżka"})
+            if not fpath.is_file():
+                return self._json(404, {"error": "Nie ma takiego obrazka"})
+            ext = fpath.suffix.lower()
+            ctype = {
+                ".png": "image/png",
+                ".gif": "image/gif",
+                ".jpg": "image/jpeg",
+                ".jpeg": "image/jpeg",
+                ".webp": "image/webp",
+            }.get(ext, "application/octet-stream")
+            return self._bytes(200, fpath.read_bytes(), ctype)
         if path == "/api/progress":
             if not _check_pin(self):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
@@ -1243,8 +1395,11 @@ class Handler(BaseHTTPRequestHandler):
             if not _check_pin(self) and data.get("pin") != PIN:
                 return self._json(401, {"error": "Zły PIN. Poproś tatę o PIN."})
             text = (data.get("text") or "").strip()
-            if not text:
-                return self._json(400, {"error": "Wpisz wiadomość"})
+            images_in = data.get("images") or []
+            if not isinstance(images_in, list):
+                return self._json(400, {"error": "images musi być listą"})
+            if not text and not images_in:
+                return self._json(400, {"error": "Wpisz wiadomość albo wklej obrazek"})
             if len(text) > 8000:
                 return self._json(400, {"error": "Za długa wiadomość"})
             if _combined_busy() and not _busy:
@@ -1262,7 +1417,28 @@ class Handler(BaseHTTPRequestHandler):
                     409,
                     {"error": "Agent jeszcze pracuje. Poczekaj na odpowiedź."},
                 )
-            msg = _append("user", text)
+            display = text or (
+                f"(załączono {len(images_in)} obraz"
+                f"{'ek' if len(images_in) == 1 else 'ki'})"
+            )
+            msg = _append("user", display)
+            if images_in:
+                try:
+                    stored = _store_chat_images(msg["id"], images_in)
+                except ValueError as e:
+                    # rollback empty user bubble
+                    with _lock:
+                        chat = [m for m in _load_chat() if m.get("id") != msg["id"]]
+                        _save_chat(chat)
+                    return self._json(400, {"error": str(e)})
+                except OSError as e:
+                    with _lock:
+                        chat = [m for m in _load_chat() if m.get("id") != msg["id"]]
+                        _save_chat(chat)
+                    return self._json(500, {"error": f"Nie zapisano obrazka: {e}"})
+                patched = _patch_message(msg["id"], images=stored)
+                if patched:
+                    msg = patched
             _jobs.put(msg["id"])
             return self._json(202, {"ok": True, "message": msg, "busy": True})
 

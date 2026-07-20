@@ -1337,8 +1337,82 @@
       -webkit-text-fill-color: #fef08a !important;
       font-weight: 800 !important;
     }
+    .msg .body .chat-imgs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .msg .body .chat-imgs a {
+      display: block;
+      line-height: 0;
+    }
+    .msg .body .chat-imgs img {
+      max-width: min(100%, 280px);
+      max-height: 220px;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      object-fit: contain;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.25) !important;
+      -webkit-text-fill-color: initial !important;
+      text-shadow: none !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+    }
 
     .composer .panel__body { padding-top: 12px; }
+    .attach-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0 4px;
+    }
+    .attach-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 6px 0 10px;
+      min-height: 0;
+    }
+    .attach-preview:empty { display: none; }
+    .attach-thumb {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(0, 0, 0, 0.28);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+    .attach-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .attach-thumb button {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      border-radius: 999px;
+      font-size: 14px;
+      line-height: 1;
+      min-width: 0;
+      background: rgba(0, 0, 0, 0.65) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .attach-hint {
+      font-size: 0.82rem;
+      opacity: 0.85;
+      margin: 0;
+    }
 
     /* ── Sticky notes ── */
     .sticky-board {
@@ -1756,7 +1830,13 @@
         <div id="msgs"></div>
         <div class="panel__body composer">
           <label for="text">Twoja wiadomość</label>
-          <textarea id="text" placeholder="Np. Dodaj więcej słówek o zwierzętach po angielsku"></textarea>
+          <textarea id="text" placeholder="Np. Dodaj więcej słówek o zwierzętach po angielsku — możesz też wkleić obrazek (Ctrl+V)"></textarea>
+          <div class="attach-bar">
+            <button id="attachBtn" class="ghost sm" type="button">📷 Obrazek</button>
+            <input id="attachFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden />
+            <p class="attach-hint">Wklej ze schowka (Ctrl+V) albo wybierz plik — max 4</p>
+          </div>
+          <div id="attachPreview" class="attach-preview" aria-live="polite"></div>
           <div class="row">
             <button id="send">Wyślij</button>
             <button id="clear" class="ghost" type="button">Wyczyść</button>
@@ -1857,6 +1937,10 @@
     let releaseTimer = null;
     let msgsStickBottom = true;
     let lastMsgSig = "";
+    /** @type {{ id: string, name: string, mime: string, dataUrl: string }[]} */
+    let pendingImages = [];
+    const ATTACH_MAX = 4;
+    const ATTACH_MAX_BYTES = 5 * 1024 * 1024;
     let ghTokenCache = localStorage.getItem("anielka_gh_token") || "";
 
     const STICKY_KEY = "anielka_sticky_notes";
@@ -2292,9 +2376,11 @@
 
     function render(messages, busy, progress) {
       const box = $("msgs");
+      const last = messages[messages.length - 1];
       const sig =
         messages.map((m) => m.id).join(",") + ":" +
-        String((messages[messages.length - 1] && messages[messages.length - 1].text) || "").length;
+        String((last && last.text) || "").length + ":" +
+        String((last && last.images && last.images.length) || 0);
       if (sig !== lastMsgSig) {
         const stick = msgsStickBottom;
         const prevTop = box.scrollTop;
@@ -2305,10 +2391,32 @@
           const who =
             m.role === "user" ? "✦ Anielka" :
             m.role === "assistant" ? "Asystent" : "System";
-          el.innerHTML =
-            '<div class="meta"><span class="dot"></span>' + who + "</div>" +
-            '<div class="body">' + formatMsg(m.text || m.content || "") + "</div>";
-          if (!(m.text || m.content)) el.querySelector(".body").textContent = "(brak treści)";
+          const body = document.createElement("div");
+          body.className = "body";
+          const text = m.text || m.content || "";
+          if (text) body.innerHTML = formatMsg(text);
+          else body.textContent = "(brak treści)";
+          const imgs = Array.isArray(m.images) ? m.images : [];
+          if (imgs.length) {
+            const wrap = document.createElement("div");
+            wrap.className = "chat-imgs";
+            for (const img of imgs) {
+              const url = (img.url || "") + (pin ? ((img.url || "").includes("?") ? "&" : "?") + "pin=" + encodeURIComponent(pin) : "");
+              const a = document.createElement("a");
+              a.href = url;
+              a.target = "_blank";
+              a.rel = "noopener";
+              const im = document.createElement("img");
+              im.src = url;
+              im.alt = img.name || "obrazek";
+              im.loading = "lazy";
+              a.appendChild(im);
+              wrap.appendChild(a);
+            }
+            body.appendChild(wrap);
+          }
+          el.innerHTML = '<div class="meta"><span class="dot"></span>' + who + "</div>";
+          el.appendChild(body);
           box.appendChild(el);
         }
         lastMsgSig = sig;
@@ -2363,14 +2471,123 @@
       if (e.key === "Enter") $("enter").click();
     });
 
+    function renderAttachPreview() {
+      const box = $("attachPreview");
+      box.innerHTML = "";
+      pendingImages.forEach((img, idx) => {
+        const thumb = document.createElement("div");
+        thumb.className = "attach-thumb";
+        const im = document.createElement("img");
+        im.src = img.dataUrl;
+        im.alt = img.name;
+        const rm = document.createElement("button");
+        rm.type = "button";
+        rm.title = "Usuń";
+        rm.textContent = "×";
+        rm.onclick = () => {
+          pendingImages.splice(idx, 1);
+          renderAttachPreview();
+        };
+        thumb.appendChild(im);
+        thumb.appendChild(rm);
+        box.appendChild(thumb);
+      });
+    }
+
+    function fileToPending(file) {
+      return new Promise((resolve, reject) => {
+        if (!file || !String(file.type || "").startsWith("image/")) {
+          reject(new Error("To nie jest obrazek"));
+          return;
+        }
+        if (file.size > ATTACH_MAX_BYTES) {
+          reject(new Error("Obrazek za duży (max 5 MB)"));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve({
+            id: "img-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+            name: file.name || "obrazek.png",
+            mime: file.type || "image/png",
+            dataUrl: String(reader.result || ""),
+          });
+        };
+        reader.onerror = () => reject(new Error("Nie udało się wczytać obrazka"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function addImageFiles(fileList) {
+      const files = Array.from(fileList || []).filter((f) => f && String(f.type || "").startsWith("image/"));
+      if (!files.length) return;
+      for (const f of files) {
+        if (pendingImages.length >= ATTACH_MAX) {
+          alert("Max " + ATTACH_MAX + " obrazki naraz");
+          break;
+        }
+        try {
+          const item = await fileToPending(f);
+          pendingImages.push(item);
+        } catch (e) {
+          alert(e.message || String(e));
+        }
+      }
+      renderAttachPreview();
+    }
+
+    $("attachBtn").onclick = () => $("attachFile").click();
+    $("attachFile").onchange = async () => {
+      await addImageFiles($("attachFile").files);
+      $("attachFile").value = "";
+    };
+
+    $("text").addEventListener("paste", async (e) => {
+      const items = e.clipboardData && e.clipboardData.items;
+      if (!items) return;
+      const files = [];
+      for (const it of items) {
+        if (it.type && it.type.startsWith("image/")) {
+          const f = it.getAsFile();
+          if (f) files.push(f);
+        }
+      }
+      if (!files.length) return;
+      e.preventDefault();
+      await addImageFiles(files);
+    });
+
+    const composer = document.querySelector(".composer");
+    if (composer) {
+      composer.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+      composer.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        if (e.dataTransfer && e.dataTransfer.files) {
+          await addImageFiles(e.dataTransfer.files);
+        }
+      });
+    }
+
     $("send").onclick = async () => {
       const text = $("text").value.trim();
-      if (!text) return;
+      if (!text && !pendingImages.length) return;
       $("send").disabled = true;
       msgsStickBottom = true;
+      const images = pendingImages.map((img) => ({
+        name: img.name,
+        mime: img.mime,
+        data: img.dataUrl,
+      }));
       try {
-        await api("/api/chat", { method: "POST", body: JSON.stringify({ text, pin }) });
+        await api("/api/chat", {
+          method: "POST",
+          body: JSON.stringify({ text, pin, images }),
+        });
         $("text").value = "";
+        pendingImages = [];
+        renderAttachPreview();
         await refresh();
       } catch (e) {
         alert(e.message);

@@ -171,8 +171,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? _audioHint;
   PortalInfo _portal = PortalInfo.fallback;
 
+  /// Zakładka dolnego menu (telefon): 0=Nauka, 1=Słówka, 2=Sklep, 3=Pule, 4=Ustawienia.
+  int _bottomNav = 0;
+
   /// Trwa sprawdzanie odpowiedzi — blokuje podwójne auto-zaliczenie.
   bool _checkingAnswer = false;
+
+  bool _isPhoneLayout(BuildContext context) =>
+      MediaQuery.sizeOf(context).width < 900;
 
   @override
   void initState() {
@@ -886,6 +892,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Future<void> _openShop() async {
     if (!mounted) return;
+    if (_isPhoneLayout(context)) {
+      setState(() => _bottomNav = 2);
+      return;
+    }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => ShopPage(
@@ -1089,6 +1099,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _openGroups({bool openCreate = false}) async {
     final pack = _pack;
     if (pack == null || _lang == null) return;
+    if (_isPhoneLayout(context) && !openCreate) {
+      setState(() => _bottomNav = 3);
+      return;
+    }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => GroupsPage(
@@ -1115,6 +1129,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _openWords() async {
     final pack = _pack;
     if (pack == null || _lang == null) return;
+    if (_isPhoneLayout(context)) {
+      setState(() => _bottomNav = 1);
+      return;
+    }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => WordsPage(
@@ -1132,7 +1150,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _draw();
   }
 
-  Future<void> _openSettings() async {
+  Future<void> _openSettings({bool forceSheet = false}) async {
+    if (!forceSheet && _isPhoneLayout(context)) {
+      setState(() => _bottomNav = 4);
+      return;
+    }
     final ollamaCtrl = TextEditingController(text: await loadOllamaHostPref());
     if (!mounted) {
       ollamaCtrl.dispose();
@@ -1841,59 +1863,96 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final pct =
         allInGroup.isEmpty ? 0 : (100 * mastered / allInGroup.length).round();
 
+    final phone = _isPhoneLayout(context);
+
     return Scaffold(
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        title: const Text('Trener Językowy'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 6),
-            child: Center(
-              child: Text(
-                'v0.0.18',
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.45),
+      appBar: phone
+          ? null
+          : AppBar(
+              title: const Text('Trener Językowy'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: Center(
+                    child: Text(
+                      'v0.0.18',
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.45),
+                          ),
                     ),
-              ),
+                  ),
+                ),
+                ToolbarIconButton(
+                  tooltip: _audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
+                  onPressed: () => _persistAudioEnabled(!_audioEnabled),
+                  active: _audioEnabled,
+                  icon: _audioEnabled
+                      ? Icons.volume_up_rounded
+                      : Icons.volume_off_rounded,
+                ),
+                ToolbarIconButton(
+                  tooltip: 'Sklep',
+                  onPressed: _openShop,
+                  icon: Icons.storefront_rounded,
+                ),
+                ToolbarIconButton(
+                  tooltip: 'Pule słówek',
+                  onPressed: _openGroups,
+                  icon: Icons.folder_special_rounded,
+                ),
+                ToolbarIconButton(
+                  tooltip: 'Słówka',
+                  onPressed: _openWords,
+                  icon: Icons.menu_book_rounded,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ToolbarIconButton(
+                    tooltip: 'Ustawienia',
+                    onPressed: _openSettings,
+                    icon: Icons.palette_rounded,
+                  ),
+                ),
+              ],
             ),
-          ),
-          ToolbarIconButton(
-            tooltip: _audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
-            onPressed: () => _persistAudioEnabled(!_audioEnabled),
-            active: _audioEnabled,
-            icon: _audioEnabled
-                ? Icons.volume_up_rounded
-                : Icons.volume_off_rounded,
-          ),
-          ToolbarIconButton(
-            tooltip: 'Sklep',
-            onPressed: _openShop,
-            icon: Icons.storefront_rounded,
-          ),
-          ToolbarIconButton(
-            tooltip: 'Pule słówek',
-            onPressed: _openGroups,
-            icon: Icons.folder_special_rounded,
-          ),
-          ToolbarIconButton(
-            tooltip: 'Słówka',
-            onPressed: _openWords,
-            icon: Icons.menu_book_rounded,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: ToolbarIconButton(
-              tooltip: 'Ustawienia',
-              onPressed: _openSettings,
-              icon: Icons.palette_rounded,
-            ),
-          ),
-        ],
-      ),
+      bottomNavigationBar: phone
+          ? NavigationBar(
+              selectedIndex: _bottomNav.clamp(0, 4),
+              onDestinationSelected: (i) => setState(() => _bottomNav = i),
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.school_outlined),
+                  selectedIcon: Icon(Icons.school_rounded),
+                  label: 'Nauka',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.menu_book_outlined),
+                  selectedIcon: Icon(Icons.menu_book_rounded),
+                  label: 'Słówka',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.storefront_outlined),
+                  selectedIcon: Icon(Icons.storefront_rounded),
+                  label: 'Sklep',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.folder_special_outlined),
+                  selectedIcon: Icon(Icons.folder_special_rounded),
+                  label: 'Pule',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.settings_outlined),
+                  selectedIcon: Icon(Icons.settings_rounded),
+                  label: 'Ustawienia',
+                ),
+              ],
+            )
+          : null,
       body: GradientScaffoldBody(
         palette: widget.palette,
         child: Stack(
@@ -1904,6 +1963,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 final wide = constraints.maxWidth >= 980;
                 final maxW = wide ? constraints.maxWidth : 720.0;
                 final hPad = wide ? 32.0 : 20.0;
+                final xpBar = _PlayerXpBar(
+                  level: _store.stats.playerLevel,
+                  xp: _store.stats.xp,
+                  progress: _store.stats.levelProgress,
+                  xpToNext: _store.stats.xpToNextLevel,
+                  paws: _store.stats.goldenPaws,
+                  title: titleForLevel(_store.stats.playerLevel).title,
+                  audioEnabled: _audioEnabled,
+                  onToggleAudio: () =>
+                      _persistAudioEnabled(!_audioEnabled),
+                  onTapAlbum: _openCuriosityAlbum,
+                );
                 final mission = // —— NAUKA NA GÓRZE ——
                   DailyMissionBanner(
                     wordsToday: _store.stats.wordsToday,
@@ -2427,118 +2498,157 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       await _store.save();
                     },
                   );
-                final portal = SoftPanel(
-                    margin: EdgeInsets.zero,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SectionHeader(
-                          title: 'Portal Anielki',
-                          subtitle: 'Twój projekt — wspólna praca z tatą',
-                          icon: Icons.favorite_rounded,
-                        ),
-                        SelectableText(
-                          _portal.url,
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          'PIN: ${_portal.pin}',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: [
-                            FilledButton.tonal(
-                              onPressed: () => showAnielkaPortalSheet(
-                                context,
-                                portal: _portal,
-                              ),
-                              child: const Text('Jak wejść?'),
+                final naukaList = ListView(
+                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 28),
+                  children: [
+                    mission,
+                    const SizedBox(height: 12),
+                    if (wide)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              children: [
+                                trening,
+                                const SizedBox(height: 14),
+                                akcje,
+                                const SizedBox(height: 14),
+                                quiz,
+                              ],
                             ),
-                            OutlinedButton(
-                              onPressed: () => showGithubPublishSheet(
-                                context,
-                                portal: _portal,
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              children: [
+                                stats,
+                                const SizedBox(height: 14),
+                                poziom,
+                                const SizedBox(height: 10),
+                                mascotHeader,
+                                const SizedBox(height: 8),
+                                mascot,
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    else ...[
+                      // Telefon: nauka na środku — bez kafelka portalu/GitHub
+                      trening,
+                      const SizedBox(height: 12),
+                      akcje,
+                      const SizedBox(height: 16),
+                      quiz,
+                      const SizedBox(height: 12),
+                      mascotHeader,
+                      const SizedBox(height: 8),
+                      mascot,
+                    ],
+                  ],
+                );
+                final tabNeedLang = Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(
+                      'Najpierw wybierz język w zakładce Nauka.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                );
+                if (phone) {
+                  return Column(
+                    children: [
+                      SafeArea(bottom: false, child: xpBar),
+                      Expanded(
+                        child: IndexedStack(
+                          index: _bottomNav.clamp(0, 4),
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: ConstrainedBox(
+                                constraints:
+                                    BoxConstraints(maxWidth: maxW),
+                                child: naukaList,
                               ),
-                              child: const Text('GitHub'),
+                            ),
+                            pack != null && _lang != null
+                                ? WordsPage(
+                                    lang: _lang!,
+                                    pack: pack,
+                                    palette: widget.palette,
+                                    embedded: true,
+                                    onChanged: () async {
+                                      await _store.save();
+                                      setState(() {});
+                                    },
+                                  )
+                                : tabNeedLang,
+                            ShopPage(
+                              stats: _store.stats,
+                              palette: widget.palette,
+                              embedded: true,
+                              onChanged: () async {
+                                await _store.save();
+                                if (mounted) setState(() {});
+                              },
+                            ),
+                            pack != null && _lang != null
+                                ? GroupsPage(
+                                    lang: _lang!,
+                                    pack: pack,
+                                    selectedId: _groupId,
+                                    palette: widget.palette,
+                                    embedded: true,
+                                    onChanged: () async {
+                                      await _store.save();
+                                      setState(() {});
+                                    },
+                                    onSelect: (id) {
+                                      setState(() {
+                                        _groupId = id;
+                                        _bottomNav = 0;
+                                      });
+                                      _draw();
+                                    },
+                                  )
+                                : tabNeedLang,
+                            _PhoneSettingsTab(
+                              themeMode: widget.themeMode,
+                              palette: widget.palette,
+                              audioEnabled: _audioEnabled,
+                              onThemeModeChanged: widget.onThemeModeChanged,
+                              onPaletteChanged: widget.onPaletteChanged,
+                              onToggleAudio: () =>
+                                  _persistAudioEnabled(!_audioEnabled),
+                              onOpenAlbum: _openCuriosityAlbum,
+                              onOpenFullSettings: () =>
+                                  _openSettings(forceSheet: true),
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
+                }
                 return Align(
                   alignment: Alignment.topCenter,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: maxW),
-                    child: ListView(
-                      padding: EdgeInsets.fromLTRB(hPad, 20, hPad, 28),
-                      children: [
-                        mission,
-                        const SizedBox(height: 12),
-                        if (wide)
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    trening,
-                                    const SizedBox(height: 14),
-                                    akcje,
-                                    const SizedBox(height: 14),
-                                    quiz,
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              Expanded(
-                                flex: 4,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    stats,
-                                    const SizedBox(height: 14),
-                                    poziom,
-                                    const SizedBox(height: 10),
-                                    mascotHeader,
-                                    const SizedBox(height: 8),
-                                    mascot,
-                                    const SizedBox(height: 12),
-                                    portal,
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        else ...[
-                          stats,
-                          const SizedBox(height: 12),
-                          trening,
-                          const SizedBox(height: 12),
-                          akcje,
-                          const SizedBox(height: 16),
-                          quiz,
-                          const SizedBox(height: 12),
-                          poziom,
-                          const SizedBox(height: 8),
-                          mascotHeader,
-                          const SizedBox(height: 8),
-                          mascot,
-                          const SizedBox(height: 12),
-                          portal,
-                        ],
-                      ],
-                    ),
+                    child: naukaList,
                   ),
                 );
               },
             ),
-            if (_banner != null)            if (_banner != null)
+            if (_banner != null)
               Positioned(
                 top: 8,
                 left: 16,
@@ -2576,6 +2686,243 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
+/// Pasek EXP / LVL na górze (telefon) — jak pasek postępu w Duolingo.
+class _PlayerXpBar extends StatelessWidget {
+  const _PlayerXpBar({
+    required this.level,
+    required this.xp,
+    required this.progress,
+    required this.xpToNext,
+    required this.paws,
+    required this.title,
+    required this.audioEnabled,
+    required this.onToggleAudio,
+    required this.onTapAlbum,
+  });
+
+  final int level;
+  final int xp;
+  final double progress;
+  final int xpToNext;
+  final int paws;
+  final String title;
+  final bool audioEnabled;
+  final VoidCallback onToggleAudio;
+  final VoidCallback onTapAlbum;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: scheme.surface.withValues(alpha: 0.92),
+      elevation: 1,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 8, 8, 10),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: onTapAlbum,
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: scheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.military_tech_rounded,
+                        size: 18, color: scheme.primary),
+                    const SizedBox(width: 4),
+                    Text(
+                      'LVL $level',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: scheme.onPrimaryContainer,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Text(
+                        '$xp XP',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: scheme.primary,
+                            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: LinearProgressIndicator(
+                      value: progress.clamp(0.0, 1.0),
+                      minHeight: 8,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Do LVL ${level + 1}: $xpToNext XP',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: scheme.onSurface.withValues(alpha: 0.55),
+                          fontSize: 10,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 6),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                '🐾 $paws',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+            ),
+            IconButton(
+              tooltip: audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
+              onPressed: onToggleAudio,
+              icon: Icon(
+                audioEnabled
+                    ? Icons.volume_up_rounded
+                    : Icons.volume_off_rounded,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Zakładka Ustawienia na telefonie.
+class _PhoneSettingsTab extends StatelessWidget {
+  const _PhoneSettingsTab({
+    required this.themeMode,
+    required this.palette,
+    required this.audioEnabled,
+    required this.onThemeModeChanged,
+    required this.onPaletteChanged,
+    required this.onToggleAudio,
+    required this.onOpenAlbum,
+    required this.onOpenFullSettings,
+  });
+
+  final ThemeMode themeMode;
+  final AppPalette palette;
+  final bool audioEnabled;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
+  final ValueChanged<AppPalette> onPaletteChanged;
+  final VoidCallback onToggleAudio;
+  final VoidCallback onOpenAlbum;
+  final VoidCallback onOpenFullSettings;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      children: [
+        Text('Ustawienia', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 16),
+        Text('Motyw', style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          children: [
+            ChoiceChip(
+              label: const Text('System'),
+              selected: themeMode == ThemeMode.system,
+              onSelected: (_) => onThemeModeChanged(ThemeMode.system),
+            ),
+            ChoiceChip(
+              label: const Text('Jasny'),
+              selected: themeMode == ThemeMode.light,
+              onSelected: (_) => onThemeModeChanged(ThemeMode.light),
+            ),
+            ChoiceChip(
+              label: const Text('Ciemny'),
+              selected: themeMode == ThemeMode.dark,
+              onSelected: (_) => onThemeModeChanged(ThemeMode.dark),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Text('Kolorystyka', style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final p in AppPalette.values)
+              FilterChip(
+                avatar: CircleAvatar(backgroundColor: p.seed),
+                label: Text(p.label),
+                selected: palette == p,
+                onSelected: (_) => onPaletteChanged(p),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('Lektor (audio)'),
+          value: audioEnabled,
+          onChanged: (_) => onToggleAudio(),
+        ),
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(Icons.auto_stories_rounded),
+          title: const Text('Album nagród / ciekawostki'),
+          onTap: onOpenAlbum,
+        ),
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(Icons.tune_rounded),
+          title: const Text('Więcej ustawień'),
+          subtitle: const Text('Kierunek tłumaczenia, AI, eksport…'),
+          onTap: onOpenFullSettings,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'v0.0.18',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.45),
+              ),
+        ),
+      ],
+    );
+  }
+}
+
 class GroupsPage extends StatefulWidget {
   const GroupsPage({
     super.key,
@@ -2586,6 +2933,7 @@ class GroupsPage extends StatefulWidget {
     required this.onChanged,
     required this.onSelect,
     this.openCreateOnStart = false,
+    this.embedded = false,
   });
 
   final String lang;
@@ -2595,6 +2943,7 @@ class GroupsPage extends StatefulWidget {
   final VoidCallback onChanged;
   final ValueChanged<String> onSelect;
   final bool openCreateOnStart;
+  final bool embedded;
 
   @override
   State<GroupsPage> createState() => _GroupsPageState();
@@ -2913,23 +3262,7 @@ class _GroupsPageState extends State<GroupsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pule słówek — ${widget.lang}'),
-        actions: [
-          IconButton(
-            onPressed: _createGroup,
-            icon: const Icon(Icons.create_new_folder_outlined),
-            tooltip: 'Nowa pula',
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _createGroup,
-        icon: const Icon(Icons.add),
-        label: const Text('Nowa pula'),
-      ),
-      body: GradientScaffoldBody(
+    final body = GradientScaffoldBody(
         palette: widget.palette,
         child: ListView(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 88),
@@ -3018,7 +3351,33 @@ class _GroupsPageState extends State<GroupsPage> {
             ),
           ],
         ),
+      );
+    final fab = FloatingActionButton.extended(
+      onPressed: _createGroup,
+      icon: const Icon(Icons.add),
+      label: const Text('Nowa pula'),
+    );
+    if (widget.embedded) {
+      return Stack(
+        children: [
+          body,
+          Positioned(right: 16, bottom: 16, child: fab),
+        ],
+      );
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pule słówek — ${widget.lang}'),
+        actions: [
+          IconButton(
+            onPressed: _createGroup,
+            icon: const Icon(Icons.create_new_folder_outlined),
+            tooltip: 'Nowa pula',
+          ),
+        ],
       ),
+      floatingActionButton: fab,
+      body: body,
     );
   }
 }
@@ -3030,12 +3389,14 @@ class WordsPage extends StatefulWidget {
     required this.pack,
     required this.palette,
     required this.onChanged,
+    this.embedded = false,
   });
 
   final String lang;
   final LangPack pack;
   final AppPalette palette;
   final VoidCallback onChanged;
+  final bool embedded;
 
   @override
   State<WordsPage> createState() => _WordsPageState();
@@ -3228,9 +3589,11 @@ class _WordsPageState extends State<WordsPage> {
             .toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Słówka — ${widget.lang}'),
-      ),
+      appBar: widget.embedded
+          ? null
+          : AppBar(
+              title: Text('Słówka — ${widget.lang}'),
+            ),
       body: GradientScaffoldBody(
         palette: widget.palette,
         child: Column(
@@ -3426,11 +3789,13 @@ class ShopPage extends StatefulWidget {
     required this.stats,
     required this.palette,
     required this.onChanged,
+    this.embedded = false,
   });
 
   final AppStats stats;
   final AppPalette palette;
   final VoidCallback onChanged;
+  final bool embedded;
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -3483,34 +3848,36 @@ class _ShopPageState extends State<ShopPage>
     final outfits = shopExclusiveOutfits();
     final paws = widget.stats.goldenPaws;
     final petName = mascotName(widget.stats.mascotSpecies);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sklep $petName'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Center(
-              child: Text(
-                '🐾 $paws',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-            ),
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabs,
-          tabs: const [
-            Tab(text: 'Ubranka', icon: Icon(Icons.checkroom_outlined)),
-            Tab(text: 'Pokoik', icon: Icon(Icons.home_outlined)),
-          ],
-        ),
-      ),
-      body: GradientScaffoldBody(
-        palette: widget.palette,
-        child: Column(
+    final tabBar = TabBar(
+      controller: _tabs,
+      tabs: const [
+        Tab(text: 'Ubranka', icon: Icon(Icons.checkroom_outlined)),
+        Tab(text: 'Pokoik', icon: Icon(Icons.home_outlined)),
+      ],
+    );
+    final content = Column(
           children: [
+            if (widget.embedded) ...[
+              Material(
+                color: Theme.of(context)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: 0.9),
+                child: tabBar,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '🐾 $paws',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ),
+              ),
+            ],
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: SoftPanel(
@@ -3728,8 +4095,34 @@ class _ShopPageState extends State<ShopPage>
               ),
             ),
           ],
+        );
+    final wrapped = GradientScaffoldBody(
+      palette: widget.palette,
+      child: content,
+    );
+    if (widget.embedded) return wrapped;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sklep $petName'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Center(
+              child: Text(
+                '🐾 $paws',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+            ),
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: tabBar.preferredSize,
+          child: tabBar,
         ),
       ),
+      body: wrapped,
     );
   }
 }
