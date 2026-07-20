@@ -38,7 +38,7 @@ void main() {
   runApp(const TrenerApp());
 }
 
-enum GameMethod { abc, typing }
+enum GameMethod { abc, typing, sentences }
 
 enum TranslateDir { plToForeign, foreignToPl, mixed }
 
@@ -214,7 +214,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _onAnswerChanged() {
-    if (_method != GameMethod.typing) return;
+    // Auto-zaliczaj gdy tekst już pasuje — bez osobnego klikania „Sprawdź”.
+    // Działa w pisaniu słówek i w trybie zdań.
+    if (_method != GameMethod.typing && _method != GameMethod.sentences) {
+      return;
+    }
     if (_checkingAnswer || _current == null) return;
     final user = _answerCtrl.text;
     if (user.trim().isEmpty) return;
@@ -363,6 +367,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _method = GameMethod.abc;
       } else if (raw == 'typing') {
         _method = GameMethod.typing;
+      } else if (raw == 'sentences') {
+        _method = GameMethod.sentences;
       } else if (lang == 'Rosyjski') {
         _method = GameMethod.abc;
       }
@@ -375,7 +381,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
       'method_$lang',
-      _method == GameMethod.abc ? 'abc' : 'typing',
+      switch (_method) {
+        GameMethod.abc => 'abc',
+        GameMethod.typing => 'typing',
+        GameMethod.sentences => 'sentences',
+      },
     );
   }
 
@@ -413,7 +423,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Word> _sessionPool() {
     final pack = _pack;
     if (pack == null) return [];
-    var words = pack.wordsForGroup(_groupId);
+    var words = _method == GameMethod.sentences
+        ? List<Word>.of(pack.sentences)
+        : pack.wordsForGroup(_groupId);
     final now = DateTime.now();
     if (_poolReview) {
       words = words.where((w) => w.level >= 3).toList();
@@ -425,8 +437,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return true;
       }).toList();
       if (words.isEmpty) {
-        // fallback: any non-mastered in group
-        words = pack.wordsForGroup(_groupId).where((w) => w.level < 3).toList();
+        // fallback: any non-mastered in group / sentences
+        if (_method == GameMethod.sentences) {
+          words = pack.sentences.where((w) => w.level < 3).toList();
+        } else {
+          words =
+              pack.wordsForGroup(_groupId).where((w) => w.level < 3).toList();
+        }
       }
     }
     return words;
@@ -464,7 +481,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         if (_askForeign) {
           _playText(_current!.obcy);
         }
-        if (_method == GameMethod.typing) {
+        if (_method == GameMethod.typing ||
+            _method == GameMethod.sentences) {
           _answerFocus.requestFocus();
         }
       });
@@ -550,11 +568,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   List<String> _buildAbc(Word correct, {required bool askForeign}) {
     final pack = _pack!;
+    final poolItems =
+        _method == GameMethod.sentences ? pack.sentences : pack.words;
     if (askForeign) {
       // Pokazujemy obcy → wybierz polskie (trudne, podobne opcje)
       final distractors = _pickHardDistractors(
         correct.pl,
-        pack.words.map((w) => w.pl),
+        poolItems.map((w) => w.pl),
         fallback: const ['kot', 'pies', 'dom'],
       );
       return [correct.pl, ...distractors]..shuffle(_rng);
@@ -562,13 +582,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     // Pokazujemy polskie → wybierz obce
     final distractors = _pickHardDistractors(
       correct.obcy,
-      pack.words.map((w) => w.obcy),
+      poolItems.map((w) => w.obcy),
       fallback: const ['hello', 'cat', 'house'],
     );
     return [correct.obcy, ...distractors]..shuffle(_rng);
   }
 
   String get _promptLabel {
+    if (_method == GameMethod.sentences) {
+      if (_askForeign) return 'Jak po polsku znaczy to zdanie:';
+      return 'Przetłumacz zdanie na język obcy:';
+    }
     if (_askForeign) return 'Jak po polsku znaczy:';
     return 'Przetłumacz na język obcy:';
   }
@@ -2174,23 +2198,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             FilterChip(
-                              selected: _method == GameMethod.abc,
+                              selected: true,
                               avatar: Icon(
-                                _method == GameMethod.abc
-                                    ? Icons.abc_rounded
-                                    : Icons.keyboard_rounded,
+                                switch (_method) {
+                                  GameMethod.abc => Icons.abc_rounded,
+                                  GameMethod.typing => Icons.keyboard_rounded,
+                                  GameMethod.sentences => Icons.chat_rounded,
+                                },
                                 size: 18,
                               ),
                               label: Text(
-                                _method == GameMethod.abc
-                                    ? 'Metoda: ABC'
-                                    : 'Metoda: Pisanie',
+                                switch (_method) {
+                                  GameMethod.abc => 'Metoda: ABC',
+                                  GameMethod.typing => 'Metoda: Pisanie',
+                                  GameMethod.sentences => 'Metoda: Zdania',
+                                },
                               ),
                               onSelected: (_) async {
                                 setState(() {
-                                  _method = _method == GameMethod.abc
-                                      ? GameMethod.typing
-                                      : GameMethod.abc;
+                                  _method = switch (_method) {
+                                    GameMethod.abc => GameMethod.typing,
+                                    GameMethod.typing => GameMethod.sentences,
+                                    GameMethod.sentences => GameMethod.abc,
+                                  };
                                 });
                                 await _persistMethod();
                                 _draw();
@@ -2245,8 +2275,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ? SoftPanel(
                           child: Text(
                             pool.isEmpty && _poolReview
-                                ? 'Brak opanowanych w tej puli.'
-                                : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.',
+                                ? (_method == GameMethod.sentences
+                                    ? 'Brak opanowanych zdań.'
+                                    : 'Brak opanowanych w tej puli.')
+                                : (_method == GameMethod.sentences
+                                    ? 'Brak zdań do nauki.'
+                                    : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.'),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
@@ -2292,6 +2326,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .primary,
+                                          fontSize: _method ==
+                                                  GameMethod.sentences
+                                              ? 22
+                                              : null,
                                         ),
                                   ),
                                   const SizedBox(height: 8),
@@ -2374,10 +2412,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       controller: _answerCtrl,
                                       focusNode: _answerFocus,
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(fontSize: 22),
-                                      decoration: const InputDecoration(
-                                        hintText:
-                                            'Pisz tu — samo zaliczy, gdy będzie dobrze',
+                                      style: TextStyle(
+                                        fontSize: _method == GameMethod.sentences
+                                            ? 18
+                                            : 22,
+                                      ),
+                                      maxLines: _method == GameMethod.sentences
+                                          ? 3
+                                          : 1,
+                                      decoration: InputDecoration(
+                                        hintText: _method == GameMethod.sentences
+                                            ? 'Napisz całe zdanie — samo zaliczy, gdy będzie dobrze'
+                                            : 'Pisz tu — samo zaliczy, gdy będzie dobrze',
                                       ),
                                       onSubmitted: (_) => _checkTyping(),
                                       onChanged: (_) => setState(() {}),

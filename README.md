@@ -22,7 +22,7 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **Złote łapki** — waluta: +1 za poprawną odpowiedź, +3 gdy Kicia najedzona, +5 za poziom, +2 za rozmowę AI
 - **SRS** — poziomy 0–3, powtórki wg `nextDue`
 - **Kierunek** PL→obcy / obcy→PL / mieszany + podpowiedź (pierwsza litera)
-- Metoda **ABC** lub **Pisanie** (zapamiętana per język)
+- Metoda **ABC**, **Pisanie** lub **Zdania** (zapamiętana per język)
 - Klawiatura cyrylicy (RU) i znaki hiszpańskie (á é ñ…)
 - Audio offline EN/ES/RU (`scripts/generate_tts.py`, Piper) + tempo 0.75× / 1× / 1.25×
 - **Motywy kolorystyczne**: Las / Ocean / Zachód / Winogrono / Róż / Grafit + jasny/ciemny

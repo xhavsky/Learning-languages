@@ -106,10 +106,17 @@ class WordGroup {
 }
 
 class LangPack {
-  LangPack({required this.words, required this.groups});
+  LangPack({
+    required this.words,
+    required this.groups,
+    List<Word>? sentences,
+  }) : sentences = sentences ?? [];
 
   final List<Word> words;
   final List<WordGroup> groups;
+
+  /// Przykładowe zdania PL ↔ obcy (osobna pula od słówek).
+  final List<Word> sentences;
 
   Word? byId(String id) {
     for (final w in words) {
@@ -152,6 +159,7 @@ class LangPack {
   Map<String, dynamic> toJson() => {
         'words': words.map((w) => w.toJson()).toList(),
         'groups': groups.map((g) => g.toJson()).toList(),
+        'sentences': sentences.map((w) => w.toJson()).toList(),
       };
 }
 
@@ -179,7 +187,17 @@ Map<String, LangPack> parseBaza(Map<String, dynamic> raw) {
           }
         }
       }
-      out[e.key] = LangPack(words: words, groups: groups);
+      final sentences = <Word>[];
+      final sentencesRaw = m['sentences'];
+      if (sentencesRaw is List) {
+        for (final w in sentencesRaw) {
+          if (w is Map) {
+            sentences.add(Word.fromJson(Map<String, dynamic>.from(w)));
+          }
+        }
+      }
+      out[e.key] =
+          LangPack(words: words, groups: groups, sentences: sentences);
     } else if (v is List) {
       final words = <Word>[];
       for (final w in v) {

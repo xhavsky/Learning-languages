@@ -472,6 +472,26 @@ class BazaStore {
           existing.wordIds = [...g.wordIds, ...keptUser];
         }
       }
+      // Zdania z seeda — jak słówka: dodaj nowe, zachowaj postęp.
+      final bySentId = {for (final w in pack.sentences) w.id: w};
+      for (final w in e.value.sentences) {
+        final existing = bySentId[w.id];
+        if (existing == null) {
+          pack.sentences.add(w);
+          bySentId[w.id] = w;
+        } else {
+          final i = pack.sentences.indexOf(existing);
+          pack.sentences[i] = Word(
+            id: existing.id,
+            pl: w.pl,
+            obcy: w.obcy,
+            level: existing.level,
+            hard: existing.hard,
+            nextDue: existing.nextDue,
+            correctStreak: existing.correctStreak,
+          );
+        }
+      }
     }
 
     try {
@@ -561,6 +581,9 @@ class BazaStore {
     final missing = <String>[];
     for (final e in baza.entries) {
       for (final w in e.value.words) {
+        if (!hasAudio(e.key, w.obcy)) missing.add('${e.key}|${w.obcy}');
+      }
+      for (final w in e.value.sentences) {
         if (!hasAudio(e.key, w.obcy)) missing.add('${e.key}|${w.obcy}');
       }
     }
