@@ -9,6 +9,7 @@ import 'ai_chat.dart';
 import 'answer_match.dart';
 import 'curiosities.dart';
 import 'import_csv.dart';
+import 'l10n.dart';
 import 'mascot.dart';
 import 'model3d_viewer.dart';
 import 'models.dart';
@@ -16,6 +17,8 @@ import 'portal.dart';
 import 'storage.dart';
 import 'theme.dart';
 import 'ui_fx.dart';
+
+const _appVersionLabel = 'v0.0.19';
 
 void _bootLog(String msg) {
   try {
@@ -60,6 +63,7 @@ class TrenerApp extends StatefulWidget {
 class _TrenerAppState extends State<TrenerApp> {
   ThemeMode _themeMode = ThemeMode.system;
   AppPalette _palette = AppPalette.mint;
+  UiLang _uiLang = UiLang.pl;
 
   @override
   void initState() {
@@ -76,6 +80,7 @@ class _TrenerAppState extends State<TrenerApp> {
         _ => ThemeMode.system,
       };
       _palette = AppPaletteX.fromName(prefs.getString('palette'));
+      _uiLang = UiLang.fromCode(prefs.getString('uiLang'));
     });
   }
 
@@ -98,10 +103,17 @@ class _TrenerAppState extends State<TrenerApp> {
     await prefs.setString('palette', p.name);
   }
 
+  Future<void> _setUiLang(UiLang lang) async {
+    setState(() => _uiLang = lang);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('uiLang', lang.code);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n(_uiLang);
     return MaterialApp(
-      title: 'Trener Językowy',
+      title: l10n.appTitle,
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
       theme: buildAppTheme(brightness: Brightness.light, palette: _palette),
@@ -109,8 +121,10 @@ class _TrenerAppState extends State<TrenerApp> {
       home: HomePage(
         themeMode: _themeMode,
         palette: _palette,
+        uiLang: _uiLang,
         onThemeModeChanged: _setThemeMode,
         onPaletteChanged: _setPalette,
+        onUiLangChanged: _setUiLang,
       ),
     );
   }
@@ -121,14 +135,18 @@ class HomePage extends StatefulWidget {
     super.key,
     required this.themeMode,
     required this.palette,
+    required this.uiLang,
     required this.onThemeModeChanged,
     required this.onPaletteChanged,
+    required this.onUiLangChanged,
   });
 
   final ThemeMode themeMode;
   final AppPalette palette;
+  final UiLang uiLang;
   final ValueChanged<ThemeMode> onThemeModeChanged;
   final ValueChanged<AppPalette> onPaletteChanged;
+  final ValueChanged<UiLang> onUiLangChanged;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -179,6 +197,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   bool _isPhoneLayout(BuildContext context) =>
       MediaQuery.sizeOf(context).width < 900;
+
+  L10n get _l10n => L10n(widget.uiLang);
 
   @override
   void initState() {
@@ -589,12 +609,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   String get _promptLabel {
+    final l = _l10n;
     if (_method == GameMethod.sentences) {
-      if (_askForeign) return 'Jak po polsku znaczy to zdanie:';
-      return 'Przetłumacz zdanie na język obcy:';
+      if (_askForeign) return l.promptTranslateSentencePl;
+      return l.promptTranslateSentenceForeign('');
     }
-    if (_askForeign) return 'Jak po polsku znaczy:';
-    return 'Przetłumacz na język obcy:';
+    if (_askForeign) return l.promptTranslatePl;
+    return l.promptTranslateForeign;
   }
 
   String get _promptWord {
@@ -916,23 +937,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Future<void> _openShop() async {
     if (!mounted) return;
-    if (_isPhoneLayout(context)) {
-      setState(() => _bottomNav = 2);
-      return;
-    }
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => ShopPage(
-          stats: _store.stats,
-          palette: widget.palette,
-          onChanged: () async {
-            await _store.save();
-            if (mounted) setState(() {});
-          },
-        ),
-      ),
-    );
-    if (mounted) setState(() {});
+    setState(() => _bottomNav = 2);
   }
 
   Future<void> _openWardrobe() async {
@@ -1123,7 +1128,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _openGroups({bool openCreate = false}) async {
     final pack = _pack;
     if (pack == null || _lang == null) return;
-    if (_isPhoneLayout(context) && !openCreate) {
+    if (!openCreate) {
       setState(() => _bottomNav = 3);
       return;
     }
@@ -1153,29 +1158,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _openWords() async {
     final pack = _pack;
     if (pack == null || _lang == null) return;
-    if (_isPhoneLayout(context)) {
-      setState(() => _bottomNav = 1);
-      return;
-    }
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => WordsPage(
-          lang: _lang!,
-          pack: pack,
-          palette: widget.palette,
-          onChanged: () async {
-            await _store.save();
-            setState(() {});
-          },
-        ),
-      ),
-    );
-    setState(() {});
-    _draw();
+    setState(() => _bottomNav = 1);
   }
 
   Future<void> _openSettings({bool forceSheet = false}) async {
-    if (!forceSheet && _isPhoneLayout(context)) {
+    if (!forceSheet) {
       setState(() => _bottomNav = 4);
       return;
     }
@@ -1207,6 +1194,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       style: Theme.of(ctx).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),
+                    Text(
+                      _l10n.appLanguage,
+                      style: Theme.of(ctx).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final ul in UiLang.values)
+                          ChoiceChip(
+                            label: Text(ul.nativeLabel),
+                            selected: widget.uiLang == ul,
+                            onSelected: (_) {
+                              widget.onUiLangChanged(ul);
+                              setSheet(() {});
+                            },
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
                     Text(
                       'Motyw jasny/ciemny',
                       style: Theme.of(ctx).textTheme.titleSmall,
@@ -1888,95 +1896,47 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         allInGroup.isEmpty ? 0 : (100 * mastered / allInGroup.length).round();
 
     final phone = _isPhoneLayout(context);
+    final l10n = _l10n;
+    final desktop = !phone;
 
     return Scaffold(
       extendBodyBehindAppBar: false,
-      appBar: phone
-          ? null
-          : AppBar(
-              title: const Text('Trener Językowy'),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 6),
-                  child: Center(
-                    child: Text(
-                      'v0.0.18',
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.45),
-                          ),
-                    ),
-                  ),
-                ),
-                ToolbarIconButton(
-                  tooltip: _audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
-                  onPressed: () => _persistAudioEnabled(!_audioEnabled),
-                  active: _audioEnabled,
-                  icon: _audioEnabled
-                      ? Icons.volume_up_rounded
-                      : Icons.volume_off_rounded,
-                ),
-                ToolbarIconButton(
-                  tooltip: 'Sklep',
-                  onPressed: _openShop,
-                  icon: Icons.storefront_rounded,
-                ),
-                ToolbarIconButton(
-                  tooltip: 'Pule słówek',
-                  onPressed: _openGroups,
-                  icon: Icons.folder_special_rounded,
-                ),
-                ToolbarIconButton(
-                  tooltip: 'Słówka',
-                  onPressed: _openWords,
-                  icon: Icons.menu_book_rounded,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: ToolbarIconButton(
-                    tooltip: 'Ustawienia',
-                    onPressed: _openSettings,
-                    icon: Icons.palette_rounded,
-                  ),
-                ),
-              ],
-            ),
-      bottomNavigationBar: phone
-          ? NavigationBar(
-              selectedIndex: _bottomNav.clamp(0, 4),
-              onDestinationSelected: (i) => setState(() => _bottomNav = i),
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.school_outlined),
-                  selectedIcon: Icon(Icons.school_rounded),
-                  label: 'Nauka',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.menu_book_outlined),
-                  selectedIcon: Icon(Icons.menu_book_rounded),
-                  label: 'Słówka',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.storefront_outlined),
-                  selectedIcon: Icon(Icons.storefront_rounded),
-                  label: 'Sklep',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.folder_special_outlined),
-                  selectedIcon: Icon(Icons.folder_special_rounded),
-                  label: 'Pule',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings_rounded),
-                  label: 'Ustawienia',
-                ),
-              ],
-            )
-          : null,
+      appBar: null,
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _bottomNav.clamp(0, 4),
+        onDestinationSelected: (i) => setState(() => _bottomNav = i),
+        height: desktop ? 72 : null,
+        labelBehavior: desktop
+            ? NavigationDestinationLabelBehavior.alwaysShow
+            : NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: [
+          NavigationDestination(
+            icon: const Icon(Icons.school_outlined),
+            selectedIcon: const Icon(Icons.school_rounded),
+            label: l10n.tabLearn,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.menu_book_outlined),
+            selectedIcon: const Icon(Icons.menu_book_rounded),
+            label: l10n.tabWords,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.storefront_outlined),
+            selectedIcon: const Icon(Icons.storefront_rounded),
+            label: l10n.tabShop,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.folder_special_outlined),
+            selectedIcon: const Icon(Icons.folder_special_rounded),
+            label: l10n.tabPools,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings_rounded),
+            label: l10n.tabSettings,
+          ),
+        ],
+      ),
       body: GradientScaffoldBody(
         palette: widget.palette,
         child: Stack(
@@ -1998,6 +1958,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   onToggleAudio: () =>
                       _persistAudioEnabled(!_audioEnabled),
                   onTapAlbum: _openCuriosityAlbum,
+                  desktop: desktop,
+                  l10n: l10n,
+                  versionLabel: desktop ? _appVersionLabel : null,
                 );
                 final mission = // —— NAUKA NA GÓRZE ——
                   DailyMissionBanner(
@@ -2043,9 +2006,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SectionHeader(
-                          title: 'Trening',
-                          subtitle: 'Wybierz język, pulę i metodę',
+                        SectionHeader(
+                          title: l10n.training,
+                          subtitle: l10n.trainingSubtitle,
                           icon: Icons.school_rounded,
                         ),
                         DropdownButtonFormField<String>(
@@ -2067,11 +2030,45 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             _draw();
                           },
                           decoration:
-                              const InputDecoration(labelText: 'Język'),
+                              InputDecoration(labelText: l10n.language),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Pula słówek (przesuń → albo utwórz własną)',
+                          l10n.methodLabel,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                        const SizedBox(height: 6),
+                        SegmentedButton<GameMethod>(
+                          showSelectedIcon: false,
+                          segments: [
+                            ButtonSegment(
+                              value: GameMethod.abc,
+                              icon: const Icon(Icons.abc_rounded, size: 18),
+                              label: Text(l10n.methodAbc),
+                            ),
+                            ButtonSegment(
+                              value: GameMethod.typing,
+                              icon:
+                                  const Icon(Icons.keyboard_rounded, size: 18),
+                              label: Text(l10n.methodTyping),
+                            ),
+                            ButtonSegment(
+                              value: GameMethod.sentences,
+                              icon: const Icon(Icons.chat_rounded, size: 18),
+                              label: Text(l10n.methodSentences),
+                            ),
+                          ],
+                          selected: {_method},
+                          onSelectionChanged: (s) async {
+                            if (s.isEmpty) return;
+                            setState(() => _method = s.first);
+                            await _persistMethod();
+                            _draw();
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          l10n.poolWordsHint,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const SizedBox(height: 6),
@@ -2084,7 +2081,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: FilterChip(
-                                  label: const Text('Cała baza'),
+                                  label: Text(l10n.poolAll),
                                   selected: _groupId == '__all__',
                                   onSelected: (_) {
                                     setState(() => _groupId = '__all__');
@@ -2096,7 +2093,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: FilterChip(
-                                  label: const Text('Nieopanowane'),
+                                  label: Text(l10n.poolUnlearned),
                                   selected: _groupId == '__unlearned__',
                                   onSelected: (_) {
                                     setState(
@@ -2110,7 +2107,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: FilterChip(
-                                  label: const Text('Trudne'),
+                                  label: Text(l10n.poolHard),
                                   selected: _groupId == '__hard__',
                                   onSelected: (_) {
                                     setState(() => _groupId = '__hard__');
@@ -2160,9 +2157,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SectionHeader(
-                          title: 'Szybkie akcje',
-                          subtitle: 'Dodawaj, ćwicz i gaduś z AI',
+                        SectionHeader(
+                          title: l10n.quickActions,
+                          subtitle: l10n.quickActionsSubtitle,
                           icon: Icons.bolt_rounded,
                         ),
                         Wrap(
@@ -2172,17 +2169,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             FilledButton.tonalIcon(
                               onPressed: _addWord,
                               icon: const Icon(Icons.add_rounded),
-                              label: const Text('Słowo'),
+                              label: Text(l10n.addWord),
                             ),
                             FilledButton.tonalIcon(
                               onPressed: _importWordsSheet,
                               icon: const Icon(Icons.upload_file_rounded),
-                              label: const Text('Import CSV'),
+                              label: Text(l10n.importCsv),
                             ),
                             FilledButton.tonalIcon(
                               onPressed: _openWords,
                               icon: const Icon(Icons.edit_note_rounded),
-                              label: const Text('Lista'),
+                              label: Text(l10n.list),
                             ),
                             FilledButton.icon(
                               onPressed: _openDailyChat,
@@ -2193,38 +2190,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                               label: Text(
                                 _store.stats.chatDoneToday
-                                    ? 'Rozmowa ✓'
-                                    : 'AI na urządzeniu',
+                                    ? l10n.aiChatDone
+                                    : l10n.aiChat,
                               ),
-                            ),
-                            FilterChip(
-                              selected: true,
-                              avatar: Icon(
-                                switch (_method) {
-                                  GameMethod.abc => Icons.abc_rounded,
-                                  GameMethod.typing => Icons.keyboard_rounded,
-                                  GameMethod.sentences => Icons.chat_rounded,
-                                },
-                                size: 18,
-                              ),
-                              label: Text(
-                                switch (_method) {
-                                  GameMethod.abc => 'Metoda: ABC',
-                                  GameMethod.typing => 'Metoda: Pisanie',
-                                  GameMethod.sentences => 'Metoda: Zdania',
-                                },
-                              ),
-                              onSelected: (_) async {
-                                setState(() {
-                                  _method = switch (_method) {
-                                    GameMethod.abc => GameMethod.typing,
-                                    GameMethod.typing => GameMethod.sentences,
-                                    GameMethod.sentences => GameMethod.abc,
-                                  };
-                                });
-                                await _persistMethod();
-                                _draw();
-                              },
                             ),
                             FilterChip(
                               selected: !_poolReview,
@@ -2235,7 +2203,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 size: 18,
                               ),
                               label: Text(
-                                _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
+                                _poolReview ? l10n.poolReview : l10n.poolLearn,
                               ),
                               onSelected: (_) {
                                 setState(() => _poolReview = !_poolReview);
@@ -2252,7 +2220,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   size: 18,
                                 ),
                                 label: Text(
-                                  _current!.hard ? 'Trudne ★' : 'Trudne?',
+                                  _current!.hard ? l10n.hardOn : l10n.hardOff,
                                 ),
                                 onSelected: (_) async {
                                   _current!.hard = !_current!.hard;
@@ -2276,11 +2244,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           child: Text(
                             pool.isEmpty && _poolReview
                                 ? (_method == GameMethod.sentences
-                                    ? 'Brak opanowanych zdań.'
-                                    : 'Brak opanowanych w tej puli.')
+                                    ? l10n.noSentencesReview
+                                    : l10n.noWordsReview)
                                 : (_method == GameMethod.sentences
-                                    ? 'Brak zdań do nauki.'
-                                    : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.'),
+                                    ? l10n.noSentencesLearn
+                                    : l10n.noWordsLearn),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
@@ -2422,8 +2390,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           : 1,
                                       decoration: InputDecoration(
                                         hintText: _method == GameMethod.sentences
-                                            ? 'Napisz całe zdanie — samo zaliczy, gdy będzie dobrze'
-                                            : 'Pisz tu — samo zaliczy, gdy będzie dobrze',
+                                            ? l10n.sentenceHint
+                                            : l10n.wordHint,
                                       ),
                                       onSubmitted: (_) => _checkTyping(),
                                       onChanged: (_) => setState(() {}),
@@ -2513,7 +2481,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
-                            'Twój zwierzak — garderoba i kolory',
+                            l10n.mascotHeader,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ),
@@ -2604,93 +2572,86 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Text(
-                      'Najpierw wybierz język w zakładce Nauka.',
+                      l10n.pickLangFirst,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 );
-                if (phone) {
-                  return Column(
-                    children: [
-                      SafeArea(bottom: false, child: xpBar),
-                      Expanded(
-                        child: IndexedStack(
-                          index: _bottomNav.clamp(0, 4),
-                          children: [
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: ConstrainedBox(
-                                constraints:
-                                    BoxConstraints(maxWidth: maxW),
-                                child: naukaList,
-                              ),
+                return Column(
+                  children: [
+                    SafeArea(bottom: false, child: xpBar),
+                    Expanded(
+                      child: IndexedStack(
+                        index: _bottomNav.clamp(0, 4),
+                        children: [
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: maxW),
+                              child: naukaList,
                             ),
-                            pack != null && _lang != null
-                                ? WordsPage(
-                                    lang: _lang!,
-                                    pack: pack,
-                                    palette: widget.palette,
-                                    embedded: true,
-                                    onChanged: () async {
-                                      await _store.save();
-                                      setState(() {});
-                                    },
-                                  )
-                                : tabNeedLang,
-                            ShopPage(
-                              stats: _store.stats,
-                              palette: widget.palette,
-                              embedded: true,
-                              onChanged: () async {
-                                await _store.save();
-                                if (mounted) setState(() {});
-                              },
-                            ),
-                            pack != null && _lang != null
-                                ? GroupsPage(
-                                    lang: _lang!,
-                                    pack: pack,
-                                    selectedId: _groupId,
-                                    palette: widget.palette,
-                                    embedded: true,
-                                    onChanged: () async {
-                                      await _store.save();
-                                      setState(() {});
-                                    },
-                                    onSelect: (id) {
-                                      setState(() {
-                                        _groupId = id;
-                                        _bottomNav = 0;
-                                      });
-                                      _draw();
-                                    },
-                                  )
-                                : tabNeedLang,
-                            _PhoneSettingsTab(
-                              themeMode: widget.themeMode,
-                              palette: widget.palette,
-                              audioEnabled: _audioEnabled,
-                              onThemeModeChanged: widget.onThemeModeChanged,
-                              onPaletteChanged: widget.onPaletteChanged,
-                              onToggleAudio: () =>
-                                  _persistAudioEnabled(!_audioEnabled),
-                              onOpenAlbum: _openCuriosityAlbum,
-                              onOpenFullSettings: () =>
-                                  _openSettings(forceSheet: true),
-                            ),
-                          ],
-                        ),
+                          ),
+                          pack != null && _lang != null
+                              ? WordsPage(
+                                  lang: _lang!,
+                                  pack: pack,
+                                  palette: widget.palette,
+                                  embedded: true,
+                                  onChanged: () async {
+                                    await _store.save();
+                                    setState(() {});
+                                  },
+                                )
+                              : tabNeedLang,
+                          ShopPage(
+                            stats: _store.stats,
+                            palette: widget.palette,
+                            embedded: true,
+                            onChanged: () async {
+                              await _store.save();
+                              if (mounted) setState(() {});
+                            },
+                          ),
+                          pack != null && _lang != null
+                              ? GroupsPage(
+                                  lang: _lang!,
+                                  pack: pack,
+                                  selectedId: _groupId,
+                                  palette: widget.palette,
+                                  embedded: true,
+                                  onChanged: () async {
+                                    await _store.save();
+                                    setState(() {});
+                                  },
+                                  onSelect: (id) {
+                                    setState(() {
+                                      _groupId = id;
+                                      _bottomNav = 0;
+                                    });
+                                    _draw();
+                                  },
+                                )
+                              : tabNeedLang,
+                          _PhoneSettingsTab(
+                            themeMode: widget.themeMode,
+                            palette: widget.palette,
+                            uiLang: widget.uiLang,
+                            audioEnabled: _audioEnabled,
+                            l10n: l10n,
+                            onThemeModeChanged: widget.onThemeModeChanged,
+                            onPaletteChanged: widget.onPaletteChanged,
+                            onUiLangChanged: widget.onUiLangChanged,
+                            onToggleAudio: () =>
+                                _persistAudioEnabled(!_audioEnabled),
+                            onOpenAlbum: _openCuriosityAlbum,
+                            onOpenFullSettings: () =>
+                                _openSettings(forceSheet: true),
+                          ),
+                        ],
                       ),
-                    ],
-                  );
-                }
-                return Align(
-                  alignment: Alignment.topCenter,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxW),
-                    child: naukaList,
-                  ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -2732,7 +2693,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
-/// Pasek EXP / LVL na górze (telefon) — jak pasek postępu w Duolingo.
+/// Pasek EXP / LVL na górze — jak pasek postępu w Duolingo (telefon i komputer).
 class _PlayerXpBar extends StatelessWidget {
   const _PlayerXpBar({
     required this.level,
@@ -2744,6 +2705,9 @@ class _PlayerXpBar extends StatelessWidget {
     required this.audioEnabled,
     required this.onToggleAudio,
     required this.onTapAlbum,
+    required this.l10n,
+    this.desktop = false,
+    this.versionLabel,
   });
 
   final int level;
@@ -2755,6 +2719,9 @@ class _PlayerXpBar extends StatelessWidget {
   final bool audioEnabled;
   final VoidCallback onToggleAudio;
   final VoidCallback onTapAlbum;
+  final L10n l10n;
+  final bool desktop;
+  final String? versionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -2763,117 +2730,146 @@ class _PlayerXpBar extends StatelessWidget {
       color: scheme.surface.withValues(alpha: 0.92),
       elevation: 1,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 8, 8, 10),
-        child: Row(
-          children: [
-            InkWell(
-              onTap: onTapAlbum,
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: scheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.military_tech_rounded,
-                        size: 18, color: scheme.primary),
-                    const SizedBox(width: 4),
-                    Text(
-                      'LVL $level',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: scheme.onPrimaryContainer,
-                        fontSize: 13,
+        padding: EdgeInsets.fromLTRB(
+          desktop ? 24 : 14,
+          desktop ? 12 : 8,
+          desktop ? 16 : 8,
+          desktop ? 14 : 10,
+        ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: desktop ? 1400 : double.infinity),
+          child: Row(
+            children: [
+              InkWell(
+                onTap: onTapAlbum,
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: desktop ? 14 : 10,
+                    vertical: desktop ? 8 : 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.military_tech_rounded,
+                          size: desktop ? 22 : 18, color: scheme.primary),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${l10n.levelShort} $level',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: scheme.onPrimaryContainer,
+                          fontSize: desktop ? 15 : 13,
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(width: desktop ? 16 : 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: desktop ? 14 : null,
+                                ),
+                          ),
+                        ),
+                        Text(
+                          '$xp XP',
+                          style:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: scheme.primary,
+                                    fontSize: desktop ? 13 : null,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: desktop ? 6 : 4),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: LinearProgressIndicator(
+                        value: progress.clamp(0.0, 1.0),
+                        minHeight: desktop ? 10 : 8,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      l10n.xpToNext(level + 1, xpToNext),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: scheme.onSurface.withValues(alpha: 0.55),
+                            fontSize: desktop ? 11 : 10,
+                          ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
+              SizedBox(width: desktop ? 10 : 6),
+              if (versionLabel != null) ...[
+                Text(
+                  versionLabel!,
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: scheme.onSurface.withValues(alpha: 0.4),
                       ),
-                      Text(
-                        '$xp XP',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: scheme.primary,
-                            ),
+                ),
+                const SizedBox(width: 8),
+              ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(
+                  '🐾 $paws',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        fontSize: desktop ? 16 : null,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: LinearProgressIndicator(
-                      value: progress.clamp(0.0, 1.0),
-                      minHeight: 8,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Do LVL ${level + 1}: $xpToNext XP',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: scheme.onSurface.withValues(alpha: 0.55),
-                          fontSize: 10,
-                        ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            const SizedBox(width: 6),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(
-                '🐾 $paws',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+              IconButton(
+                tooltip: audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
+                onPressed: onToggleAudio,
+                icon: Icon(
+                  audioEnabled
+                      ? Icons.volume_up_rounded
+                      : Icons.volume_off_rounded,
+                ),
               ),
-            ),
-            IconButton(
-              tooltip: audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
-              onPressed: onToggleAudio,
-              icon: Icon(
-                audioEnabled
-                    ? Icons.volume_up_rounded
-                    : Icons.volume_off_rounded,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-/// Zakładka Ustawienia na telefonie.
+/// Zakładka Ustawienia (telefon i komputer).
 class _PhoneSettingsTab extends StatelessWidget {
   const _PhoneSettingsTab({
     required this.themeMode,
     required this.palette,
+    required this.uiLang,
     required this.audioEnabled,
+    required this.l10n,
     required this.onThemeModeChanged,
     required this.onPaletteChanged,
+    required this.onUiLangChanged,
     required this.onToggleAudio,
     required this.onOpenAlbum,
     required this.onOpenFullSettings,
@@ -2881,9 +2877,12 @@ class _PhoneSettingsTab extends StatelessWidget {
 
   final ThemeMode themeMode;
   final AppPalette palette;
+  final UiLang uiLang;
   final bool audioEnabled;
+  final L10n l10n;
   final ValueChanged<ThemeMode> onThemeModeChanged;
   final ValueChanged<AppPalette> onPaletteChanged;
+  final ValueChanged<UiLang> onUiLangChanged;
   final VoidCallback onToggleAudio;
   final VoidCallback onOpenAlbum;
   final VoidCallback onOpenFullSettings;
@@ -2893,32 +2892,47 @@ class _PhoneSettingsTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
       children: [
-        Text('Ustawienia', style: Theme.of(context).textTheme.titleLarge),
+        Text(l10n.settings, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        Text('Motyw', style: Theme.of(context).textTheme.titleSmall),
+        Text(l10n.appLanguage, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final ul in UiLang.values)
+              ChoiceChip(
+                label: Text(ul.nativeLabel),
+                selected: uiLang == ul,
+                onSelected: (_) => onUiLangChanged(ul),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Text(l10n.theme, style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
           children: [
             ChoiceChip(
-              label: const Text('System'),
+              label: Text(l10n.themeSystem),
               selected: themeMode == ThemeMode.system,
               onSelected: (_) => onThemeModeChanged(ThemeMode.system),
             ),
             ChoiceChip(
-              label: const Text('Jasny'),
+              label: Text(l10n.themeLight),
               selected: themeMode == ThemeMode.light,
               onSelected: (_) => onThemeModeChanged(ThemeMode.light),
             ),
             ChoiceChip(
-              label: const Text('Ciemny'),
+              label: Text(l10n.themeDark),
               selected: themeMode == ThemeMode.dark,
               onSelected: (_) => onThemeModeChanged(ThemeMode.dark),
             ),
           ],
         ),
         const SizedBox(height: 16),
-        Text('Kolorystyka', style: Theme.of(context).textTheme.titleSmall),
+        Text(l10n.colors, style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -2936,26 +2950,26 @@ class _PhoneSettingsTab extends StatelessWidget {
         const SizedBox(height: 16),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          title: const Text('Lektor (audio)'),
+          title: Text(l10n.narrator),
           value: audioEnabled,
           onChanged: (_) => onToggleAudio(),
         ),
         ListTile(
           contentPadding: EdgeInsets.zero,
           leading: const Icon(Icons.auto_stories_rounded),
-          title: const Text('Album nagród / ciekawostki'),
+          title: Text(l10n.album),
           onTap: onOpenAlbum,
         ),
         ListTile(
           contentPadding: EdgeInsets.zero,
           leading: const Icon(Icons.tune_rounded),
-          title: const Text('Więcej ustawień'),
-          subtitle: const Text('Kierunek tłumaczenia, AI, eksport…'),
+          title: Text(l10n.moreSettings),
+          subtitle: Text(l10n.moreSettingsSubtitle),
           onTap: onOpenFullSettings,
         ),
         const SizedBox(height: 12),
         Text(
-          'v0.0.18',
+          _appVersionLabel,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: Theme.of(context)

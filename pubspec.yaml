@@ -1,7 +1,7 @@
 name: trener_jezykowy
 description: Trener Językowy — nauka słówek (Anielka)
 publish_to: "none"
-version: 0.0.18+24
+version: 0.0.19+25
 
 environment:
   sdk: ^3.12.2

@@ -23,6 +23,8 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **SRS** — poziomy 0–3, powtórki wg `nextDue`
 - **Kierunek** PL→obcy / obcy→PL / mieszany + podpowiedź (pierwsza litera)
 - Metoda **ABC**, **Pisanie** lub **Zdania** (zapamiętana per język)
+- **Język aplikacji** — PL / EN / ES / RU (Ustawienia)
+- Na telefonie i komputerze: pasek **LVL/EXP** u góry + zakładki na dole
 - Klawiatura cyrylicy (RU) i znaki hiszpańskie (á é ñ…)
 - Audio offline EN/ES/RU (`scripts/generate_tts.py`, Piper) + tempo 0.75× / 1× / 1.25×
 - **Motywy kolorystyczne**: Las / Ocean / Zachód / Winogrono / Róż / Grafit + jasny/ciemny

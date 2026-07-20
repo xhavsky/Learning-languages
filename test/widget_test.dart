@@ -20,7 +20,28 @@ void main() {
     expect(baza['Angielski']!.groups, isEmpty);
   });
 
-  test('parseBaza reads groups with wordIds', () {
+  test('parseBaza reads sentences', () {
+    final baza = parseBaza({
+      'Angielski': {
+        'words': [
+          {'id': 'a', 'pl': 'kot', 'obcy': 'cat'},
+        ],
+        'groups': [],
+        'sentences': [
+          {
+            'id': 's1',
+            'pl': 'Cześć, jak się masz?',
+            'obcy': 'Hello, how are you?',
+          },
+        ],
+      },
+    });
+    final pack = baza['Angielski']!;
+    expect(pack.sentences, hasLength(1));
+    expect(pack.sentences.first.obcy, 'Hello, how are you?');
+    expect(pack.words, hasLength(1));
+  });
+
     final baza = parseBaza({
       'Angielski': {
         'words': [
