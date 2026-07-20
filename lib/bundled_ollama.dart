@@ -83,6 +83,18 @@ PARAMETER temperature 0.7
     return mf;
   }
 
+  /// Windows error 126 = brak DLL obok ollama.exe (folder lib/ollama).
+  static String _friendlyStartError(Object e) {
+    final s = e.toString();
+    if (s.contains('126') ||
+        s.toLowerCase().contains('module could not be found') ||
+        s.toLowerCase().contains('nie można odnaleźć określonego modułu')) {
+      return 'Brak bibliotek Ollamy w paczce (bundled/ollama/lib). '
+          'Pobierz nową paczkę Windows z Releases — stara miała tylko ollama.exe.';
+    }
+    return 'Start Ollamy: $e';
+  }
+
   Future<bool> _createModel(File ollamaBin, File gguf, String name) async {
     final models = await listModels();
     if (models.any((m) => m == name || m.startsWith('$name:'))) {
@@ -94,6 +106,7 @@ PARAMETER temperature 0.7
       final r = await Process.run(
         ollamaBin.path,
         ['create', name, '-f', mf.path],
+        workingDirectory: ollamaBin.parent.path,
         environment: {
           ...Platform.environment,
           'OLLAMA_HOST': '127.0.0.1:11434',
@@ -106,7 +119,7 @@ PARAMETER temperature 0.7
       modelName = name;
       return true;
     } catch (e) {
-      lastError = e.toString();
+      lastError = _friendlyStartError(e);
       return false;
     }
   }
@@ -128,11 +141,22 @@ PARAMETER temperature 0.7
         lastError = 'Brak bundled/ollama — dołącz sidecar albo zainstaluj Ollamę.';
         return false;
       }
+      // Nowoczesna Ollama wymaga lib/ollama obok exe — bez tego Windows: error 126.
+      if (Platform.isWindows) {
+        final ggml = File('${bin.parent.path}/lib/ollama/ggml.dll');
+        if (!await ggml.exists()) {
+          lastError =
+              'W paczce brak bundled/ollama/lib (biblioteki AI). '
+              'Pobierz nową paczkę Windows z Releases.';
+          return false;
+        }
+      }
       try {
         final modelsDir = await ensureAppModelsDir();
         _proc = await Process.start(
           bin.path,
           ['serve'],
+          workingDirectory: bin.parent.path,
           environment: {
             ...Platform.environment,
             'OLLAMA_HOST': '127.0.0.1:11434',
@@ -141,7 +165,7 @@ PARAMETER temperature 0.7
           mode: ProcessStartMode.detachedWithStdio,
         );
       } catch (e) {
-        lastError = 'Start Ollamy: $e';
+        lastError = _friendlyStartError(e);
         return false;
       }
       for (var i = 0; i < 40; i++) {

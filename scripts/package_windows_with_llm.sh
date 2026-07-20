@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # Pełna paczka Windows (składana na Linuxie z gotowego build/windows… albo na Windows).
 # Wymaga wcześniejszego: flutter build windows --release
-# oraz ./scripts/fetch_ondevice_models.sh --all (+ ollama.exe w bundled/ollama/).
+# oraz ./scripts/fetch_ondevice_models.sh --phone-only (lub --all)
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-./scripts/fetch_ondevice_models.sh --all
+./scripts/fetch_ondevice_models.sh --phone-only
+chmod +x "$ROOT/scripts/bundle_ollama_windows.sh"
+./scripts/bundle_ollama_windows.sh
 
 SRC=""
 for candidate in \
@@ -19,20 +21,9 @@ if [[ -z "$SRC" ]]; then
   exit 1
 fi
 
-if [[ ! -f "$ROOT/bundled/ollama/ollama.exe" ]]; then
-  echo "Pobierz ollama.exe → bundled/ollama/ollama.exe (https://ollama.com/download)" >&2
-  # Linux host: spróbuj oficjalne windows zip
-  TMP="$(mktemp -d)"
-  if curl -fsSL -o "$TMP/ollama.zip" \
-    "https://github.com/ollama/ollama/releases/latest/download/ollama-windows-amd64.zip"; then
-    unzip -qo "$TMP/ollama.zip" -d "$TMP/out"
-    EXE="$(find "$TMP/out" -name 'ollama.exe' | head -1)"
-    mkdir -p "$ROOT/bundled/ollama"
-    cp -f "$EXE" "$ROOT/bundled/ollama/ollama.exe"
-  else
-    exit 1
-  fi
-  rm -rf "$TMP"
+if [[ ! -f "$ROOT/bundled/ollama/ollama.exe" || ! -f "$ROOT/bundled/ollama/lib/ollama/ggml.dll" ]]; then
+  echo "Niepełna Ollama w bundled/ollama (brak exe lub lib/). Uruchom scripts/bundle_ollama_windows.sh" >&2
+  exit 1
 fi
 
 DIST="$ROOT/dist/Trener-Jezykowy-Windows"
@@ -40,7 +31,8 @@ rm -rf "$DIST"
 mkdir -p "$DIST/models" "$DIST/bundled/ollama"
 cp -a "$SRC"/. "$DIST/"
 cp -f "$ROOT/models/"*.gguf "$DIST/models/"
-cp -f "$ROOT/bundled/ollama/ollama.exe" "$DIST/bundled/ollama/ollama.exe"
+# Cały sidecar — sam ollama.exe bez lib/ = Windows error 126
+cp -a "$ROOT/bundled/ollama"/. "$DIST/bundled/ollama/"
 
 cat > "$DIST/CZYTAJ-MNIE.txt" <<'EOF'
 Trener Językowy — pełna paczka (z lokalnym AI)
@@ -48,6 +40,7 @@ Trener Językowy — pełna paczka (z lokalnym AI)
 1. Rozpakuj ZIP gdzie chcesz.
 2. Uruchom trener_jezykowy.exe
 3. Nic nie instaluj i nic nie ściągaj — Bielik i Ollama są w środku.
+4. Nie usuwaj folderu bundled\ollama\lib — bez niego AI nie działa.
 EOF
 
 (
