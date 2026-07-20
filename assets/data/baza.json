@@ -3440,6 +3440,2036 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "3dbcbf07",
+        "pl": "Skarpetki",
+        "obcy": "Socks",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "182f4d7d",
+        "pl": "Szalik",
+        "obcy": "Scarf",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1819e792",
+        "pl": "Rękawiczki",
+        "obcy": "Gloves",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d7c82ce",
+        "pl": "Płaszcz",
+        "obcy": "Coat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "23001025",
+        "pl": "Sweter",
+        "obcy": "Sweater",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ffae01e",
+        "pl": "Spódnica",
+        "obcy": "Skirt",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5615b82e",
+        "pl": "Kozaki",
+        "obcy": "Boots",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "42178a10",
+        "pl": "Parasol",
+        "obcy": "Umbrella",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4da783ad",
+        "pl": "Piżama",
+        "obcy": "Pajamas",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "54a417bf",
+        "pl": "Pasek",
+        "obcy": "Belt",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3dea8843",
+        "pl": "Okulary",
+        "obcy": "Glasses",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "243db8c6",
+        "pl": "Zegarek",
+        "obcy": "Watch",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74f6d2e2",
+        "pl": "Torba",
+        "obcy": "Bag",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37f57e89",
+        "pl": "Portfel",
+        "obcy": "Wallet",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a0202aa",
+        "pl": "Jedenaście",
+        "obcy": "Eleven",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "601f8510",
+        "pl": "Dwanaście",
+        "obcy": "Twelve",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4cd52bbf",
+        "pl": "Trzynaście",
+        "obcy": "Thirteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4b162c1b",
+        "pl": "Czternaście",
+        "obcy": "Fourteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "24230f4c",
+        "pl": "Piętnaście",
+        "obcy": "Fifteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0963b20c",
+        "pl": "Szesnaście",
+        "obcy": "Sixteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a31473f",
+        "pl": "Siedemnaście",
+        "obcy": "Seventeen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f2e2b77",
+        "pl": "Osiemnaście",
+        "obcy": "Eighteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "707c3552",
+        "pl": "Dziewiętnaście",
+        "obcy": "Nineteen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3d6f088d",
+        "pl": "Dwadzieścia",
+        "obcy": "Twenty",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1b46a364",
+        "pl": "Ciocia",
+        "obcy": "Aunt",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32846659",
+        "pl": "Wujek",
+        "obcy": "Uncle",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "34a70f26",
+        "pl": "Kuzyn",
+        "obcy": "Cousin",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30a57a1a",
+        "pl": "Niemowlę",
+        "obcy": "Baby",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "548574e3",
+        "pl": "Sąsiad",
+        "obcy": "Neighbor",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "137271d0",
+        "pl": "Gość",
+        "obcy": "Guest",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1e365753",
+        "pl": "Dziewczyna (partnerka)",
+        "obcy": "Girlfriend",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3a43c05f",
+        "pl": "Chłopak (partner)",
+        "obcy": "Boyfriend",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2005ecc6",
+        "pl": "Sól",
+        "obcy": "Salt",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0bbbda72",
+        "pl": "Pieprz",
+        "obcy": "Pepper",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b646101",
+        "pl": "Ciasto",
+        "obcy": "Cake",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "34654d10",
+        "pl": "Truskawka",
+        "obcy": "Strawberry",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21bcaa41",
+        "pl": "Winogrono",
+        "obcy": "Grape",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "33da4f02",
+        "pl": "Arbuz",
+        "obcy": "Watermelon",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37759bb7",
+        "pl": "Cebula",
+        "obcy": "Onion",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "727972f1",
+        "pl": "Czosnek",
+        "obcy": "Garlic",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "28deef9c",
+        "pl": "Grzyb",
+        "obcy": "Mushroom",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "04e2bc79",
+        "pl": "Płatki",
+        "obcy": "Cereal",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "106b4a9a",
+        "pl": "Naleśnik",
+        "obcy": "Pancake",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01599944",
+        "pl": "Orzech",
+        "obcy": "Nut",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c08a7ef",
+        "pl": "Cytryna",
+        "obcy": "Lemon",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70b7c1db",
+        "pl": "Gruszka",
+        "obcy": "Pear",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "103385ac",
+        "pl": "Brzoskwinia",
+        "obcy": "Peach",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ccd8fe5",
+        "pl": "Ogórek",
+        "obcy": "Cucumber",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6bf456b2",
+        "pl": "Kaczka",
+        "obcy": "Duck",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a629c8b",
+        "pl": "Świnia",
+        "obcy": "Pig",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6916be25",
+        "pl": "Owca",
+        "obcy": "Sheep",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "657f0cec",
+        "pl": "Koza",
+        "obcy": "Goat",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "03eb133a",
+        "pl": "Lew",
+        "obcy": "Lion",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63a50f8d",
+        "pl": "Tygrys",
+        "obcy": "Tiger",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0fc2bdd0",
+        "pl": "Małpa",
+        "obcy": "Monkey",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c7d9e02",
+        "pl": "Delfin",
+        "obcy": "Dolphin",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "57d2bae6",
+        "pl": "Rekin",
+        "obcy": "Shark",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "190c5e8c",
+        "pl": "Żółw",
+        "obcy": "Turtle",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a9c80ae",
+        "pl": "Sowa",
+        "obcy": "Owl",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "754c0002",
+        "pl": "Papuga",
+        "obcy": "Parrot",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7459dc84",
+        "pl": "Krab",
+        "obcy": "Crab",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "05a06c54",
+        "pl": "Jelonek",
+        "obcy": "Deer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1709e7fc",
+        "pl": "Bank",
+        "obcy": "Bank",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "164fa763",
+        "pl": "Poczta",
+        "obcy": "Post office",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3144f696",
+        "pl": "Restauracja",
+        "obcy": "Restaurant",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "04bebe30",
+        "pl": "Kawiarnia",
+        "obcy": "Café",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3e41596c",
+        "pl": "Hotel",
+        "obcy": "Hotel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3b738117",
+        "pl": "Kościół",
+        "obcy": "Church",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "797890b8",
+        "pl": "Zoo",
+        "obcy": "Zoo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "57575bc8",
+        "pl": "Plac zabaw",
+        "obcy": "Playground",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7807a6a7",
+        "pl": "Farma",
+        "obcy": "Farm",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3f7750a3",
+        "pl": "Teatr",
+        "obcy": "Theater",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a1daf45",
+        "pl": "Stadion",
+        "obcy": "Stadium",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "79c87ce5",
+        "pl": "Dzwonić",
+        "obcy": "To call",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0137c5d1",
+        "pl": "Wysyłać",
+        "obcy": "To send",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "69124d1a",
+        "pl": "Przynosić",
+        "obcy": "To bring",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b77ad10",
+        "pl": "Kłaść",
+        "obcy": "To put",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74ec6905",
+        "pl": "Dostawać",
+        "obcy": "To get",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f503918",
+        "pl": "Czuć",
+        "obcy": "To feel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5119fad5",
+        "pl": "Dotykać",
+        "obcy": "To touch",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b331a69",
+        "pl": "Wąchać",
+        "obcy": "To smell",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2becb8bc",
+        "pl": "Smakować",
+        "obcy": "To taste",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41e8b7bc",
+        "pl": "Wybierać",
+        "obcy": "To choose",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c5659b3",
+        "pl": "Próbować",
+        "obcy": "To try",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a2f8f87",
+        "pl": "Potrzebować",
+        "obcy": "To need",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "789c1476",
+        "pl": "Mieszkać",
+        "obcy": "To live",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "58961096",
+        "pl": "Rosnąć",
+        "obcy": "To grow",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "15788946",
+        "pl": "Budować",
+        "obcy": "To build",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "615042c1",
+        "pl": "Psuć",
+        "obcy": "To break",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "24d626c8",
+        "pl": "Naprawiać",
+        "obcy": "To fix",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ad672fe",
+        "pl": "Pchać",
+        "obcy": "To push",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c1a4276",
+        "pl": "Ciągnąć",
+        "obcy": "To pull",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "31b13395",
+        "pl": "Kręcić",
+        "obcy": "To turn",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "64c50078",
+        "pl": "Zatrzymywać",
+        "obcy": "To stop",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "475dfbc2",
+        "pl": "Wierzyć",
+        "obcy": "To believe",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c19f8db",
+        "pl": "Mieć nadzieję",
+        "obcy": "To hope",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2da99097",
+        "pl": "Zapraszać",
+        "obcy": "To invite",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "58287e68",
+        "pl": "Odwiedzać",
+        "obcy": "To visit",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7082d42a",
+        "pl": "Spotykać",
+        "obcy": "To meet",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1aa67d72",
+        "pl": "Wychodzić",
+        "obcy": "To leave",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "581c253e",
+        "pl": "Przyjeżdżać",
+        "obcy": "To arrive",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "03c8db7c",
+        "pl": "Wracać",
+        "obcy": "To return",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b2f73b4",
+        "pl": "Zostawać",
+        "obcy": "To stay",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2af4f04c",
+        "pl": "Odpoczywać",
+        "obcy": "To rest",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38940adf",
+        "pl": "Ćwiczyć",
+        "obcy": "To exercise",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "33c981ea",
+        "pl": "Wspinać się",
+        "obcy": "To climb",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1238ab48",
+        "pl": "Upadać",
+        "obcy": "To fall",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47ae29bb",
+        "pl": "Łapać",
+        "obcy": "To catch",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d0d3b61",
+        "pl": "Przytulać",
+        "obcy": "To hug",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4ced0c19",
+        "pl": "Całować",
+        "obcy": "To kiss",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6301ad48",
+        "pl": "Świętować",
+        "obcy": "To celebrate",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ee7eb3f",
+        "pl": "Szczoteczka",
+        "obcy": "Toothbrush",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "62890644",
+        "pl": "Pasta do zębów",
+        "obcy": "Toothpaste",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "799cf382",
+        "pl": "Mydło",
+        "obcy": "Soap",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6ef62639",
+        "pl": "Ręcznik",
+        "obcy": "Towel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "67df1ebc",
+        "pl": "Prysznic",
+        "obcy": "Shower",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4196a71f",
+        "pl": "Zegar",
+        "obcy": "Clock",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "78983f36",
+        "pl": "Kalendarz",
+        "obcy": "Calendar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "261194a1",
+        "pl": "Grzebień",
+        "obcy": "Comb",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "385a260f",
+        "pl": "Szampon",
+        "obcy": "Shampoo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "241d1a31",
+        "pl": "Liść",
+        "obcy": "Leaf",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d29b37c",
+        "pl": "Niebo",
+        "obcy": "Sky",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "44256bcf",
+        "pl": "Wyspa",
+        "obcy": "Island",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7faf851e",
+        "pl": "Pustynia",
+        "obcy": "Desert",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "367a19c0",
+        "pl": "Wulkan",
+        "obcy": "Volcano",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6d484405",
+        "pl": "Fala",
+        "obcy": "Wave",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4ab7dfcf",
+        "pl": "Piasek",
+        "obcy": "Sand",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2788feca",
+        "pl": "Błoto",
+        "obcy": "Mud",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7bc7fe3d",
+        "pl": "Jaskinia",
+        "obcy": "Cave",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "17060779",
+        "pl": "Wodospad",
+        "obcy": "Waterfall",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5941665e",
+        "pl": "Radość",
+        "obcy": "Joy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02ebb17e",
+        "pl": "Złość",
+        "obcy": "Anger",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a157a4b",
+        "pl": "Spokój",
+        "obcy": "Calm",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "596dbe4c",
+        "pl": "Podekscytowany",
+        "obcy": "Excited",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "28258acc",
+        "pl": "Zmartwiony",
+        "obcy": "Worried",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "760747d3",
+        "pl": "Nieśmiały",
+        "obcy": "Shy",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5bb8a71b",
+        "pl": "Zazdrosny",
+        "obcy": "Jealous",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0a50ef54",
+        "pl": "Samotny",
+        "obcy": "Lonely",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "083ad4bc",
+        "pl": "Tablet",
+        "obcy": "Tablet",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "73680a22",
+        "pl": "Słuchawki",
+        "obcy": "Headphones",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "539ccc96",
+        "pl": "Ładowarka",
+        "obcy": "Charger",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "235cb1a4",
+        "pl": "Klawiatura",
+        "obcy": "Keyboard",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "477b200f",
+        "pl": "Ekran",
+        "obcy": "Screen",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7eaec66e",
+        "pl": "Aparat",
+        "obcy": "Camera",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07040fd3",
+        "pl": "Wiadomość",
+        "obcy": "Message",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c54837f",
+        "pl": "E-mail",
+        "obcy": "Email",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5afbdf0a",
+        "pl": "Koszykówka",
+        "obcy": "Basketball",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "17ba8c70",
+        "pl": "Tenis",
+        "obcy": "Tennis",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76dbbe2c",
+        "pl": "Siatkówka",
+        "obcy": "Volleyball",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d7683d9",
+        "pl": "Deskorolka",
+        "obcy": "Skateboard",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "35992a9a",
+        "pl": "Narty",
+        "obcy": "Skis",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "038ec243",
+        "pl": "Łyżwy",
+        "obcy": "Ice skates",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2bb127ce",
+        "pl": "Ramię",
+        "obcy": "Arm",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "335bbaa4",
+        "pl": "Plecy",
+        "obcy": "Back",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0ffcaaa5",
+        "pl": "Kolano",
+        "obcy": "Knee",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47e601ab",
+        "pl": "Stopa",
+        "obcy": "Foot",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12ea74d2",
+        "pl": "Szyja",
+        "obcy": "Neck",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5de44e64",
+        "pl": "Bark",
+        "obcy": "Shoulder",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7962255b",
+        "pl": "Brzuch",
+        "obcy": "Stomach",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0d38a897",
+        "pl": "Krew",
+        "obcy": "Blood",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f1b53d0",
+        "pl": "Kość",
+        "obcy": "Bone",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "33fb0ff8",
+        "pl": "Rano",
+        "obcy": "Morning",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "588d6e75",
+        "pl": "Wieczór",
+        "obcy": "Evening",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "754f1857",
+        "pl": "Popołudnie",
+        "obcy": "Afternoon",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4050c180",
+        "pl": "Minuta",
+        "obcy": "Minute",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c34e461",
+        "pl": "Sekunda",
+        "obcy": "Second",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77b58b1d",
+        "pl": "Zawsze",
+        "obcy": "Always",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "428b1e71",
+        "pl": "Nigdy",
+        "obcy": "Never",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "09cc6e56",
+        "pl": "Często",
+        "obcy": "Often",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1df7730a",
+        "pl": "Czasami",
+        "obcy": "Sometimes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7ce6e8ed",
+        "pl": "Już",
+        "obcy": "Already",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "29d2a458",
+        "pl": "Jeszcze",
+        "obcy": "Still",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "642b0312",
+        "pl": "Lewo",
+        "obcy": "Left",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e40df97",
+        "pl": "Prawo",
+        "obcy": "Right",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "76fac4eb",
+        "pl": "Dół",
+        "obcy": "Down",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4db8aa70",
+        "pl": "Tutaj",
+        "obcy": "Here",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6b87eb08",
+        "pl": "Tam",
+        "obcy": "There",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4e691249",
+        "pl": "Dlaczego",
+        "obcy": "Why",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12f86268",
+        "pl": "Jak",
+        "obcy": "How",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "660f199a",
+        "pl": "Kiedy",
+        "obcy": "When",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "51d87444",
+        "pl": "Gdzie",
+        "obcy": "Where",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "688346e8",
+        "pl": "Kto",
+        "obcy": "Who",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "397de454",
+        "pl": "Co",
+        "obcy": "What",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4f834193",
+        "pl": "Gumka",
+        "obcy": "Eraser",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "284e2842",
+        "pl": "Linijka",
+        "obcy": "Ruler",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "17df9c8d",
+        "pl": "Biurko",
+        "obcy": "Desk",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50fa51b2",
+        "pl": "Przerwa",
+        "obcy": "Break",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ce12f27",
+        "pl": "Papier",
+        "obcy": "Paper",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00fa5e3c",
+        "pl": "Marker",
+        "obcy": "Marker",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "496ec055",
+        "pl": "Kredki",
+        "obcy": "Crayons",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70967072",
+        "pl": "Nożyczki szkolne",
+        "obcy": "School scissors",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "27255e15",
+        "pl": "Garnek",
+        "obcy": "Pot",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3f5155dd",
+        "pl": "Patelnia",
+        "obcy": "Pan",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47162f08",
+        "pl": "Talerz",
+        "obcy": "Plate",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "651de5a1",
+        "pl": "Kubek",
+        "obcy": "Mug",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72d8af47",
+        "pl": "Widelec",
+        "obcy": "Fork",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2f959640",
+        "pl": "Nóż",
+        "obcy": "Knife",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "24705cd0",
+        "pl": "Łyżka",
+        "obcy": "Spoon",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ddaec8b",
+        "pl": "Szklanka",
+        "obcy": "Glass",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5450b423",
+        "pl": "Półka",
+        "obcy": "Shelf",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ca2a2c3",
+        "pl": "Szafa",
+        "obcy": "Wardrobe",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5608bf3b",
+        "pl": "W górę",
+        "obcy": "Up",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ab960dc",
+        "pl": "Nadzieja",
+        "obcy": "Hope",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -3985,6 +6015,311 @@
           "2f503e52",
           "0866dcfa",
           "7535ccf3"
+        ]
+      },
+      {
+        "id": "en-589ba880",
+        "name": "Ubrania i akcesoria",
+        "wordIds": [
+          "3dbcbf07",
+          "182f4d7d",
+          "1819e792",
+          "1d7c82ce",
+          "23001025",
+          "1ffae01e",
+          "5615b82e",
+          "42178a10",
+          "4da783ad",
+          "54a417bf",
+          "3dea8843",
+          "243db8c6",
+          "74f6d2e2",
+          "37f57e89"
+        ]
+      },
+      {
+        "id": "en-58577691",
+        "name": "Liczby 11–20",
+        "wordIds": [
+          "6a0202aa",
+          "601f8510",
+          "4cd52bbf",
+          "4b162c1b",
+          "24230f4c",
+          "0963b20c",
+          "7a31473f",
+          "6f2e2b77",
+          "707c3552",
+          "3d6f088d"
+        ]
+      },
+      {
+        "id": "en-469855cb",
+        "name": "Rodzina i znajomi",
+        "wordIds": [
+          "1b46a364",
+          "32846659",
+          "34a70f26",
+          "30a57a1a",
+          "548574e3",
+          "137271d0",
+          "1e365753",
+          "3a43c05f"
+        ]
+      },
+      {
+        "id": "en-68498f5c",
+        "name": "Więcej jedzenia",
+        "wordIds": [
+          "2005ecc6",
+          "0bbbda72",
+          "5b646101",
+          "34654d10",
+          "21bcaa41",
+          "33da4f02",
+          "37759bb7",
+          "727972f1",
+          "28deef9c",
+          "04e2bc79",
+          "106b4a9a",
+          "01599944",
+          "3c08a7ef",
+          "70b7c1db",
+          "103385ac",
+          "5ccd8fe5"
+        ]
+      },
+      {
+        "id": "en-6e304f42",
+        "name": "Zwierzęta 2",
+        "wordIds": [
+          "6bf456b2",
+          "1a629c8b",
+          "6916be25",
+          "657f0cec",
+          "03eb133a",
+          "63a50f8d",
+          "0fc2bdd0",
+          "0c7d9e02",
+          "57d2bae6",
+          "190c5e8c",
+          "6a9c80ae",
+          "754c0002",
+          "7459dc84",
+          "05a06c54"
+        ]
+      },
+      {
+        "id": "en-378faa9b",
+        "name": "Miejsca",
+        "wordIds": [
+          "1709e7fc",
+          "164fa763",
+          "3144f696",
+          "04bebe30",
+          "3e41596c",
+          "3b738117",
+          "797890b8",
+          "57575bc8",
+          "7807a6a7",
+          "3f7750a3",
+          "2a1daf45"
+        ]
+      },
+      {
+        "id": "en-4bf33146",
+        "name": "Nowe czasowniki",
+        "wordIds": [
+          "79c87ce5",
+          "0137c5d1",
+          "69124d1a",
+          "2b77ad10",
+          "74ec6905",
+          "6f503918",
+          "5119fad5",
+          "5b331a69",
+          "2becb8bc",
+          "41e8b7bc",
+          "2c5659b3",
+          "6a2f8f87",
+          "789c1476",
+          "58961096",
+          "15788946",
+          "615042c1",
+          "24d626c8",
+          "3ad672fe",
+          "0c1a4276",
+          "31b13395",
+          "64c50078",
+          "475dfbc2",
+          "3c19f8db",
+          "2da99097",
+          "58287e68",
+          "7082d42a",
+          "1aa67d72",
+          "581c253e",
+          "03c8db7c",
+          "0b2f73b4",
+          "2af4f04c",
+          "38940adf",
+          "33c981ea",
+          "1238ab48",
+          "47ae29bb",
+          "7d0d3b61",
+          "4ced0c19",
+          "6301ad48"
+        ]
+      },
+      {
+        "id": "en-24811a86",
+        "name": "Higiena i codzienność",
+        "wordIds": [
+          "1ee7eb3f",
+          "62890644",
+          "799cf382",
+          "6ef62639",
+          "67df1ebc",
+          "4196a71f",
+          "78983f36",
+          "261194a1",
+          "385a260f"
+        ]
+      },
+      {
+        "id": "en-15482bea",
+        "name": "Natura 2",
+        "wordIds": [
+          "241d1a31",
+          "5d29b37c",
+          "44256bcf",
+          "7faf851e",
+          "367a19c0",
+          "6d484405",
+          "4ab7dfcf",
+          "2788feca",
+          "7bc7fe3d",
+          "17060779"
+        ]
+      },
+      {
+        "id": "en-5f9ee8fe",
+        "name": "Emocje 2",
+        "wordIds": [
+          "5941665e",
+          "02ebb17e",
+          "6a157a4b",
+          "596dbe4c",
+          "28258acc",
+          "760747d3",
+          "5bb8a71b",
+          "0a50ef54",
+          "5ab960dc"
+        ]
+      },
+      {
+        "id": "en-52d264ee",
+        "name": "Technika 2",
+        "wordIds": [
+          "083ad4bc",
+          "73680a22",
+          "539ccc96",
+          "235cb1a4",
+          "477b200f",
+          "7eaec66e",
+          "07040fd3",
+          "2c54837f"
+        ]
+      },
+      {
+        "id": "en-017783f1",
+        "name": "Sport 2",
+        "wordIds": [
+          "5afbdf0a",
+          "17ba8c70",
+          "76dbbe2c",
+          "7d7683d9",
+          "35992a9a",
+          "038ec243"
+        ]
+      },
+      {
+        "id": "en-26bb14e5",
+        "name": "Ciało 2",
+        "wordIds": [
+          "2bb127ce",
+          "335bbaa4",
+          "0ffcaaa5",
+          "47e601ab",
+          "12ea74d2",
+          "5de44e64",
+          "7962255b",
+          "0d38a897",
+          "7f1b53d0"
+        ]
+      },
+      {
+        "id": "en-0e1bc951",
+        "name": "Czas i częstość",
+        "wordIds": [
+          "33fb0ff8",
+          "588d6e75",
+          "754f1857",
+          "4050c180",
+          "7c34e461",
+          "77b58b1d",
+          "428b1e71",
+          "09cc6e56",
+          "1df7730a",
+          "7ce6e8ed",
+          "29d2a458"
+        ]
+      },
+      {
+        "id": "en-606d6530",
+        "name": "Kierunki i pytania",
+        "wordIds": [
+          "642b0312",
+          "2e40df97",
+          "76fac4eb",
+          "4db8aa70",
+          "6b87eb08",
+          "4e691249",
+          "12f86268",
+          "660f199a",
+          "51d87444",
+          "688346e8",
+          "397de454",
+          "5608bf3b"
+        ]
+      },
+      {
+        "id": "en-37d83831",
+        "name": "Szkoła 2",
+        "wordIds": [
+          "4f834193",
+          "284e2842",
+          "17df9c8d",
+          "50fa51b2",
+          "5ce12f27",
+          "00fa5e3c",
+          "496ec055",
+          "70967072"
+        ]
+      },
+      {
+        "id": "en-21f004ff",
+        "name": "Dom 2",
+        "wordIds": [
+          "27255e15",
+          "3f5155dd",
+          "47162f08",
+          "651de5a1",
+          "72d8af47",
+          "2f959640",
+          "24705cd0",
+          "3ddaec8b",
+          "5450b423",
+          "5ca2a2c3"
         ]
       }
     ]
@@ -7460,6 +9795,2006 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "7f68557f",
+        "pl": "Skarpetki",
+        "obcy": "Calcetines",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "653e13d5",
+        "pl": "Szalik",
+        "obcy": "Bufanda",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "79b5f34f",
+        "pl": "Rękawiczki",
+        "obcy": "Guantes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c4dc26f",
+        "pl": "Płaszcz",
+        "obcy": "Abrigo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "436293ec",
+        "pl": "Sweter",
+        "obcy": "Jersey",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1f3f2c59",
+        "pl": "Spódnica",
+        "obcy": "Falda",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5615c8a6",
+        "pl": "Kozaki",
+        "obcy": "Botas",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5a45e64c",
+        "pl": "Parasol",
+        "obcy": "Paraguas",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "768ee98e",
+        "pl": "Piżama",
+        "obcy": "Pijama",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "705ee498",
+        "pl": "Pasek",
+        "obcy": "Cinturón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08096d57",
+        "pl": "Okulary",
+        "obcy": "Gafas",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "23f8f82b",
+        "pl": "Zegarek",
+        "obcy": "Reloj",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "129420b5",
+        "pl": "Torba",
+        "obcy": "Bolso",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2515e1a4",
+        "pl": "Portfel",
+        "obcy": "Cartera",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a5e152a",
+        "pl": "Jedenaście",
+        "obcy": "Once",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "18943664",
+        "pl": "Dwanaście",
+        "obcy": "Doce",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ccfc481",
+        "pl": "Trzynaście",
+        "obcy": "Trece",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "582923e0",
+        "pl": "Czternaście",
+        "obcy": "Catorce",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2d604c9c",
+        "pl": "Piętnaście",
+        "obcy": "Quince",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0564abb6",
+        "pl": "Szesnaście",
+        "obcy": "Dieciséis",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7466ca82",
+        "pl": "Siedemnaście",
+        "obcy": "Diecisiete",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f67a429",
+        "pl": "Osiemnaście",
+        "obcy": "Dieciocho",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "146f6acd",
+        "pl": "Dziewiętnaście",
+        "obcy": "Diecinueve",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3fdce421",
+        "pl": "Dwadzieścia",
+        "obcy": "Veinte",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00e194de",
+        "pl": "Ciocia",
+        "obcy": "Tía",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f851c8c",
+        "pl": "Wujek",
+        "obcy": "Tío",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38189b32",
+        "pl": "Kuzyn",
+        "obcy": "Primo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30a5898e",
+        "pl": "Niemowlę",
+        "obcy": "Bebé",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "42573a07",
+        "pl": "Sąsiad",
+        "obcy": "Vecino",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0cf82758",
+        "pl": "Gość",
+        "obcy": "Invitado",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "344b43f4",
+        "pl": "Dziewczyna (partnerka)",
+        "obcy": "Novia",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2961da30",
+        "pl": "Chłopak (partner)",
+        "obcy": "Novio",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6842416e",
+        "pl": "Sól",
+        "obcy": "Sal",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5a46c3fb",
+        "pl": "Pieprz",
+        "obcy": "Pimienta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a030cc2",
+        "pl": "Ciasto",
+        "obcy": "Pastel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49df38c6",
+        "pl": "Truskawka",
+        "obcy": "Fresa",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "088f7456",
+        "pl": "Winogrono",
+        "obcy": "Uva",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a272e9e",
+        "pl": "Arbuz",
+        "obcy": "Sandía",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "25f486c0",
+        "pl": "Cebula",
+        "obcy": "Cebolla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60a8ea03",
+        "pl": "Czosnek",
+        "obcy": "Ajo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "321e867e",
+        "pl": "Grzyb",
+        "obcy": "Champiñón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "57258ee7",
+        "pl": "Płatki",
+        "obcy": "Cereales",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c2847be",
+        "pl": "Naleśnik",
+        "obcy": "Tortita",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "29d98de5",
+        "pl": "Orzech",
+        "obcy": "Nuez",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c0a8967",
+        "pl": "Cytryna",
+        "obcy": "Limón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70b7c3d9",
+        "pl": "Gruszka",
+        "obcy": "Pera",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37e006e3",
+        "pl": "Brzoskwinia",
+        "obcy": "Melocotón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f98352e",
+        "pl": "Ogórek",
+        "obcy": "Pepino",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6bf98225",
+        "pl": "Kaczka",
+        "obcy": "Pato",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b74d898",
+        "pl": "Świnia",
+        "obcy": "Cerdo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68e4bddf",
+        "pl": "Owca",
+        "obcy": "Oveja",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4a23d942",
+        "pl": "Koza",
+        "obcy": "Cabra",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "03eb1432",
+        "pl": "Lew",
+        "obcy": "León",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63a51113",
+        "pl": "Tygrys",
+        "obcy": "Tigre",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2bb44820",
+        "pl": "Małpa",
+        "obcy": "Mono",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1cc15f78",
+        "pl": "Delfin",
+        "obcy": "Delfín",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "64ba5a06",
+        "pl": "Rekin",
+        "obcy": "Tiburón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7e4281a2",
+        "pl": "Żółw",
+        "obcy": "Tortuga",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68ef97f5",
+        "pl": "Sowa",
+        "obcy": "Búho",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00ea386c",
+        "pl": "Papuga",
+        "obcy": "Loro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "56b0db83",
+        "pl": "Krab",
+        "obcy": "Cangrejo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1dba3b72",
+        "pl": "Jelonek",
+        "obcy": "Ciervo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4a3316fb",
+        "pl": "Bank",
+        "obcy": "Banco",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08e517cf",
+        "pl": "Poczta",
+        "obcy": "Correo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7759dc8f",
+        "pl": "Restauracja",
+        "obcy": "Restaurante",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3e41596c",
+        "pl": "Hotel",
+        "obcy": "Hotel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6e28ace4",
+        "pl": "Kościół",
+        "obcy": "Iglesia",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "797890b8",
+        "pl": "Zoo",
+        "obcy": "Zoo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "500061bc",
+        "pl": "Plac zabaw",
+        "obcy": "Parque infantil",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "175557c0",
+        "pl": "Farma",
+        "obcy": "Granja",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "270994cf",
+        "pl": "Teatr",
+        "obcy": "Teatro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "44dbe657",
+        "pl": "Stadion",
+        "obcy": "Estadio",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65b6369b",
+        "pl": "Dzwonić",
+        "obcy": "Llamar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0bb38209",
+        "pl": "Wysyłać",
+        "obcy": "Enviar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01186743",
+        "pl": "Przynosić",
+        "obcy": "Traer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e9b1556",
+        "pl": "Kłaść",
+        "obcy": "Poner",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d61ee97",
+        "pl": "Dostawać",
+        "obcy": "Conseguir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6491e834",
+        "pl": "Czuć",
+        "obcy": "Sentir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "772f83de",
+        "pl": "Dotykać",
+        "obcy": "Tocar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "222f0d0d",
+        "pl": "Wąchać",
+        "obcy": "Oler",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08934ad0",
+        "pl": "Smakować",
+        "obcy": "Probar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c099e12",
+        "pl": "Wybierać",
+        "obcy": "Elegir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "53156baa",
+        "pl": "Próbować",
+        "obcy": "Intentar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dd0b642",
+        "pl": "Potrzebować",
+        "obcy": "Necesitar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dbb82d1",
+        "pl": "Mieszkać",
+        "obcy": "Vivir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "17af20fc",
+        "pl": "Rosnąć",
+        "obcy": "Crecer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c2bd372",
+        "pl": "Budować",
+        "obcy": "Construir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "450472b4",
+        "pl": "Psuć",
+        "obcy": "Romper",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3cc233d2",
+        "pl": "Naprawiać",
+        "obcy": "Arreglar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2258bbad",
+        "pl": "Pchać",
+        "obcy": "Empujar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4bed723a",
+        "pl": "Ciągnąć",
+        "obcy": "Tirar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4d83ed54",
+        "pl": "Kręcić",
+        "obcy": "Girar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "598122c3",
+        "pl": "Zatrzymywać",
+        "obcy": "Parar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "01871990",
+        "pl": "Wierzyć",
+        "obcy": "Creer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3f726896",
+        "pl": "Zapraszać",
+        "obcy": "Invitar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5eb1337a",
+        "pl": "Odwiedzać",
+        "obcy": "Visitar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "561d78e7",
+        "pl": "Wychodzić",
+        "obcy": "Salir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7977a3f1",
+        "pl": "Przyjeżdżać",
+        "obcy": "Llegar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0484ea49",
+        "pl": "Wracać",
+        "obcy": "Volver",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "55637e70",
+        "pl": "Zostawać",
+        "obcy": "Quedarse",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7b3945d9",
+        "pl": "Odpoczywać",
+        "obcy": "Descansar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68f465aa",
+        "pl": "Ćwiczyć",
+        "obcy": "Hacer ejercicio",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4f25c08f",
+        "pl": "Wspinać się",
+        "obcy": "Subir",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0193a143",
+        "pl": "Upadać",
+        "obcy": "Caer",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a028a3a",
+        "pl": "Łapać",
+        "obcy": "Atrapar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "25d5360f",
+        "pl": "Przytulać",
+        "obcy": "Abrazar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "54521b97",
+        "pl": "Całować",
+        "obcy": "Besar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6a75c042",
+        "pl": "Świętować",
+        "obcy": "Celebrar",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0af0aa0e",
+        "pl": "Szczoteczka",
+        "obcy": "Cepillo de dientes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1375edbf",
+        "pl": "Pasta do zębów",
+        "obcy": "Pasta de dientes",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "397c600f",
+        "pl": "Mydło",
+        "obcy": "Jabón",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6fc4bb65",
+        "pl": "Ręcznik",
+        "obcy": "Toalla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "173149d9",
+        "pl": "Prysznic",
+        "obcy": "Ducha",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02e9831c",
+        "pl": "Zegar",
+        "obcy": "Reloj de pared",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "338556dc",
+        "pl": "Kalendarz",
+        "obcy": "Calendario",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1cd3982b",
+        "pl": "Grzebień",
+        "obcy": "Peine",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0bad1cfb",
+        "pl": "Szampon",
+        "obcy": "Champú",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "241b6f51",
+        "pl": "Liść",
+        "obcy": "Hoja",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38a8261d",
+        "pl": "Niebo",
+        "obcy": "Cielo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1de81059",
+        "pl": "Wyspa",
+        "obcy": "Isla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "521531c8",
+        "pl": "Pustynia",
+        "obcy": "Desierto",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e25080f",
+        "pl": "Wulkan",
+        "obcy": "Volcán",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2cd0ab98",
+        "pl": "Fala",
+        "obcy": "Ola",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b4e0d1c",
+        "pl": "Piasek",
+        "obcy": "Arena",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68a09d1e",
+        "pl": "Błoto",
+        "obcy": "Barro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d40a36e",
+        "pl": "Jaskinia",
+        "obcy": "Cueva",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7bf242d7",
+        "pl": "Wodospad",
+        "obcy": "Cascada",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "112b2d63",
+        "pl": "Radość",
+        "obcy": "Alegría",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "03242e22",
+        "pl": "Złość",
+        "obcy": "Enojo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5899cf76",
+        "pl": "Spokój",
+        "obcy": "Calma",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "19f9a0ae",
+        "pl": "Podekscytowany",
+        "obcy": "Emocionado",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "09277f3e",
+        "pl": "Zmartwiony",
+        "obcy": "Preocupado",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "22427431",
+        "pl": "Nieśmiały",
+        "obcy": "Tímido",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30d703cd",
+        "pl": "Zazdrosny",
+        "obcy": "Celoso",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4edfd5ec",
+        "pl": "Samotny",
+        "obcy": "Solo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7f1fc325",
+        "pl": "Tablet",
+        "obcy": "Tableta",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "722ea631",
+        "pl": "Słuchawki",
+        "obcy": "Auriculares",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4a15c981",
+        "pl": "Ładowarka",
+        "obcy": "Cargador",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6c8e8e75",
+        "pl": "Klawiatura",
+        "obcy": "Teclado",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2dc18dba",
+        "pl": "Ekran",
+        "obcy": "Pantalla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "05ba77ea",
+        "pl": "Aparat",
+        "obcy": "Cámara",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "06bd9aab",
+        "pl": "Wiadomość",
+        "obcy": "Mensaje",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37a3692a",
+        "pl": "E-mail",
+        "obcy": "Correo electrónico",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65da41a5",
+        "pl": "Koszykówka",
+        "obcy": "Baloncesto",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "46f57fd2",
+        "pl": "Tenis",
+        "obcy": "Tenis",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "20c6c3e8",
+        "pl": "Siatkówka",
+        "obcy": "Voleibol",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "244e4c74",
+        "pl": "Deskorolka",
+        "obcy": "Monopatín",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c899710",
+        "pl": "Narty",
+        "obcy": "Esquís",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7bc741a7",
+        "pl": "Łyżwy",
+        "obcy": "Patines de hielo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "041465f8",
+        "pl": "Ramię",
+        "obcy": "Brazo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5dbac78d",
+        "pl": "Plecy",
+        "obcy": "Espalda",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "600beb7d",
+        "pl": "Kolano",
+        "obcy": "Rodilla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6149a0af",
+        "pl": "Stopa",
+        "obcy": "Pie",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "703dab8f",
+        "pl": "Szyja",
+        "obcy": "Cuello",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "584369dd",
+        "pl": "Bark",
+        "obcy": "Hombro",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5f99cc75",
+        "pl": "Brzuch",
+        "obcy": "Estómago",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "364339fd",
+        "pl": "Krew",
+        "obcy": "Sangre",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "64a64dc8",
+        "pl": "Kość",
+        "obcy": "Hueso",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6d504ef2",
+        "pl": "Wieczór",
+        "obcy": "Noche (atardecer)",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1235ed81",
+        "pl": "Popołudnie",
+        "obcy": "Tarde",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4050c18a",
+        "pl": "Minuta",
+        "obcy": "Minuto",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0aa2c06c",
+        "pl": "Sekunda",
+        "obcy": "Segundo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "31152517",
+        "pl": "Zawsze",
+        "obcy": "Siempre",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4292460a",
+        "pl": "Nigdy",
+        "obcy": "Nunca",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "13a71959",
+        "pl": "Często",
+        "obcy": "A menudo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f94dcfb",
+        "pl": "Czasami",
+        "obcy": "A veces",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c010d53",
+        "pl": "Już",
+        "obcy": "Ya",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2bcdbb82",
+        "pl": "Jeszcze",
+        "obcy": "Todavía",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "523223b3",
+        "pl": "Lewo",
+        "obcy": "Izquierda",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "36b62863",
+        "pl": "Prawo",
+        "obcy": "Derecha",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "682d567c",
+        "pl": "Dół",
+        "obcy": "Abajo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4db5a9c8",
+        "pl": "Tutaj",
+        "obcy": "Aquí",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e462248",
+        "pl": "Tam",
+        "obcy": "Allí",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0ce8b1f9",
+        "pl": "Dlaczego",
+        "obcy": "Por qué",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4c13937a",
+        "pl": "Jak",
+        "obcy": "Cómo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d7dcaca",
+        "pl": "Kiedy",
+        "obcy": "Cuándo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "510c055d",
+        "pl": "Gdzie",
+        "obcy": "Dónde",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "547e8ed4",
+        "pl": "Kto",
+        "obcy": "Quién",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2f460bb5",
+        "pl": "Co",
+        "obcy": "Qué",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4255435a",
+        "pl": "Gumka",
+        "obcy": "Borrador",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2846d055",
+        "pl": "Linijka",
+        "obcy": "Regla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "218d40c5",
+        "pl": "Biurko",
+        "obcy": "Escritorio",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68e593b9",
+        "pl": "Przerwa",
+        "obcy": "Recreo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ce12f21",
+        "pl": "Papier",
+        "obcy": "Papel",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e7c23b2",
+        "pl": "Marker",
+        "obcy": "Rotulador",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3076eae7",
+        "pl": "Kredki",
+        "obcy": "Lápices de colores",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b06f1b4",
+        "pl": "Nożyczki szkolne",
+        "obcy": "Tijeras escolares",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3d85e452",
+        "pl": "Garnek",
+        "obcy": "Olla",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5f392c75",
+        "pl": "Patelnia",
+        "obcy": "Sartén",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47162f12",
+        "pl": "Talerz",
+        "obcy": "Plato",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ea1b4b2",
+        "pl": "Kubek",
+        "obcy": "Taza",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21226bba",
+        "pl": "Widelec",
+        "obcy": "Tenedor",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "19bc8942",
+        "pl": "Nóż",
+        "obcy": "Cuchillo",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "03448498",
+        "pl": "Łyżka",
+        "obcy": "Cuchara",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3391db58",
+        "pl": "Szklanka",
+        "obcy": "Vaso",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "31f0d59d",
+        "pl": "Półka",
+        "obcy": "Estante",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6262118c",
+        "pl": "Szafa",
+        "obcy": "Armario",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77015507",
+        "pl": "W górę",
+        "obcy": "Arriba",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "22b86aa3",
+        "pl": "Nadzieja",
+        "obcy": "Esperanza",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60c39e47",
+        "pl": "Mieć nadzieję",
+        "obcy": "Tener esperanza",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -8007,6 +12342,308 @@
           "1c4aa476",
           "0866dcf6",
           "79fdb9e8"
+        ]
+      },
+      {
+        "id": "es-589ba880",
+        "name": "Ubrania i akcesoria",
+        "wordIds": [
+          "7f68557f",
+          "653e13d5",
+          "79b5f34f",
+          "2c4dc26f",
+          "436293ec",
+          "1f3f2c59",
+          "5615c8a6",
+          "5a45e64c",
+          "768ee98e",
+          "705ee498",
+          "08096d57",
+          "23f8f82b",
+          "129420b5",
+          "2515e1a4"
+        ]
+      },
+      {
+        "id": "es-58577691",
+        "name": "Liczby 11–20",
+        "wordIds": [
+          "1a5e152a",
+          "18943664",
+          "1ccfc481",
+          "582923e0",
+          "2d604c9c",
+          "0564abb6",
+          "7466ca82",
+          "6f67a429",
+          "146f6acd",
+          "3fdce421"
+        ]
+      },
+      {
+        "id": "es-469855cb",
+        "name": "Rodzina i znajomi",
+        "wordIds": [
+          "00e194de",
+          "7f851c8c",
+          "38189b32",
+          "30a5898e",
+          "42573a07",
+          "0cf82758",
+          "344b43f4",
+          "2961da30"
+        ]
+      },
+      {
+        "id": "es-68498f5c",
+        "name": "Więcej jedzenia",
+        "wordIds": [
+          "6842416e",
+          "5a46c3fb",
+          "2a030cc2",
+          "49df38c6",
+          "088f7456",
+          "6a272e9e",
+          "25f486c0",
+          "60a8ea03",
+          "321e867e",
+          "57258ee7",
+          "7c2847be",
+          "29d98de5",
+          "3c0a8967",
+          "70b7c3d9",
+          "37e006e3",
+          "6f98352e"
+        ]
+      },
+      {
+        "id": "es-6e304f42",
+        "name": "Zwierzęta 2",
+        "wordIds": [
+          "6bf98225",
+          "0b74d898",
+          "68e4bddf",
+          "4a23d942",
+          "03eb1432",
+          "63a51113",
+          "2bb44820",
+          "1cc15f78",
+          "64ba5a06",
+          "7e4281a2",
+          "68ef97f5",
+          "00ea386c",
+          "56b0db83",
+          "1dba3b72"
+        ]
+      },
+      {
+        "id": "es-378faa9b",
+        "name": "Miejsca",
+        "wordIds": [
+          "4a3316fb",
+          "08e517cf",
+          "7759dc8f",
+          "3e41596c",
+          "6e28ace4",
+          "797890b8",
+          "500061bc",
+          "175557c0",
+          "270994cf",
+          "44dbe657"
+        ]
+      },
+      {
+        "id": "es-4bf33146",
+        "name": "Nowe czasowniki",
+        "wordIds": [
+          "65b6369b",
+          "0bb38209",
+          "01186743",
+          "2e9b1556",
+          "5d61ee97",
+          "6491e834",
+          "772f83de",
+          "222f0d0d",
+          "08934ad0",
+          "3c099e12",
+          "53156baa",
+          "5dd0b642",
+          "5dbb82d1",
+          "17af20fc",
+          "7c2bd372",
+          "450472b4",
+          "3cc233d2",
+          "2258bbad",
+          "4bed723a",
+          "4d83ed54",
+          "598122c3",
+          "01871990",
+          "3f726896",
+          "5eb1337a",
+          "561d78e7",
+          "7977a3f1",
+          "0484ea49",
+          "55637e70",
+          "7b3945d9",
+          "68f465aa",
+          "4f25c08f",
+          "0193a143",
+          "1a028a3a",
+          "25d5360f",
+          "54521b97",
+          "6a75c042",
+          "60c39e47"
+        ]
+      },
+      {
+        "id": "es-24811a86",
+        "name": "Higiena i codzienność",
+        "wordIds": [
+          "0af0aa0e",
+          "1375edbf",
+          "397c600f",
+          "6fc4bb65",
+          "173149d9",
+          "02e9831c",
+          "338556dc",
+          "1cd3982b",
+          "0bad1cfb"
+        ]
+      },
+      {
+        "id": "es-15482bea",
+        "name": "Natura 2",
+        "wordIds": [
+          "241b6f51",
+          "38a8261d",
+          "1de81059",
+          "521531c8",
+          "0e25080f",
+          "2cd0ab98",
+          "0b4e0d1c",
+          "68a09d1e",
+          "7d40a36e",
+          "7bf242d7"
+        ]
+      },
+      {
+        "id": "es-5f9ee8fe",
+        "name": "Emocje 2",
+        "wordIds": [
+          "112b2d63",
+          "03242e22",
+          "5899cf76",
+          "19f9a0ae",
+          "09277f3e",
+          "22427431",
+          "30d703cd",
+          "4edfd5ec",
+          "22b86aa3"
+        ]
+      },
+      {
+        "id": "es-52d264ee",
+        "name": "Technika 2",
+        "wordIds": [
+          "7f1fc325",
+          "722ea631",
+          "4a15c981",
+          "6c8e8e75",
+          "2dc18dba",
+          "05ba77ea",
+          "06bd9aab",
+          "37a3692a"
+        ]
+      },
+      {
+        "id": "es-017783f1",
+        "name": "Sport 2",
+        "wordIds": [
+          "65da41a5",
+          "46f57fd2",
+          "20c6c3e8",
+          "244e4c74",
+          "1c899710",
+          "7bc741a7"
+        ]
+      },
+      {
+        "id": "es-26bb14e5",
+        "name": "Ciało 2",
+        "wordIds": [
+          "041465f8",
+          "5dbac78d",
+          "600beb7d",
+          "6149a0af",
+          "703dab8f",
+          "584369dd",
+          "5f99cc75",
+          "364339fd",
+          "64a64dc8"
+        ]
+      },
+      {
+        "id": "es-0e1bc951",
+        "name": "Czas i częstość",
+        "wordIds": [
+          "6d504ef2",
+          "1235ed81",
+          "4050c18a",
+          "0aa2c06c",
+          "31152517",
+          "4292460a",
+          "13a71959",
+          "0f94dcfb",
+          "3c010d53",
+          "2bcdbb82"
+        ]
+      },
+      {
+        "id": "es-606d6530",
+        "name": "Kierunki i pytania",
+        "wordIds": [
+          "523223b3",
+          "36b62863",
+          "682d567c",
+          "4db5a9c8",
+          "5e462248",
+          "0ce8b1f9",
+          "4c13937a",
+          "7d7dcaca",
+          "510c055d",
+          "547e8ed4",
+          "2f460bb5",
+          "77015507"
+        ]
+      },
+      {
+        "id": "es-37d83831",
+        "name": "Szkoła 2",
+        "wordIds": [
+          "4255435a",
+          "2846d055",
+          "218d40c5",
+          "68e593b9",
+          "5ce12f21",
+          "5e7c23b2",
+          "3076eae7",
+          "0b06f1b4"
+        ]
+      },
+      {
+        "id": "es-21f004ff",
+        "name": "Dom 2",
+        "wordIds": [
+          "3d85e452",
+          "5f392c75",
+          "47162f12",
+          "3ea1b4b2",
+          "21226bba",
+          "19bc8942",
+          "03448498",
+          "3391db58",
+          "31f0d59d",
+          "6262118c"
         ]
       }
     ]
@@ -11482,6 +16119,2036 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "74ec01d6",
+        "pl": "Skarpetki",
+        "obcy": "Носки",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4083e474",
+        "pl": "Szalik",
+        "obcy": "Шарф",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38f7af05",
+        "pl": "Rękawiczki",
+        "obcy": "Перчатки",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d10742d",
+        "pl": "Płaszcz",
+        "obcy": "Пальто",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08239842",
+        "pl": "Sweter",
+        "obcy": "Свитер",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3884d1ae",
+        "pl": "Spódnica",
+        "obcy": "Юбка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3e647446",
+        "pl": "Kozaki",
+        "obcy": "Сапоги",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a171398",
+        "pl": "Parasol",
+        "obcy": "Зонт",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2dc81211",
+        "pl": "Piżama",
+        "obcy": "Пижама",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0cdec011",
+        "pl": "Pasek",
+        "obcy": "Ремень",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "06315c4e",
+        "pl": "Okulary",
+        "obcy": "Очки",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "40e533dc",
+        "pl": "Zegarek",
+        "obcy": "Часы",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4aed616a",
+        "pl": "Torba",
+        "obcy": "Сумка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "149e2a23",
+        "pl": "Portfel",
+        "obcy": "Кошелёк",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0db9bc91",
+        "pl": "Jedenaście",
+        "obcy": "Одиннадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3b285295",
+        "pl": "Dwanaście",
+        "obcy": "Двенадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21636ac3",
+        "pl": "Trzynaście",
+        "obcy": "Тринадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5325b0e7",
+        "pl": "Czternaście",
+        "obcy": "Четырнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "123a4614",
+        "pl": "Piętnaście",
+        "obcy": "Пятнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7af2d2b7",
+        "pl": "Szesnaście",
+        "obcy": "Шестнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "712e9175",
+        "pl": "Siedemnaście",
+        "obcy": "Семнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "16bd0731",
+        "pl": "Osiemnaście",
+        "obcy": "Восемнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "16bec4d7",
+        "pl": "Dziewiętnaście",
+        "obcy": "Девятнадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "30ffca12",
+        "pl": "Dwadzieścia",
+        "obcy": "Двадцать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d18ff46",
+        "pl": "Ciocia",
+        "obcy": "Тётя",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72e00540",
+        "pl": "Wujek",
+        "obcy": "Дядя",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b346d07",
+        "pl": "Kuzyn",
+        "obcy": "Двоюродный брат",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c1a7220",
+        "pl": "Niemowlę",
+        "obcy": "Малыш",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "66d11912",
+        "pl": "Sąsiad",
+        "obcy": "Сосед",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4abb21f8",
+        "pl": "Gość",
+        "obcy": "Гость",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12263f33",
+        "pl": "Dziewczyna (partnerka)",
+        "obcy": "Девушка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3cb608e0",
+        "pl": "Chłopak (partner)",
+        "obcy": "Парень",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21cfa8be",
+        "pl": "Sól",
+        "obcy": "Соль",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "37d6dd0b",
+        "pl": "Pieprz",
+        "obcy": "Перец",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d35d807",
+        "pl": "Ciasto",
+        "obcy": "Торт",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "44f0ffe1",
+        "pl": "Truskawka",
+        "obcy": "Клубника",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f5e1962",
+        "pl": "Winogrono",
+        "obcy": "Виноград",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "35ca896f",
+        "pl": "Arbuz",
+        "obcy": "Арбуз",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "26bddf40",
+        "pl": "Cebula",
+        "obcy": "Лук",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "46fcd8e9",
+        "pl": "Czosnek",
+        "obcy": "Чеснок",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "022ecb6a",
+        "pl": "Grzyb",
+        "obcy": "Гриб",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ceaca13",
+        "pl": "Płatki",
+        "obcy": "Хлопья",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2565a28a",
+        "pl": "Naleśnik",
+        "obcy": "Блин",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2ba3ef1b",
+        "pl": "Orzech",
+        "obcy": "Орех",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "737ff97a",
+        "pl": "Cytryna",
+        "obcy": "Лимон",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5d129c89",
+        "pl": "Gruszka",
+        "obcy": "Груша",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2d8d4bbe",
+        "pl": "Brzoskwinia",
+        "obcy": "Персик",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2511b942",
+        "pl": "Ogórek",
+        "obcy": "Огурец",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6dc591ce",
+        "pl": "Kaczka",
+        "obcy": "Утка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "33d952bc",
+        "pl": "Świnia",
+        "obcy": "Свинья",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "36b85154",
+        "pl": "Owca",
+        "obcy": "Овца",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "674adaee",
+        "pl": "Koza",
+        "obcy": "Коза",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0450293a",
+        "pl": "Lew",
+        "obcy": "Лев",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2608a895",
+        "pl": "Tygrys",
+        "obcy": "Тигр",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f05fe28",
+        "pl": "Małpa",
+        "obcy": "Обезьяна",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6224877b",
+        "pl": "Delfin",
+        "obcy": "Дельфин",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0e4c378f",
+        "pl": "Rekin",
+        "obcy": "Акула",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5daded2f",
+        "pl": "Żółw",
+        "obcy": "Черепаха",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6abecf31",
+        "pl": "Sowa",
+        "obcy": "Сова",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7c1299ad",
+        "pl": "Papuga",
+        "obcy": "Попугай",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7627777b",
+        "pl": "Krab",
+        "obcy": "Краб",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6680d321",
+        "pl": "Jelonek",
+        "obcy": "Олень",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "18d3e3bc",
+        "pl": "Bank",
+        "obcy": "Банк",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3c9744dd",
+        "pl": "Poczta",
+        "obcy": "Почта",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2e015ebe",
+        "pl": "Restauracja",
+        "obcy": "Ресторан",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "068c5e36",
+        "pl": "Kawiarnia",
+        "obcy": "Кафе",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "761b1bda",
+        "pl": "Hotel",
+        "obcy": "Отель",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "016a641f",
+        "pl": "Kościół",
+        "obcy": "Церковь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6cebe020",
+        "pl": "Zoo",
+        "obcy": "Зоопарк",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "768e9c95",
+        "pl": "Plac zabaw",
+        "obcy": "Детская площадка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41385152",
+        "pl": "Farma",
+        "obcy": "Ферма",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38aa3c6d",
+        "pl": "Teatr",
+        "obcy": "Театр",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2399413a",
+        "pl": "Stadion",
+        "obcy": "Стадион",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ef8206a",
+        "pl": "Dzwonić",
+        "obcy": "Звонить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "655b8ee4",
+        "pl": "Wysyłać",
+        "obcy": "Посылать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65359d2c",
+        "pl": "Przynosić",
+        "obcy": "Приносить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5349e202",
+        "pl": "Kłaść",
+        "obcy": "Класть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21118aae",
+        "pl": "Dostawać",
+        "obcy": "Получать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0ceae1f8",
+        "pl": "Czuć",
+        "obcy": "Чувствовать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68a1f24c",
+        "pl": "Dotykać",
+        "obcy": "Трогать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0938f249",
+        "pl": "Wąchać",
+        "obcy": "Нюхать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08c0a4a8",
+        "pl": "Smakować",
+        "obcy": "Пробовать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c6cea1a",
+        "pl": "Wybierać",
+        "obcy": "Выбирать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5f9a2def",
+        "pl": "Próbować",
+        "obcy": "Пытаться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49f52930",
+        "pl": "Potrzebować",
+        "obcy": "Нуждаться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "196e5fa7",
+        "pl": "Mieszkać",
+        "obcy": "Жить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4138e7c5",
+        "pl": "Rosnąć",
+        "obcy": "Расти",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "145a1de6",
+        "pl": "Budować",
+        "obcy": "Строить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7201ae08",
+        "pl": "Psuć",
+        "obcy": "Ломать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "62b3034e",
+        "pl": "Naprawiać",
+        "obcy": "Чинить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3a32d35e",
+        "pl": "Pchać",
+        "obcy": "Толкать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "68891511",
+        "pl": "Ciągnąć",
+        "obcy": "Тянуть",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "614ee201",
+        "pl": "Kręcić",
+        "obcy": "Поворачивать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63c020c4",
+        "pl": "Zatrzymywać",
+        "obcy": "Останавливать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65f30818",
+        "pl": "Wierzyć",
+        "obcy": "Верить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "387c988d",
+        "pl": "Mieć nadzieję",
+        "obcy": "Надеяться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5820527a",
+        "pl": "Zapraszać",
+        "obcy": "Приглашать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4874fca9",
+        "pl": "Odwiedzać",
+        "obcy": "Навещать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6b188fb9",
+        "pl": "Spotykać",
+        "obcy": "Встречать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4d9d6f4a",
+        "pl": "Wychodzić",
+        "obcy": "Уходить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77bcb67f",
+        "pl": "Przyjeżdżać",
+        "obcy": "Приезжать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2d8dd42f",
+        "pl": "Wracać",
+        "obcy": "Возвращаться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e3e7111",
+        "pl": "Zostawać",
+        "obcy": "Оставаться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "48df025d",
+        "pl": "Odpoczywać",
+        "obcy": "Отдыхать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7debee96",
+        "pl": "Ćwiczyć",
+        "obcy": "Упражняться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7454eddf",
+        "pl": "Wspinać się",
+        "obcy": "Карабкаться",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3899b0cf",
+        "pl": "Upadać",
+        "obcy": "Падать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "73d3c918",
+        "pl": "Łapać",
+        "obcy": "Ловить",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f6988d8",
+        "pl": "Przytulać",
+        "obcy": "Обнимать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "00d5afc4",
+        "pl": "Całować",
+        "obcy": "Целовать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4b3e230f",
+        "pl": "Świętować",
+        "obcy": "Праздновать",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47789c34",
+        "pl": "Szczoteczka",
+        "obcy": "Зубная щётка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5f2a06ce",
+        "pl": "Pasta do zębów",
+        "obcy": "Зубная паста",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7b646729",
+        "pl": "Mydło",
+        "obcy": "Мыло",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c961a8d",
+        "pl": "Ręcznik",
+        "obcy": "Полотенце",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3229be87",
+        "pl": "Prysznic",
+        "obcy": "Душ",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6b44070d",
+        "pl": "Zegar",
+        "obcy": "Часы настенные",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "419b493d",
+        "pl": "Kalendarz",
+        "obcy": "Календарь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0a68bbfc",
+        "pl": "Grzebień",
+        "obcy": "Расчёска",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a8e5587",
+        "pl": "Szampon",
+        "obcy": "Шампунь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "25e72711",
+        "pl": "Liść",
+        "obcy": "Лист",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "49d45cca",
+        "pl": "Niebo",
+        "obcy": "Небо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0592586f",
+        "pl": "Wyspa",
+        "obcy": "Остров",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ab3342f",
+        "pl": "Pustynia",
+        "obcy": "Пустыня",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2539fdef",
+        "pl": "Wulkan",
+        "obcy": "Вулкан",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "72221fb6",
+        "pl": "Fala",
+        "obcy": "Волна",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4391aa3c",
+        "pl": "Piasek",
+        "obcy": "Песок",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2039c585",
+        "pl": "Błoto",
+        "obcy": "Грязь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77734182",
+        "pl": "Jaskinia",
+        "obcy": "Пещера",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "432cb114",
+        "pl": "Wodospad",
+        "obcy": "Водопад",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7ce3591b",
+        "pl": "Radość",
+        "obcy": "Радость",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1d9e959a",
+        "pl": "Złość",
+        "obcy": "Злость",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5ea3990d",
+        "pl": "Spokój",
+        "obcy": "Спокойствие",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6f6733c9",
+        "pl": "Podekscytowany",
+        "obcy": "Взволнованный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "27d0bf7d",
+        "pl": "Zmartwiony",
+        "obcy": "Обеспокоенный",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "06f48efc",
+        "pl": "Nieśmiały",
+        "obcy": "Застенчивый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d9dad14",
+        "pl": "Zazdrosny",
+        "obcy": "Ревнивый",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b1f8605",
+        "pl": "Samotny",
+        "obcy": "Одинокий",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6e5571d6",
+        "pl": "Tablet",
+        "obcy": "Планшет",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5c621e0e",
+        "pl": "Słuchawki",
+        "obcy": "Наушники",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0128091a",
+        "pl": "Ładowarka",
+        "obcy": "Зарядка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "216c4429",
+        "pl": "Klawiatura",
+        "obcy": "Клавиатура",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "08d6099d",
+        "pl": "Ekran",
+        "obcy": "Экран",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "439014a8",
+        "pl": "Aparat",
+        "obcy": "Камера",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5e78e5aa",
+        "pl": "Wiadomość",
+        "obcy": "Сообщение",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "59fa2225",
+        "pl": "E-mail",
+        "obcy": "Электронная почта",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0f591b84",
+        "pl": "Koszykówka",
+        "obcy": "Баскетбол",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4d4e50f1",
+        "pl": "Tenis",
+        "obcy": "Теннис",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3dcf12bb",
+        "pl": "Siatkówka",
+        "obcy": "Волейбол",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3de32439",
+        "pl": "Deskorolka",
+        "obcy": "Скейтборд",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3760374a",
+        "pl": "Narty",
+        "obcy": "Лыжи",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "43720f86",
+        "pl": "Łyżwy",
+        "obcy": "Коньки",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4db3a134",
+        "pl": "Ramię",
+        "obcy": "Рука (от плеча)",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "70797ad0",
+        "pl": "Plecy",
+        "obcy": "Спина",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ac872a1",
+        "pl": "Kolano",
+        "obcy": "Колено",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6cfa9f31",
+        "pl": "Stopa",
+        "obcy": "Стопа",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5760d22f",
+        "pl": "Szyja",
+        "obcy": "Шея",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "21f7782c",
+        "pl": "Bark",
+        "obcy": "Плечо",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "28a717a8",
+        "pl": "Brzuch",
+        "obcy": "Живот",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "452f40af",
+        "pl": "Krew",
+        "obcy": "Кровь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c438afb",
+        "pl": "Kość",
+        "obcy": "Кость",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "63f6a8e9",
+        "pl": "Rano",
+        "obcy": "Утро",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1ff8b13c",
+        "pl": "Wieczór",
+        "obcy": "Вечер",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4b72afcc",
+        "pl": "Popołudnie",
+        "obcy": "День (после обеда)",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "778b433c",
+        "pl": "Minuta",
+        "obcy": "Минута",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "07bf79af",
+        "pl": "Sekunda",
+        "obcy": "Секунда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "32a69d77",
+        "pl": "Zawsze",
+        "obcy": "Всегда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "02903c15",
+        "pl": "Nigdy",
+        "obcy": "Никогда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "41be7644",
+        "pl": "Często",
+        "obcy": "Часто",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2cc2b43e",
+        "pl": "Czasami",
+        "obcy": "Иногда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "442f5157",
+        "pl": "Już",
+        "obcy": "Уже",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6ec902cd",
+        "pl": "Jeszcze",
+        "obcy": "Ещё",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65f50231",
+        "pl": "Lewo",
+        "obcy": "Лево",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "659dbc76",
+        "pl": "Prawo",
+        "obcy": "Право",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "78c446d3",
+        "pl": "Dół",
+        "obcy": "Вниз",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "20d1f8a3",
+        "pl": "Tutaj",
+        "obcy": "Здесь",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2421cf72",
+        "pl": "Tam",
+        "obcy": "Там",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "60f33313",
+        "pl": "Dlaczego",
+        "obcy": "Почему",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "130731dc",
+        "pl": "Jak",
+        "obcy": "Как",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "12a3a9cb",
+        "pl": "Kiedy",
+        "obcy": "Когда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a3b3491",
+        "pl": "Gdzie",
+        "obcy": "Где",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6891e120",
+        "pl": "Kto",
+        "obcy": "Кто",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2f54eb33",
+        "pl": "Co",
+        "obcy": "Что",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "11c7debf",
+        "pl": "Gumka",
+        "obcy": "Ластик",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2bb859a6",
+        "pl": "Linijka",
+        "obcy": "Линейка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1c30b789",
+        "pl": "Biurko",
+        "obcy": "Парта",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "14e1d004",
+        "pl": "Przerwa",
+        "obcy": "Перемена",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5fa5b3c8",
+        "pl": "Papier",
+        "obcy": "Бумага",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38346f9b",
+        "pl": "Marker",
+        "obcy": "Маркер",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3ba26019",
+        "pl": "Kredki",
+        "obcy": "Цветные карандаши",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "607b2990",
+        "pl": "Nożyczki szkolne",
+        "obcy": "Школьные ножницы",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d2e4699",
+        "pl": "Garnek",
+        "obcy": "Кастрюля",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "79cd740b",
+        "pl": "Patelnia",
+        "obcy": "Сковорода",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "172564a0",
+        "pl": "Talerz",
+        "obcy": "Тарелка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "45c519ed",
+        "pl": "Kubek",
+        "obcy": "Кружка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1f85a2c6",
+        "pl": "Widelec",
+        "obcy": "Вилка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6ecac710",
+        "pl": "Nóż",
+        "obcy": "Нож",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b82a568",
+        "pl": "Łyżka",
+        "obcy": "Ложка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "47e4fe09",
+        "pl": "Szklanka",
+        "obcy": "Стакан",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0b9f366b",
+        "pl": "Półka",
+        "obcy": "Полка",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0404650d",
+        "pl": "Szafa",
+        "obcy": "Шкаф",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1a59301a",
+        "pl": "W górę",
+        "obcy": "Вверх",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7fad5fbe",
+        "pl": "Nadzieja",
+        "obcy": "Надежда",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ],
     "groups": [
@@ -12030,6 +18697,311 @@
           "539569ae",
           "40d2a99d",
           "26d165d1"
+        ]
+      },
+      {
+        "id": "ru-589ba880",
+        "name": "Ubrania i akcesoria",
+        "wordIds": [
+          "74ec01d6",
+          "4083e474",
+          "38f7af05",
+          "7d10742d",
+          "08239842",
+          "3884d1ae",
+          "3e647446",
+          "1a171398",
+          "2dc81211",
+          "0cdec011",
+          "06315c4e",
+          "40e533dc",
+          "4aed616a",
+          "149e2a23"
+        ]
+      },
+      {
+        "id": "ru-58577691",
+        "name": "Liczby 11–20",
+        "wordIds": [
+          "0db9bc91",
+          "3b285295",
+          "21636ac3",
+          "5325b0e7",
+          "123a4614",
+          "7af2d2b7",
+          "712e9175",
+          "16bd0731",
+          "16bec4d7",
+          "30ffca12"
+        ]
+      },
+      {
+        "id": "ru-469855cb",
+        "name": "Rodzina i znajomi",
+        "wordIds": [
+          "1d18ff46",
+          "72e00540",
+          "0b346d07",
+          "1c1a7220",
+          "66d11912",
+          "4abb21f8",
+          "12263f33",
+          "3cb608e0"
+        ]
+      },
+      {
+        "id": "ru-68498f5c",
+        "name": "Więcej jedzenia",
+        "wordIds": [
+          "21cfa8be",
+          "37d6dd0b",
+          "5d35d807",
+          "44f0ffe1",
+          "6f5e1962",
+          "35ca896f",
+          "26bddf40",
+          "46fcd8e9",
+          "022ecb6a",
+          "5ceaca13",
+          "2565a28a",
+          "2ba3ef1b",
+          "737ff97a",
+          "5d129c89",
+          "2d8d4bbe",
+          "2511b942"
+        ]
+      },
+      {
+        "id": "ru-6e304f42",
+        "name": "Zwierzęta 2",
+        "wordIds": [
+          "6dc591ce",
+          "33d952bc",
+          "36b85154",
+          "674adaee",
+          "0450293a",
+          "2608a895",
+          "0f05fe28",
+          "6224877b",
+          "0e4c378f",
+          "5daded2f",
+          "6abecf31",
+          "7c1299ad",
+          "7627777b",
+          "6680d321"
+        ]
+      },
+      {
+        "id": "ru-378faa9b",
+        "name": "Miejsca",
+        "wordIds": [
+          "18d3e3bc",
+          "3c9744dd",
+          "2e015ebe",
+          "068c5e36",
+          "761b1bda",
+          "016a641f",
+          "6cebe020",
+          "768e9c95",
+          "41385152",
+          "38aa3c6d",
+          "2399413a"
+        ]
+      },
+      {
+        "id": "ru-4bf33146",
+        "name": "Nowe czasowniki",
+        "wordIds": [
+          "1ef8206a",
+          "655b8ee4",
+          "65359d2c",
+          "5349e202",
+          "21118aae",
+          "0ceae1f8",
+          "68a1f24c",
+          "0938f249",
+          "08c0a4a8",
+          "2c6cea1a",
+          "5f9a2def",
+          "49f52930",
+          "196e5fa7",
+          "4138e7c5",
+          "145a1de6",
+          "7201ae08",
+          "62b3034e",
+          "3a32d35e",
+          "68891511",
+          "614ee201",
+          "63c020c4",
+          "65f30818",
+          "387c988d",
+          "5820527a",
+          "4874fca9",
+          "6b188fb9",
+          "4d9d6f4a",
+          "77bcb67f",
+          "2d8dd42f",
+          "5e3e7111",
+          "48df025d",
+          "7debee96",
+          "7454eddf",
+          "3899b0cf",
+          "73d3c918",
+          "0f6988d8",
+          "00d5afc4",
+          "4b3e230f"
+        ]
+      },
+      {
+        "id": "ru-24811a86",
+        "name": "Higiena i codzienność",
+        "wordIds": [
+          "47789c34",
+          "5f2a06ce",
+          "7b646729",
+          "1c961a8d",
+          "3229be87",
+          "6b44070d",
+          "419b493d",
+          "0a68bbfc",
+          "1a8e5587"
+        ]
+      },
+      {
+        "id": "ru-15482bea",
+        "name": "Natura 2",
+        "wordIds": [
+          "25e72711",
+          "49d45cca",
+          "0592586f",
+          "3ab3342f",
+          "2539fdef",
+          "72221fb6",
+          "4391aa3c",
+          "2039c585",
+          "77734182",
+          "432cb114"
+        ]
+      },
+      {
+        "id": "ru-5f9ee8fe",
+        "name": "Emocje 2",
+        "wordIds": [
+          "7ce3591b",
+          "1d9e959a",
+          "5ea3990d",
+          "6f6733c9",
+          "27d0bf7d",
+          "06f48efc",
+          "7d9dad14",
+          "2b1f8605",
+          "7fad5fbe"
+        ]
+      },
+      {
+        "id": "ru-52d264ee",
+        "name": "Technika 2",
+        "wordIds": [
+          "6e5571d6",
+          "5c621e0e",
+          "0128091a",
+          "216c4429",
+          "08d6099d",
+          "439014a8",
+          "5e78e5aa",
+          "59fa2225"
+        ]
+      },
+      {
+        "id": "ru-017783f1",
+        "name": "Sport 2",
+        "wordIds": [
+          "0f591b84",
+          "4d4e50f1",
+          "3dcf12bb",
+          "3de32439",
+          "3760374a",
+          "43720f86"
+        ]
+      },
+      {
+        "id": "ru-26bb14e5",
+        "name": "Ciało 2",
+        "wordIds": [
+          "4db3a134",
+          "70797ad0",
+          "3ac872a1",
+          "6cfa9f31",
+          "5760d22f",
+          "21f7782c",
+          "28a717a8",
+          "452f40af",
+          "1c438afb"
+        ]
+      },
+      {
+        "id": "ru-0e1bc951",
+        "name": "Czas i częstość",
+        "wordIds": [
+          "63f6a8e9",
+          "1ff8b13c",
+          "4b72afcc",
+          "778b433c",
+          "07bf79af",
+          "32a69d77",
+          "02903c15",
+          "41be7644",
+          "2cc2b43e",
+          "442f5157",
+          "6ec902cd"
+        ]
+      },
+      {
+        "id": "ru-606d6530",
+        "name": "Kierunki i pytania",
+        "wordIds": [
+          "65f50231",
+          "659dbc76",
+          "78c446d3",
+          "20d1f8a3",
+          "2421cf72",
+          "60f33313",
+          "130731dc",
+          "12a3a9cb",
+          "2a3b3491",
+          "6891e120",
+          "2f54eb33",
+          "1a59301a"
+        ]
+      },
+      {
+        "id": "ru-37d83831",
+        "name": "Szkoła 2",
+        "wordIds": [
+          "11c7debf",
+          "2bb859a6",
+          "1c30b789",
+          "14e1d004",
+          "5fa5b3c8",
+          "38346f9b",
+          "3ba26019",
+          "607b2990"
+        ]
+      },
+      {
+        "id": "ru-21f004ff",
+        "name": "Dom 2",
+        "wordIds": [
+          "7d2e4699",
+          "79cd740b",
+          "172564a0",
+          "45c519ed",
+          "1f85a2c6",
+          "6ecac710",
+          "5b82a568",
+          "47e4fe09",
+          "0b9f366b",
+          "0404650d"
         ]
       }
     ]
