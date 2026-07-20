@@ -1751,7 +1751,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(right: 6),
             child: Center(
               child: Text(
-                'v0.0.17',
+                'v0.0.18',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context)
@@ -1800,612 +1800,671 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: Stack(
           children: [
             SuccessBurst(animation: _burstCtrl),
-            Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 720),
-                child: ListView(
-                  padding: const EdgeInsets.all(20),
-                  children: [
-                    // —— NAUKA NA GÓRZE ——
-                    DailyMissionBanner(
-                      wordsToday: _store.stats.wordsToday,
-                      dailyGoal: mascotDailyFeedGoal,
-                      streakDays: _store.stats.streakDays,
-                      palette: widget.palette,
-                      title: _store.stats.mascotSpecies == MascotSpecies.dog
-                          ? 'Czas na naukę z Pieskiem!'
-                          : 'Czas na naukę z Kicią!',
-                      subtitle: _store.stats.mascotSpecies == MascotSpecies.dog
-                          ? 'Każde słówko karmi Twojego Pieska'
-                          : 'Każde słówko karmi Twoją Kicię',
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final wide = constraints.maxWidth >= 980;
+                final maxW = wide ? constraints.maxWidth : 720.0;
+                final hPad = wide ? 32.0 : 20.0;
+                final mission = // —— NAUKA NA GÓRZE ——
+                  DailyMissionBanner(
+                    wordsToday: _store.stats.wordsToday,
+                    dailyGoal: mascotDailyFeedGoal,
+                    streakDays: _store.stats.streakDays,
+                    palette: widget.palette,
+                    title: _store.stats.mascotSpecies == MascotSpecies.dog
+                        ? 'Czas na naukę z Pieskiem!'
+                        : 'Czas na naukę z Kicią!',
+                    subtitle: _store.stats.mascotSpecies == MascotSpecies.dog
+                        ? 'Każde słówko karmi Twojego Pieska'
+                        : 'Każde słówko karmi Twoją Kicię',
+                  );
+                final stats = SoftPanel(
+                    margin: EdgeInsets.zero,
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        _HomeStatChip(
+                          icon: Icons.military_tech_rounded,
+                          label: 'Poziom ${_store.stats.playerLevel}',
+                        ),
+                        _HomeStatChip(
+                          icon: Icons.pets_rounded,
+                          label: '${_store.stats.goldenPaws} łapek',
+                        ),
+                        _HomeStatChip(
+                          icon: Icons.menu_book_rounded,
+                          label: '${_pack?.words.length ?? 0} słówek',
+                        ),
+                        _HomeStatChip(
+                          icon: Icons.bolt_rounded,
+                          label:
+                              'Sesja ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}',
+                        ),
+                      ],
                     ),
-                    SoftPanel(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          _HomeStatChip(
-                            icon: Icons.military_tech_rounded,
-                            label: 'Poziom ${_store.stats.playerLevel}',
-                          ),
-                          _HomeStatChip(
-                            icon: Icons.pets_rounded,
-                            label: '${_store.stats.goldenPaws} łapek',
-                          ),
-                          _HomeStatChip(
-                            icon: Icons.menu_book_rounded,
-                            label: '${_pack?.words.length ?? 0} słówek',
-                          ),
-                          _HomeStatChip(
-                            icon: Icons.bolt_rounded,
-                            label:
-                                'Sesja ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}',
-                          ),
-                        ],
-                      ),
-                    ),
-                    SoftPanel(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SectionHeader(
-                            title: 'Trening',
-                            subtitle: 'Wybierz język, pulę i metodę',
-                            icon: Icons.school_rounded,
-                          ),
-                          DropdownButtonFormField<String>(
-                            initialValue: _lang,
-                            items: _store.baza.keys
-                                .map(
-                                  (k) => DropdownMenuItem(
-                                    value: k,
-                                    child: Text(k),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (v) async {
-                              setState(() {
-                                _lang = v;
-                                _groupId = '__all__';
-                              });
-                              await _loadMethodForLang(v);
-                              _draw();
-                            },
-                            decoration:
-                                const InputDecoration(labelText: 'Język'),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Pula słówek (przesuń → albo utwórz własną)',
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          const SizedBox(height: 6),
-                          SizedBox(
-                            height: 44,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: FilterChip(
-                                    label: const Text('Cała baza'),
-                                    selected: _groupId == '__all__',
-                                    onSelected: (_) {
-                                      setState(() => _groupId = '__all__');
-                                      _draw();
-                                    },
-                                  ),
+                  );
+                final trening = SoftPanel(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SectionHeader(
+                          title: 'Trening',
+                          subtitle: 'Wybierz język, pulę i metodę',
+                          icon: Icons.school_rounded,
+                        ),
+                        DropdownButtonFormField<String>(
+                          initialValue: _lang,
+                          items: _store.baza.keys
+                              .map(
+                                (k) => DropdownMenuItem(
+                                  value: k,
+                                  child: Text(k),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: FilterChip(
-                                    label: const Text('Nieopanowane'),
-                                    selected: _groupId == '__unlearned__',
-                                    onSelected: (_) {
-                                      setState(
-                                        () => _groupId = '__unlearned__',
-                                      );
-                                      _draw();
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: FilterChip(
-                                    label: const Text('Trudne'),
-                                    selected: _groupId == '__hard__',
-                                    onSelected: (_) {
-                                      setState(() => _groupId = '__hard__');
-                                      _draw();
-                                    },
-                                  ),
-                                ),
-                                if (pack != null)
-                                  for (final g in pack.groups)
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 4,
-                                      ),
-                                      child: FilterChip(
-                                        label: Text(g.name),
-                                        selected: _groupId == g.id,
-                                        onSelected: (_) {
-                                          setState(() => _groupId = g.id);
-                                          _draw();
-                                        },
-                                      ),
-                                    ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: ActionChip(
-                                    avatar: const Icon(Icons.add, size: 18),
-                                    label: const Text('Nowa pula'),
-                                    onPressed: () =>
-                                        _openGroups(openCreate: true),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            'Sesja: ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}'
-                            ' · streak ${_store.stats.streakDays} dni',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    SoftPanel(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SectionHeader(
-                            title: 'Szybkie akcje',
-                            subtitle: 'Dodawaj, ćwicz i gaduś z AI',
-                            icon: Icons.bolt_rounded,
-                          ),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
+                              )
+                              .toList(),
+                          onChanged: (v) async {
+                            setState(() {
+                              _lang = v;
+                              _groupId = '__all__';
+                            });
+                            await _loadMethodForLang(v);
+                            _draw();
+                          },
+                          decoration:
+                              const InputDecoration(labelText: 'Język'),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Pula słówek (przesuń → albo utwórz własną)',
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          height: 44,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
                             children: [
-                              FilledButton.tonalIcon(
-                                onPressed: _addWord,
-                                icon: const Icon(Icons.add_rounded),
-                                label: const Text('Słowo'),
-                              ),
-                              FilledButton.tonalIcon(
-                                onPressed: _importWordsSheet,
-                                icon: const Icon(Icons.upload_file_rounded),
-                                label: const Text('Import CSV'),
-                              ),
-                              FilledButton.tonalIcon(
-                                onPressed: _openWords,
-                                icon: const Icon(Icons.edit_note_rounded),
-                                label: const Text('Lista'),
-                              ),
-                              FilledButton.icon(
-                                onPressed: _openDailyChat,
-                                icon: Icon(
-                                  _store.stats.chatDoneToday
-                                      ? Icons.chat_bubble_rounded
-                                      : Icons.chat_bubble_outline_rounded,
-                                ),
-                                label: Text(
-                                  _store.stats.chatDoneToday
-                                      ? 'Rozmowa ✓'
-                                      : 'AI na urządzeniu',
-                                ),
-                              ),
-                              FilterChip(
-                                selected: _method == GameMethod.abc,
-                                avatar: Icon(
-                                  _method == GameMethod.abc
-                                      ? Icons.abc_rounded
-                                      : Icons.keyboard_rounded,
-                                  size: 18,
-                                ),
-                                label: Text(
-                                  _method == GameMethod.abc
-                                      ? 'Metoda: ABC'
-                                      : 'Metoda: Pisanie',
-                                ),
-                                onSelected: (_) async {
-                                  setState(() {
-                                    _method = _method == GameMethod.abc
-                                        ? GameMethod.typing
-                                        : GameMethod.abc;
-                                  });
-                                  await _persistMethod();
-                                  _draw();
-                                },
-                              ),
-                              FilterChip(
-                                selected: !_poolReview,
-                                avatar: Icon(
-                                  _poolReview
-                                      ? Icons.replay_rounded
-                                      : Icons.school_rounded,
-                                  size: 18,
-                                ),
-                                label: Text(
-                                  _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
-                                ),
-                                onSelected: (_) {
-                                  setState(() => _poolReview = !_poolReview);
-                                  _draw();
-                                },
-                              ),
-                              if (_current != null)
-                                FilterChip(
-                                  selected: _current!.hard,
-                                  avatar: Icon(
-                                    _current!.hard
-                                        ? Icons.star_rounded
-                                        : Icons.star_outline_rounded,
-                                    size: 18,
-                                  ),
-                                  label: Text(
-                                    _current!.hard ? 'Trudne ★' : 'Trudne?',
-                                  ),
-                                  onSelected: (_) async {
-                                    _current!.hard = !_current!.hard;
-                                    await _store.save();
-                                    _flash(
-                                      _current!.hard
-                                          ? 'Oznaczone jako trudne'
-                                          : 'Trudne wyłączone',
-                                      kind: FeedbackKind.info,
-                                    );
-                                    setState(() {});
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: FilterChip(
+                                  label: const Text('Cała baza'),
+                                  selected: _groupId == '__all__',
+                                  onSelected: (_) {
+                                    setState(() => _groupId = '__all__');
+                                    _draw();
                                   },
                                 ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: FilterChip(
+                                  label: const Text('Nieopanowane'),
+                                  selected: _groupId == '__unlearned__',
+                                  onSelected: (_) {
+                                    setState(
+                                      () => _groupId = '__unlearned__',
+                                    );
+                                    _draw();
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: FilterChip(
+                                  label: const Text('Trudne'),
+                                  selected: _groupId == '__hard__',
+                                  onSelected: (_) {
+                                    setState(() => _groupId = '__hard__');
+                                    _draw();
+                                  },
+                                ),
+                              ),
+                              if (pack != null)
+                                for (final g in pack.groups)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    child: FilterChip(
+                                      label: Text(g.name),
+                                      selected: _groupId == g.id,
+                                      onSelected: (_) {
+                                        setState(() => _groupId = g.id);
+                                        _draw();
+                                      },
+                                    ),
+                                  ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: ActionChip(
+                                  avatar: const Icon(Icons.add, size: 18),
+                                  label: const Text('Nowa pula'),
+                                  onPressed: () =>
+                                      _openGroups(openCreate: true),
+                                ),
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (_current == null)
-                      SoftPanel(
-                        child: Text(
-                          pool.isEmpty && _poolReview
-                              ? 'Brak opanowanych w tej puli.'
-                              : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
-                      )
-                    else
-                      Shake(
-                        animation: _shakeCtrl,
-                        child: SuccessPulse(
-                          animation: _successCtrl,
-                          child: SoftPanel(
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 14,
-                                    vertical: 6,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: widget.palette.buttonGradient(
-                                        Theme.of(context).brightness ==
-                                            Brightness.light,
-                                      ),
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Text(
-                                    _promptLabel,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 14,
-                                    ),
-                                  ),
+                        const SizedBox(height: 8),
+                        Text(
+                          '${_groupLabel()} · $mastered/${allInGroup.length} ($pct%)',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+
+                      ],
+                    ),
+                  );
+                final akcje = SoftPanel(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SectionHeader(
+                          title: 'Szybkie akcje',
+                          subtitle: 'Dodawaj, ćwicz i gaduś z AI',
+                          icon: Icons.bolt_rounded,
+                        ),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            FilledButton.tonalIcon(
+                              onPressed: _addWord,
+                              icon: const Icon(Icons.add_rounded),
+                              label: const Text('Słowo'),
+                            ),
+                            FilledButton.tonalIcon(
+                              onPressed: _importWordsSheet,
+                              icon: const Icon(Icons.upload_file_rounded),
+                              label: const Text('Import CSV'),
+                            ),
+                            FilledButton.tonalIcon(
+                              onPressed: _openWords,
+                              icon: const Icon(Icons.edit_note_rounded),
+                              label: const Text('Lista'),
+                            ),
+                            FilledButton.icon(
+                              onPressed: _openDailyChat,
+                              icon: Icon(
+                                _store.stats.chatDoneToday
+                                    ? Icons.chat_bubble_rounded
+                                    : Icons.chat_bubble_outline_rounded,
+                              ),
+                              label: Text(
+                                _store.stats.chatDoneToday
+                                    ? 'Rozmowa ✓'
+                                    : 'AI na urządzeniu',
+                              ),
+                            ),
+                            FilterChip(
+                              selected: _method == GameMethod.abc,
+                              avatar: Icon(
+                                _method == GameMethod.abc
+                                    ? Icons.abc_rounded
+                                    : Icons.keyboard_rounded,
+                                size: 18,
+                              ),
+                              label: Text(
+                                _method == GameMethod.abc
+                                    ? 'Metoda: ABC'
+                                    : 'Metoda: Pisanie',
+                              ),
+                              onSelected: (_) async {
+                                setState(() {
+                                  _method = _method == GameMethod.abc
+                                      ? GameMethod.typing
+                                      : GameMethod.abc;
+                                });
+                                await _persistMethod();
+                                _draw();
+                              },
+                            ),
+                            FilterChip(
+                              selected: !_poolReview,
+                              avatar: Icon(
+                                _poolReview
+                                    ? Icons.replay_rounded
+                                    : Icons.school_rounded,
+                                size: 18,
+                              ),
+                              label: Text(
+                                _poolReview ? 'Pula: Powtórka' : 'Pula: Nauka',
+                              ),
+                              onSelected: (_) {
+                                setState(() => _poolReview = !_poolReview);
+                                _draw();
+                              },
+                            ),
+                            if (_current != null)
+                              FilterChip(
+                                selected: _current!.hard,
+                                avatar: Icon(
+                                  _current!.hard
+                                      ? Icons.star_rounded
+                                      : Icons.star_outline_rounded,
+                                  size: 18,
                                 ),
-                                const SizedBox(height: 12),
-                                AnimatedPromptWord(
-                                  text: _promptWord,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
+                                label: Text(
+                                  _current!.hard ? 'Trudne ★' : 'Trudne?',
                                 ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton.filledTonal(
-                                      tooltip: _audioEnabled
-                                          ? 'Posłuchaj'
-                                          : 'Lektor wyłączony',
-                                      onPressed: _audioEnabled
-                                          ? () => _playText(_current!.obcy)
-                                          : null,
-                                      iconSize: 32,
-                                      icon: Icon(
-                                        _audioEnabled
-                                            ? Icons.volume_up_rounded
-                                            : Icons.volume_off_rounded,
+                                onSelected: (_) async {
+                                  _current!.hard = !_current!.hard;
+                                  await _store.save();
+                                  _flash(
+                                    _current!.hard
+                                        ? 'Oznaczone jako trudne'
+                                        : 'Trudne wyłączone',
+                                    kind: FeedbackKind.info,
+                                  );
+                                  setState(() {});
+                                },
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                final quiz = _current == null
+                    ? SoftPanel(
+                          child: Text(
+                            pool.isEmpty && _poolReview
+                                ? 'Brak opanowanych w tej puli.'
+                                : 'Brak słówek do nauki w tej puli.\nDodaj słowa lub wybierz inną pulę.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                        )
+                    : Shake(
+                          animation: _shakeCtrl,
+                          child: SuccessPulse(
+                            animation: _successCtrl,
+                            child: SoftPanel(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 14,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: widget.palette.buttonGradient(
+                                          Theme.of(context).brightness ==
+                                              Brightness.light,
+                                        ),
                                       ),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                    const SizedBox(width: 8),
-                                    OutlinedButton(
-                                      onPressed:
-                                          _hintShown ? null : _showHint,
-                                      child: const Text('Podpowiedź'),
-                                    ),
-                                  ],
-                                ),
-                                if (_audioHint != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 6),
                                     child: Text(
-                                      _audioHint!,
+                                      _promptLabel,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .error,
-                                        fontSize: 13,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 14,
                                       ),
                                     ),
                                   ),
-                                const SizedBox(height: 12),
-                                if (_method == GameMethod.abc)
-                                  ...List.generate(_abc.length, (i) {
-                                    final sel = _abcHi == i;
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        height: 60,
-                                        child: AnimatedContainer(
-                                          duration: const Duration(
-                                            milliseconds: 220,
-                                          ),
-                                          child: FilledButton.tonal(
-                                            style: FilledButton.styleFrom(
-                                              backgroundColor:
-                                                  sel ? _abcHiColor : null,
-                                              foregroundColor: sel
-                                                  ? Colors.white
-                                                  : null,
-                                              elevation: sel ? 4 : 1,
+                                  const SizedBox(height: 12),
+                                  AnimatedPromptWord(
+                                    text: _promptWord,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton.filledTonal(
+                                        tooltip: _audioEnabled
+                                            ? 'Posłuchaj'
+                                            : 'Lektor wyłączony',
+                                        onPressed: _audioEnabled
+                                            ? () => _playText(_current!.obcy)
+                                            : null,
+                                        iconSize: 32,
+                                        icon: Icon(
+                                          _audioEnabled
+                                              ? Icons.volume_up_rounded
+                                              : Icons.volume_off_rounded,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      OutlinedButton(
+                                        onPressed:
+                                            _hintShown ? null : _showHint,
+                                        child: const Text('Podpowiedź'),
+                                      ),
+                                    ],
+                                  ),
+                                  if (_audioHint != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        _audioHint!,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .error,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ),
+                                  const SizedBox(height: 12),
+                                  if (_method == GameMethod.abc)
+                                    ...List.generate(_abc.length, (i) {
+                                      final sel = _abcHi == i;
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          height: 60,
+                                          child: AnimatedContainer(
+                                            duration: const Duration(
+                                              milliseconds: 220,
                                             ),
-                                            onPressed: () => _checkAbc(i),
-                                            child: Text(
-                                              _abc[i],
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                            child: FilledButton.tonal(
+                                              style: FilledButton.styleFrom(
+                                                backgroundColor:
+                                                    sel ? _abcHiColor : null,
+                                                foregroundColor: sel
+                                                    ? Colors.white
+                                                    : null,
+                                                elevation: sel ? 4 : 1,
+                                              ),
+                                              onPressed: () => _checkAbc(i),
+                                              child: Text(
+                                                _abc[i],
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
+                                      );
+                                    })
+                                  else ...[
+                                    TextField(
+                                      controller: _answerCtrl,
+                                      focusNode: _answerFocus,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 22),
+                                      decoration: const InputDecoration(
+                                        hintText: 'Twoja odpowiedź',
                                       ),
-                                    );
-                                  })
-                                else ...[
-                                  TextField(
-                                    controller: _answerCtrl,
-                                    focusNode: _answerFocus,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 22),
-                                    decoration: const InputDecoration(
-                                      hintText: 'Twoja odpowiedź',
+                                      onSubmitted: (_) => _checkTyping(),
                                     ),
-                                    onSubmitted: (_) => _checkTyping(),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  GradientButton(
-                                    onPressed: _checkTyping,
-                                    label: 'Sprawdź',
-                                    palette: widget.palette,
-                                  ),
-                                  _keyboard(),
+                                    const SizedBox(height: 12),
+                                    GradientButton(
+                                      onPressed: _checkTyping,
+                                      label: 'Sprawdź',
+                                      palette: widget.palette,
+                                    ),
+                                    _keyboard(),
+                                  ],
                                 ],
-                              ],
+                              ),
                             ),
+                          ),
+                        );
+                final poziom = SoftPanel(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SectionHeader(
+                          title: 'Twój poziom',
+                          subtitle: 'XP za poprawne odpowiedzi',
+                          icon: Icons.military_tech_rounded,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Poz. ${_store.stats.playerLevel}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: LinearProgressIndicator(
+                                  value: _store.stats.levelProgress,
+                                  minHeight: 10,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              '${_store.stats.xp} XP',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Text(
+                          titleForLevel(_store.stats.playerLevel).title,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
+                          '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 6),
+                        TextButton(
+                          onPressed: _openCuriosityAlbum,
+                          child: const Text('Album nagród / ciekawostki'),
+                        ),
+                      ],
+                    ),
+                  );
+                final mascotHeader = SoftPanel(
+                    margin: EdgeInsets.zero,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.pets_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            'Twój zwierzak — garderoba i kolory',
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ),
-                      ),
-                    const SizedBox(height: 12),
-                    SoftPanel(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SectionHeader(
-                            title: 'Twój poziom',
-                            subtitle: 'XP za poprawne odpowiedzi',
-                            icon: Icons.military_tech_rounded,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Poz. ${_store.stats.playerLevel}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: LinearProgressIndicator(
-                                    value: _store.stats.levelProgress,
-                                    minHeight: 10,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '${_store.stats.xp} XP',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            titleForLevel(_store.stats.playerLevel).title,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
-                            '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 6),
-                          TextButton(
-                            onPressed: _openCuriosityAlbum,
-                            child: const Text('Album nagród / ciekawostki'),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                    // —— MASKOTKA I RESZTA NA DOLE ——
-                    const SizedBox(height: 8),
-                    SoftPanel(
-                      margin: const EdgeInsets.only(bottom: 8, top: 4),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 10,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.pets_rounded,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              'Twój zwierzak — garderoba i kolory',
-                              style: Theme.of(context).textTheme.titleSmall,
+                  );
+                final mascot = MascotCard(
+                    playerLevel: _store.stats.playerLevel,
+                    wordsToday: _store.stats.wordsToday,
+                    fedToday: _store.stats.mascotFedToday,
+                    unlockedIds: _store.stats.unlockedMascotIds,
+                    equipped: _store.stats.equippedMascot,
+                    placedHome: _store.stats.placedHome,
+                    goldenPaws: _store.stats.goldenPaws,
+                    species: _store.stats.mascotSpecies,
+                    furColor: Color(_store.stats.mascotColorArgb),
+                    onTapWardrobe: _openWardrobe,
+                    onTapShop: _openShop,
+                    onEquip: _equipMascot,
+                    onSpeciesChanged: (s) async {
+                      setState(() => _store.stats.mascotSpecies = s);
+                      await _store.save();
+                    },
+                    onColorChanged: (c) async {
+                      setState(
+                        () => _store.stats.mascotColorArgb = c.toARGB32(),
+                      );
+                      await _store.save();
+                    },
+                  );
+                final portal = SoftPanel(
+                    margin: EdgeInsets.zero,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SectionHeader(
+                          title: 'Portal Anielki',
+                          subtitle: 'Twój projekt — wspólna praca z tatą',
+                          icon: Icons.favorite_rounded,
+                        ),
+                        SelectableText(
+                          _portal.url,
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          'PIN: ${_portal.pin}',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            FilledButton.tonal(
+                              onPressed: () => showAnielkaPortalSheet(
+                                context,
+                                portal: _portal,
+                              ),
+                              child: const Text('Jak wejść?'),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    MascotCard(
-                      playerLevel: _store.stats.playerLevel,
-                      wordsToday: _store.stats.wordsToday,
-                      fedToday: _store.stats.mascotFedToday,
-                      unlockedIds: _store.stats.unlockedMascotIds,
-                      equipped: _store.stats.equippedMascot,
-                      placedHome: _store.stats.placedHome,
-                      goldenPaws: _store.stats.goldenPaws,
-                      species: _store.stats.mascotSpecies,
-                      furColor: Color(_store.stats.mascotColorArgb),
-                      onTapWardrobe: _openWardrobe,
-                      onTapShop: _openShop,
-                      onEquip: _equipMascot,
-                      onSpeciesChanged: (s) async {
-                        setState(() => _store.stats.mascotSpecies = s);
-                        await _store.save();
-                      },
-                      onColorChanged: (c) async {
-                        setState(
-                          () => _store.stats.mascotColorArgb = c.toARGB32(),
-                        );
-                        await _store.save();
-                      },
-                    ),
-                    SoftPanel(
-                      margin: const EdgeInsets.only(top: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SectionHeader(
-                            title: 'Portal Anielki',
-                            subtitle: 'Twój projekt — wspólna praca z tatą',
-                            icon: Icons.favorite_rounded,
-                          ),
-                          SelectableText(
-                            _portal.url,
-                            style: const TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            'PIN: ${_portal.pin}',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: [
-                              FilledButton.tonal(
-                                onPressed: () => showAnielkaPortalSheet(
-                                  context,
-                                  portal: _portal,
-                                ),
-                                child: const Text('Jak wejść?'),
+                            OutlinedButton(
+                              onPressed: () => showGithubPublishSheet(
+                                context,
+                                portal: _portal,
                               ),
-                              OutlinedButton(
-                                onPressed: () => showGithubPublishSheet(
-                                  context,
-                                  portal: _portal,
+                              child: const Text('GitHub'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: maxW),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(hPad, 20, hPad, 28),
+                      children: [
+                        mission,
+                        const SizedBox(height: 12),
+                        if (wide)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    trening,
+                                    const SizedBox(height: 14),
+                                    akcje,
+                                    const SizedBox(height: 14),
+                                    quiz,
+                                  ],
                                 ),
-                                child: const Text('GitHub'),
+                              ),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                flex: 4,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    stats,
+                                    const SizedBox(height: 14),
+                                    poziom,
+                                    const SizedBox(height: 10),
+                                    mascotHeader,
+                                    const SizedBox(height: 8),
+                                    mascot,
+                                    const SizedBox(height: 12),
+                                    portal,
+                                  ],
+                                ),
                               ),
                             ],
-                          ),
+                          )
+                        else ...[
+                          stats,
+                          const SizedBox(height: 12),
+                          trening,
+                          const SizedBox(height: 12),
+                          akcje,
+                          const SizedBox(height: 16),
+                          quiz,
+                          const SizedBox(height: 12),
+                          poziom,
+                          const SizedBox(height: 8),
+                          mascotHeader,
+                          const SizedBox(height: 8),
+                          mascot,
+                          const SizedBox(height: 12),
+                          portal,
                         ],
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
-            if (_banner != null)
+            if (_banner != null)            if (_banner != null)
               Positioned(
                 top: 8,
                 left: 16,
                 right: 16,
                 child: SafeArea(
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 720),
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: AnimatedFeedbackBanner(
-                          message: _banner!,
-                          kind: _bannerKind,
-                          visible: _bannerVisible,
-                          onDismiss: () => setState(() {
-                            _bannerVisible = false;
-                            _banner = null;
-                          }),
+                  child: LayoutBuilder(
+                    builder: (context, c) {
+                      final maxW = c.maxWidth >= 980 ? c.maxWidth : 720.0;
+                      return Align(
+                        alignment: Alignment.topCenter,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: maxW),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: AnimatedFeedbackBanner(
+                              message: _banner!,
+                              kind: _bannerKind,
+                              visible: _bannerVisible,
+                              onDismiss: () => setState(() {
+                                _bannerVisible = false;
+                                _banner = null;
+                              }),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),
