@@ -1846,105 +1846,52 @@ class MascotCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            // Mini podgląd + poziane kółka kolorów
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            // Kółka kolorów (bez mini-podglądu w rogu — duża maskotka jest poniżej)
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: [
-                Container(
-                  width: 72,
-                  height: 72,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    gradient: RadialGradient(
-                      colors: [
-                        furTone(furColor, light: 0.2),
-                        furColor,
-                        furTone(furColor, dark: 0.15),
-                      ],
-                    ),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outlineVariant,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: furColor.withValues(alpha: 0.4),
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: species == MascotSpecies.dog
-                        ? CustomPaint(
-                            size: const Size(72, 72),
-                            painter: _DogPainter(furColor),
-                          )
-                        : ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              furColor.withValues(alpha: 0.65),
-                              BlendMode.modulate,
-                            ),
-                            child: Image.asset(
-                              'assets/images/kicia_base.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final c in mascotColorPresets)
-                        GestureDetector(
-                          onTap: () => onColorChanged!(c),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 180),
-                            width: furColor.toARGB32() == c.toARGB32() ? 40 : 34,
-                            height:
-                                furColor.toARGB32() == c.toARGB32() ? 40 : 34,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: RadialGradient(
-                                colors: [
-                                  furTone(c, light: 0.25),
-                                  c,
-                                  furTone(c, dark: 0.2),
-                                ],
-                              ),
-                              border: Border.all(
-                                color: furColor.toARGB32() == c.toARGB32()
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Colors.white.withValues(alpha: 0.9),
-                                width: furColor.toARGB32() == c.toARGB32()
-                                    ? 3.2
-                                    : 2,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: c.withValues(alpha: 0.4),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: furColor.toARGB32() == c.toARGB32()
-                                ? Icon(
-                                    Icons.check_rounded,
-                                    size: 18,
-                                    color: c.computeLuminance() > 0.55
-                                        ? Colors.black87
-                                        : Colors.white,
-                                  )
-                                : null,
-                          ),
+                for (final c in mascotColorPresets)
+                  GestureDetector(
+                    onTap: () => onColorChanged!(c),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      width: furColor.toARGB32() == c.toARGB32() ? 40 : 34,
+                      height: furColor.toARGB32() == c.toARGB32() ? 40 : 34,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            furTone(c, light: 0.25),
+                            c,
+                            furTone(c, dark: 0.2),
+                          ],
                         ),
-                    ],
+                        border: Border.all(
+                          color: furColor.toARGB32() == c.toARGB32()
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.white.withValues(alpha: 0.9),
+                          width: furColor.toARGB32() == c.toARGB32() ? 3.2 : 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: c.withValues(alpha: 0.4),
+                            blurRadius: 6,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: furColor.toARGB32() == c.toARGB32()
+                          ? Icon(
+                              Icons.check_rounded,
+                              size: 18,
+                              color: c.computeLuminance() > 0.55
+                                  ? Colors.black87
+                                  : Colors.white,
+                            )
+                          : null,
+                    ),
                   ),
-                ),
               ],
             ),
             const SizedBox(height: 10),

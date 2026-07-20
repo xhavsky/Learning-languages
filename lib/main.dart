@@ -13,7 +13,6 @@ import 'l10n.dart';
 import 'mascot.dart';
 import 'model3d_viewer.dart';
 import 'models.dart';
-import 'portal.dart';
 import 'storage.dart';
 import 'theme.dart';
 import 'ui_fx.dart';
@@ -187,7 +186,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   FeedbackKind _bannerKind = FeedbackKind.info;
   bool _bannerVisible = false;
   String? _audioHint;
-  PortalInfo _portal = PortalInfo.fallback;
 
   /// Zakładka dolnego menu: 0=Nauka, 1=Słówka, 2=Maskotka, 3=Sklep, 4=Pule, 5=Ustawienia.
   int _bottomNav = 0;
@@ -260,13 +258,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _bootError = null;
         _loadingMsg = L10n(widget.uiLang).loadingSettings;
       });
-      _bootLog('_boot: loading portal');
-      final portal = await PortalInfo.load().timeout(
-        const Duration(seconds: 8),
-        onTimeout: () => PortalInfo.fallback,
-      );
-      _bootLog('_boot: portal ok');
-      if (!mounted) return;
       setState(() => _loadingMsg = L10n(widget.uiLang).loadingWords);
       _bootLog('_boot: loading baza');
       await _store.load().timeout(const Duration(seconds: 20));
@@ -276,7 +267,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           : (_store.baza.keys.isNotEmpty ? _store.baza.keys.first : null);
       if (!mounted) return;
       setState(() {
-        _portal = portal;
         _lang = lang;
         _loading = false;
         _bootError = null;
@@ -1167,320 +1157,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final pack = _pack;
     if (pack == null || _lang == null) return;
     setState(() => _bottomNav = 1);
-  }
-
-  Future<void> _openSettings({bool forceSheet = false}) async {
-    if (!forceSheet) {
-      setState(() => _bottomNav = 5);
-      return;
-    }
-    final ollamaCtrl = TextEditingController(text: await loadOllamaHostPref());
-    if (!mounted) {
-      ollamaCtrl.dispose();
-      return;
-    }
-    await showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      builder: (ctx) {
-        return StatefulBuilder(
-          builder: (ctx, setSheet) {
-            return Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 8,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      _l10n.settings,
-                      style: Theme.of(ctx).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      _l10n.appLanguage,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 6),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final ul in UiLang.values)
-                          ChoiceChip(
-                            label: Text(ul.nativeLabel),
-                            selected: widget.uiLang == ul,
-                            onSelected: (_) {
-                              widget.onUiLangChanged(ul);
-                              setSheet(() {});
-                            },
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.theme,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ChoiceChip(
-                          label: Text(_l10n.themeSystem),
-                          selected: widget.themeMode == ThemeMode.system,
-                          onSelected: (_) {
-                            widget.onThemeModeChanged(ThemeMode.system);
-                            setSheet(() {});
-                          },
-                        ),
-                        ChoiceChip(
-                          label: Text(_l10n.themeLight),
-                          selected: widget.themeMode == ThemeMode.light,
-                          onSelected: (_) {
-                            widget.onThemeModeChanged(ThemeMode.light);
-                            setSheet(() {});
-                          },
-                        ),
-                        ChoiceChip(
-                          label: Text(_l10n.themeDark),
-                          selected: widget.themeMode == ThemeMode.dark,
-                          onSelected: (_) {
-                            widget.onThemeModeChanged(ThemeMode.dark);
-                            setSheet(() {});
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.colors,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final p in AppPalette.values)
-                          FilterChip(
-                            avatar: CircleAvatar(backgroundColor: p.seed),
-                            label: Text(_l10n.paletteLabel(p.name)),
-                            selected: widget.palette == p,
-                            onSelected: (_) {
-                              widget.onPaletteChanged(p);
-                              setSheet(() {});
-                            },
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.translateDir,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ChoiceChip(
-                          label: Text(_l10n.dirPlToForeign),
-                          selected: _dir == TranslateDir.plToForeign,
-                          onSelected: (_) async {
-                            await _persistDir(TranslateDir.plToForeign);
-                            setSheet(() {});
-                          },
-                        ),
-                        ChoiceChip(
-                          label: Text(_l10n.dirForeignToPl),
-                          selected: _dir == TranslateDir.foreignToPl,
-                          onSelected: (_) async {
-                            await _persistDir(TranslateDir.foreignToPl);
-                            setSheet(() {});
-                          },
-                        ),
-                        ChoiceChip(
-                          label: Text(_l10n.dirMixed),
-                          selected: _dir == TranslateDir.mixed,
-                          onSelected: (_) async {
-                            await _persistDir(TranslateDir.mixed);
-                            setSheet(() {});
-                          },
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Text(
-                        _dir == TranslateDir.plToForeign
-                            ? _l10n.dirHintPlToForeign
-                            : _dir == TranslateDir.foreignToPl
-                                ? _l10n.dirHintForeignToPl
-                                : _l10n.dirHintMixed,
-                        style: Theme.of(ctx).textTheme.bodySmall,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.narrator,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    SwitchListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(_l10n.enableNarrator),
-                      subtitle: Text(
-                        _audioEnabled
-                            ? _l10n.narratorOnSub
-                            : _l10n.narratorOffSub,
-                        style: Theme.of(ctx).textTheme.bodySmall,
-                      ),
-                      value: _audioEnabled,
-                      onChanged: (v) async {
-                        await _persistAudioEnabled(v);
-                        setSheet(() {});
-                      },
-                    ),
-                    Text(
-                      _l10n.audioTempo,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        for (final r in [0.75, 1.0, 1.25])
-                          ChoiceChip(
-                            label: Text('${r}x'),
-                            selected: (_playbackRate - r).abs() < 0.01,
-                            onSelected: _audioEnabled
-                                ? (_) async {
-                                    await _persistRate(r);
-                                    setSheet(() {});
-                                  }
-                                : null,
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.onDeviceAi,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      _l10n.onDeviceAiBlurb,
-                      style: Theme.of(ctx).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: ollamaCtrl,
-                      decoration: InputDecoration(
-                        labelText: _l10n.ollamaAddress,
-                        hintText: 'http://127.0.0.1:11434',
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    FilledButton.tonal(
-                      onPressed: () async {
-                        await saveOllamaHostPref(ollamaCtrl.text);
-                        if (ctx.mounted) {
-                          ScaffoldMessenger.of(ctx).showSnackBar(
-                            SnackBar(
-                              content: Text(_l10n.aiAddressSaved),
-                            ),
-                          );
-                        }
-                      },
-                      child: Text(_l10n.saveAiAddress),
-                    ),
-                    const SizedBox(height: 16),
-                    FilledButton.tonal(
-                      onPressed: () async {
-                        final path = await _store.exportToDocuments();
-                        if (ctx.mounted) Navigator.pop(ctx);
-                        _flash(
-                          _l10n.exported(path),
-                          kind: FeedbackKind.info,
-                          ms: 4000,
-                        );
-                      },
-                      child: Text(_l10n.exportDb),
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: _importCtrl,
-                      decoration: InputDecoration(
-                        labelText: _l10n.importJsonPath,
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    OutlinedButton(
-                      onPressed: () async {
-                        final err =
-                            await _store.importFromPath(_importCtrl.text.trim());
-                        if (ctx.mounted) Navigator.pop(ctx);
-                        if (err != null) {
-                          _flash(err, kind: FeedbackKind.fail, ms: 3000);
-                        } else {
-                          setState(() {});
-                          _draw();
-                          _flash(
-                            _l10n.importedDb,
-                            kind: FeedbackKind.success,
-                          );
-                        }
-                      },
-                      child: Text(_l10n.importFromFile),
-                    ),
-                    const SizedBox(height: 12),
-                    Builder(
-                      builder: (_) {
-                        final miss = _store.missingAudioKeys();
-                        return Text(
-                          miss.isEmpty
-                              ? _l10n.audioComplete(_store.baza.values.fold<int>(0, (n, p) => n + p.words.length))
-                              : _l10n.audioMissing(miss.length),
-                          style: Theme.of(ctx).textTheme.bodySmall,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      _l10n.forAnielka,
-                      style: Theme.of(ctx).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 8),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        showAnielkaPortalSheet(context, portal: _portal);
-                      },
-                      child: Text(_l10n.portalWww),
-                    ),
-                    const SizedBox(height: 8),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        showGithubPublishSheet(context, portal: _portal);
-                      },
-                      child: Text(_l10n.publishGithub),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      _portal.url,
-                      style: Theme.of(ctx).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    ).whenComplete(ollamaCtrl.dispose);
   }
 
   Future<void> _addWord() async {
@@ -2601,15 +2277,46 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             palette: widget.palette,
                             uiLang: widget.uiLang,
                             audioEnabled: _audioEnabled,
+                            playbackRate: _playbackRate,
+                            translateDir: _dir,
+                            importCtrl: _importCtrl,
+                            audioStatusText: () {
+                              final miss = _store.missingAudioKeys();
+                              return miss.isEmpty
+                                  ? l10n.audioComplete(_store.baza.values
+                                      .fold<int>(0, (n, p) => n + p.words.length))
+                                  : l10n.audioMissing(miss.length);
+                            }(),
                             l10n: l10n,
                             onThemeModeChanged: widget.onThemeModeChanged,
                             onPaletteChanged: widget.onPaletteChanged,
                             onUiLangChanged: widget.onUiLangChanged,
-                            onToggleAudio: () =>
-                                _persistAudioEnabled(!_audioEnabled),
+                            onTranslateDirChanged: _persistDir,
+                            onAudioEnabledChanged: _persistAudioEnabled,
+                            onPlaybackRateChanged: _persistRate,
                             onOpenAlbum: _openCuriosityAlbum,
-                            onOpenFullSettings: () =>
-                                _openSettings(forceSheet: true),
+                            onExportDb: () async {
+                              final path = await _store.exportToDocuments();
+                              _flash(
+                                l10n.exported(path),
+                                kind: FeedbackKind.info,
+                                ms: 4000,
+                              );
+                            },
+                            onImportDb: () async {
+                              final err = await _store
+                                  .importFromPath(_importCtrl.text.trim());
+                              if (err != null) {
+                                _flash(err, kind: FeedbackKind.fail, ms: 3000);
+                              } else {
+                                setState(() {});
+                                _draw();
+                                _flash(
+                                  l10n.importedDb,
+                                  kind: FeedbackKind.success,
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -2823,35 +2530,78 @@ class _PlayerXpBar extends StatelessWidget {
 }
 
 /// Zakładka Ustawienia (telefon i komputer).
-class _PhoneSettingsTab extends StatelessWidget {
+class _PhoneSettingsTab extends StatefulWidget {
   const _PhoneSettingsTab({
     required this.themeMode,
     required this.palette,
     required this.uiLang,
     required this.audioEnabled,
+    required this.playbackRate,
+    required this.translateDir,
+    required this.importCtrl,
+    required this.audioStatusText,
     required this.l10n,
     required this.onThemeModeChanged,
     required this.onPaletteChanged,
     required this.onUiLangChanged,
-    required this.onToggleAudio,
+    required this.onTranslateDirChanged,
+    required this.onAudioEnabledChanged,
+    required this.onPlaybackRateChanged,
     required this.onOpenAlbum,
-    required this.onOpenFullSettings,
+    required this.onExportDb,
+    required this.onImportDb,
   });
 
   final ThemeMode themeMode;
   final AppPalette palette;
   final UiLang uiLang;
   final bool audioEnabled;
+  final double playbackRate;
+  final TranslateDir translateDir;
+  final TextEditingController importCtrl;
+  final String audioStatusText;
   final L10n l10n;
   final ValueChanged<ThemeMode> onThemeModeChanged;
   final ValueChanged<AppPalette> onPaletteChanged;
   final ValueChanged<UiLang> onUiLangChanged;
-  final VoidCallback onToggleAudio;
+  final ValueChanged<TranslateDir> onTranslateDirChanged;
+  final ValueChanged<bool> onAudioEnabledChanged;
+  final ValueChanged<double> onPlaybackRateChanged;
   final VoidCallback onOpenAlbum;
-  final VoidCallback onOpenFullSettings;
+  final Future<void> Function() onExportDb;
+  final Future<void> Function() onImportDb;
+
+  @override
+  State<_PhoneSettingsTab> createState() => _PhoneSettingsTabState();
+}
+
+class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
+  final _ollamaCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadOllamaHostPref().then((host) {
+      if (mounted) _ollamaCtrl.text = host;
+    });
+  }
+
+  @override
+  void dispose() {
+    _ollamaCtrl.dispose();
+    super.dispose();
+  }
+
+  L10n get l10n => widget.l10n;
 
   @override
   Widget build(BuildContext context) {
+    final dirHint = switch (widget.translateDir) {
+      TranslateDir.plToForeign => l10n.dirHintPlToForeign,
+      TranslateDir.foreignToPl => l10n.dirHintForeignToPl,
+      TranslateDir.mixed => l10n.dirHintMixed,
+    };
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
       children: [
@@ -2866,8 +2616,8 @@ class _PhoneSettingsTab extends StatelessWidget {
             for (final ul in UiLang.values)
               ChoiceChip(
                 label: Text(ul.nativeLabel),
-                selected: uiLang == ul,
-                onSelected: (_) => onUiLangChanged(ul),
+                selected: widget.uiLang == ul,
+                onSelected: (_) => widget.onUiLangChanged(ul),
               ),
           ],
         ),
@@ -2879,18 +2629,18 @@ class _PhoneSettingsTab extends StatelessWidget {
           children: [
             ChoiceChip(
               label: Text(l10n.themeSystem),
-              selected: themeMode == ThemeMode.system,
-              onSelected: (_) => onThemeModeChanged(ThemeMode.system),
+              selected: widget.themeMode == ThemeMode.system,
+              onSelected: (_) => widget.onThemeModeChanged(ThemeMode.system),
             ),
             ChoiceChip(
               label: Text(l10n.themeLight),
-              selected: themeMode == ThemeMode.light,
-              onSelected: (_) => onThemeModeChanged(ThemeMode.light),
+              selected: widget.themeMode == ThemeMode.light,
+              onSelected: (_) => widget.onThemeModeChanged(ThemeMode.light),
             ),
             ChoiceChip(
               label: Text(l10n.themeDark),
-              selected: themeMode == ThemeMode.dark,
-              onSelected: (_) => onThemeModeChanged(ThemeMode.dark),
+              selected: widget.themeMode == ThemeMode.dark,
+              onSelected: (_) => widget.onThemeModeChanged(ThemeMode.dark),
             ),
           ],
         ),
@@ -2905,30 +2655,121 @@ class _PhoneSettingsTab extends StatelessWidget {
               FilterChip(
                 avatar: CircleAvatar(backgroundColor: p.seed),
                 label: Text(l10n.paletteLabel(p.name)),
-                selected: palette == p,
-                onSelected: (_) => onPaletteChanged(p),
+                selected: widget.palette == p,
+                onSelected: (_) => widget.onPaletteChanged(p),
               ),
           ],
         ),
         const SizedBox(height: 16),
+        Text(l10n.translateDir, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          children: [
+            ChoiceChip(
+              label: Text(l10n.dirPlToForeign),
+              selected: widget.translateDir == TranslateDir.plToForeign,
+              onSelected: (_) =>
+                  widget.onTranslateDirChanged(TranslateDir.plToForeign),
+            ),
+            ChoiceChip(
+              label: Text(l10n.dirForeignToPl),
+              selected: widget.translateDir == TranslateDir.foreignToPl,
+              onSelected: (_) =>
+                  widget.onTranslateDirChanged(TranslateDir.foreignToPl),
+            ),
+            ChoiceChip(
+              label: Text(l10n.dirMixed),
+              selected: widget.translateDir == TranslateDir.mixed,
+              onSelected: (_) =>
+                  widget.onTranslateDirChanged(TranslateDir.mixed),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 6),
+          child: Text(dirHint, style: Theme.of(context).textTheme.bodySmall),
+        ),
+        const SizedBox(height: 16),
+        Text(l10n.narrator, style: Theme.of(context).textTheme.titleSmall),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          title: Text(l10n.narrator),
-          value: audioEnabled,
-          onChanged: (_) => onToggleAudio(),
+          title: Text(l10n.enableNarrator),
+          subtitle: Text(
+            widget.audioEnabled ? l10n.narratorOnSub : l10n.narratorOffSub,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          value: widget.audioEnabled,
+          onChanged: widget.onAudioEnabledChanged,
         ),
+        Text(l10n.audioTempo, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          children: [
+            for (final r in [0.75, 1.0, 1.25])
+              ChoiceChip(
+                label: Text('${r}x'),
+                selected: (widget.playbackRate - r).abs() < 0.01,
+                onSelected: widget.audioEnabled
+                    ? (_) => widget.onPlaybackRateChanged(r)
+                    : null,
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
         ListTile(
           contentPadding: EdgeInsets.zero,
           leading: const Icon(Icons.auto_stories_rounded),
           title: Text(l10n.album),
-          onTap: onOpenAlbum,
+          onTap: widget.onOpenAlbum,
         ),
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: const Icon(Icons.tune_rounded),
-          title: Text(l10n.moreSettings),
-          subtitle: Text(l10n.moreSettingsSubtitle),
-          onTap: onOpenFullSettings,
+        const SizedBox(height: 8),
+        Text(l10n.onDeviceAi, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 6),
+        Text(l10n.onDeviceAiBlurb, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _ollamaCtrl,
+          decoration: InputDecoration(
+            labelText: l10n.ollamaAddress,
+            hintText: 'http://127.0.0.1:11434',
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: 8),
+        FilledButton.tonal(
+          onPressed: () async {
+            await saveOllamaHostPref(_ollamaCtrl.text);
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.aiAddressSaved)),
+            );
+          },
+          child: Text(l10n.saveAiAddress),
+        ),
+        const SizedBox(height: 16),
+        FilledButton.tonal(
+          onPressed: () => widget.onExportDb(),
+          child: Text(l10n.exportDb),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: widget.importCtrl,
+          decoration: InputDecoration(
+            labelText: l10n.importJsonPath,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: 8),
+        OutlinedButton(
+          onPressed: () => widget.onImportDb(),
+          child: Text(l10n.importFromFile),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          widget.audioStatusText,
+          style: Theme.of(context).textTheme.bodySmall,
         ),
         const SizedBox(height: 12),
         Text(

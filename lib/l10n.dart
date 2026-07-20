@@ -372,20 +372,6 @@ class L10n {
         UiLang.ru => 'Альбом наград / факты',
       };
 
-  String get moreSettings => switch (lang) {
-        UiLang.pl => 'Więcej ustawień',
-        UiLang.en => 'More settings',
-        UiLang.es => 'Más ajustes',
-        UiLang.ru => 'Ещё настройки',
-      };
-
-  String get moreSettingsSubtitle => switch (lang) {
-        UiLang.pl => 'Kierunek tłumaczenia, AI, eksport…',
-        UiLang.en => 'Translate direction, AI, export…',
-        UiLang.es => 'Dirección, IA, exportar…',
-        UiLang.ru => 'Направление, ИИ, экспорт…',
-      };
-
   String get pickLangFirst => switch (lang) {
         UiLang.pl => 'Najpierw wybierz język w zakładce Nauka.',
         UiLang.en => 'First pick a learning language in Learn.',
@@ -869,27 +855,6 @@ class L10n {
           'Falta audio: $n entradas\n(PC: python3 scripts/generate_tts.py)',
         UiLang.ru =>
           'Нет аудио: $n записей\n(PC: python3 scripts/generate_tts.py)',
-      };
-
-  String get forAnielka => switch (lang) {
-        UiLang.pl => 'Dla Anielki',
-        UiLang.en => 'For Anielka',
-        UiLang.es => 'Para Anielka',
-        UiLang.ru => 'Для Анельки',
-      };
-
-  String get portalWww => switch (lang) {
-        UiLang.pl => 'Portal WWW (adres + PIN)',
-        UiLang.en => 'Web portal (address + PIN)',
-        UiLang.es => 'Portal web (dirección + PIN)',
-        UiLang.ru => 'Веб-портал (адрес + PIN)',
-      };
-
-  String get publishGithub => switch (lang) {
-        UiLang.pl => 'Opublikuj na moje GitHub',
-        UiLang.en => 'Publish to my GitHub',
-        UiLang.es => 'Publicar en mi GitHub',
-        UiLang.ru => 'Опубликовать на мой GitHub',
       };
 
   String get save => switch (lang) {
