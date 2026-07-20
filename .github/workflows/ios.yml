@@ -27,8 +27,33 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build iOS (unsigned)
-        run: flutter build ios --release --no-codesign
+      - name: Build iOS (unsigned via xcodebuild)
+        run: |
+          flutter build ios --config-only --release --no-codesign
+          set -o pipefail
+          xcodebuild \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/ios/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=- \
+            DEVELOPMENT_TEAM= \
+            PROVISIONING_PROFILE_SPECIFIER= \
+            build 2>&1 | tee /tmp/xcodebuild.log
+          APP=$(find build/ios/DerivedData/Build/Products -name 'Runner.app' -type d | head -1)
+          if [[ -z "$APP" || ! -d "$APP" ]]; then
+            echo "::error::Brak Runner.app — fragment logu:"
+            grep -iE 'error:|fatal|CODE_SIGN|provision|Signing for' /tmp/xcodebuild.log | tail -n 80 || true
+            tail -n 80 /tmp/xcodebuild.log
+            exit 1
+          fi
+          mkdir -p build/ios/iphoneos
+          rm -rf build/ios/iphoneos/Runner.app
+          cp -R "$APP" build/ios/iphoneos/Runner.app
 
       - name: Pack ZIP
         run: |
