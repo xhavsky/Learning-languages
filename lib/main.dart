@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final AnimationController _burstCtrl;
 
   bool _loading = true;
-  String _loadingMsg = 'Startuję…';
+  String _loadingMsg = L10n.pl.loadingStarting;
   String? _bootError;
   String? _lang;
   String _groupId = '__all__';
@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? _audioHint;
   PortalInfo _portal = PortalInfo.fallback;
 
-  /// Zakładka dolnego menu (telefon): 0=Nauka, 1=Słówka, 2=Sklep, 3=Pule, 4=Ustawienia.
+  /// Zakładka dolnego menu: 0=Nauka, 1=Słówka, 2=Maskotka, 3=Sklep, 4=Pule, 5=Ustawienia.
   int _bottomNav = 0;
 
   /// Trwa sprawdzanie odpowiedzi — blokuje podwójne auto-zaliczenie.
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       if (!mounted) return;
       setState(() {
         _bootError = null;
-        _loadingMsg = 'Ładuję ustawienia…';
+        _loadingMsg = L10n(widget.uiLang).loadingSettings;
       });
       _bootLog('_boot: loading portal');
       final portal = await PortalInfo.load().timeout(
@@ -267,7 +267,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       );
       _bootLog('_boot: portal ok');
       if (!mounted) return;
-      setState(() => _loadingMsg = 'Ładuję bazę słówek i postępy…');
+      setState(() => _loadingMsg = L10n(widget.uiLang).loadingWords);
       _bootLog('_boot: loading baza');
       await _store.load().timeout(const Duration(seconds: 20));
       _bootLog('_boot: baza ok keys=${_store.baza.keys.length}');
@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       setState(() {
         _loading = false;
         _bootError = e.toString();
-        _loadingMsg = 'Nie udało się uruchomić';
+        _loadingMsg = L10n(widget.uiLang).loadingFailed;
       });
     }
   }
@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() {
       _loading = true;
       _bootError = null;
-      _loadingMsg = 'Ponawiam start…';
+      _loadingMsg = L10n(widget.uiLang).loadingRetry;
     });
     await _boot();
   }
@@ -339,7 +339,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _player = AudioPlayer();
       return _player;
     } catch (e) {
-      setState(() => _audioHint = 'Audio niedostępne: $e');
+      setState(() => _audioHint = _l10n.audioUnavailable(e));
       return null;
     }
   }
@@ -351,8 +351,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final asset = _store.audioAsset(lang, text);
     if (asset == null) {
       setState(() {
-        _audioHint =
-            'Brak audio. Na PC: python3 scripts/generate_tts.py';
+        _audioHint = _l10n.noAudioHint;
       });
       return;
     }
@@ -364,7 +363,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       await p.setPlaybackRate(_playbackRate);
       await p.play(AssetSource(asset));
     } catch (e) {
-      setState(() => _audioHint = 'Odtwarzanie: $e');
+      setState(() => _audioHint = _l10n.playbackError(e));
     }
   }
 
@@ -635,13 +634,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final justFed = _store.stats.recordAnswer(ok);
     await _store.save();
     if (ok) {
+      final l = _l10n;
+      final pet = l.petName(_store.stats.mascotSpecies == MascotSpecies.dog);
       var msg = w.nauczone
-          ? 'Nauczone! ✓ (3× z rzędu)'
-          : 'Brawo! ✓ (${w.correctStreak}/3)';
+          ? l.learnedStreak
+          : l.bravoStreak(w.correctStreak);
       if (justFed) {
-        msg = '$msg · Kicia najedzona! 🐱 +$pawsFeedBonus 🐾';
+        msg = '$msg · ${l.fedBonus(pet, pawsFeedBonus)}';
       } else {
-        msg = '$msg · +$pawsPerCorrect 🐾';
+        msg = '$msg · ${l.pawsPlus(pawsPerCorrect)}';
       }
       _flash(msg, kind: FeedbackKind.success);
       _successCtrl.forward(from: 0);
@@ -649,7 +650,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       await _playText(w.obcy);
       await Future<void>.delayed(const Duration(milliseconds: 850));
     } else {
-      _flash('Poprawnie: $_expected', kind: FeedbackKind.fail, ms: 2000);
+      _flash(_l10n.correctWas(_expected), kind: FeedbackKind.fail, ms: 2000);
       await _shakeCtrl.forward(from: 0);
       await Future<void>.delayed(const Duration(milliseconds: 900));
     }
@@ -661,12 +662,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _maybeShowLevelRewards() async {
     final pending = _store.stats.pendingRewardLevels();
     if (pending.isEmpty) return;
+    final l10n = _l10n;
+    final ui = widget.uiLang;
     var bonusTotal = 0;
     for (final lv in pending) {
-      final fact = curiosityForLevel(lv, lang: _lang);
+      final fact = curiosityForLevel(lv, lang: _lang, uiLang: ui);
       final bonus = levelUpBonusXpFor(lv);
-      final unlockedTitle = newTitleAtLevel(lv);
-      final rank = titleForLevel(lv);
+      final unlockedTitle = newTitleAtLevel(lv, uiLang: ui);
+      final rank = titleForLevel(lv, uiLang: ui);
       final outfit = rollMascotReward(_store.stats.unlockedMascotIds);
       if (outfit != null) {
         _store.stats.unlockMascotItem(outfit.id);
@@ -679,14 +682,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         context: context,
         barrierDismissible: false,
         builder: (ctx) => AlertDialog(
-          title: Text('Poziom $lv! 🎉'),
+          title: Text(l10n.levelUpCongrats(lv)),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Tytuł: ${rank.title}',
+                  l10n.titleLabel(rank.title),
                   style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -694,7 +697,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 if (unlockedTitle != null) ...[
                   const SizedBox(height: 4),
                   Text(
-                    '✨ Nowy tytuł odblokowany!',
+                    l10n.newTitleUnlocked,
                     style: Theme.of(ctx).textTheme.bodySmall?.copyWith(
                           color: Theme.of(ctx).colorScheme.primary,
                           fontWeight: FontWeight.w600,
@@ -707,7 +710,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
                 const SizedBox(height: 12),
                 Text(
-                  'Nagroda: +$bonus XP · +$pawsPerLevelUp 🐾',
+                  l10n.rewardXpPaws(bonus, pawsPerLevelUp),
                   style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -730,7 +733,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Losowe ubranko: ${outfit.name}!',
+                              l10n.randomOutfit(outfit.name),
                               style: Theme.of(ctx)
                                   .textTheme
                                   .titleMedium
@@ -738,7 +741,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                             Text(outfit.blurb),
                             Text(
-                              'Załóż je w garderobie 👗',
+                              l10n.wearInWardrobe,
                               style: Theme.of(ctx).textTheme.bodySmall,
                             ),
                           ],
@@ -800,7 +803,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      '🎯 Wyzwanie: ${fact.tip}',
+                      l10n.challengeTip(fact.tip!),
                       style: Theme.of(ctx).textTheme.bodyMedium,
                     ),
                   ),
@@ -811,7 +814,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           actions: [
             FilledButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Super!'),
+              child: Text(l10n.superOk),
             ),
           ],
         ),
@@ -827,11 +830,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _openCuriosityAlbum() async {
+    final l10n = _l10n;
+    final ui = widget.uiLang;
     final items = unlockedCuriosities(
       rewardedLevel: _store.stats.rewardedLevel,
       lang: _lang,
+      uiLang: ui,
     );
-    final rank = titleForLevel(_store.stats.playerLevel);
+    final rank = titleForLevel(_store.stats.playerLevel, uiLang: ui);
     if (!mounted) return;
     await showModalBottomSheet<void>(
       context: context,
@@ -851,12 +857,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Album nagród',
+                  l10n.albumRewards,
                   style: Theme.of(ctx).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Poziom ${_store.stats.playerLevel} · ${rank.title}',
+                  l10n.levelAndTitle(_store.stats.playerLevel, rank.title),
                   style: Theme.of(ctx).textTheme.bodyMedium,
                 ),
                 Text(
@@ -866,9 +872,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 const SizedBox(height: 12),
                 Expanded(
                   child: items.isEmpty
-                      ? const Center(
+                      ? Center(
                           child: Text(
-                            'Awansuj na poziom 2, żeby odblokować pierwszą ciekawostkę!',
+                            l10n.unlockFirstCuriosity,
                             textAlign: TextAlign.center,
                           ),
                         )
@@ -937,7 +943,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Future<void> _openShop() async {
     if (!mounted) return;
-    setState(() => _bottomNav = 2);
+    setState(() => _bottomNav = 3);
   }
 
   Future<void> _openWardrobe() async {
@@ -965,15 +971,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Garderoba ${mascotName(_store.stats.mascotSpecies)}',
+                      _l10n.wardrobeTitle(
+                        _l10n.petName(
+                          _store.stats.mascotSpecies == MascotSpecies.dog,
+                        ),
+                      ),
                       style: Theme.of(ctx).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Za każdy poziom losujesz nowe ubranko. '
-                      'Ekskluzywne ciuchy, miski i posłanie — w sklepie za złote łapki 🐾. '
-                      'Stuknij, żeby ubrać (1 rzecz na slot). '
-                      'Nakarm min. $mascotDailyFeedGoal słówkami dziennie!',
+                      _l10n.wardrobeBlurb(mascotDailyFeedGoal),
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 12),
@@ -1003,8 +1010,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 unlockedIds.contains(item.id)
                                     ? '${slotLabel(item.slot)} · ${item.blurb}'
                                     : item.isShopExclusive
-                                        ? '🛒 Tylko w sklepie · ${item.shopPrice} 🐾'
-                                        : '🔒 Jeszcze nie wylosowane',
+                                        ? '${_l10n.shopOnly} · ${item.shopPrice} 🐾'
+                                        : _l10n.notRolledYet,
                               ),
                               selected: equipped[item.slot.name] == item.id,
                               trailing: !unlockedIds.contains(item.id)
@@ -1029,10 +1036,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     },
                             ),
                           if (unlocked.isEmpty)
-                            const Padding(
-                              padding: EdgeInsets.all(12),
+                            Padding(
+                              padding: const EdgeInsets.all(12),
                               child: Text(
-                                'Jeszcze nic nie odblokowano — ćwicz do poziomu 2!',
+                                _l10n.nothingUnlockedYet,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -1093,7 +1100,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _hintShown = true;
       if (exp.isEmpty) return;
       _flash(
-        'Podpowiedź: ${exp[0]}… (${exp.length} liter)',
+        _l10n.hintFlash(exp[0], exp.length),
         kind: FeedbackKind.hint,
         ms: 2500,
       );
@@ -1129,16 +1136,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final pack = _pack;
     if (pack == null || _lang == null) return;
     if (!openCreate) {
-      setState(() => _bottomNav = 3);
+      setState(() => _bottomNav = 4);
       return;
     }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => GroupsPage(
-          lang: _lang!,
-          pack: pack,
-          selectedId: _groupId,
-          palette: widget.palette,
+                                  lang: _lang!,
+                                  pack: pack,
+                                  selectedId: _groupId,
+                                  palette: widget.palette,
+                                  uiLang: widget.uiLang,
           openCreateOnStart: openCreate,
           onChanged: () async {
             await _store.save();
@@ -1163,7 +1171,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Future<void> _openSettings({bool forceSheet = false}) async {
     if (!forceSheet) {
-      setState(() => _bottomNav = 4);
+      setState(() => _bottomNav = 5);
       return;
     }
     final ollamaCtrl = TextEditingController(text: await loadOllamaHostPref());
@@ -1190,7 +1198,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Ustawienia',
+                      _l10n.settings,
                       style: Theme.of(ctx).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),
@@ -1216,14 +1224,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Motyw jasny/ciemny',
+                      _l10n.theme,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     Wrap(
                       spacing: 8,
                       children: [
                         ChoiceChip(
-                          label: const Text('System'),
+                          label: Text(_l10n.themeSystem),
                           selected: widget.themeMode == ThemeMode.system,
                           onSelected: (_) {
                             widget.onThemeModeChanged(ThemeMode.system);
@@ -1231,7 +1239,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           },
                         ),
                         ChoiceChip(
-                          label: const Text('Jasny'),
+                          label: Text(_l10n.themeLight),
                           selected: widget.themeMode == ThemeMode.light,
                           onSelected: (_) {
                             widget.onThemeModeChanged(ThemeMode.light);
@@ -1239,7 +1247,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           },
                         ),
                         ChoiceChip(
-                          label: const Text('Ciemny'),
+                          label: Text(_l10n.themeDark),
                           selected: widget.themeMode == ThemeMode.dark,
                           onSelected: (_) {
                             widget.onThemeModeChanged(ThemeMode.dark);
@@ -1250,7 +1258,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Kolorystyka',
+                      _l10n.colors,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     Wrap(
@@ -1260,7 +1268,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         for (final p in AppPalette.values)
                           FilterChip(
                             avatar: CircleAvatar(backgroundColor: p.seed),
-                            label: Text(p.label),
+                            label: Text(_l10n.paletteLabel(p.name)),
                             selected: widget.palette == p,
                             onSelected: (_) {
                               widget.onPaletteChanged(p);
@@ -1271,14 +1279,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Kierunek',
+                      _l10n.translateDir,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     Wrap(
                       spacing: 8,
                       children: [
                         ChoiceChip(
-                          label: const Text('PL → obcy'),
+                          label: Text(_l10n.dirPlToForeign),
                           selected: _dir == TranslateDir.plToForeign,
                           onSelected: (_) async {
                             await _persistDir(TranslateDir.plToForeign);
@@ -1286,7 +1294,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           },
                         ),
                         ChoiceChip(
-                          label: const Text('obcy → PL'),
+                          label: Text(_l10n.dirForeignToPl),
                           selected: _dir == TranslateDir.foreignToPl,
                           onSelected: (_) async {
                             await _persistDir(TranslateDir.foreignToPl);
@@ -1294,7 +1302,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           },
                         ),
                         ChoiceChip(
-                          label: const Text('Mieszany'),
+                          label: Text(_l10n.dirMixed),
                           selected: _dir == TranslateDir.mixed,
                           onSelected: (_) async {
                             await _persistDir(TranslateDir.mixed);
@@ -1307,25 +1315,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       padding: const EdgeInsets.only(top: 6),
                       child: Text(
                         _dir == TranslateDir.plToForeign
-                            ? 'Widzisz polskie — wpisujesz / wybierasz obce. Audio dopiero po odpowiedzi albo po 🔊.'
+                            ? _l10n.dirHintPlToForeign
                             : _dir == TranslateDir.foreignToPl
-                                ? 'Widzisz obce — odpowiadasz po polsku. Audio startuje od razu.'
-                                : 'Losowo PL→obcy albo obcy→PL przy każdym słówku.',
+                                ? _l10n.dirHintForeignToPl
+                                : _l10n.dirHintMixed,
                         style: Theme.of(ctx).textTheme.bodySmall,
                       ),
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Lektor (audio)',
+                      _l10n.narrator,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Włącz lektora'),
+                      title: Text(_l10n.enableNarrator),
                       subtitle: Text(
                         _audioEnabled
-                            ? 'Słówka są odczytywane na głos.'
-                            : 'Audio wyłączone — ćwiczysz w ciszy.',
+                            ? _l10n.narratorOnSub
+                            : _l10n.narratorOffSub,
                         style: Theme.of(ctx).textTheme.bodySmall,
                       ),
                       value: _audioEnabled,
@@ -1335,7 +1343,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       },
                     ),
                     Text(
-                      'Tempo audio',
+                      _l10n.audioTempo,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     Wrap(
@@ -1356,23 +1364,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'AI na urządzeniu',
+                      _l10n.onDeviceAi,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Czat: na PC pełny Bielik 11B v3 (Ollama w paczce lub systemowa), '
-                      'na telefonie Bielik 1.5B v3 (GGUF). Bez portalu i chmury. '
-                      'Host Ollamy — zwykle pusto (127.0.0.1).',
+                      _l10n.onDeviceAiBlurb,
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
                     TextField(
                       controller: ollamaCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Adres Ollamy (opcjonalnie)',
+                      decoration: InputDecoration(
+                        labelText: _l10n.ollamaAddress,
                         hintText: 'http://127.0.0.1:11434',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -1381,13 +1387,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         await saveOllamaHostPref(ollamaCtrl.text);
                         if (ctx.mounted) {
                           ScaffoldMessenger.of(ctx).showSnackBar(
-                            const SnackBar(
-                              content: Text('Zapisano adres AI lokalnego'),
+                            SnackBar(
+                              content: Text(_l10n.aiAddressSaved),
                             ),
                           );
                         }
                       },
-                      child: const Text('Zapisz adres AI'),
+                      child: Text(_l10n.saveAiAddress),
                     ),
                     const SizedBox(height: 16),
                     FilledButton.tonal(
@@ -1395,19 +1401,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         final path = await _store.exportToDocuments();
                         if (ctx.mounted) Navigator.pop(ctx);
                         _flash(
-                          'Wyeksportowano:\n$path',
+                          _l10n.exported(path),
                           kind: FeedbackKind.info,
                           ms: 4000,
                         );
                       },
-                      child: const Text('Eksportuj bazę (JSON)'),
+                      child: Text(_l10n.exportDb),
                     ),
                     const SizedBox(height: 8),
                     TextField(
                       controller: _importCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Ścieżka do importu JSON',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: _l10n.importJsonPath,
+                        border: const OutlineInputBorder(),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -1422,12 +1428,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           setState(() {});
                           _draw();
                           _flash(
-                            'Zaimportowano bazę',
+                            _l10n.importedDb,
                             kind: FeedbackKind.success,
                           );
                         }
                       },
-                      child: const Text('Importuj z pliku'),
+                      child: Text(_l10n.importFromFile),
                     ),
                     const SizedBox(height: 12),
                     Builder(
@@ -1435,15 +1441,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         final miss = _store.missingAudioKeys();
                         return Text(
                           miss.isEmpty
-                              ? 'Audio: komplet (${_store.baza.values.fold<int>(0, (n, p) => n + p.words.length)} słówek)'
-                              : 'Brak audio: ${miss.length} haseł\n(PC: python3 scripts/generate_tts.py)',
+                              ? _l10n.audioComplete(_store.baza.values.fold<int>(0, (n, p) => n + p.words.length))
+                              : _l10n.audioMissing(miss.length),
                           style: Theme.of(ctx).textTheme.bodySmall,
                         );
                       },
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Dla Anielki',
+                      _l10n.forAnielka,
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 8),
@@ -1452,7 +1458,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         Navigator.pop(ctx);
                         showAnielkaPortalSheet(context, portal: _portal);
                       },
-                      child: const Text('Portal WWW (adres + PIN)'),
+                      child: Text(_l10n.portalWww),
                     ),
                     const SizedBox(height: 8),
                     OutlinedButton(
@@ -1460,7 +1466,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         Navigator.pop(ctx);
                         showGithubPublishSheet(context, portal: _portal);
                       },
-                      child: const Text('Opublikuj na moje GitHub'),
+                      child: Text(_l10n.publishGithub),
                     ),
                     const SizedBox(height: 6),
                     Text(
@@ -1501,7 +1507,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Dodaj słowo', style: Theme.of(ctx).textTheme.titleLarge),
+                  Text(_l10n.addWordTitle, style: Theme.of(ctx).textTheme.titleLarge),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
                     initialValue: lang,
@@ -1512,25 +1518,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       lang = v ?? lang;
                       categoryId = null;
                     }),
-                    decoration: const InputDecoration(labelText: 'Język'),
+                    decoration: InputDecoration(labelText: _l10n.language),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: plCtrl,
-                    decoration: const InputDecoration(labelText: 'Po polsku'),
+                    decoration: InputDecoration(labelText: _l10n.inPolish),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: obcyCtrl,
-                    decoration: const InputDecoration(labelText: 'Tłumaczenie'),
+                    decoration: InputDecoration(labelText: _l10n.translation),
                   ),
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String?>(
                     initialValue: categoryId,
                     items: [
-                      const DropdownMenuItem<String?>(
+                      DropdownMenuItem<String?>(
                         value: null,
-                        child: Text('Bez kategorii'),
+                        child: Text(_l10n.noCategory),
                       ),
                       for (final g in groups)
                         DropdownMenuItem<String?>(
@@ -1539,12 +1545,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                     ],
                     onChanged: (v) => setLocal(() => categoryId = v),
-                    decoration: const InputDecoration(labelText: 'Kategoria'),
+                    decoration: InputDecoration(labelText: _l10n.category),
                   ),
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () => Navigator.pop(ctx, true),
-                    child: const Text('Zapisz'),
+                    child: Text(_l10n.save),
                   ),
                 ],
               );
@@ -1557,7 +1563,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final pl = capitalizePhrase(plCtrl.text);
     final obcy = capitalizePhrase(obcyCtrl.text);
     if (pl.isEmpty || obcy.isEmpty) {
-      _flash('Wypełnij oba pola', kind: FeedbackKind.hint);
+      _flash(_l10n.fillBothFields, kind: FeedbackKind.hint);
       return;
     }
     final pack = _store.baza.putIfAbsent(
@@ -1574,13 +1580,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
     await _store.save();
     setState(() {});
-    _flash('Dodano: ${created.pl} → ${created.obcy}', kind: FeedbackKind.success);
+    _flash(_l10n.addedWord(created.pl, created.obcy), kind: FeedbackKind.success);
   }
 
   Future<void> _openDailyChat() async {
     final pack = _pack;
     if (pack == null || _lang == null) {
-      _flash('Wybierz język', kind: FeedbackKind.hint);
+      _flash(_l10n.pickLanguage, kind: FeedbackKind.hint);
       return;
     }
     await Navigator.of(context).push(
@@ -1605,7 +1611,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _importWordsSheet() async {
     final pack = _pack;
     if (pack == null || _lang == null) {
-      _flash('Wybierz język', kind: FeedbackKind.hint);
+      _flash(_l10n.pickLanguage, kind: FeedbackKind.hint);
       return;
     }
     final textCtrl = TextEditingController();
@@ -1630,13 +1636,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Import słówek',
+                      _l10n.importWordsTitle,
                       style: Theme.of(ctx).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Wklej CSV lub tekst: pl,obcy · pl;obcy · pl - obcy\n'
-                      'Jedna para w linii.',
+                      _l10n.importWordsHelp,
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 12),
@@ -1644,32 +1649,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       controller: textCtrl,
                       minLines: 6,
                       maxLines: 12,
-                      decoration: const InputDecoration(
-                        labelText: 'Tekst / CSV',
+                      decoration: InputDecoration(
+                        labelText: _l10n.importTextLabel,
                         hintText: 'kot,cat\npies,dog\ndom - house',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         alignLabelWithHint: true,
                       ),
                     ),
                     const SizedBox(height: 10),
                     TextField(
                       controller: pathCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Albo ścieżka do pliku .csv / .txt',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: _l10n.importFilePath,
+                        border: const OutlineInputBorder(),
                       ),
                     ),
                     const SizedBox(height: 8),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Utwórz kategorię z importu'),
+                      title: Text(_l10n.createCategoryFromImport),
                       value: makeGroup,
                       onChanged: (v) => setLocal(() => makeGroup = v),
                     ),
                     const SizedBox(height: 8),
                     FilledButton(
                       onPressed: () => Navigator.pop(ctx, true),
-                      child: const Text('Importuj'),
+                      child: Text(_l10n.importAction),
                     ),
                   ],
                 ),
@@ -1694,12 +1699,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       try {
         raw = await File(path).readAsString();
       } catch (e) {
-        _flash('Nie da się odczytać pliku: $e', kind: FeedbackKind.fail, ms: 3000);
+        _flash(_l10n.cannotReadFile(e), kind: FeedbackKind.fail, ms: 3000);
         return;
       }
     }
     if (raw.trim().isEmpty) {
-      _flash('Wklej tekst albo podaj ścieżkę', kind: FeedbackKind.hint);
+      _flash(_l10n.pasteOrPath, kind: FeedbackKind.hint);
       return;
     }
 
@@ -1733,14 +1738,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _keyboard() {
     if (_lang == 'Rosyjski') {
       return _keyCard(
-        'Klawiatura rosyjska',
+        _l10n.russianKeyboard,
         [
           for (final row in _cyrillicRows) row,
         ],
       );
     }
     if (_lang == 'Hiszpański') {
-      return _keyCard('Znaki hiszpańskie', [_spanishExtras]);
+      return _keyCard(_l10n.spanishChars, [_spanishExtras]);
     }
     return const SizedBox.shrink();
   }
@@ -1781,12 +1786,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: [
               OutlinedButton(
                 onPressed: () => _insert(' '),
-                child: const Text('Spacja'),
+                child: Text(_l10n.spaceKey),
               ),
               const SizedBox(width: 8),
               FilledButton.tonal(
                 onPressed: _backspace,
-                child: const Text('Cofnij ←'),
+                child: Text(_l10n.backspaceKey),
               ),
             ],
           ),
@@ -1797,16 +1802,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   String _groupLabel() {
     final pack = _pack;
-    if (pack == null) return 'Cała baza';
+    final l = _l10n;
+    if (pack == null) return l.poolAll;
     return switch (_groupId) {
-      '__all__' => 'Cała baza',
-      '__unlearned__' => 'Nieopanowane',
-      '__hard__' => 'Trudne',
+      '__all__' => l.poolAll,
+      '__unlearned__' => l.poolUnlearned,
+      '__hard__' => l.poolHard,
       _ => pack.groups
               .where((g) => g.id == _groupId)
               .map((g) => g.name)
               .firstOrNull ??
-          'Kategoria',
+          l.category,
     };
   }
 
@@ -1822,10 +1828,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: [
                 const Icon(Icons.error_outline, size: 48, color: Colors.orangeAccent),
                 const SizedBox(height: 16),
-                const Text(
-                  'Nie udało się wczytać aplikacji',
+                Text(
+                  _l10n.bootFailed,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -1838,16 +1844,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   style: const TextStyle(color: Colors.white70, fontSize: 13),
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'Częsty powód: stara wersja apki + nowy plik bazy.\n'
-                  'Spróbuj ponowić albo zaktualizuj pakiet (nrs / flutter run).',
+                Text(
+                  _l10n.bootFailedHint,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white60, fontSize: 13),
+                  style: const TextStyle(color: Colors.white60, fontSize: 13),
                 ),
                 const SizedBox(height: 20),
                 FilledButton(
                   onPressed: _retryBoot,
-                  child: const Text('Spróbuj ponownie'),
+                  child: Text(_l10n.tryAgain),
                 ),
               ],
             ),
@@ -1867,10 +1872,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: [
                 const CircularProgressIndicator(color: Color(0xFFB8F27A)),
                 const SizedBox(height: 20),
-                const Text(
-                  'Startuję Trener Językowy…',
+                Text(
+                  _l10n.starting,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -1903,12 +1908,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       extendBodyBehindAppBar: false,
       appBar: null,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _bottomNav.clamp(0, 4),
+        selectedIndex: _bottomNav.clamp(0, 5),
         onDestinationSelected: (i) => setState(() => _bottomNav = i),
         height: desktop ? 72 : null,
-        labelBehavior: desktop
-            ? NavigationDestinationLabelBehavior.alwaysShow
-            : NavigationDestinationLabelBehavior.alwaysShow,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.school_outlined),
@@ -1919,6 +1922,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             icon: const Icon(Icons.menu_book_outlined),
             selectedIcon: const Icon(Icons.menu_book_rounded),
             label: l10n.tabWords,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.pets_outlined),
+            selectedIcon: const Icon(Icons.pets_rounded),
+            label: l10n.tabMascot,
           ),
           NavigationDestination(
             icon: const Icon(Icons.storefront_outlined),
@@ -1953,7 +1961,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   progress: _store.stats.levelProgress,
                   xpToNext: _store.stats.xpToNextLevel,
                   paws: _store.stats.goldenPaws,
-                  title: titleForLevel(_store.stats.playerLevel).title,
+                  title: titleForLevel(
+                    _store.stats.playerLevel,
+                    uiLang: widget.uiLang,
+                  ).title,
                   audioEnabled: _audioEnabled,
                   onToggleAudio: () =>
                       _persistAudioEnabled(!_audioEnabled),
@@ -1968,12 +1979,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     dailyGoal: mascotDailyFeedGoal,
                     streakDays: _store.stats.streakDays,
                     palette: widget.palette,
-                    title: _store.stats.mascotSpecies == MascotSpecies.dog
-                        ? 'Czas na naukę z Pieskiem!'
-                        : 'Czas na naukę z Kicią!',
-                    subtitle: _store.stats.mascotSpecies == MascotSpecies.dog
-                        ? 'Każde słówko karmi Twojego Pieska'
-                        : 'Każde słówko karmi Twoją Kicię',
+                    title: l10n.learnWithPet(
+                      _store.stats.mascotSpecies == MascotSpecies.dog,
+                    ),
+                    subtitle: l10n.feedPetSubtitle(
+                      _store.stats.mascotSpecies == MascotSpecies.dog,
+                    ),
                   );
                 final stats = SoftPanel(
                     margin: EdgeInsets.zero,
@@ -1984,20 +1995,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: [
                         _HomeStatChip(
                           icon: Icons.military_tech_rounded,
-                          label: 'Poziom ${_store.stats.playerLevel}',
+                          label: l10n.levelChip(_store.stats.playerLevel),
                         ),
                         _HomeStatChip(
                           icon: Icons.pets_rounded,
-                          label: '${_store.stats.goldenPaws} łapek',
+                          label: l10n.pawsChip(_store.stats.goldenPaws),
                         ),
                         _HomeStatChip(
                           icon: Icons.menu_book_rounded,
-                          label: '${_pack?.words.length ?? 0} słówek',
+                          label: l10n.wordsChip(_pack?.words.length ?? 0),
                         ),
                         _HomeStatChip(
                           icon: Icons.bolt_rounded,
-                          label:
-                              'Sesja ${_store.stats.sessionCorrect}/${_store.stats.sessionTotal}',
+                          label: l10n.sessionChip(
+                            _store.stats.sessionCorrect,
+                            _store.stats.sessionTotal,
+                          ),
                         ),
                       ],
                     ),
@@ -2135,7 +2148,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: ActionChip(
                                   avatar: const Icon(Icons.add, size: 18),
-                                  label: const Text('Nowa pula'),
+                                  label: Text(l10n.newPool),
                                   onPressed: () =>
                                       _openGroups(openCreate: true),
                                 ),
@@ -2227,8 +2240,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   await _store.save();
                                   _flash(
                                     _current!.hard
-                                        ? 'Oznaczone jako trudne'
-                                        : 'Trudne wyłączone',
+                                        ? l10n.hardMarked
+                                        : l10n.hardCleared,
                                     kind: FeedbackKind.info,
                                   );
                                   setState(() {});
@@ -2306,8 +2319,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     children: [
                                       IconButton.filledTonal(
                                         tooltip: _audioEnabled
-                                            ? 'Posłuchaj'
-                                            : 'Lektor wyłączony',
+                                            ? l10n.listen
+                                            : l10n.narratorOff,
                                         onPressed: _audioEnabled
                                             ? () => _playText(_current!.obcy)
                                             : null,
@@ -2322,7 +2335,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       OutlinedButton(
                                         onPressed:
                                             _hintShown ? null : _showHint,
-                                        child: const Text('Podpowiedź'),
+                                        child: Text(l10n.hint),
                                       ),
                                     ],
                                   ),
@@ -2399,7 +2412,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     const SizedBox(height: 12),
                                     GradientButton(
                                       onPressed: _checkTyping,
-                                      label: 'Sprawdź',
+                                      label: l10n.check,
                                       palette: widget.palette,
                                     ),
                                     _keyboard(),
@@ -2413,15 +2426,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SectionHeader(
-                          title: 'Twój poziom',
-                          subtitle: 'XP za poprawne odpowiedzi',
+                        SectionHeader(
+                          title: l10n.yourLevel,
+                          subtitle: l10n.yourLevelSubtitle,
                           icon: Icons.military_tech_rounded,
                         ),
                         Row(
                           children: [
                             Text(
-                              'Poz. ${_store.stats.playerLevel}',
+                              l10n.levelShortNum(_store.stats.playerLevel),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall
@@ -2445,7 +2458,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ],
                         ),
                         Text(
-                          titleForLevel(_store.stats.playerLevel).title,
+                          titleForLevel(
+                            _store.stats.playerLevel,
+                            uiLang: widget.uiLang,
+                          ).title,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -2453,15 +2469,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Do kolejnego poziomu: ${_store.stats.xpToNextLevel} XP'
-                          '${_store.stats.sessionXp > 0 ? ' · +${_store.stats.sessionXp} dziś' : ''}',
+                          l10n.toNextLevel(
+                            _store.stats.xpToNextLevel,
+                            sessionXp: _store.stats.sessionXp,
+                          ),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         const SizedBox(height: 6),
                         TextButton(
                           onPressed: _openCuriosityAlbum,
-                          child: const Text('Album nagród / ciekawostki'),
+                          child: Text(l10n.album),
                         ),
                       ],
                     ),
@@ -2498,6 +2516,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     goldenPaws: _store.stats.goldenPaws,
                     species: _store.stats.mascotSpecies,
                     furColor: Color(_store.stats.mascotColorArgb),
+                    l10n: l10n,
                     onTapWardrobe: _openWardrobe,
                     onTapShop: _openShop,
                     onEquip: _equipMascot,
@@ -2529,9 +2548,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               children: [
                                 trening,
                                 const SizedBox(height: 14),
-                                akcje,
-                                const SizedBox(height: 14),
                                 quiz,
+                                const SizedBox(height: 14),
+                                akcje,
                               ],
                             ),
                           ),
@@ -2545,27 +2564,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 stats,
                                 const SizedBox(height: 14),
                                 poziom,
-                                const SizedBox(height: 10),
-                                mascotHeader,
-                                const SizedBox(height: 8),
-                                mascot,
                               ],
                             ),
                           ),
                         ],
                       )
                     else ...[
-                      // Telefon: nauka na środku — bez kafelka portalu/GitHub
+                      // Telefon: środek = trening + quiz; maskotka w osobnej zakładce
+                      stats,
+                      const SizedBox(height: 12),
                       trening,
                       const SizedBox(height: 12),
-                      akcje,
-                      const SizedBox(height: 16),
                       quiz,
                       const SizedBox(height: 12),
-                      mascotHeader,
-                      const SizedBox(height: 8),
-                      mascot,
+                      akcje,
                     ],
+                  ],
+                );
+                final mascotList = ListView(
+                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 28),
+                  children: [
+                    mascotHeader,
+                    const SizedBox(height: 8),
+                    mascot,
                   ],
                 );
                 final tabNeedLang = Center(
@@ -2583,7 +2604,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     SafeArea(bottom: false, child: xpBar),
                     Expanded(
                       child: IndexedStack(
-                        index: _bottomNav.clamp(0, 4),
+                        index: _bottomNav.clamp(0, 5),
                         children: [
                           Align(
                             alignment: Alignment.topCenter,
@@ -2597,6 +2618,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   lang: _lang!,
                                   pack: pack,
                                   palette: widget.palette,
+                                  uiLang: widget.uiLang,
                                   embedded: true,
                                   onChanged: () async {
                                     await _store.save();
@@ -2604,9 +2626,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   },
                                 )
                               : tabNeedLang,
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: maxW),
+                              child: mascotList,
+                            ),
+                          ),
                           ShopPage(
                             stats: _store.stats,
                             palette: widget.palette,
+                            uiLang: widget.uiLang,
                             embedded: true,
                             onChanged: () async {
                               await _store.save();
@@ -2619,6 +2649,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   pack: pack,
                                   selectedId: _groupId,
                                   palette: widget.palette,
+                                  uiLang: widget.uiLang,
                                   embedded: true,
                                   onChanged: () async {
                                     await _store.save();
@@ -2843,7 +2874,7 @@ class _PlayerXpBar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                tooltip: audioEnabled ? 'Wyłącz lektora' : 'Włącz lektora',
+                tooltip: audioEnabled ? l10n.disableNarrator : l10n.enableNarrator,
                 onPressed: onToggleAudio,
                 icon: Icon(
                   audioEnabled
@@ -2941,7 +2972,7 @@ class _PhoneSettingsTab extends StatelessWidget {
             for (final p in AppPalette.values)
               FilterChip(
                 avatar: CircleAvatar(backgroundColor: p.seed),
-                label: Text(p.label),
+                label: Text(l10n.paletteLabel(p.name)),
                 selected: palette == p,
                 onSelected: (_) => onPaletteChanged(p),
               ),
@@ -2990,6 +3021,7 @@ class GroupsPage extends StatefulWidget {
     required this.pack,
     required this.selectedId,
     required this.palette,
+    required this.uiLang,
     required this.onChanged,
     required this.onSelect,
     this.openCreateOnStart = false,
@@ -3000,10 +3032,13 @@ class GroupsPage extends StatefulWidget {
   final LangPack pack;
   final String selectedId;
   final AppPalette palette;
+  final UiLang uiLang;
   final VoidCallback onChanged;
   final ValueChanged<String> onSelect;
   final bool openCreateOnStart;
   final bool embedded;
+
+  L10n get l10n => L10n(uiLang);
 
   @override
   State<GroupsPage> createState() => _GroupsPageState();
@@ -3062,11 +3097,11 @@ class _GroupsPageState extends State<GroupsPage> {
                     TextField(
                       controller: nameCtrl,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        labelText: 'Nazwa puli',
-                        hintText: 'np. Czasowniki na dziś',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.label_outline),
+                      decoration: InputDecoration(
+                        labelText: widget.l10n.poolName,
+                        hintText: widget.l10n.poolNameHint,
+                        border: const OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.label_outline),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -3074,7 +3109,7 @@ class _GroupsPageState extends State<GroupsPage> {
                       controller: filterCtrl,
                       onChanged: (v) => setLocal(() => query = v),
                       decoration: InputDecoration(
-                        labelText: 'Szukaj słówka',
+                        labelText: widget.l10n.searchWord,
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.search),
                         suffixIcon: query.isEmpty
@@ -3090,12 +3125,12 @@ class _GroupsPageState extends State<GroupsPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Zaznaczone: ${selected.length} · Widoczne: ${filtered.length}',
+                      widget.l10n.selectedVisible(selected.length, filtered.length),
                       style: Theme.of(ctx).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Zaznacz słowa do puli (możesz szukać po polsku lub obcym).',
+                      widget.l10n.selectWordsHint,
                       style: Theme.of(ctx).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
@@ -3104,7 +3139,7 @@ class _GroupsPageState extends State<GroupsPage> {
                         margin: EdgeInsets.zero,
                         padding: EdgeInsets.zero,
                         child: filtered.isEmpty
-                            ? const Center(child: Text('Brak słówek'))
+                            ? Center(child: Text(widget.l10n.noWords))
                             : ListView.separated(
                                 itemCount: filtered.length,
                                 separatorBuilder: (_, _) =>
@@ -3160,14 +3195,14 @@ class _GroupsPageState extends State<GroupsPage> {
                                     .removeWhere((x) => x.id == _editingGroupId);
                                 Navigator.pop(ctx, false);
                               },
-                              child: const Text('Usuń pulę'),
+                              child: Text(widget.l10n.deletePool),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: FilledButton(
                               onPressed: () => Navigator.pop(ctx, true),
-                              child: const Text('Zapisz'),
+                              child: Text(widget.l10n.save),
                             ),
                           ),
                         ],
@@ -3177,8 +3212,8 @@ class _GroupsPageState extends State<GroupsPage> {
                         onPressed: () => Navigator.pop(ctx, true),
                         child: Text(
                           selected.isEmpty
-                              ? 'Utwórz (wybierz słowa)'
-                              : 'Utwórz pulę (${selected.length})',
+                              ? widget.l10n.createPoolPick
+                              : widget.l10n.createPoolN(selected.length),
                         ),
                       ),
                   ],
@@ -3200,7 +3235,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final selected = <String>{};
     _editingGroupId = null;
     final ok = await _pickWords(
-      title: 'Nowa pula słówek',
+      title: widget.l10n.newWordPool,
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: true,
@@ -3214,13 +3249,13 @@ class _GroupsPageState extends State<GroupsPage> {
     if (!mounted) return;
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Podaj nazwę puli')),
+        SnackBar(content: Text(widget.l10n.enterPoolName)),
       );
       return;
     }
     if (selected.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Zaznacz przynajmniej jedno słówko')),
+        SnackBar(content: Text(widget.l10n.selectAtLeastOne)),
       );
       return;
     }
@@ -3238,7 +3273,7 @@ class _GroupsPageState extends State<GroupsPage> {
     setState(() {});
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Utworzono pulę „$name” — ćwiczysz z niej')),
+        SnackBar(content: Text(widget.l10n.poolCreated(name))),
       );
     }
   }
@@ -3248,7 +3283,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final nameCtrl = TextEditingController(text: g.name);
     _editingGroupId = g.id;
     final ok = await _pickWords(
-      title: 'Edytuj pulę',
+      title: widget.l10n.editPool,
       selected: selected,
       nameCtrl: nameCtrl,
       createMode: false,
@@ -3330,7 +3365,7 @@ class _GroupsPageState extends State<GroupsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
               child: Text(
-                'Wybierz pulę do ćwiczeń albo utwórz własną: nazwa + zaznaczone słówka.',
+                widget.l10n.poolsIntro,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -3343,14 +3378,14 @@ class _GroupsPageState extends State<GroupsPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
                     child: Text(
-                      'Szybki wybór',
+                      widget.l10n.quickPick,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                   _tile(
                     id: '__all__',
-                    title: 'Cała baza',
-                    subtitle: '${widget.pack.words.length} słów',
+                    title: widget.l10n.poolAll,
+                    subtitle: widget.l10n.wordsCountShort(widget.pack.words.length),
                     preview: _previewFor(
                       widget.pack.words.take(6).map((w) => w.id).toList(),
                     ),
@@ -3358,16 +3393,16 @@ class _GroupsPageState extends State<GroupsPage> {
                   const Divider(height: 1),
                   _tile(
                     id: '__unlearned__',
-                    title: 'Nieopanowane',
-                    subtitle:
-                        '${widget.pack.words.where((w) => w.level < 3).length} słów',
+                    title: widget.l10n.poolUnlearned,
+                    subtitle: widget.l10n.wordsCountShort(
+                        widget.pack.words.where((w) => w.level < 3).length),
                   ),
                   const Divider(height: 1),
                   _tile(
                     id: '__hard__',
-                    title: 'Trudne',
-                    subtitle:
-                        '${widget.pack.words.where((w) => w.hard || w.level <= 1).length} słów',
+                    title: widget.l10n.poolHard,
+                    subtitle: widget.l10n.wordsCountShort(
+                        widget.pack.words.where((w) => w.hard || w.level <= 1).length),
                   ),
                 ],
               ),
@@ -3382,24 +3417,22 @@ class _GroupsPageState extends State<GroupsPage> {
                     padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
                     child: Text(
                       widget.pack.groups.isEmpty
-                          ? 'Twoje pule (pusto — dodaj pierwszą)'
-                          : 'Twoje pule (${widget.pack.groups.length})',
+                          ? widget.l10n.yourPoolsEmpty
+                          : widget.l10n.yourPoolsN(widget.pack.groups.length),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                   if (widget.pack.groups.isEmpty)
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(16, 8, 16, 20),
-                      child: Text(
-                        'Kliknij „Nowa pula”, wpisz nazwę i zaznacz słówka.',
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+                      child: Text(widget.l10n.yourPoolsHint),
                     )
                   else
                     for (final g in widget.pack.groups) ...[
                       _tile(
                         id: g.id,
                         title: g.name,
-                        subtitle: '${g.wordIds.length} słów',
+                        subtitle: widget.l10n.wordsCountShort(g.wordIds.length),
                         onEdit: () => _editGroup(g),
                         preview: _previewFor(g.wordIds),
                       ),
@@ -3415,7 +3448,7 @@ class _GroupsPageState extends State<GroupsPage> {
     final fab = FloatingActionButton.extended(
       onPressed: _createGroup,
       icon: const Icon(Icons.add),
-      label: const Text('Nowa pula'),
+      label: Text(widget.l10n.newPool),
     );
     if (widget.embedded) {
       return Stack(
@@ -3427,12 +3460,12 @@ class _GroupsPageState extends State<GroupsPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pule słówek — ${widget.lang}'),
+        title: Text(widget.l10n.wordPoolsTitle(widget.lang)),
         actions: [
           IconButton(
             onPressed: _createGroup,
             icon: const Icon(Icons.create_new_folder_outlined),
-            tooltip: 'Nowa pula',
+            tooltip: widget.l10n.newPool,
           ),
         ],
       ),
@@ -3448,6 +3481,7 @@ class WordsPage extends StatefulWidget {
     required this.lang,
     required this.pack,
     required this.palette,
+    required this.uiLang,
     required this.onChanged,
     this.embedded = false,
   });
@@ -3455,8 +3489,11 @@ class WordsPage extends StatefulWidget {
   final String lang;
   final LangPack pack;
   final AppPalette palette;
+  final UiLang uiLang;
   final VoidCallback onChanged;
   final bool embedded;
+
+  L10n get l10n => L10n(uiLang);
 
   @override
   State<WordsPage> createState() => _WordsPageState();
@@ -3536,16 +3573,16 @@ class _WordsPageState extends State<WordsPage> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Usunąć słówko?'),
+        title: Text(widget.l10n.deleteWordConfirm),
         content: Text('${w.pl} → ${w.obcy}'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Anuluj'),
+            child: Text(widget.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Usuń'),
+            child: Text(widget.l10n.delete),
           ),
         ],
       ),
@@ -3575,23 +3612,23 @@ class _WordsPageState extends State<WordsPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Edytuj słówko', style: Theme.of(ctx).textTheme.titleLarge),
+              Text(widget.l10n.editWord, style: Theme.of(ctx).textTheme.titleLarge),
               const SizedBox(height: 12),
               TextField(
                 controller: plCtrl,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(labelText: 'Po polsku'),
+                decoration: InputDecoration(labelText: widget.l10n.inPolish),
               ),
               const SizedBox(height: 8),
               TextField(
                 controller: obcyCtrl,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(labelText: 'Tłumaczenie'),
+                decoration: InputDecoration(labelText: widget.l10n.translation),
               ),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('Zapisz'),
+                child: Text(widget.l10n.save),
               ),
             ],
           ),
@@ -3652,7 +3689,7 @@ class _WordsPageState extends State<WordsPage> {
       appBar: widget.embedded
           ? null
           : AppBar(
-              title: Text('Słówka — ${widget.lang}'),
+              title: Text(widget.l10n.wordsTitle(widget.lang)),
             ),
       body: GradientScaffoldBody(
         palette: widget.palette,
@@ -3664,7 +3701,7 @@ class _WordsPageState extends State<WordsPage> {
                 controller: _filterCtrl,
                 onChanged: (v) => setState(() => _query = v),
                 decoration: InputDecoration(
-                  labelText: 'Szukaj',
+                  labelText: widget.l10n.search,
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: _query.isEmpty
@@ -3683,7 +3720,7 @@ class _WordsPageState extends State<WordsPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
                 child: Text(
-                  'Kategoria',
+                  widget.l10n.category,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
@@ -3726,7 +3763,7 @@ class _WordsPageState extends State<WordsPage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 4),
                               child: FilterChip(
-                                label: const Text('Wszystkie'),
+                                label: Text(widget.l10n.all),
                                 selected: _categoryFilter == null,
                                 onSelected: (_) =>
                                     setState(() => _categoryFilter = null),
@@ -3771,7 +3808,7 @@ class _WordsPageState extends State<WordsPage> {
                 margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 padding: EdgeInsets.zero,
                 child: list.isEmpty
-                    ? const Center(child: Text('Brak słówek'))
+                    ? Center(child: Text(widget.l10n.noWords))
                     : ListView.separated(
                         itemCount: list.length,
                         separatorBuilder: (_, _) => const Divider(height: 1),
@@ -3818,12 +3855,12 @@ class _WordsPageState extends State<WordsPage> {
                                     ),
                                   ),
                                   IconButton(
-                                    tooltip: 'Edytuj',
+                                    tooltip: widget.l10n.edit,
                                     icon: const Icon(Icons.edit_outlined),
                                     onPressed: () => _editWord(w),
                                   ),
                                   IconButton(
-                                    tooltip: 'Usuń',
+                                    tooltip: widget.l10n.delete,
                                     icon: const Icon(Icons.delete_outline),
                                     onPressed: () => _deleteWord(w),
                                   ),
@@ -3848,14 +3885,18 @@ class ShopPage extends StatefulWidget {
     super.key,
     required this.stats,
     required this.palette,
+    required this.uiLang,
     required this.onChanged,
     this.embedded = false,
   });
 
   final AppStats stats;
   final AppPalette palette;
+  final UiLang uiLang;
   final VoidCallback onChanged;
   final bool embedded;
+
+  L10n get l10n => L10n(uiLang);
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -3889,7 +3930,7 @@ class _ShopPageState extends State<ShopPage>
     }
     widget.onChanged();
     setState(() {});
-    _toast('Kupiono: ${item.name}! 🐾');
+    _toast(widget.l10n.bought(item.name));
   }
 
   Future<void> _buyHome(HomeItem item) async {
@@ -3900,19 +3941,21 @@ class _ShopPageState extends State<ShopPage>
     }
     widget.onChanged();
     setState(() {});
-    _toast('Kupiono: ${item.name}! 🐾');
+    _toast(widget.l10n.bought(item.name));
   }
 
   @override
   Widget build(BuildContext context) {
     final outfits = shopExclusiveOutfits();
     final paws = widget.stats.goldenPaws;
-    final petName = mascotName(widget.stats.mascotSpecies);
+    final petName = widget.l10n.petName(
+      widget.stats.mascotSpecies == MascotSpecies.dog,
+    );
     final tabBar = TabBar(
       controller: _tabs,
-      tabs: const [
-        Tab(text: 'Ubranka', icon: Icon(Icons.checkroom_outlined)),
-        Tab(text: 'Pokoik', icon: Icon(Icons.home_outlined)),
+      tabs: [
+        Tab(text: widget.l10n.clothesTab, icon: const Icon(Icons.checkroom_outlined)),
+        Tab(text: widget.l10n.roomTab, icon: const Icon(Icons.home_outlined)),
       ],
     );
     final content = Column(
@@ -3970,10 +4013,13 @@ class _ShopPageState extends State<ShopPage>
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Złote łapki: +$pawsPerCorrect za poprawną odpowiedź, '
-                      '+$pawsFeedBonus gdy $petName najedzona, '
-                      '+$pawsPerLevelUp za poziom, '
-                      '+$pawsDailyChat za rozmowę AI.',
+                      widget.l10n.shopBlurbFull(
+                        perCorrect: pawsPerCorrect,
+                        feedBonus: pawsFeedBonus,
+                        pet: petName,
+                        perLevel: pawsPerLevelUp,
+                        dailyChat: pawsDailyChat,
+                      ),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
@@ -4009,7 +4055,7 @@ class _ShopPageState extends State<ShopPage>
                               OutfitThumb(item: item, size: 56),
                               const SizedBox(width: 4),
                               IconButton(
-                                tooltip: 'Podgląd 3D',
+                                tooltip: widget.l10n.preview3d,
                                 onPressed: () {
                                   final path = glbAssetForId(item.id);
                                   if (path == null) return;
@@ -4049,7 +4095,7 @@ class _ShopPageState extends State<ShopPage>
                                         widget.onChanged();
                                         setState(() {});
                                       },
-                                      child: Text(equipped ? 'Zdjęte' : 'Ubierz'),
+                                      child: Text(equipped ? widget.l10n.unequip : widget.l10n.equip),
                                     )
                                   : FilledButton(
                                       onPressed: paws >= price
@@ -4097,7 +4143,7 @@ class _ShopPageState extends State<ShopPage>
                                 ),
                               ),
                               IconButton(
-                                tooltip: 'Podgląd 3D',
+                                tooltip: widget.l10n.preview3d,
                                 onPressed: () {
                                   final path = glbAssetForId(item.id);
                                   if (path == null) return;
@@ -4137,7 +4183,7 @@ class _ShopPageState extends State<ShopPage>
                                         widget.onChanged();
                                         setState(() {});
                                       },
-                                      child: Text(placed ? 'Schowaj' : 'Wystaw'),
+                                      child: Text(placed ? widget.l10n.hideItem : widget.l10n.showItem),
                                     )
                                   : FilledButton(
                                       onPressed: paws >= item.price
@@ -4163,7 +4209,7 @@ class _ShopPageState extends State<ShopPage>
     if (widget.embedded) return wrapped;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sklep $petName'),
+        title: Text(widget.l10n.shopTitle(petName)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),

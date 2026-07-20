@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import 'l10n.dart';
+
 import 'model3d_viewer.dart';
 
 /// Gatunek maskotki.
@@ -1724,6 +1726,7 @@ class MascotCard extends StatelessWidget {
     this.species = MascotSpecies.cat,
     this.furColor = const Color(defaultMascotColorArgb),
     this.compact = false,
+    this.l10n = L10n.pl,
     this.onTapWardrobe,
     this.onTapShop,
     this.onEquip,
@@ -1741,6 +1744,7 @@ class MascotCard extends StatelessWidget {
   final Color furColor;
   final int goldenPaws;
   final bool compact;
+  final L10n l10n;
   final VoidCallback? onTapWardrobe;
   final VoidCallback? onTapShop;
   final void Function(MascotItem item)? onEquip;
@@ -1752,12 +1756,13 @@ class MascotCard extends StatelessWidget {
     final items = unlockedMascotItems(unlockedIds);
     final need =
         (mascotDailyFeedGoal - wordsToday).clamp(0, mascotDailyFeedGoal);
-    final name = mascotName(species);
+    final l = l10n;
+    final name = l.petName(species == MascotSpecies.dog);
     final hungerLabel = fedToday
-        ? 'Syta i szczęśliwa! (+nauka dziś ✓)'
+        ? l.fedHappy
         : need == 0
-            ? 'Już najedzona — możesz dalej ćwiczyć.'
-            : 'Głodna… nakarm nauką: jeszcze $need słówk${need == 1 ? 'o' : 'a'} dziś';
+            ? l.alreadyFed
+            : l.wordsLeftToFeed(need);
 
     final portraitSize = compact ? 140.0 : 200.0;
 
@@ -1769,7 +1774,7 @@ class MascotCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '$name — maskotka Treningu',
+                  l.mascotTrainingTitle(name),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -1794,14 +1799,14 @@ class MascotCard extends StatelessWidget {
           const SizedBox(height: 8),
           if (onSpeciesChanged != null) ...[
             SegmentedButton<MascotSpecies>(
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: MascotSpecies.cat,
-                  label: Text('🐱 Kot'),
+                  label: Text(l.petCat),
                 ),
                 ButtonSegment(
                   value: MascotSpecies.dog,
-                  label: Text('🐶 Pies'),
+                  label: Text(l.petDog),
                 ),
               ],
               selected: {species},
@@ -1814,9 +1819,7 @@ class MascotCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    species == MascotSpecies.dog
-                        ? 'Kolor sierści — stuknij, żeby zmienić'
-                        : 'Kolor futerka — stuknij, żeby zmienić',
+                    l.furColorHint(species == MascotSpecies.dog),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -1984,8 +1987,8 @@ class MascotCard extends StatelessWidget {
                 ),
                 child: Text(
                   species == MascotSpecies.dog
-                      ? 'Hau! Jem słówka!'
-                      : 'Miaaa… jem słówka!',
+                      ? l.eatWordsDog
+                      : l.eatWordsCat,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
@@ -1999,8 +2002,7 @@ class MascotCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Zbieraj złote łapki 🐾 za poprawne odpowiedzi i kupuj '
-            'miski, posłanie oraz ekskluzywne ubranka w sklepie!',
+            l.collectPawsBlurb,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context)
@@ -2048,7 +2050,7 @@ class MascotCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                'Awansuj na poziom 2 albo zajrzyj do sklepu — $name dostanie ubranko!',
+                l.petNeedsOutfit(name),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
@@ -2062,12 +2064,12 @@ class MascotCard extends StatelessWidget {
                 FilledButton.tonalIcon(
                   onPressed: onTapShop,
                   icon: const Icon(Icons.storefront_outlined),
-                  label: const Text('Sklep'),
+                  label: Text(l.shop),
                 ),
               if (onTapWardrobe != null)
                 TextButton(
                   onPressed: onTapWardrobe,
-                  child: const Text('Pełna garderoba'),
+                  child: Text(l.fullWardrobe),
                 ),
             ],
           ),

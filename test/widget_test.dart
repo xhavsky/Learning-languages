@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trener_jezykowy/curiosities.dart';
 import 'package:trener_jezykowy/import_csv.dart';
+import 'package:trener_jezykowy/l10n.dart';
 import 'package:trener_jezykowy/mascot.dart';
 import 'package:trener_jezykowy/models.dart';
 import 'package:trener_jezykowy/storage.dart';
@@ -274,6 +275,16 @@ dom - house
     final c = curiosityForLevel(2, lang: 'Angielski');
     expect(c.title, isNotEmpty);
     expect(c.text, isNotEmpty);
+  });
+
+  test('curiosities and titles follow UI language', () {
+    final pl = curiosityForLevel(2, lang: 'Angielski', uiLang: UiLang.pl);
+    final en = curiosityForLevel(2, lang: 'Angielski', uiLang: UiLang.en);
+    expect(pl.id, en.id);
+    expect(pl.title, isNot(en.title));
+    expect(titleForLevel(1, uiLang: UiLang.en).title, 'Newbie');
+    expect(titleForLevel(6, uiLang: UiLang.en).title, 'Conversationalist');
+    expect(newTitleAtLevel(2, uiLang: UiLang.es)?.title, 'Cazadora de palabras');
   });
 
   test('titleForLevel and album unlock', () {
