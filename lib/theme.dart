@@ -1,69 +1,96 @@
 import 'package:flutter/material.dart';
 
 enum AppPalette {
-  forest,
-  ocean,
+  mint,
+  candy,
+  sky,
   sunset,
-  grape,
-  rose,
+  berry,
+  forest,
   slate,
 }
 
 extension AppPaletteX on AppPalette {
   String get label => switch (this) {
-        AppPalette.forest => 'Las (zielony)',
-        AppPalette.ocean => 'Ocean (niebieski)',
+        AppPalette.mint => 'Mięta (świeża)',
+        AppPalette.candy => 'Cukierek (koral)',
+        AppPalette.sky => 'Niebo (błękit)',
         AppPalette.sunset => 'Zachód (pomarańcz)',
-        AppPalette.grape => 'Winogrono (fiolet)',
-        AppPalette.rose => 'Róż',
+        AppPalette.berry => 'Jagoda (róż)',
+        AppPalette.forest => 'Las (zielony)',
         AppPalette.slate => 'Grafit',
       };
 
   Color get seed => switch (this) {
-        AppPalette.forest => const Color(0xFF2E7D32),
-        AppPalette.ocean => const Color(0xFF1565C0),
-        AppPalette.sunset => const Color(0xFFE65100),
-        AppPalette.grape => const Color(0xFF6A1B9A),
-        AppPalette.rose => const Color(0xFFC2185B),
-        AppPalette.slate => const Color(0xFF455A64),
+        AppPalette.mint => const Color(0xFF00897B),
+        AppPalette.candy => const Color(0xFFE64A19),
+        AppPalette.sky => const Color(0xFF039BE5),
+        AppPalette.sunset => const Color(0xFFEF6C00),
+        AppPalette.berry => const Color(0xFFD81B60),
+        AppPalette.forest => const Color(0xFF43A047),
+        AppPalette.slate => const Color(0xFF546E7A),
       };
 
   /// Background wash (3 stops).
   List<Color> gradient(bool light) => switch (this) {
+        AppPalette.mint => light
+            ? const [Color(0xFFE0F7F4), Color(0xFFB2DFDB), Color(0xFF80CBC4)]
+            : const [Color(0xFF062A26), Color(0xFF0A2F2A), Color(0xFF0F3D36)],
+        AppPalette.candy => light
+            ? const [Color(0xFFFFF0EB), Color(0xFFFFCCBC), Color(0xFFFFAB91)]
+            : const [Color(0xFF2A120C), Color(0xFF3D1A12), Color(0xFF4E2218)],
+        AppPalette.sky => light
+            ? const [Color(0xFFE1F5FE), Color(0xFFB3E5FC), Color(0xFF81D4FA)]
+            : const [Color(0xFF061820), Color(0xFF0A2533), Color(0xFF0F3344)],
+        AppPalette.sunset => light
+            ? const [Color(0xFFFFF6E8), Color(0xFFFFE0B2), Color(0xFFFFCC80)]
+            : const [Color(0xFF2A1508), Color(0xFF3D1F0A), Color(0xFF4E2A0C)],
+        AppPalette.berry => light
+            ? const [Color(0xFFFFEBF2), Color(0xFFF8BBD0), Color(0xFFF48FB1)]
+            : const [Color(0xFF2A0F18), Color(0xFF3D1524), Color(0xFF4F1C30)],
         AppPalette.forest => light
             ? const [Color(0xFFE8F5E9), Color(0xFFC8E6C9), Color(0xFFA5D6A7)]
             : const [Color(0xFF0D1F12), Color(0xFF14301C), Color(0xFF1B3D28)],
-        AppPalette.ocean => light
-            ? const [Color(0xFFE3F2FD), Color(0xFFBBDEFB), Color(0xFF90CAF9)]
-            : const [Color(0xFF0A1628), Color(0xFF0F2744), Color(0xFF163A5F)],
-        AppPalette.sunset => light
-            ? const [Color(0xFFFFF3E0), Color(0xFFFFE0B2), Color(0xFFFFCC80)]
-            : const [Color(0xFF2A1508), Color(0xFF3D1F0A), Color(0xFF4E2A0C)],
-        AppPalette.grape => light
-            ? const [Color(0xFFF3E5F5), Color(0xFFE1BEE7), Color(0xFFCE93D8)]
-            : const [Color(0xFF1A0F24), Color(0xFF2A1638), Color(0xFF3A1F4D)],
-        AppPalette.rose => light
-            ? const [Color(0xFFFCE4EC), Color(0xFFF8BBD0), Color(0xFFF48FB1)]
-            : const [Color(0xFF2A0F18), Color(0xFF3D1524), Color(0xFF4F1C30)],
         AppPalette.slate => light
             ? const [Color(0xFFECEFF1), Color(0xFFCFD8DC), Color(0xFFB0BEC5)]
             : const [Color(0xFF12181C), Color(0xFF1C262C), Color(0xFF263238)],
       };
 
   List<Color> buttonGradient(bool light) => switch (this) {
-        AppPalette.forest => const [Color(0xFF43A047), Color(0xFF1B5E20)],
-        AppPalette.ocean => const [Color(0xFF42A5F5), Color(0xFF0D47A1)],
+        AppPalette.mint => const [Color(0xFF26A69A), Color(0xFF00695C)],
+        AppPalette.candy => const [Color(0xFFFF7043), Color(0xFFBF360C)],
+        AppPalette.sky => const [Color(0xFF29B6F6), Color(0xFF0277BD)],
         AppPalette.sunset => const [Color(0xFFFFA726), Color(0xFFE65100)],
-        AppPalette.grape => const [Color(0xFFAB47BC), Color(0xFF4A148C)],
-        AppPalette.rose => const [Color(0xFFEC407A), Color(0xFF880E4F)],
+        AppPalette.berry => const [Color(0xFFEC407A), Color(0xFF880E4F)],
+        AppPalette.forest => const [Color(0xFF66BB6A), Color(0xFF2E7D32)],
         AppPalette.slate => const [Color(0xFF78909C), Color(0xFF37474F)],
       };
 
+  /// Accent for fun UI flourishes (streaks, rings).
+  Color get accent => switch (this) {
+        AppPalette.mint => const Color(0xFFFFB300),
+        AppPalette.candy => const Color(0xFF00BCD4),
+        AppPalette.sky => const Color(0xFFFF7043),
+        AppPalette.sunset => const Color(0xFF26A69A),
+        AppPalette.berry => const Color(0xFFFFD54F),
+        AppPalette.forest => const Color(0xFFFFA000),
+        AppPalette.slate => const Color(0xFF4FC3F7),
+      };
+
   static AppPalette fromName(String? name) {
+    // Stare nazwy z zapisanych ustawień → nowe odpowiedniki.
+    switch (name) {
+      case 'ocean':
+        return AppPalette.sky;
+      case 'grape':
+        return AppPalette.berry;
+      case 'rose':
+        return AppPalette.berry;
+    }
     for (final p in AppPalette.values) {
       if (p.name == name) return p;
     }
-    return AppPalette.forest;
+    return AppPalette.mint;
   }
 }
 

@@ -6,14 +6,17 @@
   <title>Portal Anielki — Trener Językowy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Exo+2:wght@400;500;600;700;800&family=Share+Tech+Mono&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --ink: #f4f7ff;
-      --muted: rgba(244, 247, 255, 0.72);
-      --card: rgba(12, 16, 32, 0.55);
-      --card-solid: rgba(18, 22, 42, 0.82);
-      --stroke: rgba(255, 255, 255, 0.14);
+      --muted: rgba(244, 247, 255, 0.78);
+      --card: rgba(255, 255, 255, 0.12);
+      --card-tint: rgba(140, 180, 255, 0.14);
+      --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+      --card-solid: rgba(28, 34, 58, 0.55);
+      --stroke: rgba(255, 255, 255, 0.32);
+      --stroke-bright: rgba(255, 255, 255, 0.62);
       --accent: #5eead4;
       --accent2: #a78bfa;
       --accent3: #fb7185;
@@ -24,37 +27,67 @@
       --busy: #fbbf24;
       --link: #7dd3fc;
       --ok: #34d399;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-      --glow: 0 0 40px rgba(94, 234, 212, 0.25);
-      --radius: 22px;
-      --font: "Outfit", system-ui, sans-serif;
-      --display: "Fraunces", Georgia, serif;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.42), 0 6px 16px rgba(0, 0, 0, 0.28), 0 1px 0 rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.28);
+      --shadow-glass:
+        0 4px 8px rgba(0, 0, 0, 0.25),
+        0 16px 40px rgba(0, 0, 0, 0.4),
+        0 40px 80px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 1px 0 rgba(255, 255, 255, 0.35) inset,
+        0 -12px 40px rgba(94, 234, 212, 0.04) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.35) inset;
+      --shadow-glass-lift:
+        0 6px 12px rgba(0, 0, 0, 0.28),
+        0 20px 48px rgba(0, 0, 0, 0.45),
+        0 48px 96px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(94, 234, 212, 0.22),
+        0 1px 0 rgba(255, 255, 255, 0.45) inset,
+        0 -14px 48px rgba(94, 234, 212, 0.08) inset,
+        0 0 60px rgba(167, 139, 250, 0.12);
+      --glow: 0 0 56px rgba(94, 234, 212, 0.35), 0 0 120px rgba(167, 139, 250, 0.18);
+      --radius: 20px;
+      --font: "Exo 2", "Segoe UI", system-ui, sans-serif;
+      --display: "Orbitron", "Exo 2", sans-serif;
+      --mono: "Share Tech Mono", ui-monospace, monospace;
+      --hand: "Caveat", cursive;
+      --sticky-paper: linear-gradient(145deg, #fffde7 0%, #fff59d 28%, #ffee58 55%, #ffd54f 82%, #ffca28 100%);
     }
     html[data-theme="light"] {
       --ink: #12152a;
       --muted: rgba(18, 21, 42, 0.7);
-      --card: rgba(255, 255, 255, 0.72);
-      --card-solid: rgba(255, 255, 255, 0.88);
-      --stroke: rgba(18, 21, 42, 0.12);
+      --card: rgba(255, 255, 255, 0.38);
+      --card-tint: rgba(180, 200, 255, 0.12);
+      --text-shadow: 0 1px 2px rgba(255, 255, 255, 0.55);
+      --card-solid: rgba(255, 255, 255, 0.72);
+      --stroke: rgba(255, 255, 255, 0.65);
+      --stroke-bright: rgba(255, 255, 255, 0.9);
       --me: rgba(14, 165, 233, 0.15);
       --bot: rgba(245, 158, 11, 0.16);
       --sys: rgba(139, 92, 246, 0.12);
       --link: #0369a1;
-      --shadow: 0 18px 40px rgba(30, 20, 60, 0.18);
+      --shadow: 0 16px 42px rgba(30, 20, 60, 0.16), 0 4px 12px rgba(30, 20, 60, 0.1);
+      --shadow-soft: 0 6px 18px rgba(30, 20, 60, 0.1);
+      --shadow-glass:
+        0 18px 44px rgba(30, 20, 60, 0.16),
+        0 6px 16px rgba(30, 20, 60, 0.1),
+        0 1px 0 rgba(255, 255, 255, 0.75) inset,
+        0 -1px 0 rgba(30, 20, 60, 0.06) inset;
+      --shadow-glass-lift:
+        0 24px 52px rgba(30, 20, 60, 0.2),
+        0 8px 20px rgba(30, 20, 60, 0.12),
+        0 1px 0 rgba(255, 255, 255, 0.85) inset,
+        0 -1px 0 rgba(30, 20, 60, 0.05) inset;
       --glow: 0 0 36px rgba(94, 234, 212, 0.2);
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
 
-    /* Unified dark scrollbars */
     * {
       scrollbar-width: thin;
       scrollbar-color: rgba(148, 163, 255, 0.45) rgba(8, 10, 20, 0.55);
     }
-    *::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
+    *::-webkit-scrollbar { width: 8px; height: 8px; }
     *::-webkit-scrollbar-track {
       background: rgba(8, 10, 20, 0.55);
       border-radius: 999px;
@@ -63,251 +96,669 @@
       background: linear-gradient(180deg, rgba(94, 234, 212, 0.55), rgba(167, 139, 250, 0.65));
       border-radius: 999px;
       border: 2px solid rgba(8, 10, 20, 0.55);
-      box-shadow: 0 0 12px rgba(94, 234, 212, 0.25);
     }
-    *::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, rgba(94, 234, 212, 0.8), rgba(251, 113, 133, 0.7));
-    }
-    *::-webkit-scrollbar-corner {
-      background: transparent;
+
+    html {
+      background: #010208 !important;
+      background-color: #010208 !important;
+      min-height: 100%;
     }
     body {
       font-family: var(--font);
+      font-weight: 500;
+      letter-spacing: 0.01em;
       color: var(--ink);
-      background: #07090f;
+      background: transparent !important;
+      background-color: transparent !important;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
+    /* Lekki cień liter — bez filter / box-decoration (Vivaldi = czarne bloki) */
+    .eyebrow,
+    .panel > summary,
+    .panel > summary > span,
+    .panel__hint,
+    label,
+    .hint,
+    #status,
+    .progress-compact__label,
+    #progressDetail,
+    #progressMeta .chip,
+    #progressFiles,
+    #progressSteps li,
+    .tag,
+    .msg .meta,
+    .busy,
+    #ghSaved,
+    #ghStatus,
+    #relStatus {
+      text-shadow: var(--text-shadow);
+      forced-color-adjust: none;
     }
-    .bg__kitten {
-      position: absolute;
-      inset: -8%;
-      background:
-        url("/static/img/kitten_book.png") center 28% / cover no-repeat;
-      filter: saturate(1.15) contrast(1.05);
-      transform: scale(1.05);
-      animation: kitten-drift 28s ease-in-out infinite alternate;
+    .titles,
+    .titles *,
+    header.hero h1,
+    header.hero .tagline,
+    header.hero .eyebrow,
+    .panel > summary,
+    .panel > summary > span,
+    .progress-compact,
+    .progress-compact__cat,
+    .progress-compact__text,
+    .progress-compact__label,
+    #progressDetail,
+    #progressMeta,
+    #progressFiles,
+    #progressSteps {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      outline: none !important;
+      forced-color-adjust: none;
     }
-    .bg__veil {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 75% 20%, rgba(167, 139, 250, 0.45), transparent 55%),
-        radial-gradient(ellipse 55% 50% at 15% 80%, rgba(94, 234, 212, 0.35), transparent 50%),
-        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(251, 113, 133, 0.22), transparent 60%),
-        linear-gradient(160deg, rgba(7, 9, 15, 0.55) 0%, rgba(7, 9, 15, 0.78) 45%, rgba(7, 9, 15, 0.92) 100%);
-      backdrop-filter: blur(2px);
+    .sticky-note,
+    .sticky-note *,
+    .sticky-add,
+    .sticky-add * {
+      text-shadow: none !important;
     }
-    html[data-theme="light"] .bg__veil {
-      background:
-        radial-gradient(ellipse 70% 55% at 75% 20%, rgba(167, 139, 250, 0.28), transparent 55%),
-        radial-gradient(ellipse 55% 50% at 15% 80%, rgba(45, 212, 191, 0.25), transparent 50%),
-        linear-gradient(160deg, rgba(255, 255, 255, 0.35) 0%, rgba(240, 244, 255, 0.72) 50%, rgba(230, 236, 255, 0.88) 100%);
+
+
+    /* Tło: canvas (granat–róż, blur, animacja) */
+    #bgCanvas {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      display: block !important;
+      opacity: 1 !important;
+      background: #010208 !important;
+      forced-color-adjust: none !important;
+      color-scheme: only light;
     }
-    .bg__blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.55;
-      animation: blob-float 16s ease-in-out infinite;
-    }
-    .bg__blob--a {
-      width: 42vw; height: 42vw; max-width: 520px; max-height: 520px;
-      left: -8%; top: 10%;
-      background: #a78bfa;
-    }
-    .bg__blob--b {
-      width: 36vw; height: 36vw; max-width: 440px; max-height: 440px;
-      right: -6%; bottom: 8%;
-      background: #2dd4bf;
-      animation-delay: -6s;
-    }
-    .bg__blob--c {
-      width: 28vw; height: 28vw; max-width: 340px; max-height: 340px;
-      left: 40%; bottom: -10%;
-      background: #fb7185;
-      animation-delay: -11s;
-      opacity: 0.4;
-    }
-    .bg__noise {
-      position: absolute;
-      inset: 0;
-      opacity: 0.07;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-    }
+
     @keyframes kitten-drift {
-      from { transform: scale(1.04) translate3d(0, 0, 0); }
-      to { transform: scale(1.1) translate3d(-2%, 1.5%, 0); }
+      0% { transform: scale(1.06) translate3d(0, 0, 0) rotate(0deg); }
+      50% { transform: scale(1.14) translate3d(-3%, 2%, 0) rotate(0.6deg); }
+      100% { transform: scale(1.1) translate3d(2%, -1.5%, 0) rotate(-0.4deg); }
     }
-    @keyframes blob-float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(4%, -6%) scale(1.08); }
+    @keyframes aurora-spin {
+      from { transform: rotate(0deg) scale(1.05); }
+      to { transform: rotate(360deg) scale(1.05); }
+    }
+    @keyframes beam-sweep {
+      0%, 100% { transform: skewX(-18deg) translateX(-30%) translateY(0); opacity: 0.25; }
+      40% { opacity: 0.75; }
+      50% { transform: skewX(-18deg) translateX(55%) translateY(-4%); opacity: 0.55; }
+      60% { opacity: 0.7; }
+    }
+    @keyframes veil-breathe {
+      from { opacity: 0.88; }
+      to { opacity: 1; }
+    }
+    @keyframes blob-orbit-a {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+      25% { transform: translate(12%, 8%) scale(1.15); opacity: 1; }
+      50% { transform: translate(18%, -6%) scale(0.95); opacity: 0.75; }
+      75% { transform: translate(4%, -12%) scale(1.1); opacity: 0.95; }
+    }
+    @keyframes blob-orbit-b {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+      30% { transform: translate(-14%, -10%) scale(1.2); opacity: 1; }
+      60% { transform: translate(-8%, 12%) scale(0.9); opacity: 0.7; }
+      85% { transform: translate(6%, 4%) scale(1.08); opacity: 0.9; }
+    }
+    @keyframes blob-orbit-c {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.75; }
+      40% { transform: translate(-10%, -16%) scale(1.18); opacity: 0.95; }
+      70% { transform: translate(14%, -4%) scale(0.92); opacity: 0.7; }
+    }
+    @keyframes blob-orbit-d {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+      50% { transform: translate(-20%, 15%) scale(1.25); opacity: 0.95; }
+    }
+    @keyframes base-shift {
+      from { transform: scale(1) translate(0, 0) rotate(0deg); }
+      to { transform: scale(1.12) translate(-3%, 2%) rotate(4deg); }
+    }
+    @keyframes particle-rise {
+      0% { transform: translateY(110vh) scale(0.6); opacity: 0; }
+      10% { opacity: 0.85; }
+      70% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+    @keyframes noise-shift {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-1%, 1%); }
+      40% { transform: translate(1%, -1%); }
+      60% { transform: translate(-1%, -1%); }
+      80% { transform: translate(1%, 1%); }
+    }
+    @keyframes grid-drift {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-64px, -64px, 0); }
+    }
+    @keyframes stars-twinkle {
+      from { opacity: 0.45; }
+      to { opacity: 0.9; }
+    }
+    @keyframes hero-glow {
+      0%, 100% {
+        box-shadow:
+          0 8px 28px rgba(0, 0, 0, 0.45),
+          0 0 40px rgba(236, 72, 153, 0.2),
+          0 0 80px rgba(37, 99, 235, 0.18),
+          0 1px 0 rgba(255, 255, 255, 0.2) inset;
+      }
+      50% {
+        box-shadow:
+          0 12px 40px rgba(0, 0, 0, 0.5),
+          0 0 64px rgba(244, 114, 182, 0.35),
+          0 0 100px rgba(99, 102, 241, 0.28),
+          0 1px 0 rgba(255, 255, 255, 0.28) inset;
+      }
+    }
+    @keyframes hero-mesh {
+      0%, 100% { background-position: 0% 0%, 100% 50%, 50% 100%; }
+      50% { background-position: 40% 30%, 60% 70%, 20% 40%; }
+    }
+    @keyframes glass-sheen {
+      0% { transform: translateX(-130%) skewX(-20deg); opacity: 0; }
+      12% { opacity: 0.7; }
+      35% { opacity: 0.35; }
+      55%, 100% { transform: translateX(230%) skewX(-20deg); opacity: 0; }
+    }
+    @keyframes accent-dot {
+      0%, 100% { box-shadow: 0 0 8px var(--accent), 0 0 18px rgba(94,234,212,0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 14px var(--accent), 0 0 32px rgba(94,234,212,0.7); transform: scale(1.15); }
     }
     @keyframes shimmer {
       from { background-position: 0% 50%; }
       to { background-position: 100% 50%; }
     }
-    @keyframes progress-stripes {
-      from { background-position: 0 0; }
-      to { background-position: 40px 0; }
+    @keyframes glass-shine {
+      0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+      18% { opacity: 0.85; }
+      42% { opacity: 0.55; }
+      100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+    }
+    @keyframes bubble-shimmer {
+      0%, 18% { background-position: 120% 0; opacity: 0; }
+      32% { opacity: 0.85; }
+      55% { opacity: 0.4; }
+      72%, 100% { background-position: -120% 0; opacity: 0; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes busy-pulse {
+      0%, 100% {
+        box-shadow:
+          0 22px 56px rgba(0, 0, 0, 0.45),
+          0 8px 20px rgba(0, 0, 0, 0.28),
+          0 0 0 1px rgba(251, 191, 36, 0.35),
+          0 0 28px rgba(251, 191, 36, 0.22),
+          0 1px 0 rgba(255, 255, 255, 0.22) inset;
+      }
+      50% {
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.48),
+          0 10px 24px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(251, 191, 36, 0.55),
+          0 0 40px rgba(251, 191, 36, 0.35),
+          0 1px 0 rgba(255, 255, 255, 0.28) inset;
+      }
     }
 
     .wrap {
       position: relative;
-      z-index: 1;
-      max-width: 760px;
+      z-index: 10;
+      /* kolumna treści + zawsze widać animowane tło po bokach (16:9 też) */
+      width: min(1200px, 78vw);
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px 16px 48px;
+      padding: 18px 18px 48px;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      gap: 0;
+      background: transparent !important;
     }
 
+    /* ── Glass — ciemniejsze, żeby nie bledło na kolorowym tle ── */
     .glass {
-      background: var(--card);
-      border: 1px solid var(--stroke);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        155deg,
+        rgba(28, 24, 72, 0.82) 0%,
+        rgba(18, 16, 48, 0.78) 40%,
+        rgba(36, 14, 48, 0.8) 75%,
+        rgba(22, 20, 55, 0.85) 100%
+      ) !important;
+      background-color: rgba(16, 14, 40, 0.75) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-top-color: rgba(255, 255, 255, 0.42);
+      border-left-color: rgba(196, 181, 253, 0.28);
+      border-bottom-color: rgba(0, 0, 0, 0.35);
       border-radius: var(--radius);
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
-      backdrop-filter: blur(22px) saturate(1.35);
-      -webkit-backdrop-filter: blur(22px) saturate(1.35);
+      box-shadow: var(--shadow-glass);
+      transition: box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(185deg, rgba(255, 255, 255, 0.12) 0%, transparent 42%),
+        linear-gradient(125deg, rgba(236, 72, 153, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 55% at 100% 0%, rgba(99, 102, 241, 0.18), transparent 55%);
+    }
+    .glass::after {
+      content: "" !important;
+      display: block !important;
+      position: absolute;
+      top: -20%;
+      left: 0;
+      width: 42%;
+      height: 140%;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        100deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.04) 40%,
+        rgba(255, 255, 255, 0.22) 50%,
+        rgba(94, 234, 212, 0.1) 55%,
+        transparent 70%
+      );
+      transform: translateX(-130%) skewX(-20deg);
+      animation: glass-sheen 7.5s ease-in-out infinite;
+      opacity: 0;
+    }
+    .glass > *,
+    .glass > summary {
+      position: relative;
+      z-index: 1;
+      background-color: transparent;
+    }
+    #progressCard::after { animation-delay: 0.4s; }
+    #releaseCard::after { animation-delay: 1.6s; }
+    header.hero::after { animation-delay: 0.2s; }
+    .panel.glass:nth-of-type(1)::after { animation-delay: 2.2s; }
+    .panel.glass:nth-of-type(2)::after { animation-delay: 3.1s; }
+    .panel.glass:nth-of-type(3)::after { animation-delay: 4s; }
+
+    .panel.glass:hover {
+      box-shadow: var(--shadow-glass-lift);
+      transform: translateY(-3px) scale(1.005);
+      border-top-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(94, 234, 212, 0.35);
+    }
+    /* Zwinięte sekcje = przezroczyste separatory (bez fill glass) */
+    .panel.glass:not([open]),
+    .release-latest.glass:not([open]) {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      border-color: transparent !important;
+      border-top-color: transparent !important;
+      border-left-color: transparent !important;
+      border-bottom-color: transparent !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .panel.glass:not([open])::before,
+    .panel.glass:not([open])::after,
+    .release-latest.glass:not([open])::before,
+    .release-latest.glass:not([open])::after {
+      display: none !important;
+      opacity: 0 !important;
+      animation: none !important;
+      background: none !important;
+    }
+    .panel.glass:not([open]):hover {
+      background: transparent !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .panel.glass[open] {
+      box-shadow: var(--shadow-glass-lift);
+      border-color: rgba(255, 255, 255, 0.4);
+      border-top-color: rgba(255, 255, 255, 0.62);
+    }
+    #progressCard.busy {
+      border-color: rgba(251, 191, 36, 0.45);
+      border-top-color: rgba(251, 191, 36, 0.65);
+      animation: busy-pulse 2.4s ease-in-out infinite;
+    }
+    #progressCard.busy:hover {
+      transform: none;
     }
 
     header.hero {
-      padding: 22px 22px 18px;
+      padding: 28px 28px 26px;
       margin-bottom: 14px;
       display: flex;
-      gap: 14px;
+      gap: 16px;
       align-items: flex-start;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      animation: hero-glow 5s ease-in-out infinite;
+      /* głęboki granat–róż — nie mleczne szkło */
+      background: linear-gradient(
+        135deg,
+        rgba(22, 20, 70, 0.95) 0%,
+        rgba(45, 18, 70, 0.92) 35%,
+        rgba(30, 40, 110, 0.94) 70%,
+        rgba(55, 20, 75, 0.96) 100%
+      ) !important;
+      background-color: rgba(18, 16, 55, 0.92) !important;
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      border-top-color: rgba(255, 200, 230, 0.45);
+      border-left-color: rgba(129, 140, 248, 0.4);
+      border-bottom-color: rgba(0, 0, 0, 0.45);
     }
     header.hero::before {
       content: "";
       position: absolute;
-      inset: -40% auto auto -20%;
-      width: 60%;
-      height: 120%;
-      background: linear-gradient(120deg, rgba(94,234,212,0.25), rgba(167,139,250,0.2), transparent 70%);
-      filter: blur(28px);
+      inset: 0;
+      border-radius: inherit;
       pointer-events: none;
+      z-index: 0;
+      background:
+        /* abstrakcyjna siatka */
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        /* kule koloru */
+        radial-gradient(ellipse 55% 70% at 0% 0%, rgba(236, 72, 153, 0.35), transparent 55%),
+        radial-gradient(ellipse 50% 60% at 100% 20%, rgba(59, 130, 246, 0.4), transparent 50%),
+        radial-gradient(ellipse 45% 50% at 80% 100%, rgba(192, 38, 211, 0.3), transparent 55%),
+        radial-gradient(ellipse 40% 45% at 20% 90%, rgba(99, 102, 241, 0.25), transparent 50%),
+        /* gloss */
+        linear-gradient(165deg, rgba(255, 255, 255, 0.14) 0%, transparent 40%);
+      background-size:
+        28px 28px,
+        28px 28px,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        100% 100%;
+      animation: hero-mesh 14s ease-in-out infinite alternate;
+      filter: none !important;
+      opacity: 1;
     }
-    .titles { position: relative; flex: 1; min-width: 0; }
+    header.hero::after {
+      /* sheen mocniejszy na hero */
+      opacity: 0.85 !important;
+      width: 48% !important;
+      background: linear-gradient(
+        100deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.06) 38%,
+        rgba(244, 114, 182, 0.22) 48%,
+        rgba(129, 140, 248, 0.18) 52%,
+        rgba(255, 255, 255, 0.08) 62%,
+        transparent 75%
+      ) !important;
+    }
+    .titles {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      background: transparent !important;
+      box-shadow: none !important;
+      filter: none !important;
+      isolation: auto;
+    }
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
+      gap: 6px;
+      font-family: var(--display);
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 8px;
+      margin-top: 8px;
+      margin-bottom: 0;
+      background: transparent !important;
+      background-color: transparent !important;
     }
     .eyebrow::before {
       content: "";
       width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-      animation: blob-float 2.4s ease-in-out infinite;
+      box-shadow: 0 0 10px var(--accent);
+      flex-shrink: 0;
+      animation: accent-dot 2.2s ease-in-out infinite;
     }
     header h1 {
-      margin: 0 0 6px;
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 0 4px;
+      padding: 0;
       font-family: var(--display);
-      font-size: clamp(1.7rem, 4.5vw, 2.25rem);
-      font-weight: 700;
-      line-height: 1.15;
-      background: linear-gradient(110deg, #fff 10%, #5eead4 40%, #a78bfa 70%, #fb7185 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shimmer 8s linear infinite alternate;
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 1.12;
+      text-transform: uppercase;
+      background: none !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      filter: none !important;
+      /* jeden miękki cień — wielowarstwowy w Vivaldi = prostokąt */
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+      animation: none;
+      border: 0 !important;
+      box-shadow: none !important;
     }
     html[data-theme="light"] header h1 {
-      background: linear-gradient(110deg, #12152a 5%, #0d9488 40%, #7c3aed 75%, #e11d48 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
+      color: #12152a;
+      -webkit-text-fill-color: #12152a;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
     }
-    header p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 42ch;
+    header .tagline {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 0 2px;
+      padding: 0;
+      border: 0 !important;
+      font-family: var(--hand) !important;
+      font-size: clamp(1.55rem, 3.8vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+    }
+    html[data-theme="light"] header .tagline {
+      color: #1a1a2e !important;
+      -webkit-text-fill-color: #1a1a2e !important;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
     }
     #themeToggle {
       position: relative;
       margin: 0;
       flex-shrink: 0;
-      padding: 10px 14px;
-      font-size: 0.88rem;
+      padding: 9px 14px;
+      font-family: var(--display);
+      font-size: 0.68rem;
       font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.08) !important;
       color: var(--ink);
       border: 1px solid var(--stroke);
-      box-shadow: none;
-      backdrop-filter: blur(12px);
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.28),
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.2s, box-shadow 0.2s;
     }
-    #themeToggle:hover { border-color: var(--accent); box-shadow: var(--glow); }
+    #themeToggle:hover {
+      border-color: var(--accent);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.32),
+        0 0 20px rgba(94, 234, 212, 0.2),
+        0 1px 0 rgba(255, 255, 255, 0.25) inset;
+      transform: translateY(-1px);
+    }
+    #themeToggle:active { transform: translateY(0); }
 
     #gate, #app { display: none; }
     #gate.show { display: block; }
-    #app.show { display: flex; flex-direction: column; flex: 1; gap: 14px; }
+    #app.show { display: flex; flex-direction: column; flex: 1; gap: 12px; }
 
-    .card {
-      padding: 18px 18px 16px;
+    /* Wejście — fade-up */
+    header.hero .titles,
+    #gate.show,
+    #app.show > * {
+      animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    .card h2 {
-      margin: 0 0 10px;
-      font-family: var(--display);
-      font-size: 1.25rem;
-      font-weight: 700;
+    header.hero {
+      /* hero-glow already set; keep entrance via children */
     }
-    .card + .card { margin-top: 0; }
+    #app.show > *:nth-child(1) { animation-delay: 0.04s; }
+    #app.show > *:nth-child(2) { animation-delay: 0.08s; }
+    #app.show > *:nth-child(3) { animation-delay: 0.12s; }
+    #app.show > *:nth-child(4) { animation-delay: 0.16s; }
+    #app.show > *:nth-child(5) { animation-delay: 0.2s; }
+    #app.show > *:nth-child(6) { animation-delay: 0.24s; }
+    #app.show > *:nth-child(7) { animation-delay: 0.28s; }
+    #app.show > *:nth-child(8) { animation-delay: 0.32s; }
+    #gate.show { animation-delay: 0.06s; }
 
-    .rules {
-      position: relative;
+    /* ── Collapsible glass panels ── */
+    .panel {
       overflow: hidden;
     }
-    .rules::after {
-      content: "";
-      position: absolute;
-      right: -30px; top: -40px;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(251,191,36,0.35), transparent 70%);
+    .panel > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 18px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      filter: none !important;
+      outline: none;
+      color: var(--ink);
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s ease;
+    }
+    .panel > summary::-webkit-details-marker { display: none; }
+    .panel > summary::after {
+      content: "▾";
+      font-size: 0.9rem;
+      opacity: 0.7;
+      color: var(--accent);
+      transition: transform 0.22s ease, opacity 0.2s;
+      flex-shrink: 0;
+      background: transparent !important;
+      text-shadow: var(--text-shadow);
+    }
+    .panel:not([open]) > summary::after {
+      transform: rotate(-90deg);
+      opacity: 0.5;
+    }
+    .panel > summary:hover {
+      background: transparent !important;
+      color: var(--accent);
+    }
+    .panel > summary:hover::after { opacity: 1; }
+    .panel > summary > span {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    .panel__hint {
+      font-family: var(--font);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: rgba(244, 247, 255, 0.88);
+      margin-left: auto;
+      margin-right: 6px;
+    }
+    html[data-theme="light"] .panel__hint {
+      color: rgba(18, 21, 42, 0.65);
+    }
+    .panel__body {
+      padding: 0 18px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .panel--always > summary {
+      cursor: default;
       pointer-events: none;
     }
+    .panel--always > summary::after { display: none; }
+
     .rules ol {
-      margin: 0;
-      padding-left: 1.2rem;
+      margin: 10px 0 0;
+      padding-left: 1.15rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.5;
+      font-size: 0.88rem;
     }
-    .rules li { margin: 0.45rem 0; }
+    .rules li { margin: 0.35rem 0; }
     .rules li strong { color: var(--ink); }
-    .rules .tagrow {
+    .tagrow {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 6px;
+      margin-top: 10px;
     }
     .tag {
-      font-size: 0.75rem;
+      font-family: var(--display);
+      font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 6px 10px;
+      padding: 4px 8px;
       border-radius: 999px;
       border: 1px solid var(--stroke);
       background: rgba(255,255,255,0.05);
@@ -317,428 +768,1084 @@
     .tag--violet { color: #ddd6fe; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.14); }
     .tag--rose { color: #fecdd3; border-color: rgba(251,113,133,0.4); background: rgba(251,113,133,0.14); }
 
-    label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.92rem; }
-    input, textarea {
+    label { display: block; font-family: var(--display); font-weight: 700; margin-bottom: 5px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    input:not(.sticky-note__textarea),
+    textarea:not(.sticky-note__textarea) {
       width: 100%;
-      font-size: 1.02rem;
-      padding: 13px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
+      font-size: 0.95rem;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
       font-family: inherit;
-      background: rgba(0,0,0,0.28);
+      background: rgba(8, 12, 24, 0.45);
       color: var(--ink);
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow:
+        inset 0 2px 6px rgba(0, 0, 0, 0.35),
+        0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
-    html[data-theme="light"] input,
-    html[data-theme="light"] textarea {
-      background: rgba(255,255,255,0.7);
+    html[data-theme="light"] input:not(.sticky-note__textarea),
+    html[data-theme="light"] textarea:not(.sticky-note__textarea) {
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow:
+        inset 0 1px 4px rgba(30, 20, 60, 0.08),
+        0 1px 0 rgba(255, 255, 255, 0.8);
     }
-    input:focus, textarea:focus {
-      border-color: rgba(94,234,212,0.55);
-      box-shadow: 0 0 0 3px rgba(94,234,212,0.18), var(--glow);
+    input:not(.sticky-note__textarea):focus,
+    textarea:not(.sticky-note__textarea):focus {
+      border-color: rgba(94, 234, 212, 0.65);
+      box-shadow:
+        0 0 0 3px rgba(94, 234, 212, 0.18),
+        inset 0 2px 6px rgba(0, 0, 0, 0.28);
     }
-    textarea { min-height: 96px; resize: vertical; }
+    textarea:not(.sticky-note__textarea) { min-height: 80px; resize: vertical; }
 
     button {
-      margin-top: 10px;
-      background: linear-gradient(135deg, #2dd4bf, #6366f1 55%, #ec4899);
-      background-size: 180% 180%;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 25%, #818cf8 55%, #e879f9 78%, #fb7185 100%);
+      background-size: 220% 220%;
       color: #fff;
       border: 0;
       border-radius: 14px;
       padding: 12px 18px;
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      font-family: inherit;
+      font-family: var(--display);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 10px 28px rgba(99, 102, 241, 0.35);
-      transition: transform 0.15s ease, box-shadow 0.2s;
+      box-shadow:
+        0 12px 32px rgba(99, 102, 241, 0.45),
+        0 0 40px rgba(94, 234, 212, 0.2),
+        0 2px 0 rgba(255, 255, 255, 0.35) inset,
+        0 -2px 0 rgba(0, 0, 0, 0.18) inset;
+      transition: transform 0.18s ease, box-shadow 0.25s, background-position 0.4s;
     }
-    button:hover { transform: translateY(-1px); box-shadow: 0 14px 34px rgba(236, 72, 153, 0.3); }
-    button:active { transform: translateY(0); }
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      background-position: 100% 40%;
+      box-shadow:
+        0 18px 42px rgba(236, 72, 153, 0.4),
+        0 0 50px rgba(167, 139, 250, 0.3),
+        0 2px 0 rgba(255, 255, 255, 0.4) inset,
+        0 -2px 0 rgba(0, 0, 0, 0.12) inset;
+    }
+    button:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 4px 14px rgba(99, 102, 241, 0.28),
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    }
     button:disabled { opacity: 0.45; cursor: wait; transform: none; }
     button.ghost {
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.06) !important;
       color: var(--ink);
-      box-shadow: none;
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.25),
+        0 1px 0 rgba(255, 255, 255, 0.15) inset;
       border: 1px solid var(--stroke);
       font-weight: 700;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
-    button.ghost:hover { border-color: var(--accent); box-shadow: var(--glow); }
+    button.ghost:hover {
+      border-color: var(--accent);
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.3),
+        0 0 18px rgba(94, 234, 212, 0.18),
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    }
+    button.sm {
+      margin-top: 0;
+      padding: 7px 11px;
+      font-size: 0.78rem;
+      border-radius: 8px;
+    }
 
     a { color: var(--link); }
-    .hint { font-size: 0.88rem; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+    .hint { font-size: 0.82rem; color: var(--muted); margin-top: 6px; line-height: 1.45; }
     .busy { color: var(--busy); font-weight: 700; }
-    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 
-    #status { padding: 0 4px; font-size: 0.9rem; color: var(--muted); }
+    #status {
+      padding: 6px 4px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      background: transparent !important;
+      background-image: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-radius: 0;
+    }
+    #status::before,
+    #status::after {
+      display: none !important;
+      content: none !important;
+    }
 
+    /* ── Najnowszy release (GitHub) — panel zwijany ── */
+    .release-latest {
+      margin: 0;
+      padding: 0;
+      transition: box-shadow 0.28s ease, transform 0.28s ease;
+    }
+    .release-latest__content {
+      padding-top: 4px;
+    }
+    .release-latest__head {
+      margin-bottom: 8px;
+    }
+    .release-latest > *,
+    .release-latest > * *,
+    .release-latest > * *::before,
+    .release-latest > * *::after {
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      forced-color-adjust: none;
+    }
+    .release-latest.glass {
+      box-shadow: var(--shadow-glass) !important;
+    }
+    .release-latest.glass::before {
+      /* dziedziczy ciemne glass::before */
+    }
+    .release-latest__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .release-latest__label {
+      display: inline-block;
+      font-family: Orbitron, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+      border: 0 !important;
+      text-shadow: none;
+    }
+    .release-latest__tag {
+      display: inline-block;
+      font-family: "Share Tech Mono", ui-monospace, monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0;
+      border: 0 !important;
+    }
+    .release-latest__tag:hover { text-decoration: underline; }
+    .release-latest__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-bottom: 6px;
+    }
+    .release-latest__meta .chip {
+      display: inline;
+      padding: 0;
+      border: 0 !important;
+      border-radius: 0;
+      font-size: 0.82rem;
+      color: var(--ink);
+      background: transparent !important;
+    }
+    .release-latest__meta .chip strong {
+      color: var(--accent);
+      font-weight: 800;
+      background: transparent !important;
+    }
+    .release-latest__body,
+    .release-latest__err {
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0 !important;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--ink);
+      background: transparent !important;
+      text-shadow: none;
+    }
+    .release-latest__err {
+      color: var(--muted);
+    }
+
+    /* ── Progress compact ── */
+    .progress-compact {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px 14px;
+      background: transparent !important;
+    }
+    .progress-compact__cat {
+      flex-shrink: 0;
+      width: 128px;
+      height: 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible;
+    }
+    .progress-compact__cat img {
+      width: 128px;
+      max-width: 128px;
+      height: auto;
+      image-rendering: pixelated;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      /* czarne tło GIF-a znika na ciemnym szkle */
+      mix-blend-mode: screen;
+      filter: none !important;
+      transition: opacity 0.35s ease;
+    }
+    #progressCard.is-idle .progress-compact__cat img {
+      opacity: 0.4;
+      mix-blend-mode: screen;
+      filter: none !important;
+    }
+    #progressCard.busy .progress-compact__cat img {
+      opacity: 1;
+      filter: none !important;
+    }
+    .progress-compact__text { flex: 1; min-width: 0; }
+    .progress-compact__label {
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    #progressCard.busy .progress-compact__label { color: var(--accent); }
+    #progressDetail {
+      margin: 2px 0 0;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+    #progressMeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    #progressMeta .chip {
+      font-family: var(--display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: transparent !important;
+      background-color: transparent !important;
+      color: var(--muted);
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+    }
+    #progressMeta .chip strong { color: var(--accent); font-weight: 800; }
+    #progressFiles {
+      margin: 6px 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      word-break: break-all;
+    }
+    #progressSteps {
+      margin: 8px 0 0;
+      padding: 4px 0 4px 1.1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-height: 8rem;
+      overflow-y: auto;
+      border-radius: 0;
+      border: 0 !important;
+      background: transparent !important;
+      list-style: decimal;
+      box-shadow: none !important;
+    }
+    #progressSteps li { margin: 2px 0; padding-left: 2px; }
+    #progressSteps li.is-now { color: var(--ink); font-weight: 700; }
+
+    /* ── Chat — kolorowe dymki ── */
     #msgs {
       flex: 1;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 6px 2px 10px;
-      max-height: min(52vh, 480px);
+      align-items: stretch;
+      gap: 16px;
+      padding: 14px 14px 18px;
+      max-height: min(52vh, 520px);
+      background: transparent !important;
     }
     .msg {
-      padding: 14px 16px 16px;
+      padding: 12px 16px 14px;
+      width: fit-content;
+      max-width: min(85%, 720px);
       border-radius: 18px;
-      border: 1px solid var(--stroke);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.06);
-      /* backdrop-filter na .msg w Operze GX potrafi uczynić tekst niewidocznym */
+      border: 1px solid rgba(255, 255, 255, 0.28);
       line-height: 1.55;
       position: relative;
       overflow: visible;
-      color: var(--ink);
+      font-family: Arial, Helvetica, "Segoe UI", Tahoma, sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 1.05rem;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      color-scheme: only light;
+      forced-color-adjust: none;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      isolation: auto;
+      filter: none !important;
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.35),
+        0 14px 32px rgba(0, 0, 0, 0.5),
+        0 28px 56px rgba(0, 0, 0, 0.35),
+        0 2px 0 rgba(255, 255, 255, 0.25) inset,
+        0 -8px 24px rgba(0, 0, 0, 0.15) inset !important;
+      text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.9),
+        0 2px 4px rgba(0, 0, 0, 0.75),
+        0 3px 10px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(0, 0, 0, 0.4);
     }
-    .msg::before {
-      content: "";
+    .msg *,
+    .msg *::before,
+    .msg *::after {
+      forced-color-adjust: none;
+      font-family: Arial, Helvetica, "Segoe UI", Tahoma, sans-serif !important;
+    }
+    .msg .body,
+    .msg .body *,
+    .msg .meta,
+    .msg .meta * {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-weight: 700 !important;
+      text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.9),
+        0 2px 4px rgba(0, 0, 0, 0.75),
+        0 3px 10px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(0, 0, 0, 0.4) !important;
+    }
+    .msg .body code,
+    .msg .body .codeblock {
+      border-radius: 6px !important;
+    }
+    .msg::before { display: none !important; content: none !important; }
+    /* subtelny shimmer (inset, żeby overflow:visible nie wypuszczał smugi) */
+    .msg::after {
+      content: "" !important;
+      display: block !important;
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent3));
-      opacity: 0.85;
-      border-radius: 18px 0 0 18px;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(255, 255, 255, 0.12) 46%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.12) 54%,
+        transparent 62%,
+        transparent 100%
+      );
+      background-size: 220% 100%;
+      background-position: 120% 0;
+      animation: bubble-shimmer 4s ease-in-out infinite;
     }
+    .msg.user::after { animation-delay: 0.2s; }
+    .msg.assistant::after { animation-delay: 1.4s; }
+    .msg.system::after { animation-delay: 2.6s; }
+    .msg .meta,
+    .msg .body {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Anielka — zielone (ciemniejsze pod kontrast tekstu) */
     .msg.user {
-      background: rgba(20, 40, 60, 0.94);
       align-self: flex-end;
-      max-width: 92%;
+      border-radius: 20px 20px 6px 20px;
+      background: linear-gradient(145deg, #16a34a 0%, #15803d 42%, #166534 78%, #14532d 100%) !important;
+      background-color: #15803d !important;
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.35),
+        0 14px 32px rgba(0, 0, 0, 0.45),
+        0 24px 48px rgba(22, 163, 74, 0.25),
+        0 2px 0 rgba(255, 255, 255, 0.35) inset !important;
     }
-    .msg.user::before {
-      left: auto; right: 0;
-      border-radius: 0 18px 18px 0;
-      background: linear-gradient(180deg, #38bdf8, #818cf8);
+    .msg.user .meta .dot {
+      background: #fff !important;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
     }
+
+    /* Asystent */
     .msg.assistant {
-      background: rgba(22, 24, 38, 0.95);
       align-self: flex-start;
-      max-width: 96%;
+      border-radius: 20px 20px 20px 6px;
+      background: linear-gradient(145deg, #0e4f63 0%, #1e3a8a 45%, #312e81 100%) !important;
+      background-color: #1e3a8a !important;
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.35),
+        0 14px 32px rgba(0, 0, 0, 0.45),
+        0 24px 48px rgba(30, 58, 138, 0.35),
+        0 2px 0 rgba(255, 255, 255, 0.3) inset !important;
     }
+    .msg.assistant .meta .dot {
+      background: #fff !important;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    }
+
+    /* System */
     .msg.system {
-      background: rgba(36, 28, 52, 0.95);
       align-self: center;
-      font-size: 0.95rem;
-      max-width: 96%;
+      font-size: 1rem;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #7c2d12 0%, #9a3412 40%, #c2410c 100%) !important;
+      background-color: #9a3412 !important;
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.35),
+        0 14px 32px rgba(0, 0, 0, 0.45),
+        0 24px 48px rgba(194, 65, 12, 0.3),
+        0 2px 0 rgba(255, 255, 255, 0.3) inset !important;
     }
+    .msg.system .meta .dot {
+      background: #fff !important;
+    }
+
     .msg .meta {
-      font-size: 0.7rem;
-      opacity: 0.8;
-      margin-bottom: 8px;
-      font-weight: 800;
+      font-size: 0.72rem !important;
+      opacity: 0.95;
+      margin-bottom: 6px;
+      font-weight: 800 !important;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--ink);
+      gap: 6px;
+      background: transparent !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
     }
     .msg .meta .dot {
       width: 7px; height: 7px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
       flex-shrink: 0;
     }
-    .msg.user .meta .dot { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
-    .msg.system .meta .dot { background: #a78bfa; box-shadow: 0 0 10px #a78bfa; }
     .msg .body {
       display: block;
-      color: #f4f7ff !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      font-size: 1.02rem;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
       line-height: 1.55;
       white-space: pre-wrap;
       word-break: break-word;
-      -webkit-text-fill-color: #f4f7ff;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: 0 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
     }
-    .msg .body p {
-      margin: 0 0 0.7em;
-      color: inherit;
-      -webkit-text-fill-color: inherit;
+    .msg .body .line {
+      display: block;
+      margin: 0 0 0.55em;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-weight: 700 !important;
     }
-    .msg .body p:last-child { margin-bottom: 0; }
+    .msg .body .line:last-child { margin-bottom: 0; }
+    .msg .body strong {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-weight: 800 !important;
+    }
     .msg .body code {
-      font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
-      font-size: 0.9em;
+      font-family: Consolas, "Courier New", monospace !important;
+      font-size: 0.92em !important;
+      font-weight: 700 !important;
       padding: 0.12em 0.4em;
-      border-radius: 7px;
-      background: rgba(94, 234, 212, 0.18);
-      border: 1px solid rgba(94, 234, 212, 0.35);
-      color: #99f6e4;
-      -webkit-text-fill-color: #99f6e4;
+      border-radius: 6px !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      background: rgba(255, 255, 255, 0.2) !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      display: inline;
+      box-shadow: none !important;
     }
     .msg .body pre.codeblock {
-      margin: 0.6em 0;
-      padding: 12px 14px;
+      margin: 0.5em 0;
+      padding: 10px 12px;
       overflow-x: auto;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid var(--stroke);
+      border-radius: 10px !important;
+      background: rgba(0, 0, 0, 0.25) !important;
+      background-color: rgba(0, 0, 0, 0.25) !important;
+      border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      box-shadow: none !important;
     }
     .msg .body pre.codeblock code {
       padding: 0;
-      border: 0;
-      background: transparent;
-    }
-    .msg .body strong {
-      color: #fff;
-      -webkit-text-fill-color: #fff;
-      font-weight: 800;
+      border: 0 !important;
+      background: transparent !important;
+      display: inline;
     }
     .msg .body a {
-      color: #7dd3fc;
-      -webkit-text-fill-color: #7dd3fc;
       text-decoration: underline;
       text-underline-offset: 2px;
-    }
-    html[data-theme="light"] .msg.user { background: rgba(230, 244, 255, 0.97); }
-    html[data-theme="light"] .msg.assistant { background: rgba(255, 252, 245, 0.97); }
-    html[data-theme="light"] .msg.system { background: rgba(245, 240, 255, 0.97); }
-    html[data-theme="light"] .msg .body,
-    html[data-theme="light"] .msg .body p {
-      color: #12152a !important;
-      -webkit-text-fill-color: #12152a;
-    }
-    html[data-theme="light"] .msg .body strong {
-      color: #12152a;
-      -webkit-text-fill-color: #12152a;
-    }
-    html[data-theme="light"] .msg .body code {
-      color: #0f766e;
-      -webkit-text-fill-color: #0f766e;
-      background: rgba(13, 148, 136, 0.1);
-      border-color: rgba(13, 148, 136, 0.25);
+      background: transparent !important;
+      color: #fef08a !important;
+      -webkit-text-fill-color: #fef08a !important;
+      font-weight: 800 !important;
     }
 
-    #progressCard { display: block; }
-    #progressCard.is-idle #progressDetail { opacity: 0.8; font-weight: 600; }
-    #progressCard.show { display: block; }
-    .progress-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 10px;
+    .composer .panel__body { padding-top: 12px; }
+
+    /* ── Sticky notes ── */
+    .sticky-board {
+      /* nie zasłaniaj całej strony — tylko kotwica dla fixed children */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      z-index: 100;
+      overflow: visible;
+      pointer-events: none;
     }
-    .progress-head strong { font-size: 1rem; }
-    .busy-cat-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      min-height: 72px;
-      padding: 6px 0 2px;
+    .sticky-board > * { pointer-events: auto; }
+
+    .sticky-note {
+      position: fixed;
+      width: min(268px, calc(100vw - 24px));
+      padding: 30px 18px 16px;
+      min-height: 168px;
+      border-radius: 2px 2px 18px 3px;
+      color-scheme: only light;
+      background:
+        linear-gradient(155deg,
+          rgba(255,255,255,0.55) 0%,
+          rgba(255,249,196,0.15) 18%,
+          transparent 40%),
+        var(--sticky-paper);
+      box-shadow:
+        2px 3px 4px rgba(0,0,0,0.1),
+        6px 12px 22px rgba(0,0,0,0.22),
+        14px 28px 48px rgba(0,0,0,0.2),
+        inset 0 -3px 6px rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.65);
+      transform: rotate(var(--rot, -6deg));
+      transform-origin: 50% 12px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      color: #1a1208;
+      touch-action: none;
     }
-    .busy-cat-wrap img {
+    .sticky-note.is-dragging {
+      transition: none;
+      z-index: 80 !important;
+      cursor: grabbing;
+    }
+    .sticky-note:hover:not(.is-dragging) {
+      transform: rotate(var(--rot, -6deg)) scale(1.03) translateY(-2px);
+      box-shadow:
+        3px 5px 6px rgba(0,0,0,0.12),
+        8px 16px 28px rgba(0,0,0,0.26),
+        16px 32px 52px rgba(0,0,0,0.24),
+        inset 0 -3px 6px rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.65);
+      z-index: 60;
+    }
+    .sticky-note::after {
+      content: "";
+      position: absolute;
+      inset: 28px 12px 14px;
+      background: repeating-linear-gradient(
+        transparent,
+        transparent 25px,
+        rgba(0,0,0,0.045) 25px,
+        rgba(0,0,0,0.045) 26px
+      );
+      pointer-events: none;
+      opacity: 0.55;
+      z-index: 0;
+      border-radius: inherit;
+    }
+
+    .sticky-note__pin {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      z-index: 5;
+      cursor: grab;
+      touch-action: none;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      filter: none !important;
+      overflow: visible;
+      border-radius: 50%;
+    }
+    .sticky-note.is-dragging .sticky-note__pin { cursor: grabbing; }
+    .sticky-note__pin-head {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 32% 28%, #ff8a80 0%, #e53935 35%, #b71c1c 70%, #7f0000 100%);
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.35),
+        0 6px 14px rgba(0, 0, 0, 0.28),
+        0 0 18px rgba(0, 0, 0, 0.18),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+        inset 0 2px 3px rgba(255, 255, 255, 0.35);
+    }
+    /* miękki okrągły blur pod pinezką */
+    .sticky-note__pin-head::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 140%;
+      height: 140%;
+      transform: translate(-50%, -42%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.12) 45%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+    .sticky-note__pin-head::after {
+      content: "";
+      position: absolute;
+      top: 18%;
+      left: 22%;
+      width: 35%;
+      height: 28%;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      transform: rotate(-25deg);
+      box-shadow: none;
+    }
+    .sticky-note__pin-needle {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 10px;
+      background: linear-gradient(180deg, #9e9e9e, #616161);
+      border-radius: 0 0 2px 2px;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.25);
+      background-color: transparent;
+    }
+
+    .sticky-note__textarea {
+      position: relative;
+      z-index: 1;
       display: block;
-      max-width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-      transition: opacity 0.35s ease, filter 0.35s ease;
-    }
-    #progressCard.is-idle .busy-cat-wrap img {
-      opacity: 0.22;
-      filter: grayscale(0.4);
-    }
-    #progressCard.busy .busy-cat-wrap img {
-      opacity: 1;
-      filter: drop-shadow(0 0 10px rgba(129, 140, 248, 0.55))
-              drop-shadow(0 0 18px rgba(45, 212, 191, 0.35));
-    }
-    .busy-cat-label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.01em;
-    }
-    #progressCard.busy .busy-cat-label {
-      color: var(--accent);
-    }
-    #progressDetail { margin: 10px 0 0; font-weight: 700; color: var(--ink); font-size: 1.02rem; }
-    #progressMeta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    #progressMeta .chip {
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.05);
-      color: var(--muted);
-    }
-    #progressMeta .chip strong { color: var(--accent); font-weight: 800; }
-    #progressFiles {
-      margin: 8px 0 0;
-      font-size: 0.82rem;
-      color: var(--muted);
-      font-family: ui-monospace, "Cascadia Code", monospace;
-      word-break: break-all;
-    }
-    #progressSteps {
-      margin: 10px 0 0;
-      padding: 10px 10px 10px 1.2rem;
-      font-size: 0.84rem;
-      color: var(--muted);
-      max-height: 9rem;
+      width: 100% !important;
+      min-height: 100px !important;
+      max-height: 220px;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      resize: vertical;
       overflow-y: auto;
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
-      background: rgba(0,0,0,0.22);
-      list-style: decimal;
+      font-family: var(--hand) !important;
+      font-size: 1.45rem !important;
+      font-weight: 700 !important;
+      line-height: 1.4;
+      color: #1a1208 !important;
+      -webkit-text-fill-color: #1a1208 !important;
+      caret-color: #1a1208;
+      outline: none !important;
+      padding: 2px 4px 4px 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      color-scheme: only light;
+      scrollbar-color: rgba(120, 80, 20, 0.35) transparent;
     }
-    #progressSteps li { margin: 3px 0; padding-left: 2px; }
-    #progressSteps li.is-now {
-      color: var(--ink);
-      font-weight: 700;
+    .sticky-note__textarea::-webkit-scrollbar { width: 6px; }
+    .sticky-note__textarea::-webkit-scrollbar-thumb {
+      background: rgba(120, 80, 20, 0.35);
+      border-radius: 999px;
+      border: 0;
+      box-shadow: none;
+    }
+    .sticky-note__textarea::placeholder {
+      color: rgba(26, 18, 8, 0.4) !important;
+      -webkit-text-fill-color: rgba(26, 18, 8, 0.4) !important;
+      font-family: var(--hand);
+      font-weight: 600;
+    }
+    .sticky-note__textarea:focus {
+      box-shadow: none !important;
+      border: 0 !important;
+      outline: none !important;
+      background: transparent !important;
+      background-color: transparent !important;
     }
 
-    .composer { margin-top: 0; }
-
-    details.more {
+    .sticky-note__actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 6px;
       margin-top: 8px;
+      justify-content: flex-end;
+      background: transparent !important;
+      padding: 0 !important;
     }
-    details.more summary {
+    .sticky-note__del {
+      margin: 0 !important;
+      padding: 4px 12px !important;
+      font-family: var(--hand) !important;
+      font-size: 1.15rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      border-radius: 4px !important;
+      background: #ffe082 !important;
+      background-color: #ffe082 !important;
+      background-image: none !important;
+      color: #1a1208 !important;
+      -webkit-text-fill-color: #1a1208 !important;
+      border: 1px solid rgba(26, 18, 8, 0.22) !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
+      color-scheme: only light;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+    }
+    .sticky-note__del:hover {
+      background: #ffecb3 !important;
+      background-image: none !important;
+      transform: none !important;
+      color: #1a1208 !important;
+      -webkit-text-fill-color: #1a1208 !important;
+    }
+
+    .sticky-add {
+      position: fixed !important;
+      right: 22px;
+      bottom: 22px;
+      z-index: 120;
+      margin: 0 !important;
+      width: 52px !important;
+      height: 52px !important;
+      min-width: 52px;
+      min-height: 52px;
+      padding: 0 !important;
+      border-radius: 50% !important;
+      border: 2px solid #5d4037 !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      background: #ffca28 !important;
+      background-color: #ffca28 !important;
+      background-image: linear-gradient(145deg, #fff59d 0%, #ffca28 100%) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
       cursor: pointer;
-      font-weight: 700;
-      color: var(--accent);
-      list-style: none;
+      color-scheme: only light;
+      forced-color-adjust: none;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      overflow: visible !important;
+      font-size: 0 !important;
+      line-height: 0 !important;
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
     }
-    details.more summary::-webkit-details-marker { display: none; }
+    /* + z czystego CSS — bez SVG/tekstu (Vivaldi maluje czarny kwadrat) */
+    .sticky-add::before,
+    .sticky-add::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      background: #1a1208 !important;
+      background-color: #1a1208 !important;
+      background-image: none !important;
+      border: 0 !important;
+      border-radius: 2px !important;
+      box-shadow: none !important;
+      pointer-events: none !important;
+      display: block !important;
+    }
+    .sticky-add::before {
+      width: 22px !important;
+      height: 4px !important;
+    }
+    .sticky-add::after {
+      width: 4px !important;
+      height: 22px !important;
+    }
+    .sticky-add:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+    .sticky-add:focus-visible {
+      outline: 2px solid #5d4037;
+      outline-offset: 3px;
+    }
 
     @media (max-width: 560px) {
       header.hero { flex-direction: column; }
       #themeToggle { align-self: flex-end; }
+      .sticky-note {
+        width: min(210px, calc(100vw - 20px));
+        min-height: 140px;
+        padding: 26px 14px 14px;
+      }
+      .sticky-note__textarea { font-size: 1.25rem !important; min-height: 80px !important; }
+      .sticky-add { right: 14px; bottom: 14px; width: 46px !important; height: 46px !important; }
+      .progress-compact__cat,
+      .progress-compact__cat img {
+        width: 96px;
+        max-width: 96px;
+        height: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .bg__base,
+      .bg__kitten,
+      .bg__aurora,
+      .bg__beam,
+      .bg__blob,
+      .bg__particles span,
+      .bg__veil,
+      .bg__noise,
+      .bg__grid,
+      .bg__stars,
+      header.hero,
+      header.hero .titles,
+      header.hero::before,
+      #gate.show,
+      #app.show > *,
+      #progressCard.busy,
+      .glass::after,
+      .eyebrow::before {
+        animation: none !important;
+      }
+      .panel.glass:hover,
+      .release-latest:hover {
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="bg__kitten"></div>
-    <div class="bg__blob bg__blob--a"></div>
-    <div class="bg__blob bg__blob--b"></div>
-    <div class="bg__blob bg__blob--c"></div>
-    <div class="bg__veil"></div>
-    <div class="bg__noise"></div>
-  </div>
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <div id="stickyBoard" class="sticky-board" aria-label="Karteczki samoprzylepne"></div>
 
   <div class="wrap">
     <header class="hero glass">
       <div class="titles">
-        <div class="eyebrow">Trener Językowy</div>
         <h1>Portal Anielki</h1>
-        <p>Twój projekt — Ty i tata pracujecie nad tym samym kodem. Napisz, co zmienić.</p>
+        <span class="tagline">Centrum dowodzenia światem i botami :)</span>
+        <div class="eyebrow">Trener Językowy</div>
       </div>
       <button id="themeToggle" type="button" title="Motyw" aria-label="Przełącz motyw">☀️ Jasny</button>
     </header>
 
-    <div id="gate" class="card glass">
+    <div id="gate" class="glass" style="padding:16px 18px">
       <label for="pin">PIN (od taty)</label>
       <input id="pin" type="password" inputmode="numeric" placeholder="np. 3141" autocomplete="off" />
       <button id="enter">Wejdź do portalu</button>
-      <p class="hint">W Operze wyłącz wbudowany VPN, jeśli strona się nie ładuje.</p>
+      <p class="hint">Jeśli strona się nie ładuje — sprawdź VPN / sieć Tailscale.</p>
     </div>
 
     <div id="app">
-      <section class="card glass rules">
-        <h2>Jak pracujemy (żeby się nie zderzyć)</h2>
-        <ol>
-          <li><strong>Jeden projekt</strong> — ten sam folder / GitHub <code>main</code>. Nie ma drugiego „WIP”.</li>
-          <li><strong>Jedna osoba naraz przy kodzie</strong> — jeśli tu świeci pasek („asystent” albo „tata lokalnie”), druga osoba czeka.</li>
-          <li><strong>Jedna prośba naraz</strong> — Anielka czeka na koniec (pasek postępu), dopiero potem następna zmiana.</li>
-          <li><strong>Mówcie głośno</strong> — w czacie: „biorę słówka”, „biorę UI”, „robię release”.</li>
-          <li><strong>Commit przed paczką</strong> — Release tylko gdy zmiany są zapisane w Gicie (inaczej przycisk odmówi).</li>
-          <li><strong>Nie dublujcie</strong> — nie róbcie tej samej rzeczy lokalnie i przez portal w tym samym czasie.</li>
-        </ol>
-        <div class="tagrow">
-          <span class="tag tag--teal">Portal = Anielka</span>
-          <span class="tag tag--violet">Cursor = tata</span>
-          <span class="tag tag--rose">main = wspólne</span>
+      <!-- Status — zwijany (domyślnie zwinięty); hint w summary pokazuje busy -->
+      <details id="progressCard" class="panel glass">
+        <summary>
+          <span>Status projektu</span>
+          <span id="progressSummaryHint" class="panel__hint">wolny</span>
+        </summary>
+        <div class="progress-compact">
+          <div class="progress-compact__cat">
+            <img id="busyCat" src="/static/img/busy_cat.gif" alt="Animacja kota — praca w toku" width="128" height="128" />
+          </div>
+          <div class="progress-compact__text">
+            <div id="busyCatLabel" class="progress-compact__label">Projekt wolny</div>
+            <p id="progressDetail">…</p>
+          </div>
         </div>
-      </section>
+        <div class="panel__body">
+          <div id="progressMeta"></div>
+          <p id="progressFiles"></p>
+          <ol id="progressSteps"></ol>
+        </div>
+      </details>
 
-      <div id="progressCard" class="card glass" aria-live="polite">
-        <div class="progress-head">
-          <strong>Status projektu</strong>
+      <!-- Release — zwijany, domyślnie zwinięty -->
+      <details id="releaseCard" class="panel glass release-latest">
+        <summary>
+          <span>Najnowszy release</span>
+          <span id="releaseSummaryHint" class="panel__hint">…</span>
+        </summary>
+        <div class="panel__body release-latest__content">
+          <div class="release-latest__head">
+            <a id="releaseTag" class="release-latest__tag" href="https://github.com/xhavsky/Learning-languages/releases" target="_blank" rel="noopener">…</a>
+          </div>
+          <div id="releaseMeta" class="release-latest__meta"></div>
+          <span id="releaseBody" class="release-latest__body">Ładuję info z GitHuba…</span>
         </div>
-        <div class="busy-cat-wrap" id="busyCatWrap">
-          <img id="busyCat" src="/static/img/busy_cat.gif" alt="" width="160" height="auto" />
-          <span id="busyCatLabel" class="busy-cat-label">Projekt wolny</span>
-        </div>
-        <p id="progressDetail">…</p>
-        <div id="progressMeta"></div>
-        <p id="progressFiles"></p>
-        <ol id="progressSteps"></ol>
-      </div>
+      </details>
 
       <div id="status"></div>
-      <div id="msgs"></div>
 
-      <div class="card glass composer">
-        <label for="text">Twoja wiadomość</label>
-        <textarea id="text" placeholder="Np. Dodaj więcej słówek o zwierzętach po angielsku"></textarea>
-        <div class="row">
-          <button id="send">Wyślij do Asystenta</button>
-          <button id="clear" class="ghost" type="button">Wyczyść czat</button>
+      <!-- Czat — zawsze widoczny -->
+      <details class="panel glass panel--always" open>
+        <summary><span>Czat z asystentem</span></summary>
+        <div id="msgs"></div>
+        <div class="panel__body composer">
+          <label for="text">Twoja wiadomość</label>
+          <textarea id="text" placeholder="Np. Dodaj więcej słówek o zwierzętach po angielsku"></textarea>
+          <div class="row">
+            <button id="send">Wyślij</button>
+            <button id="clear" class="ghost" type="button">Wyczyść</button>
+          </div>
         </div>
-        <p class="hint">Poczekaj na koniec pracy (pasek powyżej) — wtedy tata też wie, że może wrócić do edycji.</p>
-      </div>
+      </details>
 
-      <div class="card glass">
-        <h2>Paczki do pobrania</h2>
-        <p class="hint" style="margin-top:0">
-          Klikasz → GitHub buduje kilka minut → ściągasz z
-          <a href="https://github.com/xhavsky/Learning-languages/releases" target="_blank" rel="noopener">Releases</a>.
-        </p>
-        <div class="row">
-          <button id="relWin" type="button">Windows ZIP</button>
-          <button id="relApk" type="button">Android APK</button>
-          <button id="relIos" type="button">iOS ZIP</button>
-          <button id="relBoth" type="button">Win + APK</button>
+      <!-- Zasady — domyślnie zwinięte -->
+      <details class="panel glass rules">
+        <summary>
+          <span>Jak pracujemy</span>
+          <span class="panel__hint">6 zasad</span>
+        </summary>
+        <div class="panel__body">
+          <ol>
+            <li><strong>Jeden projekt</strong> — ten sam folder / GitHub <code>main</code>.</li>
+            <li><strong>Jedna osoba naraz</strong> — gdy świeci status „zajęty”, druga osoba czeka.</li>
+            <li><strong>Jedna prośba naraz</strong> — poczekaj na koniec pracy asystenta.</li>
+            <li><strong>Mówcie głośno</strong> — w czacie: „biorę słówka”, „biorę UI”.</li>
+            <li><strong>Commit przed paczką</strong> — Release tylko gdy zmiany są w Gicie.</li>
+            <li><strong>Nie dublujcie</strong> — ta sama rzecz lokalnie i przez portal naraz.</li>
+          </ol>
+          <div class="tagrow">
+            <span class="tag tag--teal">Portal = Anielka</span>
+            <span class="tag tag--violet">Cursor = tata</span>
+            <span class="tag tag--rose">main = wspólne</span>
+          </div>
         </div>
-        <p id="relStatus" class="hint"></p>
-        <button id="relStatusBtn" class="ghost" type="button">Odśwież status projektu</button>
-        <pre id="relInfo" class="hint" style="white-space:pre-wrap;font-size:0.8rem"></pre>
-      </div>
+      </details>
 
-      <div class="card glass">
-        <h2>Twoje konto GitHub</h2>
-        <p class="hint" style="margin-top:0">
-          Zapisz login + token — portal <b>zapamięta</b> je na komputerze taty.<br/>
-          Potem commit’y z czatu będą podpisane Tobą, a po każdej sesji kod poleci też na
-          <b>Twoje</b> repo (osobno widać na GitHubie).<br/><br/>
-          1) <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Token classic</a> · scope <b>repo</b><br/>
-          2) Wklej poniżej → <b>Zapisz konto</b> (albo od razu Opublikuj)
-        </p>
-        <p id="ghSaved" class="hint" style="margin-top:0"></p>
-        <label for="ghUser">Nazwa użytkownika GitHub</label>
-        <input id="ghUser" placeholder="np. anielka123" autocomplete="username" />
-        <label for="ghToken" style="margin-top:8px">Token (classic, scope: repo)</label>
-        <input id="ghToken" type="password" placeholder="ghp_… (zostanie zapisany)" autocomplete="off" />
-        <label for="ghRepo" style="margin-top:8px">Nazwa repozytorium</label>
-        <input id="ghRepo" value="Learning-languages" />
-        <div class="row">
-          <button id="ghSave" type="button">Zapisz konto</button>
-          <button id="ghPublish" type="button">Opublikuj / zsynchronizuj</button>
-          <button id="ghClear" class="ghost" type="button">Zapomnij</button>
+      <!-- Paczki — zwinięte -->
+      <details class="panel glass">
+        <summary>
+          <span>Paczki do pobrania</span>
+          <span class="panel__hint">Windows · APK · iOS</span>
+        </summary>
+        <div class="panel__body">
+          <p class="hint" style="margin-top:0">
+            GitHub buduje kilka minut → ściągasz z
+            <a href="https://github.com/xhavsky/Learning-languages/releases" target="_blank" rel="noopener">Releases</a>.
+          </p>
+          <div class="row">
+            <button id="relWin" type="button" class="sm">Windows</button>
+            <button id="relApk" type="button" class="sm">APK</button>
+            <button id="relIos" type="button" class="sm">iOS</button>
+            <button id="relBoth" type="button" class="sm">Win+APK</button>
+          </div>
+          <p id="relStatus" class="hint"></p>
+          <button id="relStatusBtn" class="ghost sm" type="button">Odśwież status Gita</button>
+          <pre id="relInfo" class="hint" style="white-space:pre-wrap;font-size:0.75rem"></pre>
         </div>
-        <p id="ghStatus" class="hint"></p>
-      </div>
+      </details>
 
-      <details class="card glass more">
-        <summary>Dla taty — skrót</summary>
-        <p class="hint" style="margin-top:10px">
-          Kod: <code>~/Dokumenty/Projekty/Learning-languages</code>. Gdy portal ma busy/pasek — nie commituj równolegle tych samych plików.
-          Pełna notatka: plik <code>COLLAB.md</code> w repo.
-        </p>
+      <!-- GitHub — zwinięte -->
+      <details class="panel glass">
+        <summary>
+          <span>Konto GitHub</span>
+          <span id="ghSummaryHint" class="panel__hint">nie skonfigurowane</span>
+        </summary>
+        <div class="panel__body">
+          <p class="hint" style="margin-top:0">
+            Token classic (<a href="https://github.com/settings/tokens" target="_blank" rel="noopener">tu</a>, scope <b>repo</b>) —
+            commit’y podpisane Tobą + mirror na Twoje repo.
+          </p>
+          <p id="ghSaved" class="hint" style="margin-top:0"></p>
+          <label for="ghUser">Login GitHub</label>
+          <input id="ghUser" placeholder="np. anielka123" autocomplete="username" />
+          <label for="ghToken" style="margin-top:6px">Token</label>
+          <input id="ghToken" type="password" placeholder="ghp_…" autocomplete="off" />
+          <label for="ghRepo" style="margin-top:6px">Repozytorium</label>
+          <input id="ghRepo" value="Learning-languages" />
+          <div class="row">
+            <button id="ghSave" type="button" class="sm">Zapisz</button>
+            <button id="ghPublish" type="button" class="sm">Opublikuj</button>
+            <button id="ghClear" class="ghost sm" type="button">Zapomnij</button>
+          </div>
+          <p id="ghStatus" class="hint"></p>
+        </div>
+      </details>
+
+      <!-- Tata — zwinięte -->
+      <details class="panel glass">
+        <summary><span>Dla taty — skrót</span></summary>
+        <div class="panel__body">
+          <p class="hint" style="margin-top:0">
+            Kod: <code>~/Dokumenty/Projekty/Learning-languages</code>.
+            Gdy portal busy — nie commituj równolegle. Pełna notatka: <code>COLLAB.md</code>.
+          </p>
+        </div>
       </details>
     </div>
   </div>
@@ -747,9 +1854,14 @@
     const $ = (id) => document.getElementById(id);
     let pin = localStorage.getItem("anielka_pin") || "";
     let timer = null;
+    let releaseTimer = null;
     let msgsStickBottom = true;
     let lastMsgSig = "";
     let ghTokenCache = localStorage.getItem("anielka_gh_token") || "";
+
+    const STICKY_KEY = "anielka_sticky_notes";
+    let stickyNotes = [];
+    let stickySaveTimer = null;
 
     function applyTheme(theme) {
       const dark = theme !== "light";
@@ -759,8 +1871,7 @@
     }
     applyTheme(localStorage.getItem("anielka_theme") || "dark");
     $("themeToggle").onclick = () => {
-      const next = document.documentElement.getAttribute("data-theme") === "dark"
-        ? "light" : "dark";
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
       applyTheme(next);
     };
 
@@ -773,30 +1884,250 @@
       $("app").classList.add("show");
       refresh();
       loadGithubIdentity();
+      loadLatestRelease();
       if (timer) clearInterval(timer);
       timer = setInterval(refresh, 1000);
+      if (releaseTimer) clearInterval(releaseTimer);
+      releaseTimer = setInterval(() => loadLatestRelease(), 60000);
       const box = $("msgs");
-      box.addEventListener("scroll", () => {
-        msgsStickBottom =
-          box.scrollHeight - box.scrollTop - box.clientHeight < 96;
-      }, { passive: true });
+      if (box && !box.dataset.scrollBound) {
+        box.dataset.scrollBound = "1";
+        box.addEventListener("scroll", () => {
+          msgsStickBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 96;
+        }, { passive: true });
+      }
+    }
+    // Od razu pokaż UI — zanim karteczki / inne handlery (jak coś padnie, portal zostaje)
+    if (pin) showApp();
+    else showGate();
+
+    /* ── Sticky notes ── */
+    const STICKY_ROTS = [-9, 7, -6, 8, -11, 5, -7, 10];
+    const STICKY_W = 268;
+    const STICKY_PIN_Y = 14;
+    let stickyZ = 50;
+    let stickyDrag = null;
+
+    function stickyId() {
+      return "sn-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
+    }
+
+    function stickyRotForIndex(idx) {
+      return STICKY_ROTS[idx % STICKY_ROTS.length];
+    }
+
+    function stickyDefaultPos(idx) {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const noteW = Math.min(STICKY_W, w - 24);
+      return {
+        x: Math.max(8, w - noteW - 28),
+        y: Math.max(56, 72 + idx * 200),
+      };
+    }
+
+    function clampStickyPos(x, y, noteW) {
+      const maxX = Math.max(0, window.innerWidth - noteW - 4);
+      const maxY = Math.max(0, window.innerHeight - 80);
+      return {
+        x: Math.min(maxX, Math.max(4, x)),
+        y: Math.min(maxY, Math.max(4, y)),
+      };
+    }
+
+    function loadStickyNotes() {
+      try {
+        const raw = localStorage.getItem(STICKY_KEY);
+        const parsed = raw ? JSON.parse(raw) : null;
+        if (Array.isArray(parsed) && parsed.length) {
+          return parsed.map((n, i) => {
+            const rot = Number(n.rot);
+            const nextRot = Number.isFinite(rot) && Math.abs(rot) >= 4
+              ? rot
+              : stickyRotForIndex(i);
+            const def = stickyDefaultPos(i);
+            const x = Number(n.x);
+            const y = Number(n.y);
+            return {
+              id: n.id || stickyId(),
+              text: n.text || "",
+              rot: nextRot,
+              x: Number.isFinite(x) ? x : def.x,
+              y: Number.isFinite(y) ? y : def.y,
+            };
+          });
+        }
+      } catch (_) { /* ignore */ }
+      const def = stickyDefaultPos(0);
+      return [{ id: stickyId(), text: "", rot: stickyRotForIndex(0), x: def.x, y: def.y }];
+    }
+
+    function saveStickyNotes() {
+      localStorage.setItem(STICKY_KEY, JSON.stringify(stickyNotes));
+    }
+
+    function scheduleStickySave() {
+      if (stickySaveTimer) clearTimeout(stickySaveTimer);
+      stickySaveTimer = setTimeout(saveStickyNotes, 250);
+    }
+
+    function placeStickyEl(el, note) {
+      const noteW = el.offsetWidth || Math.min(STICKY_W, window.innerWidth - 24);
+      const pos = clampStickyPos(note.x, note.y, noteW);
+      note.x = pos.x;
+      note.y = pos.y;
+      el.style.left = pos.x + "px";
+      el.style.top = pos.y + "px";
+    }
+
+    function bindStickyDrag(el, note, pin) {
+      const onMove = (e) => {
+        if (!stickyDrag || stickyDrag.id !== note.id) return;
+        const noteW = el.offsetWidth;
+        const x = e.clientX - stickyDrag.ox;
+        const y = e.clientY - stickyDrag.oy;
+        const pos = clampStickyPos(x, y, noteW);
+        note.x = pos.x;
+        note.y = pos.y;
+        el.style.left = pos.x + "px";
+        el.style.top = pos.y + "px";
+      };
+      const onUp = (e) => {
+        if (!stickyDrag || stickyDrag.id !== note.id) return;
+        el.classList.remove("is-dragging");
+        stickyDrag = null;
+        try { pin.releasePointerCapture(e.pointerId); } catch (_) {}
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        window.removeEventListener("pointercancel", onUp);
+        saveStickyNotes();
+      };
+      pin.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        stickyZ += 1;
+        el.style.zIndex = String(stickyZ);
+        stickyDrag = {
+          id: note.id,
+          ox: e.clientX - note.x,
+          oy: e.clientY - note.y,
+        };
+        el.classList.add("is-dragging");
+        try { pin.setPointerCapture(e.pointerId); } catch (_) {}
+        window.addEventListener("pointermove", onMove);
+        window.addEventListener("pointerup", onUp);
+        window.addEventListener("pointercancel", onUp);
+      });
+    }
+
+    function renderStickyNotes() {
+      const board = $("stickyBoard");
+      board.innerHTML = "";
+      stickyNotes.forEach((note, idx) => {
+        const rot = Number.isFinite(Number(note.rot)) ? Number(note.rot) : stickyRotForIndex(idx);
+        note.rot = rot;
+        if (!Number.isFinite(Number(note.x)) || !Number.isFinite(Number(note.y))) {
+          const def = stickyDefaultPos(idx);
+          note.x = def.x;
+          note.y = def.y;
+        }
+        const el = document.createElement("article");
+        el.className = "sticky-note";
+        el.style.setProperty("--rot", rot + "deg");
+        el.style.zIndex = String(50 + idx);
+        el.dataset.id = note.id;
+
+        el.innerHTML =
+          '<div class="sticky-note__pin" title="Przeciągnij">' +
+            '<div class="sticky-note__pin-head"></div>' +
+            '<div class="sticky-note__pin-needle"></div>' +
+          '</div>' +
+          '<textarea class="sticky-note__textarea" placeholder="Twoja notatka…" aria-label="Notatka ' + (idx + 1) + '"></textarea>' +
+          '<div class="sticky-note__actions">' +
+            (stickyNotes.length > 1
+              ? '<button type="button" class="sticky-note__del" data-act="del" title="Usuń karteczkę">Usuń</button>'
+              : "") +
+          '</div>';
+
+        const ta = el.querySelector("textarea");
+        ta.value = note.text || "";
+        ta.addEventListener("input", () => {
+          note.text = ta.value;
+          scheduleStickySave();
+        });
+        ta.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") ta.blur();
+        });
+
+        const delBtn = el.querySelector('[data-act="del"]');
+        if (delBtn) {
+          delBtn.onclick = () => {
+            if (!confirm("Usunąć tę karteczkę?")) return;
+            stickyNotes = stickyNotes.filter((n) => n.id !== note.id);
+            saveStickyNotes();
+            renderStickyNotes();
+          };
+        }
+
+        board.appendChild(el);
+        placeStickyEl(el, note);
+        bindStickyDrag(el, note, el.querySelector(".sticky-note__pin"));
+      });
+
+      const addBtn = document.createElement("div");
+      addBtn.className = "sticky-add";
+      addBtn.title = "Nowa karteczka";
+      addBtn.setAttribute("role", "button");
+      addBtn.setAttribute("tabindex", "0");
+      addBtn.setAttribute("aria-label", "Dodaj karteczkę");
+      const addNote = () => {
+        const def = stickyDefaultPos(stickyNotes.length);
+        stickyNotes.push({
+          id: stickyId(),
+          text: "",
+          rot: stickyRotForIndex(stickyNotes.length),
+          x: Math.max(8, def.x - (stickyNotes.length % 3) * 18),
+          y: Math.max(56, def.y + (stickyNotes.length % 4) * 12),
+        });
+        saveStickyNotes();
+        renderStickyNotes();
+        const last = board.querySelector('.sticky-note[data-id="' + stickyNotes[stickyNotes.length - 1].id + '"] textarea');
+        if (last) last.focus();
+      };
+      addBtn.onclick = addNote;
+      addBtn.onkeydown = (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          addNote();
+        }
+      };
+      board.appendChild(addBtn);
+    }
+
+    stickyNotes = loadStickyNotes();
+    saveStickyNotes();
+    try {
+      renderStickyNotes();
+    } catch (err) {
+      console.error("sticky notes:", err);
     }
 
     function applyGithubIdentity(ident) {
       const el = $("ghSaved");
+      const hint = $("ghSummaryHint");
       if (ident && ident.configured) {
+        hint.textContent = "@" + ident.username;
         el.innerHTML =
-          '✅ Zapisane konto: <strong>@' + escapeHtml(ident.username) + "</strong>" +
-          (ident.name ? (" · " + escapeHtml(ident.name)) : "") +
-          (ident.url
-            ? (' · <a href="' + escapeHtml(ident.url) + '" target="_blank" rel="noopener">Twoje repo</a>')
-            : "") +
-          (ident.tokenMasked ? (" · token " + escapeHtml(ident.tokenMasked)) : "");
+          '✅ <strong>@' + escapeHtml(ident.username) + "</strong>" +
+          (ident.url ? (' · <a href="' + escapeHtml(ident.url) + '" target="_blank" rel="noopener">repo</a>') : "") +
+          (ident.tokenMasked ? (" · " + escapeHtml(ident.tokenMasked)) : "");
         if (ident.username) $("ghUser").value = ident.username;
         if (ident.repo) $("ghRepo").value = ident.repo;
         if (ghTokenCache) $("ghToken").placeholder = "zapisany (wpisz nowy, by zmienić)";
       } else {
-        el.textContent = "Brak zapisanego konta — commit’y mogą iść jako tata, a mirror nie zadziała.";
+        hint.textContent = "nie skonfigurowane";
+        el.textContent = "Brak konta — commit’y mogą iść jako tata.";
       }
     }
 
@@ -808,24 +2139,73 @@
         const lsRepo = localStorage.getItem("anielka_gh_repo");
         if (lsUser && !$("ghUser").value) $("ghUser").value = lsUser;
         if (lsRepo) $("ghRepo").value = lsRepo;
-        if (ghTokenCache && !$("ghToken").value) {
-          $("ghToken").value = ghTokenCache;
-        }
+        if (ghTokenCache && !$("ghToken").value) $("ghToken").value = ghTokenCache;
       } catch (_) { /* ignore */ }
+    }
+
+    function formatReleaseWhen(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return iso;
+      const now = new Date();
+      const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startThen = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const dayDiff = Math.round((startToday - startThen) / 86400000);
+      const time = d.toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
+      if (dayDiff === 0) return "dziś, " + time;
+      if (dayDiff === 1) return "wczoraj, " + time;
+      if (dayDiff > 1 && dayDiff < 7) return dayDiff + " dni temu";
+      return d.toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }) + ", " + time;
+    }
+
+    function renderLatestRelease(data) {
+      const tagEl = $("releaseTag");
+      const meta = $("releaseMeta");
+      const body = $("releaseBody");
+      const hint = $("releaseSummaryHint");
+      if (!tagEl || !meta || !body) return;
+      if (!data || !data.ok) {
+        tagEl.textContent = "Releases";
+        tagEl.href = (data && data.releasesUrl) || "https://github.com/xhavsky/Learning-languages/releases";
+        if (hint) hint.textContent = "brak";
+        meta.innerHTML = "";
+        body.className = "release-latest__err";
+        body.textContent = (data && data.error)
+          ? ("Nie udało się pobrać: " + data.error)
+          : "Brak release’ów albo GitHub nie odpowiada.";
+        return;
+      }
+      const tag = data.tag || data.name || "release";
+      tagEl.textContent = tag;
+      tagEl.href = data.url || data.releasesUrl || "#";
+      if (hint) hint.textContent = tag;
+      meta.innerHTML =
+        '<span class="chip">Nazwa: <strong>' + escapeHtml(data.name || data.tag || "?") + "</strong></span>" +
+        '<span class="chip">Wrzucony: <strong>' + escapeHtml(formatReleaseWhen(data.publishedAt)) + "</strong></span>";
+      body.className = "release-latest__body";
+      body.textContent = data.summary || "(brak opisu zmian)";
+    }
+
+    async function loadLatestRelease(force) {
+      try {
+        const q = force ? "?force=1" : "";
+        const data = await api("/api/latest-release" + q);
+        renderLatestRelease(data);
+      } catch (e) {
+        renderLatestRelease({ ok: false, error: e.message });
+      }
     }
 
     function stageLabel(stage) {
       const map = {
-        idle: "Bezczynny",
-        start: "Start",
-        queued: "W kolejce",
-        thinking: "Analiza",
-        tool: "Praca w plikach",
-        writing: "Pisanie odpowiedzi",
-        finishing: "Kończenie",
-        fallback: "Tryb zapasowy",
-        local: "Praca lokalna (tata)",
-        done: "Gotowe",
+        idle: "Bezczynny", start: "Start", queued: "W kolejce",
+        thinking: "Analiza", tool: "Pliki", writing: "Odpowiedź",
+        finishing: "Kończenie", fallback: "Zapasowy",
+        local: "Tata lokalnie", done: "Gotowe",
       };
       return map[stage] || stage || "?";
     }
@@ -839,7 +2219,7 @@
 
     function formatMsg(text) {
       const raw = String(text || "");
-      if (!raw.trim()) return "<p><em>(pusta wiadomość)</em></p>";
+      if (!raw.trim()) return '<span class="line"><em>(pusta wiadomość)</em></span>';
       try {
         let s = escapeHtml(raw);
         s = s.replace(/```([\s\S]*?)```/g, (_, code) =>
@@ -847,38 +2227,33 @@
         );
         s = s.replace(/`([^`\n]+)`/g, "<code>$1</code>");
         s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-        s = s.replace(
-          /(https?:\/\/[^\s<]+)/g,
-          '<a href="$1" target="_blank" rel="noopener">$1</a>'
-        );
-        return s
-          .split(/\n{2,}/)
-          .map((p) => "<p>" + p.replace(/\n/g, "<br/>") + "</p>")
-          .join("");
+        s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+        // span zamiast <p> — Vivaldi maluje czarne bloki na paragrafach
+        return s.split(/\n{2,}/).map((block) =>
+          '<span class="line">' + block.replace(/\n/g, "<br/>") + "</span>"
+        ).join("");
       } catch (_) {
-        return "<p>" + escapeHtml(raw).replace(/\n/g, "<br/>") + "</p>";
+        return '<span class="line">' + escapeHtml(raw).replace(/\n/g, "<br/>") + "</span>";
       }
     }
 
     function renderProgress(progress, busy) {
       const card = $("progressCard");
       const active = !!(busy || (progress && progress.busy));
-      card.classList.add("show");
       card.classList.toggle("busy", active);
       card.classList.toggle("is-idle", !active);
 
-      const cat = $("busyCat");
+      const hint = $("progressSummaryHint");
+      hint.textContent = active ? "zajęty" : "wolny";
+      hint.style.color = active ? "var(--busy)" : "var(--ok)";
+
       const catLabel = $("busyCatLabel");
       if (active) {
-        cat.style.display = "";
         catLabel.textContent = "Coś się dzieje…";
-        $("progressDetail").textContent =
-          (progress && progress.detail) || "Praca w toku…";
+        $("progressDetail").textContent = (progress && progress.detail) || "Praca w toku…";
       } else {
-        cat.style.display = "";
         catLabel.textContent = "Projekt wolny";
-        $("progressDetail").textContent =
-          "Projekt wolny — możesz pisać. Gdy tata pracuje lokalnie, tu zobaczysz kota.";
+        $("progressDetail").textContent = "Możesz pisać — gdy tata pracuje lokalnie, tu zobaczysz kota.";
       }
 
       const sec = (progress && progress.elapsedSec) || 0;
@@ -894,12 +2269,14 @@
 
       const files = (progress && progress.recentFiles) || [];
       $("progressFiles").textContent = files.length
-        ? ("Ostatnie pliki: " + files.slice(-4).join(" · "))
+        ? ("Pliki: " + files.slice(-4).join(" · "))
         : "";
 
       const steps = (progress && progress.steps) || [];
       const ol = $("progressSteps");
       ol.innerHTML = "";
+      /* nie auto-otwieraj — panel domyślnie zwinięty */
+
       if (!active) {
         ol.style.display = "none";
       } else {
@@ -910,15 +2287,13 @@
           if (idx === arr.length - 1) li.classList.add("is-now");
           ol.appendChild(li);
         });
-        ol.scrollTop = ol.scrollHeight;
       }
     }
 
     function render(messages, busy, progress) {
       const box = $("msgs");
       const sig =
-        messages.map((m) => m.id).join(",") +
-        ":" +
+        messages.map((m) => m.id).join(",") + ":" +
         String((messages[messages.length - 1] && messages[messages.length - 1].text) || "").length;
       if (sig !== lastMsgSig) {
         const stick = msgsStickBottom;
@@ -928,15 +2303,12 @@
           const el = document.createElement("div");
           el.className = "msg " + (m.role || "system");
           const who =
-            m.role === "user" ? "Anielka" :
+            m.role === "user" ? "✦ Anielka" :
             m.role === "assistant" ? "Asystent" : "System";
           el.innerHTML =
             '<div class="meta"><span class="dot"></span>' + who + "</div>" +
             '<div class="body">' + formatMsg(m.text || m.content || "") + "</div>";
-          // Fallback if CSS/engine hides HTML body — keep plain text too
-          if (!(m.text || m.content)) {
-            el.querySelector(".body").textContent = "(brak treści)";
-          }
+          if (!(m.text || m.content)) el.querySelector(".body").textContent = "(brak treści)";
           box.appendChild(el);
         }
         lastMsgSig = sig;
@@ -945,12 +2317,11 @@
       }
       renderProgress(progress || {}, busy);
       const src = progress && progress.source;
-      if (busy && src === "local") {
-        $("status").innerHTML =
-          '<span class="busy">Tata pracuje lokalnie w Cursorze — poczekaj na wolny pasek</span>';
+      const localSrc = src === "local" || src === "files" || src === "process";
+      if (busy && localSrc) {
+        $("status").innerHTML = '<span class="busy">Tata pracuje lokalnie — poczekaj</span>';
       } else if (busy) {
-        $("status").innerHTML =
-          '<span class="busy">Asystent (portal) pracuje — tata: nie edytuj równolegle</span>';
+        $("status").innerHTML = '<span class="busy">Asystent pracuje — tata: nie edytuj równolegle</span>';
       } else {
         $("status").textContent = "Gotowe do nowej wiadomości.";
       }
@@ -998,10 +2369,7 @@
       $("send").disabled = true;
       msgsStickBottom = true;
       try {
-        await api("/api/chat", {
-          method: "POST",
-          body: JSON.stringify({ text, pin }),
-        });
+        await api("/api/chat", { method: "POST", body: JSON.stringify({ text, pin }) });
         $("text").value = "";
         await refresh();
       } catch (e) {
@@ -1023,12 +2391,12 @@
       let token = $("ghToken").value.trim() || ghTokenCache;
       let repo = $("ghRepo").value.trim() || "Learning-languages";
       if (!username || !token) {
-        alert("Wpisz nazwę użytkownika i token (albo najpierw Zapisz konto).");
+        alert("Wpisz login i token.");
         return;
       }
       $("ghSave").disabled = true;
       $("ghPublish").disabled = true;
-      $("ghStatus").textContent = alsoPublish ? "Zapisuję i publikuję…" : "Zapisuję konto…";
+      $("ghStatus").textContent = alsoPublish ? "Zapisuję i publikuję…" : "Zapisuję…";
       try {
         const save = await api("/api/github-identity", {
           method: "POST",
@@ -1042,7 +2410,7 @@
         applyGithubIdentity(save.identity || { configured: true, username, repo });
         $("ghToken").value = token;
         if (!alsoPublish) {
-          $("ghStatus").textContent = "✅ Konto zapisane. Commit’y z portalu będą jako Ty + mirror na Twoje repo.";
+          $("ghStatus").textContent = "✅ Konto zapisane.";
           return;
         }
         const data = await api("/api/github-publish", {
@@ -1051,8 +2419,7 @@
         });
         $("ghStatus").innerHTML = data.ok
           ? ("✅ " + escapeHtml(data.message || data.url))
-          : ("❌ " + escapeHtml(data.error || "Błąd") +
-             (data.help ? "<br/>" + escapeHtml(data.help) : ""));
+          : ("❌ " + escapeHtml(data.error || "Błąd"));
         if (data.identity) applyGithubIdentity(data.identity);
       } catch (e) {
         $("ghStatus").textContent = "❌ " + e.message;
@@ -1065,35 +2432,30 @@
     $("ghSave").onclick = () => saveGithubAccount(false);
     $("ghPublish").onclick = () => saveGithubAccount(true);
     $("ghClear").onclick = async () => {
-      if (!confirm("Zapomnieć zapisane konto GitHub Anielki na tym komputerze?")) return;
+      if (!confirm("Zapomnieć konto GitHub?")) return;
       try {
-        await api("/api/github-identity", {
-          method: "POST",
-          body: JSON.stringify({ pin, clear: true }),
-        });
+        await api("/api/github-identity", { method: "POST", body: JSON.stringify({ pin, clear: true }) });
       } catch (_) { /* ignore */ }
       ghTokenCache = "";
       localStorage.removeItem("anielka_gh_token");
       localStorage.removeItem("anielka_gh_user");
       localStorage.removeItem("anielka_gh_repo");
       $("ghToken").value = "";
-      $("ghToken").placeholder = "ghp_… (zostanie zapisany)";
+      $("ghToken").placeholder = "ghp_…";
       applyGithubIdentity({ configured: false });
-      $("ghStatus").textContent = "Usunięto zapisane konto.";
+      $("ghStatus").textContent = "Usunięto.";
     };
 
     async function doRelease(kind) {
       $("relStatus").textContent = "Startuję " + kind + "…";
       ["relWin", "relApk", "relIos", "relBoth"].forEach((id) => ($(id).disabled = true));
       try {
-        const data = await api("/api/release", {
-          method: "POST",
-          body: JSON.stringify({ pin, kind }),
-        });
+        const data = await api("/api/release", { method: "POST", body: JSON.stringify({ pin, kind }) });
         $("relStatus").textContent = data.ok
           ? ("✅ " + (data.message || "OK"))
-          : ("❌ " + (data.error || "Błąd") + (data.help ? "\n" + data.help : ""));
+          : ("❌ " + (data.error || "Błąd"));
         await refresh();
+        await loadLatestRelease(true);
       } catch (e) {
         $("relStatus").textContent = "❌ " + e.message;
       } finally {
@@ -1113,8 +2475,355 @@
       }
     };
 
-    if (pin) showApp();
-    else showGate();
+
+    /* Tło: prawie czerń + głęboki granat + ciemny jaskrawy róż */
+    (function initBgCanvas() {
+      const c = document.getElementById("bgCanvas");
+      if (!c) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const ctx = c.getContext("2d", { alpha: false });
+      const off = document.createElement("canvas");
+      const octx = off.getContext("2d", { alpha: true });
+      let w = 0, h = 0, dpr = 1, t0 = performance.now();
+
+      /* blisko czerni / głęboki granat */
+      const NAVY = [
+        [3, 5, 14],
+        [6, 10, 28],
+        [10, 16, 45],
+        [14, 22, 65],
+        [18, 30, 85],
+      ];
+      /* ciemny jaskrawy róż — nasycony, niska luminancja */
+      const PINK = [
+        [70, 4, 38],
+        [95, 6, 48],
+        [120, 8, 58],
+        [145, 10, 68],
+        [170, 14, 78],
+        [190, 18, 88],
+      ];
+
+      /* orby tylko na lewej połowie — prawa = lustrzane odbicie */
+      const orbs = [
+        { x: 0.06, y: 0.18, r: 0.42, rgb: NAVY[3], sp: 0.35, ph: 0 },
+        { x: 0.22, y: 0.32, r: 0.38, rgb: PINK[4], sp: 0.42, ph: 1.2 },
+        { x: 0.1,  y: 0.72, r: 0.4,  rgb: NAVY[4], sp: 0.38, ph: 2.1 },
+        { x: 0.28, y: 0.82, r: 0.36, rgb: PINK[3], sp: 0.4,  ph: 0.6 },
+        { x: 0.18, y: 0.48, r: 0.34, rgb: PINK[5], sp: 0.48, ph: 3 },
+        { x: 0.35, y: 0.22, r: 0.32, rgb: PINK[2], sp: 0.45, ph: 1.8 },
+        { x: 0.02, y: 0.5,  r: 0.4,  rgb: NAVY[1], sp: 0.32, ph: 4 },
+        { x: 0.4,  y: 0.58, r: 0.3,  rgb: NAVY[2], sp: 0.44, ph: 0.9 },
+      ];
+
+      /* Rój białych heksagonów — lewa połowa + lustro; większe bliżej portalu */
+      const HEX_N = 56;
+      let hexes = [];
+      let lastTs = 0;
+
+      function portalRect() {
+        const el = document.querySelector(".wrap");
+        if (el) {
+          const r = el.getBoundingClientRect();
+          return {
+            l: r.left, t: r.top, r: r.right, b: r.bottom,
+            cx: r.left + r.width * 0.5, cy: r.top + r.height * 0.5,
+          };
+        }
+        const pw = Math.min(1200, w * 0.78);
+        const l = (w - pw) * 0.5;
+        return { l: l, t: 20, r: l + pw, b: h - 20, cx: w * 0.5, cy: h * 0.5 };
+      }
+
+      function distToPortal(x, y, p) {
+        const dx = x < p.l ? p.l - x : x > p.r ? x - p.r : 0;
+        const dy = y < p.t ? p.t - y : y > p.b ? y - p.b : 0;
+        if (dx === 0 && dy === 0) return 0;
+        return Math.hypot(dx, dy);
+      }
+
+      function spawnHex(p) {
+        const gutter = Math.max(12, p.l);
+        const zone = Math.random();
+        let x, y;
+        if (zone < 0.58) {
+          x = Math.random() * gutter;
+          y = Math.random() * h;
+        } else if (zone < 0.79) {
+          x = Math.random() * (w * 0.5);
+          y = Math.random() * Math.max(10, p.t);
+        } else {
+          x = Math.random() * (w * 0.5);
+          y = p.b + Math.random() * Math.max(10, h - p.b);
+        }
+        /* start bliżej krawędzi portalu (większe heksy) */
+        if (zone < 0.58 && Math.random() < 0.55) x = gutter * (0.55 + Math.random() * 0.45);
+        const dx = x - p.cx;
+        const dy = y - p.cy;
+        const len = Math.hypot(dx, dy) || 1;
+        const speed = 18 + Math.random() * 55;
+        return {
+          x: x, y: y,
+          vx: (dx / len) * speed,
+          vy: (dy / len) * speed,
+          base: 0.45 + Math.random() * 1.15,
+          rot: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 1.6,
+          a: 0.55 + Math.random() * 0.45,
+          fade: 0,
+          fadeIn: 1.1 + Math.random() * 1.4,
+        };
+      }
+
+      function hexRadius(hx, hy, base, p) {
+        const dist = distToPortal(hx, hy, p);
+        const maxD = Math.max(p.l, w - p.r, p.t, h - p.b, 40);
+        const near = 1 - Math.min(1, dist / (maxD * 1.05));
+        return (2.5 + near * near * 26) * base;
+      }
+
+      function pathHexOn(g, x, y, rad, rot) {
+        g.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const a = rot + (Math.PI / 6) + (i * Math.PI) / 3;
+          const px = x + Math.cos(a) * rad;
+          const py = y + Math.sin(a) * rad;
+          if (i === 0) g.moveTo(px, py); else g.lineTo(px, py);
+        }
+        g.closePath();
+      }
+
+      function drawHexPair(hx, hy, rad, rot, a) {
+        if (rad < 0.6 || a < 0.02) return;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#ffffff";
+        pathHexOn(ctx, hx, hy, rad, rot);
+        ctx.fill();
+        pathHexOn(ctx, w - hx, hy, rad, -rot);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+
+      /* Siatka heksagonów — czerwony obrys, bez fill (warstwa spodnia) */
+      function paintBgHexGrid(g, gw, gh, rad) {
+        const R = rad;
+        const horiz = Math.sqrt(3) * R;
+        const vert = R * 1.5;
+        g.save();
+        g.globalCompositeOperation = "source-over";
+        g.strokeStyle = "rgba(220, 24, 48, 0.55)";
+        g.lineWidth = Math.max(0.7, R * 0.045);
+        g.lineJoin = "round";
+        const cols = Math.ceil(gw / horiz) + 2;
+        const rows = Math.ceil(gh / vert) + 2;
+        for (let row = -1; row < rows; row++) {
+          for (let col = -1; col < cols; col++) {
+            const cx = col * horiz + (row & 1 ? horiz * 0.5 : 0);
+            const cy = row * vert;
+            pathHexOn(g, cx, cy, R * 0.92, 0);
+            g.stroke();
+          }
+        }
+        g.restore();
+      }
+
+      function ensureHexes() {
+        const p = portalRect();
+        while (hexes.length < HEX_N) hexes.push(spawnHex(p));
+        if (hexes.length > HEX_N) hexes.length = HEX_N;
+      }
+
+      function updateHexes(dt) {
+        const p = portalRect();
+        ensureHexes();
+        const pad = 40;
+        for (let i = 0; i < hexes.length; i++) {
+          const o = hexes[i];
+          if (!reduce) {
+            o.fade = Math.min(1, o.fade + dt * o.fadeIn);
+            o.x += o.vx * dt;
+            o.y += o.vy * dt;
+            o.rot += o.spin * dt;
+            const dx = o.x - p.cx;
+            const dy = o.y - p.cy;
+            const len = Math.hypot(dx, dy) || 1;
+            o.vx += (dx / len) * 8 * dt;
+            o.vy += (dy / len) * 8 * dt;
+          } else {
+            o.fade = 1;
+          }
+          const out =
+            o.x < -pad || o.y < -pad || o.y > h + pad ||
+            o.x > w * 0.5 + pad ||
+            (o.x > p.l - 4 && o.x < w * 0.5 && o.y > p.t && o.y < p.b && distToPortal(o.x, o.y, p) < 2);
+          if (out) hexes[i] = spawnHex(p);
+        }
+      }
+
+      function paintHexes() {
+        const p = portalRect();
+        ctx.save();
+        ctx.globalCompositeOperation = "source-over";
+        for (let i = 0; i < hexes.length; i++) {
+          const o = hexes[i];
+          const rad = hexRadius(o.x, o.y, o.base, p);
+          const fadeEdge = Math.min(
+            1,
+            Math.min(o.x, w - o.x, o.y, h - o.y) / 28
+          );
+          /* gładki ease fade-in */
+          const fi = o.fade * o.fade * (3 - 2 * o.fade);
+          drawHexPair(o.x, o.y, rad, o.rot, o.a * fi * Math.max(0.35, fadeEdge));
+        }
+        ctx.restore();
+      }
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.max(1, window.innerWidth);
+        h = Math.max(1, window.innerHeight);
+        c.width = Math.floor(w * dpr);
+        c.height = Math.floor(h * dpr);
+        c.style.width = w + "px";
+        c.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const scale = 0.28;
+        off.width = Math.max(1, Math.floor(w * scale));
+        off.height = Math.max(1, Math.floor(h * scale));
+        hexes = [];
+        ensureHexes();
+      }
+
+      function waveY(u, t, amp, freq, phase, oh) {
+        return (
+          Math.sin(u * Math.PI * freq + t + phase) * amp * oh +
+          Math.sin(u * Math.PI * (freq * 1.6) - t * 1.2 + phase) * amp * 0.4 * oh
+        );
+      }
+
+      /* fale rysowane tylko na lewej połowie (u: 0..0.55) */
+      function drawWave(t, cfg) {
+        const ow = off.width, oh = off.height;
+        const half = ow * 0.5;
+        const [r, g, b] = cfg.rgb;
+        const baseY = cfg.y * oh;
+        octx.beginPath();
+        const steps = 36;
+        for (let i = 0; i <= steps; i++) {
+          const u = i / steps;
+          const x = u * half * 1.15 - half * 0.05;
+          const y = baseY + waveY(u, t * cfg.sp, cfg.amp, cfg.freq, cfg.ph, oh);
+          if (i === 0) octx.moveTo(x, y); else octx.lineTo(x, y);
+        }
+        for (let i = steps; i >= 0; i--) {
+          const u = i / steps;
+          const x = u * half * 1.15 - half * 0.05;
+          const y = baseY + waveY(u, t * cfg.sp, cfg.amp, cfg.freq, cfg.ph, oh) + cfg.thick * oh;
+          octx.lineTo(x, y);
+        }
+        octx.closePath();
+        const grd = octx.createLinearGradient(0, 0, half, 0);
+        grd.addColorStop(0, "rgba(" + r + "," + g + "," + b + ",0.08)");
+        grd.addColorStop(0.2, "rgba(" + r + "," + g + "," + b + ",0.5)");
+        grd.addColorStop(0.55, "rgba(" + r + "," + g + "," + b + ",0.65)");
+        grd.addColorStop(0.85, "rgba(" + r + "," + g + "," + b + ",0.25)");
+        grd.addColorStop(1, "rgba(" + r + "," + g + "," + b + ",0)");
+        octx.fillStyle = grd;
+        octx.fill();
+      }
+
+      function draw(now) {
+        const t = (now - t0) / 1000;
+        const ow = off.width, oh = off.height;
+        const half = Math.ceil(ow / 2);
+
+        /* baza lewej połowy: prawie czerń + granat + róż przy krawędzi */
+        octx.globalCompositeOperation = "source-over";
+        const s = (Math.sin(t * 0.4) + 1) * 0.5;
+        const base = octx.createLinearGradient(0, oh * (0.1 + s * 0.1), half, oh * (0.9 - s * 0.1));
+        base.addColorStop(0, "#220816");
+        base.addColorStop(0.25, "#0a0e28");
+        base.addColorStop(0.55, "#030614");
+        base.addColorStop(0.85, "#010208");
+        base.addColorStop(1, "#010208");
+        octx.fillStyle = "#010208";
+        octx.fillRect(0, 0, ow, oh);
+        octx.fillStyle = base;
+        octx.fillRect(0, 0, half, oh);
+
+        octx.globalCompositeOperation = "screen";
+        const waves = [
+          { y: 0.18, amp: 0.11, freq: 2.0, thick: 0.1,  sp: 0.9,  ph: 0,   rgb: PINK[3] },
+          { y: 0.36, amp: 0.13, freq: 2.4, thick: 0.09, sp: 1.15, ph: 1.4, rgb: NAVY[4] },
+          { y: 0.52, amp: 0.12, freq: 1.8, thick: 0.11, sp: 0.85, ph: 2.2, rgb: PINK[4] },
+          { y: 0.68, amp: 0.14, freq: 2.6, thick: 0.09, sp: 1.25, ph: 0.7, rgb: NAVY[3] },
+          { y: 0.84, amp: 0.1,  freq: 2.2, thick: 0.08, sp: 1.0,  ph: 3.1, rgb: PINK[5] },
+        ];
+        waves.forEach((cfg) => drawWave(t, cfg));
+
+        octx.globalCompositeOperation = "lighter";
+        orbs.forEach((o) => {
+          const ox = Math.sin(t * o.sp + o.ph) * 0.06;
+          const oy = Math.cos(t * o.sp * 0.9 + o.ph * 0.6) * 0.12;
+          const cx = (o.x + ox) * ow;
+          const cy = (o.y + oy) * oh;
+          const pulse = 0.9 + 0.1 * Math.sin(t * 1.2 + o.ph);
+          const rad = o.r * Math.max(ow, oh) * pulse;
+          const [r, g, b] = o.rgb;
+          const grd = octx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+          grd.addColorStop(0, "rgba(" + r + "," + g + "," + b + ",0.55)");
+          grd.addColorStop(0.4, "rgba(" + r + "," + g + "," + b + ",0.22)");
+          grd.addColorStop(0.75, "rgba(" + r + "," + g + "," + b + ",0.04)");
+          grd.addColorStop(1, "rgba(" + r + "," + g + "," + b + ",0)");
+          octx.fillStyle = grd;
+          octx.beginPath();
+          octx.arc(cx, cy, rad, 0, Math.PI * 2);
+          octx.fill();
+        });
+
+        /* wash tylko na lewej — też się odbije */
+        const beat = (Math.sin(t * 1.3) + 1) * 0.5;
+        octx.globalCompositeOperation = "screen";
+        const wash = octx.createRadialGradient(
+          half * (0.25 + beat * 0.2), oh * 0.4, 0,
+          half * 0.35, oh * 0.5, half * 0.9
+        );
+        wash.addColorStop(0, "rgba(160, 18, 75, " + (0.22 + beat * 0.1) + ")");
+        wash.addColorStop(0.5, "rgba(12, 22, 70, " + (0.12 + (1 - beat) * 0.06) + ")");
+        wash.addColorStop(1, "rgba(1, 2, 8, 0)");
+        octx.fillStyle = wash;
+        octx.fillRect(0, 0, half, oh);
+
+        /* lewa połowa + lustro — nad siatką heksagonów (warstwa spodnia) */
+        ctx.globalCompositeOperation = "source-over";
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.fillStyle = "#010208";
+        ctx.fillRect(0, 0, w, h);
+        paintBgHexGrid(ctx, w, h, Math.max(16, Math.min(34, w * 0.02)));
+        ctx.globalCompositeOperation = "screen";
+        const dispHalf = w / 2;
+        ctx.drawImage(off, 0, 0, half, oh, 0, 0, dispHalf, h);
+        ctx.save();
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(off, 0, 0, half, oh, 0, 0, dispHalf, h);
+        ctx.restore();
+        ctx.globalCompositeOperation = "source-over";
+
+        const dt = lastTs ? Math.min(0.05, (now - lastTs) / 1000) : 0.016;
+        lastTs = now;
+        updateHexes(dt);
+        paintHexes();
+
+        if (!reduce) requestAnimationFrame(draw);
+      }
+
+      resize();
+      window.addEventListener("resize", resize, { passive: true });
+      requestAnimationFrame(draw);
+    })();
+
   </script>
 </body>
 </html>

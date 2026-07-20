@@ -110,6 +110,9 @@ _progress: dict = {
     "elapsedSec": 0,
     "toolCount": 0,
 }
+_release_cache: dict = {"at": 0.0, "data": None}
+_RELEASE_CACHE_TTL = 90.0
+_DEFAULT_GH_REPO = "xhavsky/Learning-languages"
 
 
 def _now() -> str:
@@ -214,10 +217,16 @@ def _workspace_recent_edits() -> dict | None:
             if Path(dirpath).name == "data" and "anielka-portal" in Path(dirpath).parts:
                 dirnames[:] = []
                 continue
+            # Zmiany w samym portalu (UI/serwer) nie blokują czatu Anielki
+            if "anielka-portal" in Path(dirpath).parts:
+                dirnames[:] = []
+                continue
             # Portal sam zapisuje seed — nie traktuj jako pracy taty
             if Path(dirpath).as_posix().endswith("/assets/data"):
                 continue
             for name in filenames:
+                if name.startswith("."):
+                    continue
                 if name.endswith((".swp", ".tmp", "~")):
                     continue
                 if name in ("portal.json", "meta.json", "chat.json", "local_busy.json"):
@@ -1182,6 +1191,12 @@ class Handler(BaseHTTPRequestHandler):
             if not _check_pin(self):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
             return self._json(200, _workspace_status())
+        if path == "/api/latest-release":
+            if not _check_pin(self):
+                return self._json(401, {"error": "Zły PIN. Poproś tatę."})
+            qs = parse_qs(urlparse(self.path).query)
+            force = (qs.get("force") or ["0"])[0] in ("1", "true", "yes")
+            return self._json(200, _fetch_latest_release(force=force))
         if path == "/api/github-identity":
             if not _check_pin(self):
                 return self._json(401, {"error": "Zły PIN. Poproś tatę."})
@@ -1374,11 +1389,108 @@ def _run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
     )
 
 
+def _gh_repo_slug() -> str:
+    remote = (_run_git(["git", "remote", "get-url", "origin"]).stdout or "").strip()
+    cleaned = remote.replace("git@", "").replace("https://", "").replace("http://", "")
+    cleaned = cleaned.replace("github.com:", "github.com/")
+    if "github.com/" in cleaned:
+        slug = cleaned.split("github.com/", 1)[1]
+        slug = slug.removesuffix(".git").strip("/")
+        if slug.count("/") == 1:
+            return slug
+    return _DEFAULT_GH_REPO
+
+
+def _release_body_summary(body: str | None, limit: int = 220) -> str:
+    import re
+
+    text = (body or "").replace("\r\n", "\n").strip()
+    if not text:
+        return ""
+    # pierwszy sensowny akapit bez nagłówków markdown
+    for line in text.split("\n"):
+        s = line.strip()
+        if not s or s.startswith("#"):
+            continue
+        s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
+        s = re.sub(r"[*_`]+", "", s)
+        if s:
+            text = s
+            break
+    text = re.sub(r"\s+", " ", text).strip()
+    if len(text) > limit:
+        text = text[: limit - 1].rstrip() + "…"
+    return text
+
+
+def _fetch_latest_release(*, force: bool = False) -> dict:
+    """Publiczny GitHub API — najnowszy release (cache ~90s)."""
+    now = time.time()
+    cached = _release_cache.get("data")
+    if (
+        not force
+        and cached
+        and (now - float(_release_cache.get("at") or 0)) < _RELEASE_CACHE_TTL
+    ):
+        return cached
+
+    slug = _gh_repo_slug()
+    url = f"https://api.github.com/repos/{slug}/releases/latest"
+    req = Request(
+        url,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "anielka-portal",
+        },
+    )
+    try:
+        with urlopen(req, timeout=12) as resp:
+            raw = json.loads(resp.read().decode("utf-8"))
+    except HTTPError as e:
+        body = e.read().decode("utf-8", "replace")[:200]
+        data = {
+            "ok": False,
+            "error": f"GitHub {e.code}: {body}",
+            "releasesUrl": f"https://github.com/{slug}/releases",
+        }
+        _release_cache["at"] = now
+        _release_cache["data"] = data
+        return data
+    except (URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+        data = {
+            "ok": False,
+            "error": str(e),
+            "releasesUrl": f"https://github.com/{slug}/releases",
+        }
+        _release_cache["at"] = now
+        _release_cache["data"] = data
+        return data
+
+    tag = (raw.get("tag_name") or "").strip()
+    name = (raw.get("name") or tag or "Release").strip()
+    published = (raw.get("published_at") or raw.get("created_at") or "").strip()
+    data = {
+        "ok": True,
+        "tag": tag,
+        "name": name,
+        "publishedAt": published,
+        "summary": _release_body_summary(raw.get("body")),
+        "url": raw.get("html_url")
+        or f"https://github.com/{slug}/releases/tag/{tag}",
+        "releasesUrl": f"https://github.com/{slug}/releases",
+        "repo": slug,
+    }
+    _release_cache["at"] = now
+    _release_cache["data"] = data
+    return data
+
+
 def _workspace_status() -> dict:
     dirty = _run_git(["git", "status", "--porcelain"])
     branch = _run_git(["git", "rev-parse", "--abbrev-ref", "HEAD"])
     head = _run_git(["git", "rev-parse", "--short", "HEAD"])
     remote = _run_git(["git", "remote", "get-url", "origin"])
+    slug = _gh_repo_slug()
     return {
         "workspace": WORKSPACE,
         "branch": (branch.stdout or "").strip(),
@@ -1389,7 +1501,8 @@ def _workspace_status() -> dict:
         "note": (
             "Jeden wspólny projekt Anielki — portal i lokalna praca to to samo repo."
         ),
-        "releasesUrl": "https://github.com/xhavsky/Learning-languages/releases",
+        "releasesUrl": f"https://github.com/{slug}/releases",
+        "latestRelease": _fetch_latest_release(),
     }
 
 

@@ -1,9 +1,10 @@
 #!/nix/store/gik3rh1vz2jlgnifb9dh6vc6sxwwz9jj-bash-5.3p9/bin/bash
-# Kopiuje gotowe GLB z Trellis do assets/models3d/
+# Kopiuje gotowe GLB z Trellis → assets/models3d/ wg scripts/.trellis_mascot_jobs.json
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/assets/models3d"
 SRC="/var/lib/trellis3d/output"
+STATE="$ROOT/scripts/.trellis_mascot_jobs.json"
 API="http://127.0.0.1:8004"
 CURL="/run/current-system/sw/bin/curl"
 mkdir -p "$OUT"
@@ -14,7 +15,7 @@ copy_one() {
   if $CURL -sf "$API/view/${out_id}.glb" -o "${dest}.partial" 2>/dev/null; then
     mv "${dest}.partial" "$dest"
   elif [[ -f "$SRC/${out_id}.glb" ]]; then
-    cp "$SRC/${out_id}.glb" "$dest"
+    cp -f "$SRC/${out_id}.glb" "$dest"
   else
     echo "FAIL: $name ($out_id)" >&2
     return 1
@@ -22,11 +23,27 @@ copy_one() {
   echo "OK: $name $(stat -c%s "$dest") bytes"
 }
 
-copy_one mascot_cat cc6ac0bcb72e
-copy_one mascot_dog 4f9dccbf9cfe
-copy_one dress_sparkle 98d1b5d87da7
-copy_one bowl_pink c2d24e3cae66
-copy_one bowl_gold 8b8026ce94d7
+mapfile -t ROWS < <(python3 -c "
+import json, sys
+from pathlib import Path
+state = json.loads(Path('$STATE').read_text())
+src = Path('$SRC')
+for name, meta in state.items():
+    if meta.get('status') != 'done':
+        continue
+    oid = meta.get('out_id') or ''
+    if not oid or not (src / f'{oid}.glb').exists():
+        if oid:
+            print(f'SKIP missing glb: {name} {oid}', file=sys.stderr)
+        continue
+    print(f'{name}\t{oid}')
+")
 
-rm -f "$OUT"/bow_gold.glb "$OUT"/scarf_rainbow.glb "$OUT"/boots_pink.glb "$OUT"/tiara_crystal.glb
+for row in "${ROWS[@]}"; do
+  [[ "$row" == SKIP* ]] && continue
+  name="${row%%$'\t'*}"
+  out_id="${row#*$'\t'}"
+  copy_one "$name" "$out_id" || true
+done
+
 echo "Done."
