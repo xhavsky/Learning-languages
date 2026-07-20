@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ai_chat.dart';
+import 'answer_match.dart';
 import 'curiosities.dart';
 import 'import_csv.dart';
 import 'mascot.dart';
@@ -170,6 +171,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? _audioHint;
   PortalInfo _portal = PortalInfo.fallback;
 
+  /// Trwa sprawdzanie odpowiedzi — blokuje podwójne auto-zaliczenie.
+  bool _checkingAnswer = false;
+
   @override
   void initState() {
     super.initState();
@@ -185,11 +189,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
+    // Auto-zaliczaj gdy tekst już pasuje — bez osobnego klikania „Sprawdź”.
+    _answerCtrl.addListener(_onAnswerChanged);
     _boot();
   }
 
   @override
   void dispose() {
+    _answerCtrl.removeListener(_onAnswerChanged);
     _shakeCtrl.dispose();
     _successCtrl.dispose();
     _burstCtrl.dispose();
@@ -198,6 +205,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _importCtrl.dispose();
     _player?.dispose();
     super.dispose();
+  }
+
+  void _onAnswerChanged() {
+    if (_method != GameMethod.typing) return;
+    if (_checkingAnswer || _current == null) return;
+    final user = _answerCtrl.text;
+    if (user.trim().isEmpty) return;
+    if (answersMatch(
+      user,
+      _expected,
+      lang: _lang,
+      expectPolish: _askForeign,
+    )) {
+      _checkTyping();
+    }
   }
 
   Future<void> _boot() async {
@@ -443,33 +465,100 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
   }
 
+  /// Im wyższy wynik, tym bardziej myląca (trudniejsza) opcja względem [correct].
+  int _abcSimilarity(String correct, String candidate) {
+    final a = stripDiacritics(normalizeAnswer(stripInfinitiveParticle(correct)));
+    final b =
+        stripDiacritics(normalizeAnswer(stripInfinitiveParticle(candidate)));
+    if (a.isEmpty || b.isEmpty || a == b) return -9999;
+    var score = 0;
+    final lenDiff = (a.length - b.length).abs();
+    score += (12 - lenDiff).clamp(0, 12) * 4;
+    if (a[0] == b[0]) score += 20;
+    if (a.length >= 2 && b.length >= 2 && a[1] == b[1]) score += 10;
+    if (a[a.length - 1] == b[b.length - 1]) score += 8;
+    final setA = a.split('').toSet();
+    final setB = b.split('').toSet();
+    score += setA.intersection(setB).length * 3;
+    // wspólny prefiks
+    final n = a.length < b.length ? a.length : b.length;
+    var pref = 0;
+    for (var i = 0; i < n; i++) {
+      if (a[i] != b[i]) break;
+      pref++;
+    }
+    score += pref * 6;
+    // dystans Levenshteina (krótki = trudniej)
+    final dist = _editDistance(a, b);
+    score += (10 - dist).clamp(0, 10) * 5;
+    return score;
+  }
+
+  int _editDistance(String a, String b) {
+    if (a == b) return 0;
+    if (a.isEmpty) return b.length;
+    if (b.isEmpty) return a.length;
+    final prev = List<int>.generate(b.length + 1, (j) => j);
+    for (var i = 1; i <= a.length; i++) {
+      var diag = prev[0];
+      prev[0] = i;
+      for (var j = 1; j <= b.length; j++) {
+        final tmp = prev[j];
+        final cost = a[i - 1] == b[j - 1] ? 0 : 1;
+        prev[j] = [
+          prev[j] + 1,
+          prev[j - 1] + 1,
+          diag + cost,
+        ].reduce((x, y) => x < y ? x : y);
+        diag = tmp;
+      }
+    }
+    return prev[b.length];
+  }
+
+  List<String> _pickHardDistractors(
+    String correct,
+    Iterable<String> pool, {
+    required List<String> fallback,
+  }) {
+    final others = pool.where((s) => s != correct).toSet().toList();
+    if (others.isEmpty) {
+      return fallback.take(2).toList();
+    }
+    others.sort((x, y) {
+      final cmp = _abcSimilarity(correct, y).compareTo(_abcSimilarity(correct, x));
+      if (cmp != 0) return cmp;
+      return _rng.nextBool() ? 1 : -1;
+    });
+    // spośród najtrudniejszych ~8 wybierz 2 losowo — nie zawsze te same
+    final top = others.take(others.length < 8 ? others.length : 8).toList()
+      ..shuffle(_rng);
+    final distractors = top.take(2).toList();
+    var i = 0;
+    while (distractors.length < 2 && i < fallback.length) {
+      final f = fallback[i++];
+      if (f != correct && !distractors.contains(f)) distractors.add(f);
+    }
+    return distractors;
+  }
+
   List<String> _buildAbc(Word correct, {required bool askForeign}) {
     final pack = _pack!;
     if (askForeign) {
-      // Pokazujemy obcy → wybierz polskie
-      final others = pack.words
-          .map((w) => w.pl)
-          .where((pl) => pl != correct.pl)
-          .toSet()
-          .toList()
-        ..shuffle(_rng);
-      final distractors = others.take(2).toList();
-      while (distractors.length < 2) {
-        distractors.add(['kot', 'pies', 'dom'][distractors.length]);
-      }
+      // Pokazujemy obcy → wybierz polskie (trudne, podobne opcje)
+      final distractors = _pickHardDistractors(
+        correct.pl,
+        pack.words.map((w) => w.pl),
+        fallback: const ['kot', 'pies', 'dom'],
+      );
       return [correct.pl, ...distractors]..shuffle(_rng);
     }
     // Pokazujemy polskie → wybierz obce
-    final others = pack.words
-        .map((w) => w.obcy)
-        .where((o) => o != correct.obcy)
-        .toSet()
-        .toList()
-      ..shuffle(_rng);
-    final distractors = others.take(2).toList();
-    while (distractors.length < 2) {
-      distractors.add(['hello', 'cat', 'house'][distractors.length]);
-    }
+    final distractors = _pickHardDistractors(
+      correct.obcy,
+      pack.words.map((w) => w.obcy),
+      fallback: const ['hello', 'cat', 'house'],
+    );
     return [correct.obcy, ...distractors]..shuffle(_rng);
   }
 
@@ -922,10 +1011,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _checkTyping() async {
-    if (_current == null) return;
-    final user = _answerCtrl.text.trim().toLowerCase();
-    final ok = user == _expected.trim().toLowerCase();
-    await _onResult(ok);
+    if (_current == null || _checkingAnswer) return;
+    _checkingAnswer = true;
+    try {
+      final user = _answerCtrl.text;
+      final ok = answersMatch(
+        user,
+        _expected,
+        lang: _lang,
+        expectPolish: _askForeign,
+      );
+      await _onResult(ok);
+    } finally {
+      _checkingAnswer = false;
+    }
   }
 
   Future<void> _checkAbc(int i) async {
@@ -2206,9 +2305,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(fontSize: 22),
                                       decoration: const InputDecoration(
-                                        hintText: 'Twoja odpowiedź',
+                                        hintText:
+                                            'Pisz tu — samo zaliczy, gdy będzie dobrze',
                                       ),
                                       onSubmitted: (_) => _checkTyping(),
+                                      onChanged: (_) => setState(() {}),
                                     ),
                                     const SizedBox(height: 12),
                                     GradientButton(
