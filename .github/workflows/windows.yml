@@ -34,23 +34,20 @@ jobs:
           path: |
             models
             bundled/ollama
-          key: bielik-v3-desktop-ollama-${{ hashFiles('scripts/fetch_ondevice_models.sh') }}
+          key: bielik-v3-ollama-full-lib-${{ hashFiles('scripts/fetch_ondevice_models.sh', 'scripts/bundle_ollama_windows.sh') }}
 
       - name: "Fetch Bielik 1.5B and Ollama for portable ZIP"
         shell: bash
         run: |
-          chmod +x scripts/fetch_ondevice_models.sh
+          chmod +x scripts/fetch_ondevice_models.sh scripts/bundle_ollama_windows.sh
           ./scripts/fetch_ondevice_models.sh --phone-only
-          mkdir -p bundled/ollama
-          if [[ ! -f bundled/ollama/ollama.exe ]]; then
-            curl -fsSL -o /tmp/ollama-win.zip \
-              "https://github.com/ollama/ollama/releases/latest/download/ollama-windows-amd64.zip"
-            unzip -qo /tmp/ollama-win.zip -d /tmp/ollama-win
-            find /tmp/ollama-win -name ollama.exe -exec cp -f {} bundled/ollama/ollama.exe \;
-          fi
+          # Pełny layout Ollamy (exe + lib/) — sam ollama.exe = Windows error 126
+          ./scripts/bundle_ollama_windows.sh
           test -f models/Bielik-1.5B-v3.0-Instruct-Q4_K_M.gguf
           test -f bundled/ollama/ollama.exe
+          test -f bundled/ollama/lib/ollama/ggml.dll
           ls -lh models/ bundled/ollama/
+          du -sh bundled/ollama bundled/ollama/lib
 
       - name: Get dependencies
         run: flutter pub get
@@ -73,8 +70,12 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$out\bundled\ollama" | Out-Null
           Copy-Item -Recurse -Force "$src\*" $out
           Copy-Item -Force "models\*.gguf" "$out\models\"
+          # Cały sidecar Ollamy (exe + lib/) — bez lib Windows zwraca error 126
           if (Test-Path "bundled\ollama\ollama.exe") {
-            Copy-Item -Force "bundled\ollama\ollama.exe" "$out\bundled\ollama\"
+            Copy-Item -Recurse -Force "bundled\ollama\*" "$out\bundled\ollama\"
+          }
+          if (-not (Test-Path "$out\bundled\ollama\lib\ollama\ggml.dll")) {
+            throw "Brak bundled/ollama/lib/ollama/ggml.dll — Bielik nie wystartuje (error 126)."
           }
           @"
           Trener Jezykowy - paczka Windows (z lokalnym AI)
@@ -83,11 +84,12 @@ jobs:
           2. Uruchom trener_jezykowy.exe
           3. Nic nie instaluj recznie.
 
-          W srodku: Bielik 1.5B + Ollama. Przy pierwszym starcie z internetem
-          aplikacja sama dociagnie pelnego Bielika 11B v3 (bez klikania).
+          W srodku: Bielik 1.5B + Ollama (z bibliotekami lib/). Przy pierwszym
+          starcie z internetem aplikacja sama dociagnie pelnego Bielika 11B v3.
           Bez netu dziala od razu na 1.5B (Ollama importuje GGUF).
 
           SmartScreen: Wiecej informacji -> Uruchom mimo to.
+          Nie usuwaj folderu bundled\ollama\lib — bez niego AI nie dziala.
           "@ | Set-Content -Encoding UTF8 "$out\CZYTAJ-MNIE.txt"
           Compress-Archive -Path $out -DestinationPath "Trener-Jezykowy-Windows.zip" -Force
 
@@ -108,6 +110,9 @@ jobs:
             1. Pobierz **Trener-Jezykowy-Windows.zip**
             2. Rozpakuj
             3. Uruchom `trener_jezykowy.exe`
+
+            **Ważne:** w ZIP musi być folder `bundled/ollama/lib/` (biblioteki).
+            Stare paczki z samym `ollama.exe` dawały błąd 126 — ta jest naprawiona.
 
             Instrukcja: [INSTALL-WINDOWS.md](../blob/main/INSTALL-WINDOWS.md)
           files: Trener-Jezykowy-Windows.zip

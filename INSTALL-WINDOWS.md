@@ -18,6 +18,7 @@ Jeśli Windows pokaże niebieski ekran „Windows ochronił komputer”:
 - folder `data/` — baza słówek i audio
 - `models/` — Bielik GGUF (1.5B + 11B v3)
 - `bundled/ollama/ollama.exe` — lokalna Ollama
+- `bundled/ollama/lib/` — biblioteki Ollamy (**nie usuwać** — bez nich błąd 126)
 - pozostałe pliki `.dll` — potrzebne do działania (nie usuwać)
 
 ## Rozmowa AI

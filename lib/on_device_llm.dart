@@ -85,7 +85,16 @@ class OnDeviceLlm {
       );
       return true;
     } catch (e) {
-      lastError = e.toString();
+      final s = e.toString();
+      if (s.contains('126') ||
+          s.toLowerCase().contains('module could not be found')) {
+        lastError = Platform.isWindows
+            ? 'Brak bibliotek AI w paczce (error 126). '
+                'Pobierz nową paczkę Windows z Releases (z folderem bundled/ollama/lib).'
+            : s;
+      } else {
+        lastError = s;
+      }
       await dispose();
       return false;
     }
