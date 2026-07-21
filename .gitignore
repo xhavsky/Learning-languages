@@ -21,16 +21,16 @@ android/app/src/main/assets/models/*.gguf
 # Release artifacts (build locally)
 dist/
 
-# IDE
+# IDE / lokalne narzędzia — nie na GitHub
 .idea/
 .vscode/
+.cursor/
+
+# Osobny projekt portalu — lokalnie OK, nie w tym repo
+anielka-portal/
 
 # Misc
 *.log
 .flutter-plugins-dependencies
 
-# Portal runtime
-anielka-portal/data/
-anielka-portal/__pycache__/
 scripts/.trellis_mascot_jobs.json
-

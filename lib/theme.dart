@@ -106,6 +106,7 @@ ThemeData buildAppTheme({
   final radius = BorderRadius.circular(18);
   return ThemeData(
     useMaterial3: true,
+    fontFamily: 'Roboto',
     colorScheme: scheme,
     scaffoldBackgroundColor: Colors.transparent,
     dividerTheme: DividerThemeData(
@@ -146,6 +147,7 @@ ThemeData buildAppTheme({
       selectedColor: scheme.primaryContainer,
       side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.45)),
       labelStyle: TextStyle(
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w600,
         color: scheme.onSurface,
       ),
@@ -174,38 +176,54 @@ ThemeData buildAppTheme({
         );
       }),
     ),
-    textTheme: Typography.material2021(platform: TargetPlatform.linux)
+    textTheme: Typography.material2021(platform: TargetPlatform.android)
         .black
         .apply(
+          fontFamily: 'Roboto',
           bodyColor: scheme.onSurface,
           displayColor: scheme.onSurface,
         )
         .copyWith(
           headlineMedium: TextStyle(
+            fontFamily: 'Roboto',
             fontSize: 28,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.4,
             color: scheme.onSurface,
           ),
           titleLarge: TextStyle(
+            fontFamily: 'Roboto',
             fontSize: 22,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.2,
             color: scheme.onSurface,
           ),
           titleMedium: TextStyle(
+            fontFamily: 'Roboto',
             fontSize: 17,
             fontWeight: FontWeight.w700,
             color: scheme.onSurface,
           ),
           titleSmall: TextStyle(
+            fontFamily: 'Roboto',
             fontSize: 15,
             fontWeight: FontWeight.w700,
             color: scheme.onSurface,
           ),
-          bodyLarge: TextStyle(fontSize: 18, height: 1.35, color: scheme.onSurface),
-          bodyMedium: TextStyle(fontSize: 16, height: 1.35, color: scheme.onSurface),
+          bodyLarge: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 18,
+            height: 1.35,
+            color: scheme.onSurface,
+          ),
+          bodyMedium: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 16,
+            height: 1.35,
+            color: scheme.onSurface,
+          ),
           labelLarge: TextStyle(
+            fontFamily: 'Roboto',
             fontSize: 14,
             fontWeight: FontWeight.w700,
             color: scheme.onSurface,
@@ -216,20 +234,32 @@ ThemeData buildAppTheme({
         minimumSize: const Size(64, 52),
         elevation: 1,
         shadowColor: scheme.primary.withValues(alpha: 0.35),
-        textStyle: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+        textStyle: const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(64, 48),
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        textStyle: const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 15,
+          fontWeight: FontWeight.w700,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
@@ -13,6 +14,33 @@ const navLearnKey = ValueKey('nav_learn');
 const navWordsKey = ValueKey('nav_words');
 const navMascotKey = ValueKey('nav_mascot');
 const navMoreKey = ValueKey('nav_more');
+
+/// Flutter test domyślnie używa fontu Ahem (kwadraty zamiast liter/ikon).
+/// Ładujemy fonty z FontManifest + aliasy przed pumpWidget.
+Future<void> loadScreenshotFonts() async {
+  Future<void> loadFamily(String family, List<String> assets) async {
+    final loader = FontLoader(family);
+    for (final asset in assets) {
+      loader.addFont(rootBundle.load(asset));
+    }
+    await loader.load();
+  }
+
+  // Z pubspec / uses-material-design (FontManifest w test assets).
+  await loadFamily('Roboto', [
+    'assets/fonts/Roboto-Regular.ttf',
+    'assets/fonts/Roboto-Medium.ttf',
+    'assets/fonts/Roboto-Bold.ttf',
+  ]);
+  // Ścieżka z uses-material-design (Flutter SDK w bundle testów).
+  try {
+    await loadFamily('MaterialIcons', ['fonts/MaterialIcons-Regular.otf']);
+  } catch (_) {
+    await loadFamily('MaterialIcons', [
+      'assets/fonts/MaterialIcons-Regular.otf',
+    ]);
+  }
+}
 
 class _FakePathProvider extends PathProviderPlatform {
   _FakePathProvider(this.root);
@@ -57,6 +85,8 @@ Directory screenshotOutputDir() {
 }
 
 Future<void> initScreenshotTest(WidgetTester tester) async {
+  await loadScreenshotFonts();
+
   SharedPreferences.setMockInitialValues({
     'themeMode': 'dark',
     'palette': 'mint',
@@ -117,6 +147,7 @@ Future<void> pumpUntilReady(
 }
 
 Future<void> captureScreenshot(WidgetTester tester, String name) async {
+  FocusManager.instance.primaryFocus?.unfocus();
   await tester.pump(const Duration(milliseconds: 200));
   final finder = find.byKey(screenshotRootKey);
   expect(finder, findsOneWidget);
