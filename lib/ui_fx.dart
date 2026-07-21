@@ -98,15 +98,29 @@ class SectionHeader extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Container(
-              width: 36,
-              height: 36,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
-                color: scheme.primaryContainer.withValues(alpha: 0.7),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(14),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    scheme.primaryContainer,
+                    scheme.primary.withValues(alpha: 0.55),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: scheme.primary.withValues(alpha: 0.28),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              child: Icon(icon, size: 20, color: scheme.primary),
+              child: Icon(icon, size: 22, color: scheme.onPrimaryContainer),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 12),
           ],
           Expanded(
             child: Column(
@@ -154,36 +168,74 @@ class GradientScaffoldBody extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: g,
-          stops: const [0.0, 0.45, 1.0],
+          stops: const [0.0, 0.32, 0.68, 1.0],
         ),
       ),
       child: Stack(
         fit: StackFit.expand,
         children: [
+          // Aurora blob — lewy górny róg (seed)
           IgnorePointer(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: RadialGradient(
-                  center: const Alignment(-0.85, -0.9),
-                  radius: 1.15,
+                  center: const Alignment(-0.9, -0.95),
+                  radius: 1.25,
                   colors: [
-                    seed.withValues(alpha: bright ? 0.22 : 0.26),
+                    seed.withValues(alpha: bright ? 0.34 : 0.38),
+                    seed.withValues(alpha: bright ? 0.12 : 0.14),
+                    Colors.transparent,
+                  ],
+                  stops: const [0.0, 0.45, 1.0],
+                ),
+              ),
+            ),
+          ),
+          // Aurora blob — prawy dół (accent)
+          IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: const Alignment(1.0, 0.9),
+                  radius: 1.05,
+                  colors: [
+                    accent.withValues(alpha: bright ? 0.26 : 0.28),
+                    accent.withValues(alpha: bright ? 0.08 : 0.10),
+                    Colors.transparent,
+                  ],
+                  stops: const [0.0, 0.4, 1.0],
+                ),
+              ),
+            ),
+          ),
+          // Trzeci punkt światła — środek-lewy (mix)
+          IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: const Alignment(-0.2, 0.35),
+                  radius: 0.85,
+                  colors: [
+                    Color.lerp(seed, accent, 0.45)!
+                        .withValues(alpha: bright ? 0.12 : 0.14),
                     Colors.transparent,
                   ],
                 ),
               ),
             ),
           ),
+          // Delikatna winieta — głębia krawędzi
           IgnorePointer(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: RadialGradient(
-                  center: const Alignment(0.95, 0.85),
-                  radius: 0.95,
+                  center: Alignment.center,
+                  radius: 1.15,
                   colors: [
-                    accent.withValues(alpha: bright ? 0.16 : 0.18),
                     Colors.transparent,
+                    Colors.black.withValues(alpha: bright ? 0.04 : 0.28),
                   ],
+                  stops: const [0.55, 1.0],
                 ),
               ),
             ),
@@ -264,22 +316,31 @@ class _OrbsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..style = PaintingStyle.fill;
     final specs = <(Alignment, double, Color)>[
-      (const Alignment(-0.7, -0.55), 70, seed),
-      (const Alignment(0.75, -0.2), 55, accent),
-      (const Alignment(-0.35, 0.7), 90, seed),
-      (const Alignment(0.55, 0.55), 48, accent),
+      (const Alignment(-0.7, -0.55), 90, seed),
+      (const Alignment(0.75, -0.2), 72, accent),
+      (const Alignment(-0.35, 0.7), 110, seed),
+      (const Alignment(0.55, 0.55), 64, accent),
+      (const Alignment(0.1, -0.75), 48, accent),
     ];
     for (var i = 0; i < specs.length; i++) {
       final (align, baseR, color) = specs[i];
-      final wobble = math.sin(t + i * 1.3) * 12;
-      final r = baseR + math.cos(t * 0.8 + i) * 6;
+      final wobble = math.sin(t + i * 1.3) * 14;
+      final r = baseR + math.cos(t * 0.8 + i) * 8;
       final center = Offset(
         (align.x + 1) / 2 * size.width + wobble,
-        (align.y + 1) / 2 * size.height + math.cos(t + i) * 10,
+        (align.y + 1) / 2 * size.height + math.cos(t + i) * 12,
       );
-      paint.color = color.withValues(alpha: bright ? 0.11 : 0.14);
+      final peak = bright ? 0.16 : 0.20;
+      final paint = Paint()
+        ..shader = RadialGradient(
+          colors: [
+            color.withValues(alpha: peak),
+            color.withValues(alpha: peak * 0.35),
+            color.withValues(alpha: 0),
+          ],
+          stops: const [0.0, 0.45, 1.0],
+        ).createShader(Rect.fromCircle(center: center, radius: r));
       canvas.drawCircle(center, r, paint);
     }
   }
@@ -393,20 +454,27 @@ class _StreakBadge extends StatelessWidget {
       curve: Curves.elasticOut,
       builder: (_, scale, child) => Transform.scale(scale: scale, child: child),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
+              Color.lerp(accent, Colors.white, 0.18)!,
               accent.withValues(alpha: 0.95),
-              accent.withValues(alpha: 0.7),
+              Color.lerp(accent, Colors.black, 0.18)!,
             ],
           ),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.35),
+            width: 1.2,
+          ),
           boxShadow: [
             BoxShadow(
-              color: accent.withValues(alpha: 0.35),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
+              color: accent.withValues(alpha: 0.45),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
             ),
           ],
         ),
@@ -418,10 +486,17 @@ class _StreakBadge extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               '$days',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
                 fontSize: 18,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
               ),
             ),
           ],
@@ -475,14 +550,14 @@ class _SessionRing extends StatelessWidget {
   }
 }
 
-/// Elevated surface with soft shadow (no hard Material card chrome).
+/// Elevated glass surface — połysk u góry, kolorowa obwódka, miękki cień.
 class SoftPanel extends StatelessWidget {
   const SoftPanel({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(16),
     this.margin = EdgeInsets.zero,
-    this.radius = 20,
+    this.radius = 22,
   });
 
   final Widget child;
@@ -508,26 +583,55 @@ class SoftPanel extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Ink(
           decoration: BoxDecoration(
-            color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
             borderRadius: radiusGeom,
             border: Border.all(
-              color: scheme.primary.withValues(alpha: bright ? 0.18 : 0.28),
-              width: 1.4,
+              color: Color.lerp(
+                Colors.white.withValues(alpha: bright ? 0.55 : 0.18),
+                scheme.primary.withValues(alpha: bright ? 0.28 : 0.40),
+                0.55,
+              )!,
+              width: 1.5,
             ),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                scheme.surface.withValues(alpha: bright ? 0.96 : 0.80),
-                scheme.primaryContainer.withValues(alpha: bright ? 0.28 : 0.18),
-                scheme.tertiaryContainer.withValues(alpha: bright ? 0.12 : 0.10),
+                Colors.white.withValues(alpha: bright ? 0.72 : 0.10),
+                scheme.surface.withValues(alpha: bright ? 0.92 : 0.78),
+                scheme.primaryContainer.withValues(alpha: bright ? 0.38 : 0.22),
+                scheme.tertiaryContainer.withValues(alpha: bright ? 0.18 : 0.14),
               ],
-              stops: const [0.0, 0.55, 1.0],
+              stops: const [0.0, 0.28, 0.72, 1.0],
             ),
           ),
-          child: Padding(
-            padding: padding,
-            child: child,
+          child: Stack(
+            children: [
+              // Specular rim — cienka „szyba” u góry
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 28,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withValues(alpha: bright ? 0.45 : 0.14),
+                          Colors.white.withValues(alpha: 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: padding,
+                child: child,
+              ),
+            ],
           ),
         ),
       ),
@@ -537,16 +641,26 @@ class SoftPanel extends StatelessWidget {
 
 List<BoxShadow> softShadows(BuildContext context, {double lift = 1}) {
   final dark = Theme.of(context).brightness == Brightness.dark;
+  final primary = Theme.of(context).colorScheme.primary;
   return [
+    // Kontaktowy cień
     BoxShadow(
-      color: Colors.black.withValues(alpha: dark ? 0.45 : 0.12),
-      blurRadius: 18 * lift,
-      offset: Offset(0, 8 * lift),
-    ),
-    BoxShadow(
-      color: Theme.of(context).colorScheme.primary.withValues(alpha: dark ? 0.12 : 0.08),
-      blurRadius: 28 * lift,
+      color: Colors.black.withValues(alpha: dark ? 0.50 : 0.10),
+      blurRadius: 10 * lift,
       offset: Offset(0, 4 * lift),
+    ),
+    // Ambient
+    BoxShadow(
+      color: Colors.black.withValues(alpha: dark ? 0.32 : 0.08),
+      blurRadius: 28 * lift,
+      offset: Offset(0, 14 * lift),
+    ),
+    // Kolorowy bloom (primary)
+    BoxShadow(
+      color: primary.withValues(alpha: dark ? 0.22 : 0.14),
+      blurRadius: 36 * lift,
+      offset: Offset(0, 8 * lift),
+      spreadRadius: -2,
     ),
   ];
 }
@@ -814,13 +928,13 @@ class AnimatedPromptWord extends StatelessWidget {
   }
 }
 
-/// Delikatny połysk przesuwający się po przycisku (nie mylić ze skeleton [Shimmer]).
+/// Diagonalny połysk przesuwający się po przycisku (nie mylić ze skeleton [Shimmer]).
 class ButtonShine extends StatefulWidget {
   const ButtonShine({
     super.key,
     required this.child,
-    this.borderRadius = 16,
-    this.duration = const Duration(milliseconds: 2600),
+    this.borderRadius = 18,
+    this.duration = const Duration(milliseconds: 3200),
   });
 
   final Widget child;
@@ -855,7 +969,7 @@ class _ButtonShineState extends State<ButtonShine>
   @override
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
-    final peak = bright ? 0.32 : 0.22;
+    final peak = bright ? 0.42 : 0.28;
 
     return Stack(
       clipBehavior: Clip.none,
@@ -868,31 +982,39 @@ class _ButtonShineState extends State<ButtonShine>
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final w = constraints.maxWidth;
-                  final band = w * 0.42;
+                  final h = constraints.maxHeight;
+                  final band = math.max(w, h) * 0.38;
                   return AnimatedBuilder(
                     animation: _ctrl,
                     builder: (context, _) {
                       // Pauza na końcu cyklu — połysk co chwilę, nie non-stop.
                       final raw = _ctrl.value;
-                      final t = raw < 0.72 ? (raw / 0.72) : 1.0;
-                      final x = -band + (w + band * 2) * t;
-                      final opacity = raw < 0.72 ? 1.0 : 0.0;
+                      final t = raw < 0.62 ? (raw / 0.62) : 1.0;
+                      final travel = w + h + band * 2;
+                      final x = -band + travel * t;
+                      final opacity = raw < 0.62 ? 1.0 : 0.0;
                       return Opacity(
                         opacity: opacity,
                         child: Transform.translate(
-                          offset: Offset(x, 0),
-                          child: Container(
-                            width: band,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Colors.white.withValues(alpha: 0),
-                                  Colors.white.withValues(alpha: peak),
-                                  Colors.white.withValues(alpha: 0),
-                                ],
-                                stops: const [0.0, 0.5, 1.0],
+                          offset: Offset(x - h * 0.15, -h * 0.35),
+                          child: Transform.rotate(
+                            angle: -0.55,
+                            child: Container(
+                              width: band,
+                              height: h * 2.4,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Colors.white.withValues(alpha: 0),
+                                    Colors.white.withValues(alpha: peak * 0.35),
+                                    Colors.white.withValues(alpha: peak),
+                                    Colors.white.withValues(alpha: peak * 0.35),
+                                    Colors.white.withValues(alpha: 0),
+                                  ],
+                                  stops: const [0.0, 0.28, 0.5, 0.72, 1.0],
+                                ),
                               ),
                             ),
                           ),
@@ -910,7 +1032,7 @@ class _ButtonShineState extends State<ButtonShine>
   }
 }
 
-/// Gradient-filled primary action button with shadow + shine.
+/// Gradient-filled primary action button with shadow + diagonal shine.
 class GradientButton extends StatelessWidget {
   const GradientButton({
     super.key,
@@ -927,29 +1049,85 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
     final colors = palette.buttonGradient(bright);
+    final deep = colors.last;
     return ButtonShine(
+      borderRadius: 18,
       child: Material(
         color: Colors.transparent,
         elevation: 0,
         child: InkWell(
           onTap: onPressed,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           child: Ink(
-            height: 56,
+            height: 58,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              gradient: LinearGradient(colors: colors),
-              boxShadow: softShadows(context, lift: 1.05),
-            ),
-            child: Center(
-              child: Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
+              borderRadius: BorderRadius.circular(18),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: colors,
+                stops: colors.length == 3
+                    ? const [0.0, 0.45, 1.0]
+                    : null,
               ),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: bright ? 0.35 : 0.18),
+                width: 1.2,
+              ),
+              boxShadow: [
+                ...softShadows(context, lift: 1.15),
+                BoxShadow(
+                  color: deep.withValues(alpha: bright ? 0.45 : 0.55),
+                  blurRadius: 22,
+                  offset: const Offset(0, 10),
+                  spreadRadius: -4,
+                ),
+              ],
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Górna krawędź — stały highlight „szkła”
+                Positioned(
+                  top: 0,
+                  left: 8,
+                  right: 8,
+                  height: 18,
+                  child: IgnorePointer(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(14),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white.withValues(alpha: bright ? 0.38 : 0.22),
+                            Colors.white.withValues(alpha: 0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.2,
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withValues(alpha: 0.25),
+                        blurRadius: 6,
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -1148,7 +1326,7 @@ class ShimmerBox extends StatelessWidget {
   }
 }
 
-/// Pasek postępu z delikatnym połyskiem na wypełnieniu.
+/// Pasek postępu z gradientem i delikatnym połyskiem na wypełnieniu.
 class SheenProgressBar extends StatelessWidget {
   const SheenProgressBar({
     super.key,
@@ -1168,13 +1346,24 @@ class SheenProgressBar extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final v = value.clamp(0.0, 1.0);
     final fill = color ?? scheme.primary;
+    final fillHi = Color.lerp(fill, Colors.white, 0.28)!;
     final track =
         backgroundColor ?? scheme.primaryContainer.withValues(alpha: 0.45);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(minHeight),
-      child: SizedBox(
-        height: minHeight,
+    return Container(
+      height: minHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(minHeight),
+        boxShadow: [
+          BoxShadow(
+            color: fill.withValues(alpha: 0.18 * v),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(minHeight),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -1182,12 +1371,52 @@ class SheenProgressBar extends StatelessWidget {
             FractionallySizedBox(
               alignment: Alignment.centerLeft,
               widthFactor: v,
-              child: v > 0.02 && v < 0.999 && !kScreenshotMode
-                  ? Shimmer(
-                      duration: const Duration(milliseconds: 1800),
-                      child: ColoredBox(color: fill),
-                    )
-                  : ColoredBox(color: fill),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  v > 0.02 && v < 0.999 && !kScreenshotMode
+                      ? Shimmer(
+                          duration: const Duration(milliseconds: 1800),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [fillHi, fill],
+                              ),
+                            ),
+                          ),
+                        )
+                      : DecoratedBox(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [fillHi, fill],
+                            ),
+                          ),
+                        ),
+                  // Górny połysk paska
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: FractionallySizedBox(
+                      heightFactor: 0.45,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.white.withValues(alpha: 0.35),
+                              Colors.white.withValues(alpha: 0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
