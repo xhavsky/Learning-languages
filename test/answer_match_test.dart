@@ -30,4 +30,15 @@ void main() {
       isFalse,
     );
   });
+
+  test("skróty EN — I'm ≈ I am, don't ≈ do not", () {
+    expect(answersMatch("I'm", 'I am', lang: 'Angielski'), isTrue);
+    expect(answersMatch('I am', "I'm", lang: 'Angielski'), isTrue);
+    expect(answersMatch("i'm happy", 'I am happy', lang: 'Angielski'), isTrue);
+    expect(answersMatch('I am happy', "I'm happy", lang: 'Angielski'), isTrue);
+    expect(answersMatch("don't", 'do not', lang: 'Angielski'), isTrue);
+    expect(answersMatch('do not', "don't", lang: 'Angielski'), isTrue);
+    expect(answersMatch("can't", 'cannot', lang: 'Angielski'), isTrue);
+    expect(answersMatch('I am sad', "I'm happy", lang: 'Angielski'), isFalse);
+  });
 }

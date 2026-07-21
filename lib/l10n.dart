@@ -332,17 +332,17 @@ class L10n {
       };
 
   String get sentenceHint => switch (lang) {
-        UiLang.pl => 'Napisz całe zdanie — samo zaliczy, gdy będzie dobrze',
-        UiLang.en => 'Type the whole sentence — it checks itself when correct',
-        UiLang.es => 'Escribe toda la frase — se valida sola si está bien',
-        UiLang.ru => 'Напиши всё предложение — засчитается само, если верно',
+        UiLang.pl => 'Napisz całe zdanie, potem naciśnij Sprawdź',
+        UiLang.en => 'Type the whole sentence, then tap Check',
+        UiLang.es => 'Escribe toda la frase y pulsa Comprobar',
+        UiLang.ru => 'Напиши всё предложение, потом нажми Проверить',
       };
 
   String get wordHint => switch (lang) {
-        UiLang.pl => 'Wpisz tłumaczenie — samo zaliczy',
-        UiLang.en => 'Type the translation — auto-checks',
-        UiLang.es => 'Escribe la traducción — se valida sola',
-        UiLang.ru => 'Введи перевод — засчитается само',
+        UiLang.pl => 'Wpisz tłumaczenie, potem naciśnij Sprawdź',
+        UiLang.en => 'Type the translation, then tap Check',
+        UiLang.es => 'Escribe la traducción y pulsa Comprobar',
+        UiLang.ru => 'Введи перевод, потом нажми Проверить',
       };
 
   String get settings => switch (lang) {

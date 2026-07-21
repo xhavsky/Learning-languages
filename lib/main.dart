@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   /// Na telefonie: rozwinięte ustawienia lekcji (język / metoda / pula).
   bool _lessonSettingsOpen = false;
 
-  /// Trwa sprawdzanie odpowiedzi — blokuje podwójne auto-zaliczenie.
+  /// Trwa sprawdzanie odpowiedzi — blokuje podwójne kliknięcie „Sprawdź”.
   bool _checkingAnswer = false;
 
   bool _isPhoneLayout(BuildContext context) =>
@@ -340,14 +340,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
-    // Auto-zaliczaj gdy tekst już pasuje — bez osobnego klikania „Sprawdź”.
-    _answerCtrl.addListener(_onAnswerChanged);
     _boot();
   }
 
   @override
   void dispose() {
-    _answerCtrl.removeListener(_onAnswerChanged);
     _shakeCtrl.dispose();
     _successCtrl.dispose();
     _burstCtrl.dispose();
@@ -356,25 +353,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _importCtrl.dispose();
     _player?.dispose();
     super.dispose();
-  }
-
-  void _onAnswerChanged() {
-    // Auto-zaliczaj gdy tekst już pasuje — bez osobnego klikania „Sprawdź”.
-    // Działa w pisaniu słówek i w trybie zdań.
-    if (_method != GameMethod.typing && _method != GameMethod.sentences) {
-      return;
-    }
-    if (_checkingAnswer || _current == null) return;
-    final user = _answerCtrl.text;
-    if (user.trim().isEmpty) return;
-    if (answersMatch(
-      user,
-      _expected,
-      lang: _lang,
-      expectPolish: _askForeign,
-    )) {
-      _checkTyping();
-    }
   }
 
   Future<void> _boot() async {
