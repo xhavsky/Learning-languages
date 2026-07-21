@@ -103,6 +103,147 @@ class L10n {
         UiLang.ru => 'Ещё опции',
       };
 
+  String get arkanoidTitle => switch (lang) {
+        UiLang.pl => 'Arkanoid',
+        UiLang.en => 'Arkanoid',
+        UiLang.es => 'Arkanoid',
+        UiLang.ru => 'Арканоид',
+      };
+
+  String get arkanoidSubtitle => switch (lang) {
+        UiLang.pl => 'Odbijaj piłkę, bij rekordy — pełny ekran',
+        UiLang.en => 'Bounce the ball, beat records — fullscreen',
+        UiLang.es => 'Rebotá la pelota, batí récords — pantalla completa',
+        UiLang.ru => 'Отбивай мяч, бей рекорды — на весь экран',
+      };
+
+  String get arkanoidScore => switch (lang) {
+        UiLang.pl => 'Punkty',
+        UiLang.en => 'Score',
+        UiLang.es => 'Puntos',
+        UiLang.ru => 'Очки',
+      };
+
+  String get arkanoidRecord => switch (lang) {
+        UiLang.pl => 'Rekord',
+        UiLang.en => 'Record',
+        UiLang.es => 'Récord',
+        UiLang.ru => 'Рекорд',
+      };
+
+  String get arkanoidLevel => switch (lang) {
+        UiLang.pl => 'Poziom',
+        UiLang.en => 'Level',
+        UiLang.es => 'Nivel',
+        UiLang.ru => 'Уровень',
+      };
+
+  String get arkanoidLives => switch (lang) {
+        UiLang.pl => 'Życia',
+        UiLang.en => 'Lives',
+        UiLang.es => 'Vidas',
+        UiLang.ru => 'Жизни',
+      };
+
+  String get arkanoidPlay => switch (lang) {
+        UiLang.pl => 'Graj',
+        UiLang.en => 'Play',
+        UiLang.es => 'Jugar',
+        UiLang.ru => 'Играть',
+      };
+
+  String get arkanoidPlayAgain => switch (lang) {
+        UiLang.pl => 'Jeszcze raz',
+        UiLang.en => 'Play again',
+        UiLang.es => 'Otra vez',
+        UiLang.ru => 'Ещё раз',
+      };
+
+  String get arkanoidNextLevel => switch (lang) {
+        UiLang.pl => 'Następny poziom',
+        UiLang.en => 'Next level',
+        UiLang.es => 'Siguiente nivel',
+        UiLang.ru => 'Следующий уровень',
+      };
+
+  String get arkanoidPause => switch (lang) {
+        UiLang.pl => 'Pauza',
+        UiLang.en => 'Pause',
+        UiLang.es => 'Pausa',
+        UiLang.ru => 'Пауза',
+      };
+
+  String get arkanoidResume => switch (lang) {
+        UiLang.pl => 'Wznów',
+        UiLang.en => 'Resume',
+        UiLang.es => 'Continuar',
+        UiLang.ru => 'Продолжить',
+      };
+
+  String get arkanoidPaused => switch (lang) {
+        UiLang.pl => 'Pauza',
+        UiLang.en => 'Paused',
+        UiLang.es => 'En pausa',
+        UiLang.ru => 'Пауза',
+      };
+
+  String get arkanoidPausedHint => switch (lang) {
+        UiLang.pl => 'Odpocznij chwilę — spacja albo przycisk wznów.',
+        UiLang.en => 'Take a breath — space or resume button.',
+        UiLang.es => 'Respira un momento — espacio o continuar.',
+        UiLang.ru => 'Передохни — пробел или кнопка продолжить.',
+      };
+
+  String get arkanoidReadyHint => switch (lang) {
+        UiLang.pl =>
+          'Przesuwaj paletkę palcem / myszą albo ← → (A/D).\n'
+              'Spacja = start / pauza. Zbij wszystkie klocki!',
+        UiLang.en =>
+          'Move the paddle with finger / mouse or ← → (A/D).\n'
+              'Space = start / pause. Clear all bricks!',
+        UiLang.es =>
+          'Mové la paleta con el dedo / ratón o ← → (A/D).\n'
+              'Espacio = empezar / pausa. ¡Rompe todos los ladrillos!',
+        UiLang.ru =>
+          'Двигай ракетку пальцем / мышью или ← → (A/D).\n'
+              'Пробел = старт / пауза. Разбей все кирпичи!',
+      };
+
+  String get arkanoidGameOver => switch (lang) {
+        UiLang.pl => 'Koniec gry',
+        UiLang.en => 'Game over',
+        UiLang.es => 'Fin del juego',
+        UiLang.ru => 'Конец игры',
+      };
+
+  String get arkanoidClose => switch (lang) {
+        UiLang.pl => 'Zamknij',
+        UiLang.en => 'Close',
+        UiLang.es => 'Cerrar',
+        UiLang.ru => 'Закрыть',
+      };
+
+  String arkanoidLevelClear(int level) => switch (lang) {
+        UiLang.pl => 'Poziom $level zaliczony!',
+        UiLang.en => 'Level $level cleared!',
+        UiLang.es => '¡Nivel $level superado!',
+        UiLang.ru => 'Уровень $level пройден!',
+      };
+
+  String arkanoidScoreLine(int score, int record) => switch (lang) {
+        UiLang.pl => 'Punkty: $score · Rekord: $record',
+        UiLang.en => 'Score: $score · Record: $record',
+        UiLang.es => 'Puntos: $score · Récord: $record',
+        UiLang.ru => 'Очки: $score · Рекорд: $record',
+      };
+
+  String arkanoidNewRecord(int score) => switch (lang) {
+        UiLang.pl => 'Nowy rekord: $score! 🏆',
+        UiLang.en => 'New record: $score! 🏆',
+        UiLang.es => '¡Nuevo récord: $score! 🏆',
+        UiLang.ru => 'Новый рекорд: $score! 🏆',
+      };
+
   String get lessonSettings => switch (lang) {
         UiLang.pl => 'Ustawienia lekcji',
         UiLang.en => 'Lesson settings',

@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ai_chat.dart';
 import 'answer_match.dart';
+import 'arkanoid.dart';
 import 'curiosities.dart';
 import 'import_csv.dart';
 import 'l10n.dart';
@@ -314,15 +315,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   label: l10n.tabSettings,
                   subtitle: l10n.theme,
                 ),
+                const SizedBox(height: 6),
+                tile(
+                  id: 100,
+                  key: const ValueKey('more_arkanoid'),
+                  icon: Icons.sports_esports_rounded,
+                  label: l10n.arkanoidTitle,
+                  subtitle: l10n.arkanoidSubtitle,
+                ),
               ],
             ),
           ),
         );
       },
     );
-    if (choice != null && mounted) {
-      setState(() => _bottomNav = choice);
+    if (choice == null || !mounted) return;
+    if (choice == 100) {
+      await openArkanoid(
+        context,
+        palette: widget.palette,
+        uiLang: widget.uiLang,
+      );
+      return;
     }
+    setState(() => _bottomNav = choice);
   }
 
   @override
