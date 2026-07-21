@@ -77,8 +77,8 @@ jobs:
       - name: Publish to Discord
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          DISCORD_CHANNEL_ID: "1529061120483266580"
-          DISCORD_GUILD_ID: "1529057108207730698"
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
           SCREENSHOT_VERSION: ${{ github.ref_name }}
         run: |
           chmod +x scripts/publish_screenshots_discord.sh

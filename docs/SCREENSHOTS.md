@@ -13,18 +13,18 @@ SCREENSHOT_OUTPUT_DIR=dist/screenshots/mobile \
 
 ## Discord (bot)
 
-- **Guild:** `1529057108207730698`
-- **Kanał:** `1529061120483266580`
+ID serwera / kanału **nie trzymaj w repo** — tylko w env / GitHub Secrets.
 
-1. [Discord Developer Portal](https://discord.com/developers/applications) → New Application → Bot → Reset Token
-2. OAuth2 → URL Generator: scopes `bot`, permissions **Send Messages** + **Attach Files**
-3. Zaproś bota na serwer
-4. GitHub Secrets (repo): `DISCORD_BOT_TOKEN`
-5. Opcjonalnie lokalnie:
+1. [Discord Developer Portal](https://discord.com/developers/applications) → Bot → token
+2. Zaproś bota (Send Messages + Attach Files)
+3. Secrets / env:
+   - `DISCORD_BOT_TOKEN`
+   - `DISCORD_CHANNEL_ID`
+   - opcjonalnie `DISCORD_GUILD_ID`
 
 ```bash
 export DISCORD_BOT_TOKEN='…'
-export DISCORD_CHANNEL_ID=1529061120483266580
+export DISCORD_CHANNEL_ID='…'
 ./scripts/publish_screenshots_discord.sh dist/screenshots/mobile
 ```
 
