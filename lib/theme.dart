@@ -126,42 +126,49 @@ extension AppPaletteX on AppPalette {
               ],
       };
 
-  /// CTA: jasny → mid → głęboki (3 stopy = „biżuteryjny” połysk).
+  /// CTA: highlight → jasny → mid → głęboki (4 stopy = biżuteria).
   List<Color> buttonGradient(bool light) => switch (this) {
         AppPalette.mint => const [
+            Color(0xFF80CBC4),
             Color(0xFF4DB6AC),
-            Color(0xFF26A69A),
-            Color(0xFF00695C),
+            Color(0xFF00897B),
+            Color(0xFF004D40),
           ],
         AppPalette.candy => const [
+            Color(0xFFFFAB91),
             Color(0xFFFF8A65),
-            Color(0xFFFF7043),
+            Color(0xFFF4511E),
             Color(0xFFBF360C),
           ],
         AppPalette.sky => const [
+            Color(0xFF81D4FA),
             Color(0xFF4FC3F7),
-            Color(0xFF29B6F6),
-            Color(0xFF0277BD),
+            Color(0xFF039BE5),
+            Color(0xFF01579B),
           ],
         AppPalette.sunset => const [
+            Color(0xFFFFCC80),
             Color(0xFFFFB74D),
-            Color(0xFFFFA726),
+            Color(0xFFFB8C00),
             Color(0xFFE65100),
           ],
         AppPalette.berry => const [
+            Color(0xFFF48FB1),
             Color(0xFFF06292),
-            Color(0xFFEC407A),
+            Color(0xFFD81B60),
             Color(0xFF880E4F),
           ],
         AppPalette.forest => const [
+            Color(0xFFA5D6A7),
             Color(0xFF81C784),
-            Color(0xFF66BB6A),
-            Color(0xFF2E7D32),
+            Color(0xFF43A047),
+            Color(0xFF1B5E20),
           ],
         AppPalette.slate => const [
+            Color(0xFFB0BEC5),
             Color(0xFF90A4AE),
-            Color(0xFF78909C),
-            Color(0xFF37474F),
+            Color(0xFF607D8B),
+            Color(0xFF263238),
           ],
       };
 
@@ -217,7 +224,7 @@ ThemeData buildAppTheme({
       centerTitle: false,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.72 : 0.78),
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.48 : 0.58),
       foregroundColor: scheme.onSurface,
       surfaceTintColor: Colors.transparent,
       shadowColor: Colors.transparent,
@@ -233,14 +240,15 @@ ThemeData buildAppTheme({
     ),
     cardTheme: CardThemeData(
       elevation: 0,
-      color: scheme.surface.withValues(alpha: dark ? 0.68 : 0.88),
+      color: scheme.surface.withValues(alpha: dark ? 0.48 : 0.62),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(24),
         side: BorderSide(
-          color: scheme.primary.withValues(alpha: dark ? 0.22 : 0.12),
+          color: scheme.primary.withValues(alpha: dark ? 0.32 : 0.16),
+          width: 1.2,
         ),
       ),
-      shadowColor: scheme.primary.withValues(alpha: 0.18),
+      shadowColor: scheme.primary.withValues(alpha: 0.22),
       margin: const EdgeInsets.symmetric(vertical: 6),
     ),
     listTileTheme: ListTileThemeData(
@@ -269,26 +277,39 @@ ThemeData buildAppTheme({
     ),
     navigationBarTheme: NavigationBarThemeData(
       elevation: 0,
-      height: 68,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.70 : 0.82),
-      indicatorColor: scheme.primaryContainer.withValues(alpha: dark ? 0.95 : 1),
+      height: 70,
+      backgroundColor: Colors.transparent,
+      indicatorColor: scheme.primary.withValues(alpha: dark ? 0.42 : 0.28),
       indicatorShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(18),
+        side: BorderSide(
+          color: scheme.primary.withValues(alpha: dark ? 0.55 : 0.35),
+          width: 1.2,
+        ),
       ),
       surfaceTintColor: Colors.transparent,
       shadowColor: Colors.transparent,
       overlayColor: WidgetStatePropertyAll(
-        scheme.primary.withValues(alpha: 0.08),
+        scheme.primary.withValues(alpha: 0.1),
       ),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        final selected = states.contains(WidgetState.selected);
+        return IconThemeData(
+          size: selected ? 28 : 24,
+          color: selected
+              ? scheme.primary
+              : scheme.onSurface.withValues(alpha: 0.68),
+        );
+      }),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         final selected = states.contains(WidgetState.selected);
         return TextStyle(
           fontSize: 12,
-          fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-          letterSpacing: selected ? 0.1 : 0,
+          fontWeight: selected ? FontWeight.w900 : FontWeight.w600,
+          letterSpacing: selected ? 0.15 : 0,
           color: selected
               ? scheme.primary
-              : scheme.onSurface.withValues(alpha: 0.72),
+              : scheme.onSurface.withValues(alpha: 0.68),
         );
       }),
     ),
@@ -302,18 +323,18 @@ ThemeData buildAppTheme({
         .copyWith(
           headlineMedium: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 28,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.55,
-            height: 1.15,
+            fontSize: 30,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.7,
+            height: 1.12,
             color: scheme.onSurface,
           ),
           titleLarge: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.35,
-            height: 1.2,
+            fontSize: 23,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.4,
+            height: 1.18,
             color: scheme.onSurface,
           ),
           titleMedium: TextStyle(

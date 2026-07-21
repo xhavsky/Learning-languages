@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 
@@ -145,7 +146,7 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
-/// Soft page backdrop with palette gradient + floating orbs.
+/// Soft page backdrop with living aurora, orbs and star dust.
 class GradientScaffoldBody extends StatelessWidget {
   const GradientScaffoldBody({
     super.key,
@@ -168,74 +169,44 @@ class GradientScaffoldBody extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: g,
-          stops: const [0.0, 0.32, 0.68, 1.0],
+          stops: const [0.0, 0.28, 0.62, 1.0],
         ),
       ),
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // Aurora blob — lewy górny róg (seed)
           IgnorePointer(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(-0.9, -0.95),
-                  radius: 1.25,
-                  colors: [
-                    seed.withValues(alpha: bright ? 0.34 : 0.38),
-                    seed.withValues(alpha: bright ? 0.12 : 0.14),
-                    Colors.transparent,
-                  ],
-                  stops: const [0.0, 0.45, 1.0],
-                ),
-              ),
-            ),
+            child: _LivingAurora(seed: seed, accent: accent, bright: bright),
           ),
-          // Aurora blob — prawy dół (accent)
-          IgnorePointer(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(1.0, 0.9),
-                  radius: 1.05,
-                  colors: [
-                    accent.withValues(alpha: bright ? 0.26 : 0.28),
-                    accent.withValues(alpha: bright ? 0.08 : 0.10),
-                    Colors.transparent,
-                  ],
-                  stops: const [0.0, 0.4, 1.0],
-                ),
-              ),
-            ),
-          ),
-          // Trzeci punkt światła — środek-lewy (mix)
-          IgnorePointer(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(-0.2, 0.35),
-                  radius: 0.85,
-                  colors: [
-                    Color.lerp(seed, accent, 0.45)!
-                        .withValues(alpha: bright ? 0.12 : 0.14),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
-          // Delikatna winieta — głębia krawędzi
+          // Winieta — głębia krawędzi
           IgnorePointer(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: RadialGradient(
                   center: Alignment.center,
-                  radius: 1.15,
+                  radius: 1.18,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withValues(alpha: bright ? 0.04 : 0.28),
+                    Colors.black.withValues(alpha: bright ? 0.06 : 0.36),
                   ],
-                  stops: const [0.55, 1.0],
+                  stops: const [0.48, 1.0],
+                ),
+              ),
+            ),
+          ),
+          // Lekki film ziarnisty u góry (premium depth)
+          IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white.withValues(alpha: bright ? 0.14 : 0.05),
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: bright ? 0.03 : 0.12),
+                  ],
+                  stops: const [0.0, 0.35, 1.0],
                 ),
               ),
             ),
@@ -245,11 +216,209 @@ class GradientScaffoldBody extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : _FloatingOrbs(seed: seed, accent: accent, bright: bright),
           ),
+          IgnorePointer(
+            child: kScreenshotMode
+                ? const SizedBox.shrink()
+                : _StarDust(seed: seed, accent: accent, bright: bright),
+          ),
           child,
         ],
       ),
     );
   }
+}
+
+/// Powoli dryfująca aurora — tło „żyje”, nie stoi w miejscu.
+class _LivingAurora extends StatefulWidget {
+  const _LivingAurora({
+    required this.seed,
+    required this.accent,
+    required this.bright,
+  });
+
+  final Color seed;
+  final Color accent;
+  final bool bright;
+
+  @override
+  State<_LivingAurora> createState() => _LivingAuroraState();
+}
+
+class _LivingAuroraState extends State<_LivingAurora>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 18),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (kScreenshotMode) {
+      return _auroraPaint(0.22);
+    }
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, child) => _auroraPaint(_ctrl.value),
+    );
+  }
+
+  Widget _auroraPaint(double t) {
+    final a = t * math.pi * 2;
+    final c1 = Alignment(
+      -0.85 + math.sin(a) * 0.22,
+      -0.92 + math.cos(a * 0.7) * 0.18,
+    );
+    final c2 = Alignment(
+      0.95 + math.cos(a * 0.9) * 0.2,
+      0.88 + math.sin(a * 0.6) * 0.16,
+    );
+    final c3 = Alignment(
+      -0.15 + math.sin(a * 1.1 + 1) * 0.35,
+      0.25 + math.cos(a * 0.8 + 0.5) * 0.3,
+    );
+    final mix = Color.lerp(widget.seed, widget.accent, 0.42 + 0.2 * math.sin(a))!;
+    final peak = widget.bright ? 0.42 : 0.48;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: c1,
+              radius: 1.35,
+              colors: [
+                widget.seed.withValues(alpha: peak),
+                widget.seed.withValues(alpha: peak * 0.35),
+                Colors.transparent,
+              ],
+              stops: const [0.0, 0.42, 1.0],
+            ),
+          ),
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: c2,
+              radius: 1.2,
+              colors: [
+                widget.accent.withValues(alpha: peak * 0.78),
+                widget.accent.withValues(alpha: peak * 0.22),
+                Colors.transparent,
+              ],
+              stops: const [0.0, 0.4, 1.0],
+            ),
+          ),
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: c3,
+              radius: 1.0,
+              colors: [
+                mix.withValues(alpha: peak * 0.45),
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Iskierki / pył gwiazd — drobny luksus w tle.
+class _StarDust extends StatefulWidget {
+  const _StarDust({
+    required this.seed,
+    required this.accent,
+    required this.bright,
+  });
+
+  final Color seed;
+  final Color accent;
+  final bool bright;
+
+  @override
+  State<_StarDust> createState() => _StarDustState();
+}
+
+class _StarDustState extends State<_StarDust>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 7),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, child) => CustomPaint(
+        painter: _StarDustPainter(
+          t: _ctrl.value * math.pi * 2,
+          seed: widget.seed,
+          accent: widget.accent,
+          bright: widget.bright,
+        ),
+        size: Size.infinite,
+      ),
+    );
+  }
+}
+
+class _StarDustPainter extends CustomPainter {
+  _StarDustPainter({
+    required this.t,
+    required this.seed,
+    required this.accent,
+    required this.bright,
+  });
+
+  final double t;
+  final Color seed;
+  final Color accent;
+  final bool bright;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rnd = math.Random(42);
+    for (var i = 0; i < 28; i++) {
+      final x = rnd.nextDouble() * size.width;
+      final y = rnd.nextDouble() * size.height;
+      final twinkle = 0.35 + 0.65 * (0.5 + 0.5 * math.sin(t * (1.2 + i % 5) + i));
+      final r = (1.2 + (i % 4) * 0.7) * twinkle;
+      final color = (i.isEven ? seed : accent).withValues(
+        alpha: (bright ? 0.22 : 0.35) * twinkle,
+      );
+      final paint = Paint()..color = color;
+      canvas.drawCircle(Offset(x, y), r, paint);
+      if (i % 5 == 0) {
+        // Krzyżyk „błysk”
+        final glow = Paint()
+          ..color = color.withValues(alpha: color.a * 0.7)
+          ..strokeWidth = 1.1
+          ..strokeCap = StrokeCap.round;
+        canvas.drawLine(Offset(x - r * 2.2, y), Offset(x + r * 2.2, y), glow);
+        canvas.drawLine(Offset(x, y - r * 2.2), Offset(x, y + r * 2.2), glow);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _StarDustPainter old) =>
+      old.t != t || old.seed != seed || old.accent != accent;
 }
 
 /// Delikatne „baloniki” w tle — apka żyje, nie przeszkadza.
@@ -317,29 +486,30 @@ class _OrbsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final specs = <(Alignment, double, Color)>[
-      (const Alignment(-0.7, -0.55), 90, seed),
-      (const Alignment(0.75, -0.2), 72, accent),
-      (const Alignment(-0.35, 0.7), 110, seed),
-      (const Alignment(0.55, 0.55), 64, accent),
-      (const Alignment(0.1, -0.75), 48, accent),
+      (const Alignment(-0.72, -0.55), 110, seed),
+      (const Alignment(0.78, -0.18), 88, accent),
+      (const Alignment(-0.38, 0.72), 130, seed),
+      (const Alignment(0.58, 0.52), 78, accent),
+      (const Alignment(0.08, -0.78), 58, accent),
+      (const Alignment(0.35, 0.15), 70, seed),
     ];
     for (var i = 0; i < specs.length; i++) {
       final (align, baseR, color) = specs[i];
-      final wobble = math.sin(t + i * 1.3) * 14;
-      final r = baseR + math.cos(t * 0.8 + i) * 8;
+      final wobble = math.sin(t + i * 1.3) * 18;
+      final r = baseR + math.cos(t * 0.8 + i) * 12;
       final center = Offset(
         (align.x + 1) / 2 * size.width + wobble,
-        (align.y + 1) / 2 * size.height + math.cos(t + i) * 12,
+        (align.y + 1) / 2 * size.height + math.cos(t + i) * 16,
       );
-      final peak = bright ? 0.16 : 0.20;
+      final peak = bright ? 0.22 : 0.28;
       final paint = Paint()
         ..shader = RadialGradient(
           colors: [
             color.withValues(alpha: peak),
-            color.withValues(alpha: peak * 0.35),
+            color.withValues(alpha: peak * 0.4),
             color.withValues(alpha: 0),
           ],
-          stops: const [0.0, 0.45, 1.0],
+          stops: const [0.0, 0.4, 1.0],
         ).createShader(Rect.fromCircle(center: center, radius: r));
       canvas.drawCircle(center, r, paint);
     }
@@ -519,18 +689,35 @@ class _SessionRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 58,
-      height: 58,
+    final bright = Theme.of(context).brightness == Brightness.light;
+    return Container(
+      width: 62,
+      height: 62,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: accent.withValues(alpha: bright ? 0.35 : 0.45),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        gradient: RadialGradient(
+          colors: [
+            accent.withValues(alpha: 0.18),
+            accent.withValues(alpha: 0.05),
+          ],
+        ),
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: 58,
-            height: 58,
+            width: 54,
+            height: 54,
             child: CircularProgressIndicator(
               value: progress,
-              strokeWidth: 6,
+              strokeWidth: 6.5,
               backgroundColor: accent.withValues(alpha: 0.18),
               color: accent,
               strokeCap: StrokeCap.round,
@@ -540,7 +727,7 @@ class _SessionRing extends StatelessWidget {
             label,
             style: TextStyle(
               fontWeight: FontWeight.w900,
-              fontSize: label.length > 2 ? 14 : 16,
+              fontSize: label.length > 2 ? 14 : 17,
               color: accent,
             ),
           ),
@@ -550,14 +737,14 @@ class _SessionRing extends StatelessWidget {
   }
 }
 
-/// Elevated glass surface — połysk u góry, kolorowa obwódka, miękki cień.
+/// Elevated glass surface — prawdziwy blur, połysk, kolorowa obwódka.
 class SoftPanel extends StatelessWidget {
   const SoftPanel({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(16),
     this.margin = EdgeInsets.zero,
-    this.radius = 22,
+    this.radius = 24,
   });
 
   final Widget child;
@@ -570,71 +757,171 @@ class SoftPanel extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final bright = Theme.of(context).brightness == Brightness.light;
     final radiusGeom = BorderRadius.circular(radius);
-    // Material nad ListTile/ExpansionTile — bez assertu „ink splash invisible”.
-    return Container(
-      margin: margin,
-      decoration: BoxDecoration(
-        borderRadius: radiusGeom,
-        boxShadow: softShadows(context),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: radiusGeom,
-        clipBehavior: Clip.antiAlias,
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: radiusGeom,
-            border: Border.all(
-              color: Color.lerp(
-                Colors.white.withValues(alpha: bright ? 0.55 : 0.18),
-                scheme.primary.withValues(alpha: bright ? 0.28 : 0.40),
-                0.55,
-              )!,
-              width: 1.5,
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white.withValues(alpha: bright ? 0.72 : 0.10),
-                scheme.surface.withValues(alpha: bright ? 0.92 : 0.78),
-                scheme.primaryContainer.withValues(alpha: bright ? 0.38 : 0.22),
-                scheme.tertiaryContainer.withValues(alpha: bright ? 0.18 : 0.14),
-              ],
-              stops: const [0.0, 0.28, 0.72, 1.0],
-            ),
+    final panel = Material(
+      color: Colors.transparent,
+      borderRadius: radiusGeom,
+      clipBehavior: Clip.antiAlias,
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: radiusGeom,
+          border: Border.all(
+            color: Color.lerp(
+              Colors.white.withValues(alpha: bright ? 0.72 : 0.28),
+              scheme.primary.withValues(alpha: bright ? 0.38 : 0.55),
+              0.48,
+            )!,
+            width: 1.6,
           ),
-          child: Stack(
-            children: [
-              // Specular rim — cienka „szyba” u góry
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 28,
-                child: IgnorePointer(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.white.withValues(alpha: bright ? 0.45 : 0.14),
-                          Colors.white.withValues(alpha: 0),
-                        ],
-                      ),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white.withValues(alpha: bright ? 0.55 : 0.16),
+              scheme.surface.withValues(alpha: bright ? 0.72 : 0.52),
+              scheme.primaryContainer.withValues(alpha: bright ? 0.42 : 0.28),
+              scheme.tertiaryContainer.withValues(alpha: bright ? 0.22 : 0.18),
+            ],
+            stops: const [0.0, 0.26, 0.7, 1.0],
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Specular rim — gruba „szyba” u góry
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 36,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.white.withValues(alpha: bright ? 0.55 : 0.20),
+                        Colors.white.withValues(alpha: 0),
+                      ],
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: padding,
-                child: child,
+            ),
+            // Lewy błysk narożnika
+            Positioned(
+              top: 0,
+              left: 0,
+              width: 80,
+              height: 80,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: const Alignment(-0.6, -0.6),
+                      radius: 1,
+                      colors: [
+                        Colors.white.withValues(alpha: bright ? 0.35 : 0.12),
+                        Colors.white.withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+            // Dolna krawędź — kolorowy bleed
+            Positioned(
+              left: 12,
+              right: 12,
+              bottom: 0,
+              height: 2.5,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        scheme.primary.withValues(alpha: bright ? 0.45 : 0.55),
+                        scheme.tertiary.withValues(alpha: bright ? 0.35 : 0.4),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(padding: padding, child: child),
+          ],
         ),
       ),
+    );
+
+    return Container(
+      margin: margin,
+      decoration: BoxDecoration(
+        borderRadius: radiusGeom,
+        boxShadow: softShadows(context, lift: 1.15),
+      ),
+      child: ClipRRect(
+        borderRadius: radiusGeom,
+        child: kScreenshotMode
+            ? panel
+            : BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                child: panel,
+              ),
+      ),
+    );
+  }
+}
+
+/// Szkło pod dolny NavigationBar — aurora prześwituje.
+class GlassNavShell extends StatelessWidget {
+  const GlassNavShell({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final bright = Theme.of(context).brightness == Brightness.light;
+    final bar = DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            scheme.surface.withValues(alpha: bright ? 0.55 : 0.42),
+            scheme.surface.withValues(alpha: bright ? 0.82 : 0.72),
+          ],
+        ),
+        border: Border(
+          top: BorderSide(
+            color: Color.lerp(
+              Colors.white.withValues(alpha: bright ? 0.55 : 0.22),
+              scheme.primary.withValues(alpha: 0.4),
+              0.5,
+            )!,
+            width: 1.2,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: bright ? 0.12 : 0.22),
+            blurRadius: 24,
+            offset: const Offset(0, -6),
+          ),
+        ],
+      ),
+      child: child,
+    );
+    return ClipRect(
+      child: kScreenshotMode
+          ? bar
+          : BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 26, sigmaY: 26),
+              child: bar,
+            ),
     );
   }
 }
@@ -643,24 +930,22 @@ List<BoxShadow> softShadows(BuildContext context, {double lift = 1}) {
   final dark = Theme.of(context).brightness == Brightness.dark;
   final primary = Theme.of(context).colorScheme.primary;
   return [
-    // Kontaktowy cień
     BoxShadow(
-      color: Colors.black.withValues(alpha: dark ? 0.50 : 0.10),
-      blurRadius: 10 * lift,
-      offset: Offset(0, 4 * lift),
+      color: Colors.black.withValues(alpha: dark ? 0.55 : 0.12),
+      blurRadius: 12 * lift,
+      offset: Offset(0, 5 * lift),
     ),
-    // Ambient
     BoxShadow(
-      color: Colors.black.withValues(alpha: dark ? 0.32 : 0.08),
-      blurRadius: 28 * lift,
-      offset: Offset(0, 14 * lift),
+      color: Colors.black.withValues(alpha: dark ? 0.38 : 0.09),
+      blurRadius: 34 * lift,
+      offset: Offset(0, 16 * lift),
     ),
-    // Kolorowy bloom (primary)
+    // Ambient bloom — bez „fake rim” shadow (psuje krawędzie).
     BoxShadow(
-      color: primary.withValues(alpha: dark ? 0.22 : 0.14),
-      blurRadius: 36 * lift,
-      offset: Offset(0, 8 * lift),
-      spreadRadius: -2,
+      color: primary.withValues(alpha: dark ? 0.32 : 0.2),
+      blurRadius: 42 * lift,
+      offset: Offset(0, 10 * lift),
+      spreadRadius: -1,
     ),
   ];
 }
@@ -969,7 +1254,7 @@ class _ButtonShineState extends State<ButtonShine>
   @override
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
-    final peak = bright ? 0.42 : 0.28;
+    final peak = bright ? 0.55 : 0.38;
 
     return Stack(
       clipBehavior: Clip.none,
@@ -1032,8 +1317,8 @@ class _ButtonShineState extends State<ButtonShine>
   }
 }
 
-/// Gradient-filled primary action button with shadow + diagonal shine.
-class GradientButton extends StatelessWidget {
+/// Gradient-filled primary action — biżuteryjny blask + oddech cienia.
+class GradientButton extends StatefulWidget {
   const GradientButton({
     super.key,
     required this.onPressed,
@@ -1046,92 +1331,168 @@ class GradientButton extends StatelessWidget {
   final AppPalette palette;
 
   @override
+  State<GradientButton> createState() => _GradientButtonState();
+}
+
+class _GradientButtonState extends State<GradientButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _glow = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2400),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!kScreenshotMode) {
+      _glow.repeat(reverse: true);
+    } else {
+      _glow.value = 0.55;
+    }
+  }
+
+  @override
+  void dispose() {
+    _glow.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
-    final colors = palette.buttonGradient(bright);
+    final colors = widget.palette.buttonGradient(bright);
     final deep = colors.last;
-    return ButtonShine(
-      borderRadius: 18,
-      child: Material(
-        color: Colors.transparent,
-        elevation: 0,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(18),
-          child: Ink(
-            height: 58,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: colors,
-                stops: colors.length == 3
-                    ? const [0.0, 0.45, 1.0]
-                    : null,
-              ),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: bright ? 0.35 : 0.18),
-                width: 1.2,
-              ),
-              boxShadow: [
-                ...softShadows(context, lift: 1.15),
-                BoxShadow(
-                  color: deep.withValues(alpha: bright ? 0.45 : 0.55),
-                  blurRadius: 22,
-                  offset: const Offset(0, 10),
-                  spreadRadius: -4,
+    final jewel = colors.length >= 4
+        ? [
+            Color.lerp(colors[0], Colors.white, 0.25)!,
+            colors[1],
+            colors[2],
+            colors[3],
+          ]
+        : [
+            Color.lerp(colors.first, Colors.white, 0.35)!,
+            colors.length > 1 ? colors[1] : colors.first,
+            deep,
+          ];
+    final hi = jewel.first;
+
+    return AnimatedBuilder(
+      animation: _glow,
+      builder: (context, child) {
+        final breathe = 0.7 + 0.3 * _glow.value;
+        return ButtonShine(
+          borderRadius: 20,
+          duration: const Duration(milliseconds: 2800),
+          child: Material(
+            color: Colors.transparent,
+            elevation: 0,
+            child: InkWell(
+              onTap: widget.onPressed,
+              borderRadius: BorderRadius.circular(20),
+              child: Ink(
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: jewel,
+                    stops: jewel.length == 4
+                        ? const [0.0, 0.28, 0.62, 1.0]
+                        : const [0.0, 0.42, 1.0],
+                  ),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: bright ? 0.48 : 0.28),
+                    width: 1.4,
+                  ),
+                  boxShadow: [
+                    ...softShadows(context, lift: 1.2),
+                    BoxShadow(
+                      color: deep.withValues(
+                        alpha: (bright ? 0.55 : 0.65) * breathe,
+                      ),
+                      blurRadius: 28 * breathe,
+                      offset: const Offset(0, 12),
+                      spreadRadius: -2,
+                    ),
+                    BoxShadow(
+                      color: hi.withValues(alpha: 0.35 * breathe),
+                      blurRadius: 18,
+                      offset: const Offset(0, -2),
+                      spreadRadius: -6,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Górna krawędź — stały highlight „szkła”
-                Positioned(
-                  top: 0,
-                  left: 8,
-                  right: 8,
-                  height: 18,
-                  child: IgnorePointer(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(14),
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.white.withValues(alpha: bright ? 0.38 : 0.22),
-                            Colors.white.withValues(alpha: 0),
-                          ],
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 10,
+                      right: 10,
+                      height: 22,
+                      child: IgnorePointer(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white
+                                    .withValues(alpha: bright ? 0.5 : 0.3),
+                                Colors.white.withValues(alpha: 0),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.2,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withValues(alpha: 0.25),
-                        blurRadius: 6,
-                        offset: const Offset(0, 1),
+                    Positioned(
+                      left: 14,
+                      right: 14,
+                      bottom: 3,
+                      height: 2,
+                      child: IgnorePointer(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                Colors.white.withValues(alpha: 0.35),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      widget.label,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0.35,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: 0.35),
+                            blurRadius: 8,
+                            offset: const Offset(0, 1.5),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
