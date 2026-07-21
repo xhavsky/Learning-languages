@@ -30,7 +30,6 @@ nix-shell -p flutter --run 'flutter run -d linux'
 - **Motywy kolorystyczne**: Las / Ocean / Zachód / Winogrono / Róż / Grafit + jasny/ciemny
 - Feedback **inline** (bez AlertDialog)
 - Eksport / import bazy JSON (Ustawienia)
-- **Portal współpracy** — współpraca + budowa paczek: [COLLAB.md](COLLAB.md) (jeden wspólny projekt)
 
 ## 3D maskotki
 
