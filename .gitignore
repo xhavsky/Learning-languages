@@ -26,8 +26,6 @@ dist/
 .vscode/
 .cursor/
 
-# Osobny projekt portalu — lokalnie OK, nie w tym repo
-anielka-portal/
 
 # Misc
 *.log
