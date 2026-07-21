@@ -351,15 +351,12 @@ class DailyMissionBanner extends StatelessWidget {
                           ),
                     ),
                     const SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: LinearProgressIndicator(
-                        value: progress,
-                        minHeight: 12,
-                        backgroundColor:
-                            scheme.primaryContainer.withValues(alpha: 0.45),
-                        color: done ? palette.accent : scheme.primary,
-                      ),
+                    SheenProgressBar(
+                      value: progress,
+                      minHeight: 12,
+                      backgroundColor:
+                          scheme.primaryContainer.withValues(alpha: 0.45),
+                      color: done ? palette.accent : scheme.primary,
                     ),
                   ],
                 ),
@@ -952,6 +949,319 @@ class EqualButtonRow extends StatelessWidget {
         SizedBox(width: gap),
         Expanded(child: right),
       ],
+    );
+  }
+}
+
+// ─── Shimmer ───────────────────────────────────────────────────────────────
+
+/// Animowany „połysk” po szkielecie / pasku — w SCREENSHOT_MODE bez ruchu.
+class Shimmer extends StatefulWidget {
+  const Shimmer({
+    super.key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1400),
+  });
+
+  final Widget child;
+  final Duration duration;
+
+  @override
+  State<Shimmer> createState() => _ShimmerState();
+}
+
+class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: widget.duration);
+    if (!kScreenshotMode) {
+      _ctrl.repeat();
+    } else {
+      _ctrl.value = 0.45;
+    }
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final bright = Theme.of(context).brightness == Brightness.light;
+    final base = scheme.onSurface.withValues(alpha: bright ? 0.10 : 0.16);
+    final hilite = scheme.onSurface.withValues(alpha: bright ? 0.28 : 0.38);
+
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, child) {
+        final t = _ctrl.value;
+        return ShaderMask(
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (bounds) {
+            return LinearGradient(
+              begin: Alignment(-1.2 + 2.4 * t, 0),
+              end: Alignment(-0.2 + 2.4 * t, 0),
+              colors: [base, hilite, base],
+              stops: const [0.35, 0.5, 0.65],
+            ).createShader(bounds);
+          },
+          child: child,
+        );
+      },
+      child: widget.child,
+    );
+  }
+}
+
+/// Kość szkieletu (prostokąt / pill).
+class ShimmerBox extends StatelessWidget {
+  const ShimmerBox({
+    super.key,
+    this.width,
+    required this.height,
+    this.radius = 10,
+  });
+
+  final double? width;
+  final double height;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(radius),
+      ),
+    );
+  }
+}
+
+/// Pasek postępu z delikatnym połyskiem na wypełnieniu.
+class SheenProgressBar extends StatelessWidget {
+  const SheenProgressBar({
+    super.key,
+    required this.value,
+    this.minHeight = 12,
+    this.color,
+    this.backgroundColor,
+  });
+
+  final double value;
+  final double minHeight;
+  final Color? color;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final v = value.clamp(0.0, 1.0);
+    final fill = color ?? scheme.primary;
+    final track =
+        backgroundColor ?? scheme.primaryContainer.withValues(alpha: 0.45);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(minHeight),
+      child: SizedBox(
+        height: minHeight,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            ColoredBox(color: track),
+            FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: v,
+              child: v > 0.02 && v < 0.999 && !kScreenshotMode
+                  ? Shimmer(
+                      duration: const Duration(milliseconds: 1800),
+                      child: ColoredBox(color: fill),
+                    )
+                  : ColoredBox(color: fill),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Szkielet startu aplikacji (zamiast gołego spinnera).
+class AppBootShimmer extends StatelessWidget {
+  const AppBootShimmer({
+    super.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: scheme.onSurface.withValues(alpha: 0.65),
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Shimmer(
+                child: ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    SoftPanel(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const ShimmerBox(width: 72, height: 28, radius: 14),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: ShimmerBox(height: 18, radius: 8),
+                              ),
+                              const SizedBox(width: 10),
+                              const ShimmerBox(width: 40, height: 28, radius: 14),
+                            ],
+                          ),
+                          const SizedBox(height: 14),
+                          const ShimmerBox(height: 12, radius: 8),
+                          const SizedBox(height: 10),
+                          const ShimmerBox(height: 10, width: 160, radius: 8),
+                        ],
+                      ),
+                    ),
+                    SoftPanel(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const ShimmerBox(height: 14, width: 200, radius: 8),
+                          const SizedBox(height: 12),
+                          const ShimmerBox(height: 36, width: 120, radius: 10),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: const [
+                              Expanded(child: ShimmerBox(height: 48, radius: 14)),
+                              SizedBox(width: 10),
+                              Expanded(child: ShimmerBox(height: 48, radius: 14)),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          const ShimmerBox(height: 52, radius: 16),
+                          const SizedBox(height: 12),
+                          const ShimmerBox(height: 52, radius: 16),
+                        ],
+                      ),
+                    ),
+                    SoftPanel(
+                      child: Column(
+                        children: const [
+                          ShimmerBox(height: 16, width: 180, radius: 8),
+                          SizedBox(height: 12),
+                          ShimmerBox(height: 14, radius: 8),
+                          SizedBox(height: 8),
+                          ShimmerBox(height: 14, width: 220, radius: 8),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Bańka „AI pisze…” w czacie.
+class ChatReplyShimmer extends StatelessWidget {
+  const ChatReplyShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8, top: 4),
+        child: Shimmer(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 0.55,
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerBox(height: 14, radius: 8),
+                SizedBox(height: 8),
+                ShimmerBox(height: 14, width: 130, radius: 8),
+                SizedBox(height: 8),
+                ShimmerBox(height: 14, width: 88, radius: 8),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Placeholder podglądu 3D / CEF.
+class ViewerShimmer extends StatelessWidget {
+  const ViewerShimmer({super.key, this.backgroundColor});
+
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final bg = backgroundColor ?? Theme.of(context).colorScheme.surface;
+    return ColoredBox(
+      color: bg,
+      child: Center(
+        child: Shimmer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ShimmerBox(
+                width: 120,
+                height: 120,
+                radius: 60,
+              ),
+              const SizedBox(height: 16),
+              const ShimmerBox(width: 140, height: 12, radius: 6),
+              const SizedBox(height: 8),
+              const ShimmerBox(width: 90, height: 10, radius: 6),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

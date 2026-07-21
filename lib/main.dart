@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   key: const ValueKey('more_shop'),
                   icon: Icons.storefront_rounded,
                   label: l10n.tabShop,
-                  subtitle: l10n.quickActionsSubtitle,
+                  subtitle: l10n.shopSubtitle,
                 ),
                 const SizedBox(height: 6),
                 tile(
@@ -1676,32 +1676,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
     if (_loading) {
       return Scaffold(
-        backgroundColor: const Color(0xFF1A1A22),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircularProgressIndicator(color: Color(0xFFB8F27A)),
-                const SizedBox(height: 20),
-                Text(
-                  _l10n.starting,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  _loadingMsg,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white70, fontSize: 13),
-                ),
-              ],
-            ),
+        body: GradientScaffoldBody(
+          palette: widget.palette,
+          child: AppBootShimmer(
+            title: _l10n.starting,
+            subtitle: _loadingMsg,
           ),
         ),
       );
@@ -2679,12 +2658,9 @@ class _PlayerXpBar extends StatelessWidget {
           ],
         ),
         SizedBox(height: desktop ? 6 : 4),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: LinearProgressIndicator(
-            value: progress.clamp(0.0, 1.0),
-            minHeight: desktop ? 10 : 8,
-          ),
+        SheenProgressBar(
+          value: progress.clamp(0.0, 1.0),
+          minHeight: desktop ? 10 : 8,
         ),
         const SizedBox(height: 2),
         Text(
@@ -2786,12 +2762,9 @@ class _PlayerXpBar extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: LinearProgressIndicator(
-                              value: progress.clamp(0.0, 1.0),
-                              minHeight: 8,
-                            ),
+                          child: SheenProgressBar(
+                            value: progress.clamp(0.0, 1.0),
+                            minHeight: 8,
                           ),
                         ),
                       ],

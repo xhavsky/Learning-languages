@@ -60,6 +60,14 @@ class L10n {
         UiLang.ru => 'Магазин',
       };
 
+  /// Podpis pod Sklepem w menu „Więcej”.
+  String get shopSubtitle => switch (lang) {
+        UiLang.pl => 'Zakup akcesoria dla zwierzaczka',
+        UiLang.en => 'Buy accessories for your pet',
+        UiLang.es => 'Compra accesorios para tu mascota',
+        UiLang.ru => 'Купи аксессуары для питомца',
+      };
+
   String get tabPools => switch (lang) {
         UiLang.pl => 'Pule',
         UiLang.en => 'Pools',

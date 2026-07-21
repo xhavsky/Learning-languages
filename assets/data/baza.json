@@ -6573,6 +6573,156 @@
         "hard": false,
         "nextDue": null,
         "correctStreak": 0
+      },
+      {
+        "id": "fb9d8855",
+        "pl": "Jak dojść do dworca?",
+        "obcy": "How do I get to the station?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "cac5d73e",
+        "pl": "Skręć w lewo.",
+        "obcy": "Turn left.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "74ca5e4f",
+        "pl": "Skręć w prawo.",
+        "obcy": "Turn right.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0a7a6046",
+        "pl": "Idź prosto.",
+        "obcy": "Go straight.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3928d5ad",
+        "pl": "Czy to daleko?",
+        "obcy": "Is it far?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "8444f82c",
+        "pl": "Gdzie jest przystanek autobusowy?",
+        "obcy": "Where is the bus stop?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "55943ff7",
+        "pl": "Przepraszam, gdzie jest muzeum?",
+        "obcy": "Excuse me, where is the museum?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "d2d581f5",
+        "pl": "Czy możesz mi pokazać drogę?",
+        "obcy": "Can you show me the way?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "50ad2774",
+        "pl": "Szukam hotelu.",
+        "obcy": "I'm looking for the hotel.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "45331e01",
+        "pl": "Ile czasu zajmie dojście?",
+        "obcy": "How long does it take to get there?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "81224707",
+        "pl": "Jestem zgubiony.",
+        "obcy": "I am lost.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "86453a77",
+        "pl": "Gdzie jest najbliższa apteka?",
+        "obcy": "Where is the nearest pharmacy?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "ba6040f5",
+        "pl": "Proszę o bilet do centrum.",
+        "obcy": "A ticket to the city centre, please.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "13d6ef42",
+        "pl": "Którędy do lotniska?",
+        "obcy": "Which way to the airport?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "ca99ef62",
+        "pl": "Czy ten pociąg jedzie do Warszawy?",
+        "obcy": "Does this train go to Warsaw?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
       }
     ]
   },
@@ -13144,6 +13294,156 @@
         "id": "5c8f3994",
         "pl": "Chodźmy do domu.",
         "obcy": "Vamos a casa.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0c9f0511",
+        "pl": "Jak dojść do dworca?",
+        "obcy": "¿Cómo llego a la estación?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "869dea62",
+        "pl": "Skręć w lewo.",
+        "obcy": "Gira a la izquierda.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "202fa462",
+        "pl": "Skręć w prawo.",
+        "obcy": "Gira a la derecha.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "1740014a",
+        "pl": "Idź prosto.",
+        "obcy": "Sigue recto.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "d8fb5beb",
+        "pl": "Czy to daleko?",
+        "obcy": "¿Está lejos?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2da88179",
+        "pl": "Gdzie jest przystanek autobusowy?",
+        "obcy": "¿Dónde está la parada de autobús?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2c145444",
+        "pl": "Przepraszam, gdzie jest muzeum?",
+        "obcy": "Perdón, ¿dónde está el museo?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "795bd077",
+        "pl": "Czy możesz mi pokazać drogę?",
+        "obcy": "¿Puedes mostrarme el camino?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "480c7002",
+        "pl": "Szukam hotelu.",
+        "obcy": "Estoy buscando el hotel.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "c15e2b08",
+        "pl": "Ile czasu zajmie dojście?",
+        "obcy": "¿Cuánto se tarda en llegar?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "6140f446",
+        "pl": "Jestem zgubiony.",
+        "obcy": "Estoy perdido.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "91fbe916",
+        "pl": "Gdzie jest najbliższa apteka?",
+        "obcy": "¿Dónde está la farmacia más cercana?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4318d5de",
+        "pl": "Proszę o bilet do centrum.",
+        "obcy": "Un billete al centro, por favor.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "f1a5e206",
+        "pl": "Którędy do lotniska?",
+        "obcy": "¿Por dónde se va al aeropuerto?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "a96373e6",
+        "pl": "Czy ten pociąg jedzie do Warszawy?",
+        "obcy": "¿Este tren va a Varsovia?",
         "level": 0,
         "nauczone": false,
         "hard": false,
@@ -19754,6 +20054,156 @@
         "id": "5acda568",
         "pl": "Chodźmy do domu.",
         "obcy": "Пойдём домой.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7a1fb0fa",
+        "pl": "Jak dojść do dworca?",
+        "obcy": "Как пройти к вокзалу?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2374261d",
+        "pl": "Skręć w lewo.",
+        "obcy": "Поверни налево.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a861295",
+        "pl": "Skręć w prawo.",
+        "obcy": "Поверни направо.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0293e32f",
+        "pl": "Idź prosto.",
+        "obcy": "Иди прямо.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "64b36473",
+        "pl": "Czy to daleko?",
+        "obcy": "Это далеко?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "189a5378",
+        "pl": "Gdzie jest przystanek autobusowy?",
+        "obcy": "Где автобусная остановка?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "ce9829ef",
+        "pl": "Przepraszam, gdzie jest muzeum?",
+        "obcy": "Извините, где музей?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "682a3244",
+        "pl": "Czy możesz mi pokazać drogę?",
+        "obcy": "Можешь показать мне дорогу?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "565b52e0",
+        "pl": "Szukam hotelu.",
+        "obcy": "Я ищу отель.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "dfd8c9ca",
+        "pl": "Ile czasu zajmie dojście?",
+        "obcy": "Сколько времени займёт дорога?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2a853d6c",
+        "pl": "Jestem zgubiony.",
+        "obcy": "Я заблудился.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "77736a0e",
+        "pl": "Gdzie jest najbliższa apteka?",
+        "obcy": "Где ближайшая аптека?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "0451e585",
+        "pl": "Proszę o bilet do centrum.",
+        "obcy": "Билет до центра, пожалуйста.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "e8444990",
+        "pl": "Którędy do lotniska?",
+        "obcy": "Как пройти в аэропорт?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "361983ee",
+        "pl": "Czy ten pociąg jedzie do Warszawy?",
+        "obcy": "Этот поезд идёт в Варшаву?",
         "level": 0,
         "nauczone": false,
         "hard": false,

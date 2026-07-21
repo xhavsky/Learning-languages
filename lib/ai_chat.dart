@@ -769,17 +769,13 @@ class _DailyChatPageState extends State<DailyChatPage> {
                     if (_preparing) ...[
                       const SizedBox(height: 10),
                       if (_prepareProgress != null)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: LinearProgressIndicator(
-                            value: _prepareProgress,
-                            minHeight: 8,
-                          ),
+                        SheenProgressBar(
+                          value: _prepareProgress!,
+                          minHeight: 8,
                         )
                       else
-                        const ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          child: LinearProgressIndicator(minHeight: 8),
+                        const Shimmer(
+                          child: ShimmerBox(height: 8, radius: 8),
                         ),
                       const SizedBox(height: 6),
                       Text(
@@ -798,6 +794,20 @@ class _DailyChatPageState extends State<DailyChatPage> {
                 ),
               ),
             Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text(
+                'Funkcja eksperymentalna, może działać nieprawidłowo.',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.7),
+                      fontWeight: FontWeight.w600,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.fromLTRB(16, 6, 16, 4),
               child: Text(
                 done
@@ -815,14 +825,8 @@ class _DailyChatPageState extends State<DailyChatPage> {
                 itemBuilder: (_, i) {
                   if (i >= _messages.length) {
                     return const Padding(
-                      padding: EdgeInsets.all(12),
-                      child: Center(
-                        child: SizedBox(
-                          width: 28,
-                          height: 28,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        ),
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                      child: ChatReplyShimmer(),
                     );
                   }
                   final m = _messages[i];

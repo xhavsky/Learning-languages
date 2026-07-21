@@ -11870,9 +11870,7 @@
       "lang": "en",
       "text": "Hello, how are you?",
       "pl": "Cześć, jak się masz?",
-      "id": "0a8ecc93",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "0a8ecc93"
     },
     "Angielski|My name is Anna.": {
       "file": "en_my_name_is_anna_b0959bce54.mp3",
@@ -11888,81 +11886,63 @@
       "lang": "en",
       "text": "I like cats.",
       "pl": "Lubię koty.",
-      "id": "71a174ed",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "71a174ed"
     },
     "Angielski|Where is the school?": {
       "file": "en_where_is_the_school_fa2c41e3bb.mp3",
       "lang": "en",
       "text": "Where is the school?",
       "pl": "Gdzie jest szkoła?",
-      "id": "09d51743",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "09d51743"
     },
     "Angielski|I am hungry.": {
       "file": "en_i_am_hungry_7057209c73.mp3",
       "lang": "en",
       "text": "I am hungry.",
       "pl": "Jestem głodny.",
-      "id": "08103629",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "08103629"
     },
     "Angielski|Good morning!": {
       "file": "en_good_morning_53759505f9.mp3",
       "lang": "en",
       "text": "Good morning!",
       "pl": "Dzień dobry!",
-      "id": "615c86d5",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "615c86d5"
     },
     "Angielski|See you tomorrow.": {
       "file": "en_see_you_tomorrow_b366dc932a.mp3",
       "lang": "en",
       "text": "See you tomorrow.",
       "pl": "Do zobaczenia jutro.",
-      "id": "49011446",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "49011446"
     },
     "Angielski|Can you help me?": {
       "file": "en_can_you_help_me_b33ca26135.mp3",
       "lang": "en",
       "text": "Can you help me?",
       "pl": "Czy możesz mi pomóc?",
-      "id": "04ddca20",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "04ddca20"
     },
     "Angielski|I don't understand.": {
       "file": "en_i_dont_understand_77c2d03304.mp3",
       "lang": "en",
       "text": "I don't understand.",
       "pl": "Nie rozumiem.",
-      "id": "75025d29",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "75025d29"
     },
     "Angielski|This is my friend.": {
       "file": "en_this_is_my_friend_ff26dcea1e.mp3",
       "lang": "en",
       "text": "This is my friend.",
       "pl": "To jest mój przyjaciel.",
-      "id": "63176a9e",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "63176a9e"
     },
     "Angielski|How much does it cost?": {
       "file": "en_how_much_does_it_cost_79073c1edb.mp3",
       "lang": "en",
       "text": "How much does it cost?",
       "pl": "Ile to kosztuje?",
-      "id": "25643b4c",
-      "engine": "piper/en",
-      "clarity": "length_scale=1.25"
+      "id": "25643b4c"
     },
     "Angielski|My name is Anielka.": {
       "file": "en_my_name_is_anielka_fb0654245a.mp3",
@@ -11978,9 +11958,7 @@
       "lang": "es",
       "text": "¡Hola! ¿Cómo estás?",
       "pl": "Cześć, jak się masz?",
-      "id": "469bd623",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "469bd623"
     },
     "Hiszpański|Me llamo Ana.": {
       "file": "es_me_llamo_ana_e583cab5ca.mp3",
@@ -11996,81 +11974,63 @@
       "lang": "es",
       "text": "Me gustan los gatos.",
       "pl": "Lubię koty.",
-      "id": "0d23828a",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "0d23828a"
     },
     "Hiszpański|¿Dónde está la escuela?": {
       "file": "es_dónde_está_la_escuela_2d254b6abd.mp3",
       "lang": "es",
       "text": "¿Dónde está la escuela?",
       "pl": "Gdzie jest szkoła?",
-      "id": "3a171f26",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3a171f26"
     },
     "Hiszpański|Tengo hambre.": {
       "file": "es_tengo_hambre_70874a9b8f.mp3",
       "lang": "es",
       "text": "Tengo hambre.",
       "pl": "Jestem głodny.",
-      "id": "6694aa0d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "6694aa0d"
     },
     "Hiszpański|¡Buenos días!": {
       "file": "es_buenos_días_6939af8250.mp3",
       "lang": "es",
       "text": "¡Buenos días!",
       "pl": "Dzień dobry!",
-      "id": "3ca2d89c",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "3ca2d89c"
     },
     "Hiszpański|Hasta mañana.": {
       "file": "es_hasta_mañana_8a009c1929.mp3",
       "lang": "es",
       "text": "Hasta mañana.",
       "pl": "Do zobaczenia jutro.",
-      "id": "45b4c769",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "45b4c769"
     },
     "Hiszpański|¿Puedes ayudarme?": {
       "file": "es_puedes_ayudarme_2e1b1c146f.mp3",
       "lang": "es",
       "text": "¿Puedes ayudarme?",
       "pl": "Czy możesz mi pomóc?",
-      "id": "74ade4d9",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "74ade4d9"
     },
     "Hiszpański|No entiendo.": {
       "file": "es_no_entiendo_e68f35418c.mp3",
       "lang": "es",
       "text": "No entiendo.",
       "pl": "Nie rozumiem.",
-      "id": "55a3fa5d",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "55a3fa5d"
     },
     "Hiszpański|Este es mi amigo.": {
       "file": "es_este_es_mi_amigo_9ca8ec4b2c.mp3",
       "lang": "es",
       "text": "Este es mi amigo.",
       "pl": "To jest mój przyjaciel.",
-      "id": "740e8b8e",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "740e8b8e"
     },
     "Hiszpański|¿Cuánto cuesta?": {
       "file": "es_cuánto_cuesta_ffef716624.mp3",
       "lang": "es",
       "text": "¿Cuánto cuesta?",
       "pl": "Ile to kosztuje?",
-      "id": "06297440",
-      "engine": "piper/es",
-      "clarity": "length_scale=1.25"
+      "id": "06297440"
     },
     "Hiszpański|Me llamo Anielka.": {
       "file": "es_me_llamo_anielka_1bddfd2118.mp3",
@@ -12086,9 +12046,7 @@
       "lang": "ru",
       "text": "Привет, как дела?",
       "pl": "Cześć, jak się masz?",
-      "id": "63381382",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "63381382"
     },
     "Rosyjski|Меня зовут Анна.": {
       "file": "ru_меня_зовут_анна_467b4ca2fb.mp3",
@@ -12104,81 +12062,63 @@
       "lang": "ru",
       "text": "Я люблю кошек.",
       "pl": "Lubię koty.",
-      "id": "6c8bbcf3",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "6c8bbcf3"
     },
     "Rosyjski|Где школа?": {
       "file": "ru_где_школа_d081540635.mp3",
       "lang": "ru",
       "text": "Где школа?",
       "pl": "Gdzie jest szkoła?",
-      "id": "3115f56e",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "3115f56e"
     },
     "Rosyjski|Я голодный.": {
       "file": "ru_я_голодный_edbc539d0b.mp3",
       "lang": "ru",
       "text": "Я голодный.",
       "pl": "Jestem głodny.",
-      "id": "47415373",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "47415373"
     },
     "Rosyjski|Доброе утро!": {
       "file": "ru_доброе_утро_4051a06b9f.mp3",
       "lang": "ru",
       "text": "Доброе утро!",
       "pl": "Dzień dobry!",
-      "id": "5817aa1f",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "5817aa1f"
     },
     "Rosyjski|Увидимся завтра.": {
       "file": "ru_увидимся_завтра_77f1023637.mp3",
       "lang": "ru",
       "text": "Увидимся завтра.",
       "pl": "Do zobaczenia jutro.",
-      "id": "2b322627",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "2b322627"
     },
     "Rosyjski|Ты можешь мне помочь?": {
       "file": "ru_ты_можешь_мне_помочь_66d2ed5ef4.mp3",
       "lang": "ru",
       "text": "Ты можешь мне помочь?",
       "pl": "Czy możesz mi pomóc?",
-      "id": "0f803542",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "0f803542"
     },
     "Rosyjski|Я не понимаю.": {
       "file": "ru_я_не_понимаю_54486ec17f.mp3",
       "lang": "ru",
       "text": "Я не понимаю.",
       "pl": "Nie rozumiem.",
-      "id": "44c813a5",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "44c813a5"
     },
     "Rosyjski|Это мой друг.": {
       "file": "ru_это_мой_друг_100ec96cca.mp3",
       "lang": "ru",
       "text": "Это мой друг.",
       "pl": "To jest mój przyjaciel.",
-      "id": "37772384",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "37772384"
     },
     "Rosyjski|Сколько это стоит?": {
       "file": "ru_сколько_это_стоит_fe2d68be0f.mp3",
       "lang": "ru",
       "text": "Сколько это стоит?",
       "pl": "Ile to kosztuje?",
-      "id": "0776c9a0",
-      "engine": "piper/ru",
-      "clarity": "length_scale=1.25"
+      "id": "0776c9a0"
     },
     "Rosyjski|Меня зовут Анелька.": {
       "file": "ru_меня_зовут_анелька_d08720c9a5.mp3",
@@ -12186,6 +12126,816 @@
       "text": "Меня зовут Анелька.",
       "pl": "Mam na imię Anielka.",
       "id": "12bfade9",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Where is the bathroom?": {
+      "file": "en_where_is_the_bathroom_f4387eb543.mp3",
+      "lang": "en",
+      "text": "Where is the bathroom?",
+      "pl": "Gdzie jest toaleta?",
+      "id": "28000575",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I like reading books.": {
+      "file": "en_i_like_reading_books_4698256f36.mp3",
+      "lang": "en",
+      "text": "I like reading books.",
+      "pl": "Lubię czytać książki.",
+      "id": "43e82b30",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I have a dog.": {
+      "file": "en_i_have_a_dog_b6787b8f59.mp3",
+      "lang": "en",
+      "text": "I have a dog.",
+      "pl": "Mam psa.",
+      "id": "788561b4",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|What's the weather like?": {
+      "file": "en_whats_the_weather_like_d9282dae7e.mp3",
+      "lang": "en",
+      "text": "What's the weather like?",
+      "pl": "Jaka jest pogoda?",
+      "id": "92ae5de1",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I want water.": {
+      "file": "en_i_want_water_3559ed14b8.mp3",
+      "lang": "en",
+      "text": "I want water.",
+      "pl": "Chcę wodę.",
+      "id": "5b175cfd",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I'm going to the store.": {
+      "file": "en_im_going_to_the_store_c5b9616210.mp3",
+      "lang": "en",
+      "text": "I'm going to the store.",
+      "pl": "Idę do sklepu.",
+      "id": "e6454679",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I like music.": {
+      "file": "en_i_like_music_c2576d1e5c.mp3",
+      "lang": "en",
+      "text": "I like music.",
+      "pl": "Lubię muzykę.",
+      "id": "9d1d5af9",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I am tired.": {
+      "file": "en_i_am_tired_9956269802.mp3",
+      "lang": "en",
+      "text": "I am tired.",
+      "pl": "Jestem zmęczony.",
+      "id": "5b3968b1",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I need help.": {
+      "file": "en_i_need_help_d9e678607e.mp3",
+      "lang": "en",
+      "text": "I need help.",
+      "pl": "Potrzebuję pomocy.",
+      "id": "a48397f3",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I like eating ice cream.": {
+      "file": "en_i_like_eating_ice_cream_6d011ed4d1.mp3",
+      "lang": "en",
+      "text": "I like eating ice cream.",
+      "pl": "Lubię jeść lody.",
+      "id": "fc143078",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|What are you doing?": {
+      "file": "en_what_are_you_doing_f406642b88.mp3",
+      "lang": "en",
+      "text": "What are you doing?",
+      "pl": "Co robisz?",
+      "id": "09921566",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|It's nice today.": {
+      "file": "en_its_nice_today_e0e3ac7686.mp3",
+      "lang": "en",
+      "text": "It's nice today.",
+      "pl": "Dzisiaj jest ładnie.",
+      "id": "3e64b126",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Where do you live?": {
+      "file": "en_where_do_you_live_2a4efee805.mp3",
+      "lang": "en",
+      "text": "Where do you live?",
+      "pl": "Gdzie mieszkasz?",
+      "id": "773daa0e",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|This is very tasty.": {
+      "file": "en_this_is_very_tasty_a7d6553d60.mp3",
+      "lang": "en",
+      "text": "This is very tasty.",
+      "pl": "To jest bardzo smaczne.",
+      "id": "65ebdb36",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Let's go home.": {
+      "file": "en_lets_go_home_4008657ec5.mp3",
+      "lang": "en",
+      "text": "Let's go home.",
+      "pl": "Chodźmy do domu.",
+      "id": "eddbee56",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|How do I get to the station?": {
+      "file": "en_how_do_i_get_to_the_station_581fd9199b.mp3",
+      "lang": "en",
+      "text": "How do I get to the station?",
+      "pl": "Jak dojść do dworca?",
+      "id": "fb9d8855",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Turn left.": {
+      "file": "en_turn_left_8be2c89dbf.mp3",
+      "lang": "en",
+      "text": "Turn left.",
+      "pl": "Skręć w lewo.",
+      "id": "cac5d73e",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Turn right.": {
+      "file": "en_turn_right_e9fe475b4c.mp3",
+      "lang": "en",
+      "text": "Turn right.",
+      "pl": "Skręć w prawo.",
+      "id": "74ca5e4f",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Go straight.": {
+      "file": "en_go_straight_2e4975a3c5.mp3",
+      "lang": "en",
+      "text": "Go straight.",
+      "pl": "Idź prosto.",
+      "id": "0a7a6046",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Is it far?": {
+      "file": "en_is_it_far_dec9175eab.mp3",
+      "lang": "en",
+      "text": "Is it far?",
+      "pl": "Czy to daleko?",
+      "id": "3928d5ad",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Where is the bus stop?": {
+      "file": "en_where_is_the_bus_stop_c979918d52.mp3",
+      "lang": "en",
+      "text": "Where is the bus stop?",
+      "pl": "Gdzie jest przystanek autobusowy?",
+      "id": "8444f82c",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Excuse me, where is the museum?": {
+      "file": "en_excuse_me_where_is_the_museum_02936a0964.mp3",
+      "lang": "en",
+      "text": "Excuse me, where is the museum?",
+      "pl": "Przepraszam, gdzie jest muzeum?",
+      "id": "55943ff7",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Can you show me the way?": {
+      "file": "en_can_you_show_me_the_way_46060beb95.mp3",
+      "lang": "en",
+      "text": "Can you show me the way?",
+      "pl": "Czy możesz mi pokazać drogę?",
+      "id": "d2d581f5",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I'm looking for the hotel.": {
+      "file": "en_im_looking_for_the_hotel_35245fdd65.mp3",
+      "lang": "en",
+      "text": "I'm looking for the hotel.",
+      "pl": "Szukam hotelu.",
+      "id": "50ad2774",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|How long does it take to get there?": {
+      "file": "en_how_long_does_it_take_to_get_there_05950ea0d2.mp3",
+      "lang": "en",
+      "text": "How long does it take to get there?",
+      "pl": "Ile czasu zajmie dojście?",
+      "id": "45331e01",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|I am lost.": {
+      "file": "en_i_am_lost_0b8bcdaf9a.mp3",
+      "lang": "en",
+      "text": "I am lost.",
+      "pl": "Jestem zgubiony.",
+      "id": "81224707",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Where is the nearest pharmacy?": {
+      "file": "en_where_is_the_nearest_pharmacy_10aead4453.mp3",
+      "lang": "en",
+      "text": "Where is the nearest pharmacy?",
+      "pl": "Gdzie jest najbliższa apteka?",
+      "id": "86453a77",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|A ticket to the city centre, please.": {
+      "file": "en_a_ticket_to_the_city_centre_please_6e0f46d85d.mp3",
+      "lang": "en",
+      "text": "A ticket to the city centre, please.",
+      "pl": "Proszę o bilet do centrum.",
+      "id": "ba6040f5",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Which way to the airport?": {
+      "file": "en_which_way_to_the_airport_7c7fade3a3.mp3",
+      "lang": "en",
+      "text": "Which way to the airport?",
+      "pl": "Którędy do lotniska?",
+      "id": "13d6ef42",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Angielski|Does this train go to Warsaw?": {
+      "file": "en_does_this_train_go_to_warsaw_ad52e71ea7.mp3",
+      "lang": "en",
+      "text": "Does this train go to Warsaw?",
+      "pl": "Czy ten pociąg jedzie do Warszawy?",
+      "id": "ca99ef62",
+      "engine": "piper/en",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Dónde está el baño?": {
+      "file": "es_dónde_está_el_baño_4536bc4c4f.mp3",
+      "lang": "es",
+      "text": "¿Dónde está el baño?",
+      "pl": "Gdzie jest toaleta?",
+      "id": "27bd15b0",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me gusta leer libros.": {
+      "file": "es_me_gusta_leer_libros_cad045af0b.mp3",
+      "lang": "es",
+      "text": "Me gusta leer libros.",
+      "pl": "Lubię czytać książki.",
+      "id": "2b945e40",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Tengo un perro.": {
+      "file": "es_tengo_un_perro_ee0f9db844.mp3",
+      "lang": "es",
+      "text": "Tengo un perro.",
+      "pl": "Mam psa.",
+      "id": "7d5baf66",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Qué tiempo hace?": {
+      "file": "es_qué_tiempo_hace_e48389f1bd.mp3",
+      "lang": "es",
+      "text": "¿Qué tiempo hace?",
+      "pl": "Jaka jest pogoda?",
+      "id": "99919b13",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Quiero agua.": {
+      "file": "es_quiero_agua_319c114a70.mp3",
+      "lang": "es",
+      "text": "Quiero agua.",
+      "pl": "Chcę wodę.",
+      "id": "335eebc5",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Voy a la tienda.": {
+      "file": "es_voy_a_la_tienda_f811453fff.mp3",
+      "lang": "es",
+      "text": "Voy a la tienda.",
+      "pl": "Idę do sklepu.",
+      "id": "2261c579",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me gusta la música.": {
+      "file": "es_me_gusta_la_música_c3aad2c0db.mp3",
+      "lang": "es",
+      "text": "Me gusta la música.",
+      "pl": "Lubię muzykę.",
+      "id": "4066efed",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Estoy cansado.": {
+      "file": "es_estoy_cansado_a70708d641.mp3",
+      "lang": "es",
+      "text": "Estoy cansado.",
+      "pl": "Jestem zmęczony.",
+      "id": "38dbec2c",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Necesito ayuda.": {
+      "file": "es_necesito_ayuda_ce7135fd6e.mp3",
+      "lang": "es",
+      "text": "Necesito ayuda.",
+      "pl": "Potrzebuję pomocy.",
+      "id": "9338718f",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Me gusta comer helado.": {
+      "file": "es_me_gusta_comer_helado_5918f448e3.mp3",
+      "lang": "es",
+      "text": "Me gusta comer helado.",
+      "pl": "Lubię jeść lody.",
+      "id": "eedc21fc",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Qué haces?": {
+      "file": "es_qué_haces_0b14be5056.mp3",
+      "lang": "es",
+      "text": "¿Qué haces?",
+      "pl": "Co robisz?",
+      "id": "f6f74877",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Hoy hace buen tiempo.": {
+      "file": "es_hoy_hace_buen_tiempo_ff710c87e3.mp3",
+      "lang": "es",
+      "text": "Hoy hace buen tiempo.",
+      "pl": "Dzisiaj jest ładnie.",
+      "id": "a29ca829",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Dónde vives?": {
+      "file": "es_dónde_vives_f3f3d4af27.mp3",
+      "lang": "es",
+      "text": "¿Dónde vives?",
+      "pl": "Gdzie mieszkasz?",
+      "id": "dc50493b",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Esto está muy rico.": {
+      "file": "es_esto_está_muy_rico_1b9827fd9d.mp3",
+      "lang": "es",
+      "text": "Esto está muy rico.",
+      "pl": "To jest bardzo smaczne.",
+      "id": "a0267b63",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Vamos a casa.": {
+      "file": "es_vamos_a_casa_ec084340d2.mp3",
+      "lang": "es",
+      "text": "Vamos a casa.",
+      "pl": "Chodźmy do domu.",
+      "id": "5c8f3994",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Cómo llego a la estación?": {
+      "file": "es_cómo_llego_a_la_estación_7e5ce814a9.mp3",
+      "lang": "es",
+      "text": "¿Cómo llego a la estación?",
+      "pl": "Jak dojść do dworca?",
+      "id": "0c9f0511",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Gira a la izquierda.": {
+      "file": "es_gira_a_la_izquierda_9e00e8708f.mp3",
+      "lang": "es",
+      "text": "Gira a la izquierda.",
+      "pl": "Skręć w lewo.",
+      "id": "869dea62",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Gira a la derecha.": {
+      "file": "es_gira_a_la_derecha_531dc0304d.mp3",
+      "lang": "es",
+      "text": "Gira a la derecha.",
+      "pl": "Skręć w prawo.",
+      "id": "202fa462",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Sigue recto.": {
+      "file": "es_sigue_recto_76c59def4b.mp3",
+      "lang": "es",
+      "text": "Sigue recto.",
+      "pl": "Idź prosto.",
+      "id": "1740014a",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Está lejos?": {
+      "file": "es_está_lejos_0cb185e366.mp3",
+      "lang": "es",
+      "text": "¿Está lejos?",
+      "pl": "Czy to daleko?",
+      "id": "d8fb5beb",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Dónde está la parada de autobús?": {
+      "file": "es_dónde_está_la_parada_de_autobús_32d57e0529.mp3",
+      "lang": "es",
+      "text": "¿Dónde está la parada de autobús?",
+      "pl": "Gdzie jest przystanek autobusowy?",
+      "id": "2da88179",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Perdón, ¿dónde está el museo?": {
+      "file": "es_perdón_dónde_está_el_museo_f67605dc87.mp3",
+      "lang": "es",
+      "text": "Perdón, ¿dónde está el museo?",
+      "pl": "Przepraszam, gdzie jest muzeum?",
+      "id": "2c145444",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Puedes mostrarme el camino?": {
+      "file": "es_puedes_mostrarme_el_camino_8d02cbdc17.mp3",
+      "lang": "es",
+      "text": "¿Puedes mostrarme el camino?",
+      "pl": "Czy możesz mi pokazać drogę?",
+      "id": "795bd077",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Estoy buscando el hotel.": {
+      "file": "es_estoy_buscando_el_hotel_98627c3e5c.mp3",
+      "lang": "es",
+      "text": "Estoy buscando el hotel.",
+      "pl": "Szukam hotelu.",
+      "id": "480c7002",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Cuánto se tarda en llegar?": {
+      "file": "es_cuánto_se_tarda_en_llegar_0250aedd9c.mp3",
+      "lang": "es",
+      "text": "¿Cuánto se tarda en llegar?",
+      "pl": "Ile czasu zajmie dojście?",
+      "id": "c15e2b08",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Estoy perdido.": {
+      "file": "es_estoy_perdido_45ad3c5110.mp3",
+      "lang": "es",
+      "text": "Estoy perdido.",
+      "pl": "Jestem zgubiony.",
+      "id": "6140f446",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Dónde está la farmacia más cercana?": {
+      "file": "es_dónde_está_la_farmacia_más_cercana_6442653e30.mp3",
+      "lang": "es",
+      "text": "¿Dónde está la farmacia más cercana?",
+      "pl": "Gdzie jest najbliższa apteka?",
+      "id": "91fbe916",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|Un billete al centro, por favor.": {
+      "file": "es_un_billete_al_centro_por_favor_53160479be.mp3",
+      "lang": "es",
+      "text": "Un billete al centro, por favor.",
+      "pl": "Proszę o bilet do centrum.",
+      "id": "4318d5de",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Por dónde se va al aeropuerto?": {
+      "file": "es_por_dónde_se_va_al_aeropuerto_69994ef7af.mp3",
+      "lang": "es",
+      "text": "¿Por dónde se va al aeropuerto?",
+      "pl": "Którędy do lotniska?",
+      "id": "f1a5e206",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Hiszpański|¿Este tren va a Varsovia?": {
+      "file": "es_este_tren_va_a_varsovia_a25e72f754.mp3",
+      "lang": "es",
+      "text": "¿Este tren va a Varsovia?",
+      "pl": "Czy ten pociąg jedzie do Warszawy?",
+      "id": "a96373e6",
+      "engine": "piper/es",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Где туалет?": {
+      "file": "ru_где_туалет_17af9c0d56.mp3",
+      "lang": "ru",
+      "text": "Где туалет?",
+      "pl": "Gdzie jest toaleta?",
+      "id": "cb354f62",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я люблю читать книги.": {
+      "file": "ru_я_люблю_читать_книги_c2bc0d90ab.mp3",
+      "lang": "ru",
+      "text": "Я люблю читать книги.",
+      "pl": "Lubię czytać książki.",
+      "id": "38180131",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|У меня есть собака.": {
+      "file": "ru_у_меня_есть_собака_c34f418ddc.mp3",
+      "lang": "ru",
+      "text": "У меня есть собака.",
+      "pl": "Mam psa.",
+      "id": "360c9b92",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Какая погода?": {
+      "file": "ru_какая_погода_d59e2933f2.mp3",
+      "lang": "ru",
+      "text": "Какая погода?",
+      "pl": "Jaka jest pogoda?",
+      "id": "8243de90",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я хочу воду.": {
+      "file": "ru_я_хочу_воду_5ba41a90e2.mp3",
+      "lang": "ru",
+      "text": "Я хочу воду.",
+      "pl": "Chcę wodę.",
+      "id": "c75a84a4",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я иду в магазин.": {
+      "file": "ru_я_иду_в_магазин_9ee83b8f2a.mp3",
+      "lang": "ru",
+      "text": "Я иду в магазин.",
+      "pl": "Idę do sklepu.",
+      "id": "c989ca26",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я люблю музыку.": {
+      "file": "ru_я_люблю_музыку_5a5cd5861d.mp3",
+      "lang": "ru",
+      "text": "Я люблю музыку.",
+      "pl": "Lubię muzykę.",
+      "id": "7ec4dae3",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я устал.": {
+      "file": "ru_я_устал_2b46d256df.mp3",
+      "lang": "ru",
+      "text": "Я устал.",
+      "pl": "Jestem zmęczony.",
+      "id": "cedad396",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Мне нужна помощь.": {
+      "file": "ru_мне_нужна_помощь_1001388fcf.mp3",
+      "lang": "ru",
+      "text": "Мне нужна помощь.",
+      "pl": "Potrzebuję pomocy.",
+      "id": "a97ef214",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я люблю есть мороженое.": {
+      "file": "ru_я_люблю_есть_мороженое_cb9107725b.mp3",
+      "lang": "ru",
+      "text": "Я люблю есть мороженое.",
+      "pl": "Lubię jeść lody.",
+      "id": "fb32b3d4",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Что ты делаешь?": {
+      "file": "ru_что_ты_делаешь_5a82dd1a65.mp3",
+      "lang": "ru",
+      "text": "Что ты делаешь?",
+      "pl": "Co robisz?",
+      "id": "199102ab",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Сегодня хорошая погода.": {
+      "file": "ru_сегодня_хорошая_погода_90d6fcb3d9.mp3",
+      "lang": "ru",
+      "text": "Сегодня хорошая погода.",
+      "pl": "Dzisiaj jest ładnie.",
+      "id": "dd99ac34",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Где ты живёшь?": {
+      "file": "ru_где_ты_живёшь_78ddc0ad98.mp3",
+      "lang": "ru",
+      "text": "Где ты живёшь?",
+      "pl": "Gdzie mieszkasz?",
+      "id": "ca006d9f",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Это очень вкусно.": {
+      "file": "ru_это_очень_вкусно_86d80a0bdf.mp3",
+      "lang": "ru",
+      "text": "Это очень вкусно.",
+      "pl": "To jest bardzo smaczne.",
+      "id": "98a3086f",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Пойдём домой.": {
+      "file": "ru_пойдём_домой_ef67d2010a.mp3",
+      "lang": "ru",
+      "text": "Пойдём домой.",
+      "pl": "Chodźmy do domu.",
+      "id": "5acda568",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Как пройти к вокзалу?": {
+      "file": "ru_как_пройти_к_вокзалу_e9ce3ef321.mp3",
+      "lang": "ru",
+      "text": "Как пройти к вокзалу?",
+      "pl": "Jak dojść do dworca?",
+      "id": "7a1fb0fa",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Поверни налево.": {
+      "file": "ru_поверни_налево_90f3785cbd.mp3",
+      "lang": "ru",
+      "text": "Поверни налево.",
+      "pl": "Skręć w lewo.",
+      "id": "2374261d",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Поверни направо.": {
+      "file": "ru_поверни_направо_9ea548bbe2.mp3",
+      "lang": "ru",
+      "text": "Поверни направо.",
+      "pl": "Skręć w prawo.",
+      "id": "2a861295",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Иди прямо.": {
+      "file": "ru_иди_прямо_67df8570e9.mp3",
+      "lang": "ru",
+      "text": "Иди прямо.",
+      "pl": "Idź prosto.",
+      "id": "0293e32f",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Это далеко?": {
+      "file": "ru_это_далеко_93b29fda96.mp3",
+      "lang": "ru",
+      "text": "Это далеко?",
+      "pl": "Czy to daleko?",
+      "id": "64b36473",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Где автобусная остановка?": {
+      "file": "ru_где_автобусная_остановка_47adad96c9.mp3",
+      "lang": "ru",
+      "text": "Где автобусная остановка?",
+      "pl": "Gdzie jest przystanek autobusowy?",
+      "id": "189a5378",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Извините, где музей?": {
+      "file": "ru_извините_где_музей_5b06df704f.mp3",
+      "lang": "ru",
+      "text": "Извините, где музей?",
+      "pl": "Przepraszam, gdzie jest muzeum?",
+      "id": "ce9829ef",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Можешь показать мне дорогу?": {
+      "file": "ru_можешь_показать_мне_дорогу_4f3c5ccf6f.mp3",
+      "lang": "ru",
+      "text": "Можешь показать мне дорогу?",
+      "pl": "Czy możesz mi pokazać drogę?",
+      "id": "682a3244",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я ищу отель.": {
+      "file": "ru_я_ищу_отель_b050869082.mp3",
+      "lang": "ru",
+      "text": "Я ищу отель.",
+      "pl": "Szukam hotelu.",
+      "id": "565b52e0",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Сколько времени займёт дорога?": {
+      "file": "ru_сколько_времени_займёт_дорога_a8dc61416f.mp3",
+      "lang": "ru",
+      "text": "Сколько времени займёт дорога?",
+      "pl": "Ile czasu zajmie dojście?",
+      "id": "dfd8c9ca",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Я заблудился.": {
+      "file": "ru_я_заблудился_e79d50524b.mp3",
+      "lang": "ru",
+      "text": "Я заблудился.",
+      "pl": "Jestem zgubiony.",
+      "id": "2a853d6c",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Где ближайшая аптека?": {
+      "file": "ru_где_ближайшая_аптека_751e64bf8d.mp3",
+      "lang": "ru",
+      "text": "Где ближайшая аптека?",
+      "pl": "Gdzie jest najbliższa apteka?",
+      "id": "77736a0e",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Билет до центра, пожалуйста.": {
+      "file": "ru_билет_до_центра_пожалуйста_976caa95a2.mp3",
+      "lang": "ru",
+      "text": "Билет до центра, пожалуйста.",
+      "pl": "Proszę o bilet do centrum.",
+      "id": "0451e585",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Как пройти в аэропорт?": {
+      "file": "ru_как_пройти_в_аэропорт_6f5f12d9c8.mp3",
+      "lang": "ru",
+      "text": "Как пройти в аэропорт?",
+      "pl": "Którędy do lotniska?",
+      "id": "e8444990",
+      "engine": "piper/ru",
+      "clarity": "length_scale=1.25"
+    },
+    "Rosyjski|Этот поезд идёт в Варшаву?": {
+      "file": "ru_этот_поезд_идёт_в_варшаву_530136bd67.mp3",
+      "lang": "ru",
+      "text": "Этот поезд идёт в Варшаву?",
+      "pl": "Czy ten pociąg jedzie do Warszawy?",
+      "id": "361983ee",
       "engine": "piper/ru",
       "clarity": "length_scale=1.25"
     }

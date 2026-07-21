@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'l10n.dart';
 
 import 'model3d_viewer.dart';
+import 'ui_fx.dart';
 
 /// Gatunek maskotki.
 enum MascotSpecies { cat, dog }
@@ -1959,12 +1960,9 @@ class MascotCard extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 6),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LinearProgressIndicator(
-              value: (wordsToday / mascotDailyFeedGoal).clamp(0.0, 1.0),
-              minHeight: 8,
-            ),
+          SheenProgressBar(
+            value: (wordsToday / mascotDailyFeedGoal).clamp(0.0, 1.0),
+            minHeight: 8,
           ),
           const SizedBox(height: 4),
           Text(

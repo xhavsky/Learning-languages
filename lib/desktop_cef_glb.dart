@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_cef/webview_cef.dart';
 
+import 'ui_fx.dart';
+
 bool _cefReady = false;
 
 /// Desktop (Linux / Windows / macOS) — CEF ma prawdziwy Chromium + WebGL.
@@ -169,10 +171,7 @@ model-viewer{width:100%;height:100%;display:block}
       final controller = WebviewManager().createWebView(
         // webview_cef bug: null injectUserScripts → TypeError przy onBrowserCreated
         injectUserScripts: InjectUserScripts(),
-        loading: ColoredBox(
-          color: widget.backgroundColor,
-          child: const Center(child: CircularProgressIndicator()),
-        ),
+        loading: ViewerShimmer(backgroundColor: widget.backgroundColor),
       );
       await controller.initialize('http://127.0.0.1:$port/');
       if (!mounted) {
@@ -211,10 +210,7 @@ model-viewer{width:100%;height:100%;display:block}
       );
     }
     if (!_ready || _controller == null) {
-      return ColoredBox(
-        color: widget.backgroundColor,
-        child: const Center(child: CircularProgressIndicator()),
-      );
+      return ViewerShimmer(backgroundColor: widget.backgroundColor);
     }
     return ValueListenableBuilder<bool>(
       valueListenable: _controller!,
