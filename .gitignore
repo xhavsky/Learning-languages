@@ -21,6 +21,9 @@ android/app/src/main/assets/models/*.gguf
 # Release artifacts (build locally)
 dist/
 
+# Screenshoty UI — tylko Discord / artefakt CI, nigdy w git
+docs/screenshots/
+
 # IDE / lokalne narzędzia — nie na publiczny GH
 .idea/
 .vscode/

@@ -36,9 +36,7 @@ if [[ -n "$VERSION" ]]; then
   CONTENT+=" · \`$VERSION\`"
 fi
 CONTENT+=$'\n'"SHA: \`$SHA\`"
-if [[ -n "${GITHUB_SERVER_URL:-}" && -n "${GITHUB_REPOSITORY:-}" ]]; then
-  CONTENT+=$'\n'"Repo: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/main/docs/screenshots/mobile/latest"
-fi
+# Tylko Discord — bez linków do docs/screenshots w repo (nie commitujemy PNG-ów).
 
 ARGS=(
   -sS -X POST
