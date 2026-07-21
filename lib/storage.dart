@@ -380,7 +380,33 @@ class BazaStore {
   Map<String, dynamic> manifest = {};
   AppStats stats = AppStats();
 
+  /// Ustawiane w testach screenshotów (nie zależy od dart-define / env izolatu).
+  static bool forceScreenshotFixture = false;
+
   Future<void> load() async {
+    final screenshotMode = forceScreenshotFixture ||
+        const bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false) ||
+            Platform.environment['SCREENSHOT_MODE'] == '1' ||
+            Platform.environment['SCREENSHOT_MODE'] == 'true';
+    if (screenshotMode) {
+      final seed =
+          await rootBundle.loadString('assets/data/baza_screenshot.json');
+      baza = parseBaza(jsonDecode(seed) as Map<String, dynamic>);
+      final now = DateTime.now();
+      final day =
+          '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+      stats = AppStats(
+        xp: 420,
+        goldenPaws: 48,
+        streakDays: 3,
+        wordsToday: 4,
+        wordsDay: day,
+        sessionCorrect: 2,
+        sessionTotal: 3,
+      );
+      manifest = {};
+      return;
+    }
     try {
       await _loadImpl();
     } catch (e) {
@@ -527,7 +553,7 @@ class BazaStore {
   Future<String> exportToDocuments() async {
     final dir = await getApplicationDocumentsDirectory();
     final name =
-        'trener_export_${DateTime.now().toIso8601String().replaceAll(':', '-')}.json';
+        'dialectium_export_${DateTime.now().toIso8601String().replaceAll(':', '-')}.json';
     final f = File('${dir.path}/$name');
     final payload = {
       'baza': encodeBaza(baza),

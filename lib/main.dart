@@ -22,7 +22,7 @@ const _appVersionLabel = 'v0.0.19';
 void _bootLog(String msg) {
   try {
     final home = Platform.environment['HOME'] ?? '';
-    final f = File('$home/Dokumenty/trener-boot.log');
+    final f = File('$home/Dokumenty/dialectium-boot.log');
     f.writeAsStringSync(
       '${DateTime.now().toIso8601String()} $msg\n',
       mode: FileMode.append,
@@ -37,7 +37,7 @@ void main() {
   // CEF init dopiero przy pierwszym podglądzie 3D — inaczej przy starcie
   // apki widać procesy Chromium w docku i zbędny koszt GPU.
   _bootLog('before runApp');
-  runApp(const TrenerApp());
+  runApp(const DialectiumApp());
 }
 
 enum GameMethod { abc, typing, sentences }
@@ -52,14 +52,14 @@ const _cyrillicRows = [
 
 const _spanishExtras = ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü', '¿', '¡'];
 
-class TrenerApp extends StatefulWidget {
-  const TrenerApp({super.key});
+class DialectiumApp extends StatefulWidget {
+  const DialectiumApp({super.key});
 
   @override
-  State<TrenerApp> createState() => _TrenerAppState();
+  State<DialectiumApp> createState() => _DialectiumAppState();
 }
 
-class _TrenerAppState extends State<TrenerApp> {
+class _DialectiumAppState extends State<DialectiumApp> {
   ThemeMode _themeMode = ThemeMode.system;
   AppPalette _palette = AppPalette.mint;
   UiLang _uiLang = UiLang.pl;
@@ -187,8 +187,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _bannerVisible = false;
   String? _audioHint;
 
-  /// Zakładka dolnego menu: 0=Nauka, 1=Słówka, 2=Maskotka, 3=Sklep, 4=Pule, 5=Ustawienia.
+  /// Zakładka treści: 0=Nauka, 1=Słówka, 2=Maskotka, 3=Sklep, 4=Pule, 5=Ustawienia.
+  /// Dolne menu pokazuje 4 pozycje: Nauka · Słówka · Maskotka · Więcej.
   int _bottomNav = 0;
+
+  /// Na telefonie: rozwinięte ustawienia lekcji (język / metoda / pula).
+  bool _lessonSettingsOpen = false;
 
   /// Trwa sprawdzanie odpowiedzi — blokuje podwójne auto-zaliczenie.
   bool _checkingAnswer = false;
@@ -196,7 +200,130 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _isPhoneLayout(BuildContext context) =>
       MediaQuery.sizeOf(context).width < 900;
 
+  /// Indeks w NavigationBar (0–3); Sklep/Pule/Ustawienia → „Więcej”.
+  int get _navBarIndex => _bottomNav <= 2 ? _bottomNav : 3;
+
   L10n get _l10n => L10n(widget.uiLang);
+
+  void _onNavBarSelected(int i) {
+    if (i < 3) {
+      setState(() => _bottomNav = i);
+      return;
+    }
+    _showMoreMenu();
+  }
+
+  Future<void> _showMoreMenu() async {
+    final l10n = _l10n;
+    final choice = await showModalBottomSheet<int>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) {
+        final scheme = Theme.of(ctx).colorScheme;
+        Widget tile({
+          required int id,
+          required IconData icon,
+          required String label,
+          required String subtitle,
+          Key? key,
+        }) {
+          final selected = _bottomNav == id;
+          return Material(
+            key: key,
+            color: selected
+                ? scheme.primaryContainer.withValues(alpha: 0.65)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(16),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
+              onTap: () => Navigator.pop(ctx, id),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: scheme.primaryContainer.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(icon, color: scheme.primary),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            label,
+                            style: Theme.of(ctx).textTheme.titleMedium,
+                          ),
+                          Text(
+                            subtitle,
+                            style: Theme.of(ctx).textTheme.bodySmall?.copyWith(
+                                  color: scheme.onSurface.withValues(alpha: 0.65),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      color: scheme.onSurface.withValues(alpha: 0.4),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  l10n.moreMenuTitle,
+                  style: Theme.of(ctx).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 12),
+                tile(
+                  id: 3,
+                  key: const ValueKey('more_shop'),
+                  icon: Icons.storefront_rounded,
+                  label: l10n.tabShop,
+                  subtitle: l10n.quickActionsSubtitle,
+                ),
+                const SizedBox(height: 6),
+                tile(
+                  id: 4,
+                  key: const ValueKey('more_pools'),
+                  icon: Icons.folder_special_rounded,
+                  label: l10n.tabPools,
+                  subtitle: l10n.poolWordsHint,
+                ),
+                const SizedBox(height: 6),
+                tile(
+                  id: 5,
+                  key: const ValueKey('more_settings'),
+                  icon: Icons.settings_rounded,
+                  label: l10n.tabSettings,
+                  subtitle: l10n.theme,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    if (choice != null && mounted) {
+      setState(() => _bottomNav = choice);
+    }
+  }
 
   @override
   void initState() {
@@ -260,7 +387,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       });
       setState(() => _loadingMsg = L10n(widget.uiLang).loadingWords);
       _bootLog('_boot: loading baza');
-      await _store.load().timeout(const Duration(seconds: 20));
+      await _store.load().timeout(const Duration(seconds: 60));
       _bootLog('_boot: baza ok keys=${_store.baza.keys.length}');
       final lang = _store.baza.containsKey('Angielski')
           ? 'Angielski'
@@ -1458,16 +1585,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OutlinedButton(
-                onPressed: () => _insert(' '),
-                child: Text(_l10n.spaceKey),
+              Expanded(
+                flex: 2,
+                child: OutlinedButton(
+                  onPressed: () => _insert(' '),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(44),
+                  ),
+                  child: Text(_l10n.spaceKey),
+                ),
               ),
               const SizedBox(width: 8),
-              FilledButton.tonal(
-                onPressed: _backspace,
-                child: Text(_l10n.backspaceKey),
+              Expanded(
+                child: FilledButton.tonal(
+                  onPressed: _backspace,
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(44),
+                  ),
+                  child: Text(_l10n.backspaceKey),
+                ),
               ),
             ],
           ),
@@ -1584,40 +1721,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       extendBodyBehindAppBar: false,
       appBar: null,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _bottomNav.clamp(0, 5),
-        onDestinationSelected: (i) => setState(() => _bottomNav = i),
-        height: desktop ? 72 : null,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        selectedIndex: _navBarIndex,
+        onDestinationSelected: _onNavBarSelected,
+        height: desktop ? 72 : 64,
+        labelBehavior: phone
+            ? NavigationDestinationLabelBehavior.alwaysShow
+            : NavigationDestinationLabelBehavior.alwaysShow,
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.school_outlined),
-            selectedIcon: const Icon(Icons.school_rounded),
+            icon: Icon(Icons.school_outlined, key: const ValueKey('nav_learn')),
+            selectedIcon:
+                Icon(Icons.school_rounded, key: const ValueKey('nav_learn')),
             label: l10n.tabLearn,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.menu_book_outlined),
-            selectedIcon: const Icon(Icons.menu_book_rounded),
+            icon: Icon(Icons.menu_book_outlined, key: const ValueKey('nav_words')),
+            selectedIcon: Icon(Icons.menu_book_rounded,
+                key: const ValueKey('nav_words')),
             label: l10n.tabWords,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.pets_outlined),
-            selectedIcon: const Icon(Icons.pets_rounded),
+            icon: Icon(Icons.pets_outlined, key: const ValueKey('nav_mascot')),
+            selectedIcon:
+                Icon(Icons.pets_rounded, key: const ValueKey('nav_mascot')),
             label: l10n.tabMascot,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.storefront_outlined),
-            selectedIcon: const Icon(Icons.storefront_rounded),
-            label: l10n.tabShop,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.folder_special_outlined),
-            selectedIcon: const Icon(Icons.folder_special_rounded),
-            label: l10n.tabPools,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings_rounded),
-            label: l10n.tabSettings,
+            icon: Icon(Icons.more_horiz_rounded, key: const ValueKey('nav_more')),
+            selectedIcon: Icon(Icons.more_horiz_rounded,
+                key: const ValueKey('nav_more')),
+            label: l10n.tabMore,
           ),
         ],
       ),
@@ -1687,15 +1820,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ],
                     ),
                   );
-                final trening = SoftPanel(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SectionHeader(
-                          title: l10n.training,
-                          subtitle: l10n.trainingSubtitle,
-                          icon: Icons.school_rounded,
-                        ),
+                final treningFields = <Widget>[
                         DropdownButtonFormField<String>(
                           initialValue: _lang,
                           items: _store.baza.keys
@@ -1723,34 +1848,98 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const SizedBox(height: 6),
-                        SegmentedButton<GameMethod>(
-                          showSelectedIcon: false,
-                          segments: [
-                            ButtonSegment(
-                              value: GameMethod.abc,
-                              icon: const Icon(Icons.abc_rounded, size: 18),
-                              label: Text(l10n.methodAbc),
-                            ),
-                            ButtonSegment(
-                              value: GameMethod.typing,
-                              icon:
-                                  const Icon(Icons.keyboard_rounded, size: 18),
-                              label: Text(l10n.methodTyping),
-                            ),
-                            ButtonSegment(
-                              value: GameMethod.sentences,
-                              icon: const Icon(Icons.chat_rounded, size: 18),
-                              label: Text(l10n.methodSentences),
-                            ),
-                          ],
-                          selected: {_method},
-                          onSelectionChanged: (s) async {
-                            if (s.isEmpty) return;
-                            setState(() => _method = s.first);
-                            await _persistMethod();
-                            _draw();
-                          },
-                        ),
+                        if (phone)
+                          Row(
+                            children: [
+                              for (final entry in [
+                                (GameMethod.abc, Icons.abc_rounded, l10n.methodAbc),
+                                (GameMethod.typing, Icons.keyboard_rounded, l10n.methodTyping),
+                                (GameMethod.sentences, Icons.chat_rounded, l10n.methodSentences),
+                              ]) ...[
+                                if (entry.$1 != GameMethod.abc) const SizedBox(width: 8),
+                                Expanded(
+                                  child: Material(
+                                    color: _method == entry.$1
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .surface
+                                            .withValues(alpha: 0.55),
+                                    borderRadius: BorderRadius.circular(14),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(14),
+                                      onTap: () async {
+                                        setState(() => _method = entry.$1);
+                                        await _persistMethod();
+                                        _draw();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                          horizontal: 4,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              entry.$2,
+                                              size: 22,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              entry.$3,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          )
+                        else
+                          SegmentedButton<GameMethod>(
+                            showSelectedIcon: false,
+                            segments: [
+                              ButtonSegment(
+                                value: GameMethod.abc,
+                                icon: const Icon(Icons.abc_rounded, size: 18),
+                                label: Text(l10n.methodAbc),
+                              ),
+                              ButtonSegment(
+                                value: GameMethod.typing,
+                                icon:
+                                    const Icon(Icons.keyboard_rounded, size: 18),
+                                label: Text(l10n.methodTyping),
+                              ),
+                              ButtonSegment(
+                                value: GameMethod.sentences,
+                                icon: const Icon(Icons.chat_rounded, size: 18),
+                                label: Text(l10n.methodSentences),
+                              ),
+                            ],
+                            selected: {_method},
+                            onSelectionChanged: (s) async {
+                              if (s.isEmpty) return;
+                              setState(() => _method = s.first);
+                              await _persistMethod();
+                              _draw();
+                            },
+                          ),
                         const SizedBox(height: 10),
                         Text(
                           l10n.poolWordsHint,
@@ -1834,9 +2023,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-
-                      ],
-                    ),
+                ];
+                final trening = SoftPanel(
+                    child: phone
+                        ? Theme(
+                            data: Theme.of(context).copyWith(
+                              dividerColor: Colors.transparent,
+                            ),
+                            child: ExpansionTile(
+                              initiallyExpanded: _lessonSettingsOpen,
+                              onExpansionChanged: (v) =>
+                                  setState(() => _lessonSettingsOpen = v),
+                              tilePadding: EdgeInsets.zero,
+                              childrenPadding: const EdgeInsets.only(top: 4),
+                              title: SectionHeader(
+                                title: l10n.lessonSettings,
+                                subtitle:
+                                    '${_lang ?? "—"} · ${_groupLabel()}',
+                                icon: Icons.tune_rounded,
+                              ),
+                              children: treningFields,
+                            ),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SectionHeader(
+                                title: l10n.training,
+                                subtitle: l10n.trainingSubtitle,
+                                icon: Icons.school_rounded,
+                              ),
+                              ...treningFields,
+                            ],
+                          ),
                   );
                 final akcje = SoftPanel(
                     child: Column(
@@ -1847,80 +2066,87 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           subtitle: l10n.quickActionsSubtitle,
                           icon: Icons.bolt_rounded,
                         ),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
+                        ActionGrid(
                           children: [
-                            FilledButton.tonalIcon(
+                            ActionTile(
+                              icon: Icons.add_rounded,
+                              label: l10n.addWord,
                               onPressed: _addWord,
-                              icon: const Icon(Icons.add_rounded),
-                              label: Text(l10n.addWord),
                             ),
-                            FilledButton.tonalIcon(
+                            ActionTile(
+                              icon: Icons.upload_file_rounded,
+                              label: l10n.importCsv,
                               onPressed: _importWordsSheet,
-                              icon: const Icon(Icons.upload_file_rounded),
-                              label: Text(l10n.importCsv),
                             ),
-                            FilledButton.tonalIcon(
+                            ActionTile(
+                              icon: Icons.edit_note_rounded,
+                              label: l10n.list,
                               onPressed: _openWords,
-                              icon: const Icon(Icons.edit_note_rounded),
-                              label: Text(l10n.list),
                             ),
-                            FilledButton.icon(
-                              onPressed: _openDailyChat,
-                              icon: Icon(
-                                _store.stats.chatDoneToday
-                                    ? Icons.chat_bubble_rounded
-                                    : Icons.chat_bubble_outline_rounded,
-                              ),
-                              label: Text(
-                                _store.stats.chatDoneToday
-                                    ? l10n.aiChatDone
-                                    : l10n.aiChat,
-                              ),
-                            ),
-                            FilterChip(
-                              selected: !_poolReview,
-                              avatar: Icon(
-                                _poolReview
-                                    ? Icons.replay_rounded
-                                    : Icons.school_rounded,
-                                size: 18,
-                              ),
-                              label: Text(
-                                _poolReview ? l10n.poolReview : l10n.poolLearn,
-                              ),
-                              onSelected: (_) {
+                            ActionTile(
+                              icon: _poolReview
+                                  ? Icons.replay_rounded
+                                  : Icons.school_rounded,
+                              label: _poolReview
+                                  ? l10n.poolReview
+                                  : l10n.poolLearn,
+                              onPressed: () {
                                 setState(() => _poolReview = !_poolReview);
                                 _draw();
                               },
+                              selected: !_poolReview,
                             ),
-                            if (_current != null)
-                              FilterChip(
-                                selected: _current!.hard,
-                                avatar: Icon(
-                                  _current!.hard
-                                      ? Icons.star_rounded
-                                      : Icons.star_outline_rounded,
-                                  size: 18,
-                                ),
-                                label: Text(
-                                  _current!.hard ? l10n.hardOn : l10n.hardOff,
-                                ),
-                                onSelected: (_) async {
-                                  _current!.hard = !_current!.hard;
-                                  await _store.save();
-                                  _flash(
-                                    _current!.hard
-                                        ? l10n.hardMarked
-                                        : l10n.hardCleared,
-                                    kind: FeedbackKind.info,
-                                  );
-                                  setState(() {});
-                                },
-                              ),
                           ],
                         ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            onPressed: _openDailyChat,
+                            icon: Icon(
+                              _store.stats.chatDoneToday
+                                  ? Icons.chat_bubble_rounded
+                                  : Icons.chat_bubble_outline_rounded,
+                            ),
+                            label: Text(
+                              _store.stats.chatDoneToday
+                                  ? l10n.aiChatDone
+                                  : l10n.aiChat,
+                            ),
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size.fromHeight(52),
+                            ),
+                          ),
+                        ),
+                        if (_current != null) ...[
+                          const SizedBox(height: 10),
+                          Align(
+                            alignment: Alignment.center,
+                            child: FilterChip(
+                              selected: _current!.hard,
+                              avatar: Icon(
+                                _current!.hard
+                                    ? Icons.star_rounded
+                                    : Icons.star_outline_rounded,
+                                size: 18,
+                              ),
+                              label: Text(
+                                _current!.hard ? l10n.hardOn : l10n.hardOff,
+                              ),
+                              onSelected: (_) async {
+                                _current!.hard = !_current!.hard;
+                                await _store.save();
+                                _flash(
+                                  _current!.hard
+                                      ? l10n.hardMarked
+                                      : l10n.hardCleared,
+                                  kind: FeedbackKind.info,
+                                );
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );
@@ -1986,30 +2212,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         ),
                                   ),
                                   const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton.filledTonal(
-                                        tooltip: _audioEnabled
+                                  EqualButtonRow(
+                                    left: FilledButton.tonalIcon(
+                                      onPressed: _audioEnabled
+                                          ? () => _playText(_current!.obcy)
+                                          : null,
+                                      icon: Icon(
+                                        _audioEnabled
+                                            ? Icons.volume_up_rounded
+                                            : Icons.volume_off_rounded,
+                                      ),
+                                      label: Text(
+                                        _audioEnabled
                                             ? l10n.listen
                                             : l10n.narratorOff,
-                                        onPressed: _audioEnabled
-                                            ? () => _playText(_current!.obcy)
-                                            : null,
-                                        iconSize: 32,
-                                        icon: Icon(
-                                          _audioEnabled
-                                              ? Icons.volume_up_rounded
-                                              : Icons.volume_off_rounded,
-                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      const SizedBox(width: 8),
-                                      OutlinedButton(
-                                        onPressed:
-                                            _hintShown ? null : _showHint,
-                                        child: Text(l10n.hint),
+                                      style: FilledButton.styleFrom(
+                                        minimumSize: const Size.fromHeight(48),
                                       ),
-                                    ],
+                                    ),
+                                    right: OutlinedButton.icon(
+                                      onPressed:
+                                          _hintShown ? null : _showHint,
+                                      icon: const Icon(Icons.lightbulb_outline_rounded),
+                                      label: Text(l10n.hint),
+                                      style: OutlinedButton.styleFrom(
+                                        minimumSize: const Size.fromHeight(48),
+                                      ),
+                                    ),
                                   ),
                                   if (_audioHint != null)
                                     Padding(
@@ -2178,14 +2410,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ],
                       )
                     else ...[
-                      // Telefon: środek = trening + quiz; maskotka w osobnej zakładce
-                      akcje,
-                      const SizedBox(height: 12),
-                      stats,
+                      // Telefon: quiz od razu, potem ustawienia lekcji / akcje
+                      quiz,
                       const SizedBox(height: 12),
                       trening,
                       const SizedBox(height: 12),
-                      quiz,
+                      stats,
+                      const SizedBox(height: 12),
+                      akcje,
                     ],
                   ],
                 );
@@ -2396,6 +2628,115 @@ class _PlayerXpBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final lvlBadge = InkWell(
+      onTap: onTapAlbum,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: desktop ? 14 : 10,
+          vertical: desktop ? 8 : 6,
+        ),
+        decoration: BoxDecoration(
+          color: scheme.primaryContainer,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.military_tech_rounded,
+                size: desktop ? 22 : 18, color: scheme.primary),
+            const SizedBox(width: 4),
+            Text(
+              '${l10n.levelShort} $level',
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                color: scheme.onPrimaryContainer,
+                fontSize: desktop ? 15 : 13,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    final xpColumn = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: desktop ? 14 : null,
+                    ),
+              ),
+            ),
+            Text(
+              '$xp XP',
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: scheme.primary,
+                    fontSize: desktop ? 13 : null,
+                  ),
+            ),
+          ],
+        ),
+        SizedBox(height: desktop ? 6 : 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(
+            value: progress.clamp(0.0, 1.0),
+            minHeight: desktop ? 10 : 8,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          l10n.xpToNext(level + 1, xpToNext),
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: scheme.onSurface.withValues(alpha: 0.55),
+                fontSize: desktop ? 11 : 10,
+              ),
+        ),
+      ],
+    );
+    final trailing = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (versionLabel != null) ...[
+          Text(
+            versionLabel!,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onSurface.withValues(alpha: 0.4),
+                ),
+          ),
+          const SizedBox(width: 8),
+        ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Text(
+            '🐾 $paws',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontSize: desktop ? 16 : null,
+                ),
+          ),
+        ),
+        IconButton(
+          tooltip: audioEnabled ? l10n.disableNarrator : l10n.enableNarrator,
+          onPressed: onToggleAudio,
+          icon: Icon(
+            audioEnabled
+                ? Icons.volume_up_rounded
+                : Icons.volume_off_rounded,
+          ),
+        ),
+      ],
+    );
+
     return Material(
       color: scheme.surface.withValues(alpha: 0.92),
       elevation: 1,
@@ -2408,45 +2749,23 @@ class _PlayerXpBar extends StatelessWidget {
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: desktop ? 1400 : double.infinity),
-          child: Row(
-            children: [
-              InkWell(
-                onTap: onTapAlbum,
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: desktop ? 14 : 10,
-                    vertical: desktop ? 8 : 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.military_tech_rounded,
-                          size: desktop ? 22 : 18, color: scheme.primary),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${l10n.levelShort} $level',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: scheme.onPrimaryContainer,
-                          fontSize: desktop ? 15 : 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(width: desktop ? 16 : 10),
-              Expanded(
-                child: Column(
+          child: desktop
+              ? Row(
+                  children: [
+                    lvlBadge,
+                    const SizedBox(width: 16),
+                    Expanded(child: xpColumn),
+                    const SizedBox(width: 10),
+                    trailing,
+                  ],
+                )
+              : Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
                       children: [
+                        lvlBadge,
+                        const SizedBox(width: 10),
                         Expanded(
                           child: Text(
                             title,
@@ -2455,74 +2774,44 @@ class _PlayerXpBar extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: desktop ? 14 : null,
-                                ),
+                                ?.copyWith(fontWeight: FontWeight.w700),
                           ),
                         ),
-                        Text(
-                          '$xp XP',
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: scheme.primary,
-                                    fontSize: desktop ? 13 : null,
-                                  ),
-                        ),
+                        trailing,
                       ],
                     ),
-                    SizedBox(height: desktop ? 6 : 4),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: LinearProgressIndicator(
-                        value: progress.clamp(0.0, 1.0),
-                        minHeight: desktop ? 10 : 8,
-                      ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          '$xp XP',
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: scheme.primary,
+                              ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: LinearProgressIndicator(
+                              value: progress.clamp(0.0, 1.0),
+                              minHeight: 8,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 2),
                     Text(
                       l10n.xpToNext(level + 1, xpToNext),
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                             color: scheme.onSurface.withValues(alpha: 0.55),
-                            fontSize: desktop ? 11 : 10,
+                            fontSize: 10,
                           ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(width: desktop ? 10 : 6),
-              if (versionLabel != null) ...[
-                Text(
-                  versionLabel!,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: scheme.onSurface.withValues(alpha: 0.4),
-                      ),
-                ),
-                const SizedBox(width: 8),
-              ],
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Text(
-                  '🐾 $paws',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        fontSize: desktop ? 16 : null,
-                      ),
-                ),
-              ),
-              IconButton(
-                tooltip: audioEnabled ? l10n.disableNarrator : l10n.enableNarrator,
-                onPressed: onToggleAudio,
-                icon: Icon(
-                  audioEnabled
-                      ? Icons.volume_up_rounded
-                      : Icons.volume_off_rounded,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

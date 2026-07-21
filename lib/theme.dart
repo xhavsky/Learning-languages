@@ -161,16 +161,18 @@ ThemeData buildAppTheme({
     ),
     navigationBarTheme: NavigationBarThemeData(
       elevation: 0,
-      height: 68,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.55 : 0.85),
+      height: 64,
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.72 : 0.92),
       indicatorColor: scheme.primaryContainer,
-      labelTextStyle: WidgetStatePropertyAll(
-        TextStyle(
+      surfaceTintColor: Colors.transparent,
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        final selected = states.contains(WidgetState.selected);
+        return TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: scheme.onSurface,
-        ),
-      ),
+          fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+          color: selected ? scheme.primary : scheme.onSurface,
+        );
+      }),
     ),
     textTheme: Typography.material2021(platform: TargetPlatform.linux)
         .black

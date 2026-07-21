@@ -1,4 +1,4 @@
-import 'package:trener_jezykowy/answer_match.dart';
+import 'package:dialectium/answer_match.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

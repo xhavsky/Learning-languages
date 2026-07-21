@@ -86,7 +86,7 @@ class OknoDodawania(tk.Toplevel):
 class AplikacjaNauka:
     def __init__(self, root):
         self.root = root
-        self.root.title("Trener Językowy")
+        self.root.title("Dialectium")
         self.root.geometry("480x450")
         
         self.jezyk = "Angielski"

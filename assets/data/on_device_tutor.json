@@ -1,6 +1,6 @@
 {
-  "id": "trener-on-device-v1",
-  "name": "Trener Językowy — model na urządzeniu",
+  "id": "dialectium-on-device-v1",
+  "name": "Dialectium — model na urządzeniu",
   "version": 1,
   "note": "Wbudowany model rozmowy (bez portalu i chmury). Kopiowany do Documents przy pierwszym uruchomieniu czatu.",
   "engine": "ondevice-tutor",

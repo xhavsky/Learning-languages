@@ -1,4 +1,4 @@
-package pl.anielka.trener_jezykowy
+package app.dialectium
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -11,8 +11,8 @@ import java.io.FileOutputStream
  * Stream-copy dużych assetów (GGUF ~1 GB) + progress przez EventChannel.
  */
 class MainActivity : FlutterActivity() {
-    private val methodChannel = "pl.anielka.trener_jezykowy/assets"
-    private val progressChannel = "pl.anielka.trener_jezykowy/asset_progress"
+    private val methodChannel = "app.dialectium/assets"
+    private val progressChannel = "app.dialectium/asset_progress"
 
     @Volatile
     private var progressSink: EventChannel.EventSink? = null

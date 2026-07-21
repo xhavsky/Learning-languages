@@ -21,7 +21,7 @@ bool get useCefGlbViewer {
 
 Future<void> initDesktopGlbRuntime() async {
   if (!useCefGlbViewer || _cefReady) return;
-  await WebviewManager().initialize(userAgent: 'TrenerJezykowy/3D');
+  await WebviewManager().initialize(userAgent: 'Dialectium/3D');
   _cefReady = true;
 }
 

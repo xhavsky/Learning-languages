@@ -1,8 +1,22 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
+
+/// `flutter test --dart-define=SCREENSHOT_MODE=true` — bez animacji tła.
+bool get kScreenshotMode {
+  if (_screenshotModeOverride != null) return _screenshotModeOverride!;
+  return const bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false) ||
+      Platform.environment['SCREENSHOT_MODE'] == '1' ||
+      Platform.environment['SCREENSHOT_MODE'] == 'true';
+}
+
+bool? _screenshotModeOverride;
+
+/// Włączane z testów screenshotów.
+void enableScreenshotModeForTests() => _screenshotModeOverride = true;
 
 /// Czytelna ikona w AppBarze: jasne tło + mocniejszy kontrast.
 class ToolbarIconButton extends StatelessWidget {
@@ -171,7 +185,9 @@ class GradientScaffoldBody extends StatelessWidget {
             ),
           ),
           IgnorePointer(
-            child: _FloatingOrbs(seed: seed, accent: accent, bright: bright),
+            child: kScreenshotMode
+                ? const SizedBox.shrink()
+                : _FloatingOrbs(seed: seed, accent: accent, bright: bright),
           ),
           child,
         ],
@@ -477,29 +493,43 @@ class SoftPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final bright = Theme.of(context).brightness == Brightness.light;
+    final radiusGeom = BorderRadius.circular(radius);
+    // Material nad ListTile/ExpansionTile — bez assertu „ink splash invisible”.
     return Container(
       margin: margin,
-      padding: padding,
       decoration: BoxDecoration(
-        color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
-        borderRadius: BorderRadius.circular(radius),
-        border: Border.all(
-          color: scheme.primary.withValues(alpha: bright ? 0.18 : 0.28),
-          width: 1.4,
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            scheme.surface.withValues(alpha: bright ? 0.96 : 0.80),
-            scheme.primaryContainer.withValues(alpha: bright ? 0.28 : 0.18),
-            scheme.tertiaryContainer.withValues(alpha: bright ? 0.12 : 0.10),
-          ],
-          stops: const [0.0, 0.55, 1.0],
-        ),
+        borderRadius: radiusGeom,
         boxShadow: softShadows(context),
       ),
-      child: child,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: radiusGeom,
+        clipBehavior: Clip.antiAlias,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: scheme.surface.withValues(alpha: bright ? 0.90 : 0.74),
+            borderRadius: radiusGeom,
+            border: Border.all(
+              color: scheme.primary.withValues(alpha: bright ? 0.18 : 0.28),
+              width: 1.4,
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                scheme.surface.withValues(alpha: bright ? 0.96 : 0.80),
+                scheme.primaryContainer.withValues(alpha: bright ? 0.28 : 0.18),
+                scheme.tertiaryContainer.withValues(alpha: bright ? 0.12 : 0.10),
+              ],
+              stops: const [0.0, 0.55, 1.0],
+            ),
+          ),
+          child: Padding(
+            padding: padding,
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -824,6 +854,104 @@ class GradientButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Równa siatka akcji (2 kolumny) — symetryczne kafelki na telefonie.
+class ActionGrid extends StatelessWidget {
+  const ActionGrid({
+    super.key,
+    required this.children,
+    this.crossAxisCount = 2,
+    this.spacing = 10,
+    this.childAspectRatio = 2.35,
+  });
+
+  final List<Widget> children;
+  final int crossAxisCount;
+  final double spacing;
+  final double childAspectRatio;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: crossAxisCount,
+      mainAxisSpacing: spacing,
+      crossAxisSpacing: spacing,
+      childAspectRatio: childAspectRatio,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: children,
+    );
+  }
+}
+
+/// Kafelek w [ActionGrid] — pełna szerokość komórki, równa wysokość.
+class ActionTile extends StatelessWidget {
+  const ActionTile({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.filled = false,
+    this.selected = false,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool filled;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    if (filled) {
+      return FilledButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, size: 20),
+        label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+        style: FilledButton.styleFrom(
+          minimumSize: const Size.fromHeight(48),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+        ),
+      );
+    }
+    return FilledButton.tonalIcon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 20),
+      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+      style: FilledButton.styleFrom(
+        minimumSize: const Size.fromHeight(48),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        backgroundColor: selected ? scheme.primaryContainer : null,
+      ),
+    );
+  }
+}
+
+/// Dwa równe przyciski w jednym wierszu (50/50).
+class EqualButtonRow extends StatelessWidget {
+  const EqualButtonRow({
+    super.key,
+    required this.left,
+    required this.right,
+    this.gap = 10,
+  });
+
+  final Widget left;
+  final Widget right;
+  final double gap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(child: left),
+        SizedBox(width: gap),
+        Expanded(child: right),
+      ],
     );
   }
 }

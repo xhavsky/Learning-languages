@@ -78,27 +78,27 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir -p dist
-          cp build/app/outputs/flutter-apk/app-release.apk dist/trener-jezykowy.apk
-          ls -lh dist/trener-jezykowy.apk
+          cp build/app/outputs/flutter-apk/app-release.apk dist/Dialectium.apk
+          ls -lh dist/Dialectium.apk
 
       - uses: actions/upload-artifact@v6
         with:
-          name: trener-jezykowy-apk
-          path: dist/trener-jezykowy.apk
+          name: Dialectium-apk
+          path: dist/Dialectium.apk
 
       - name: Attach to GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: android-apk
-          name: APK Android — Trener Językowy
+          name: Dialectium — Android
           body: |
-            APK dla Anielki (Android) — **z lokalnym Bielik 1.5B v3 w środku**.
+            APK Android — **z lokalnym Bielik 1.5B v3 w środku**.
 
-            1. Pobierz **trener-jezykowy.apk**
+            1. Pobierz **Dialectium.apk**
             2. Zainstaluj (pozwól na „nieznane źródła” jeśli trzeba)
             3. Nic więcej nie ściągaj — model wypakuje się przy pierwszej rozmowie AI
-          files: dist/trener-jezykowy.apk
+          files: dist/Dialectium.apk
           make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

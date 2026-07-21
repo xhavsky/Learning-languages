@@ -64,10 +64,10 @@ jobs:
 
       - name: Pack ZIP
         run: |
-          mkdir -p dist/Trener-Jezykowy-iOS
-          cp -R build/ios/iphoneos/Runner.app dist/Trener-Jezykowy-iOS/
-          cat > dist/Trener-Jezykowy-iOS/CZYTAJ-MNIE.txt <<'EOF'
-          Trener Językowy — iOS (bez podpisu Apple)
+          mkdir -p dist/Dialectium-iOS
+          cp -R build/ios/iphoneos/Runner.app dist/Dialectium-iOS/
+          cat > dist/Dialectium-iOS/CZYTAJ-MNIE.txt <<'EOF'
+          Dialectium — iOS (bez podpisu Apple)
 
           To jest Runner.app zbudowany bez codesign (GitHub nie ma konta Apple).
 
@@ -80,29 +80,29 @@ jobs:
           3. Wgraj na iPhone przez kabel / TestFlight
           EOF
           cd dist
-          ditto -c -k --sequesterRsrc --keepParent Trener-Jezykowy-iOS Trener-Jezykowy-iOS.zip
+          ditto -c -k --sequesterRsrc --keepParent Dialectium-iOS Dialectium-iOS.zip
 
       - uses: actions/upload-artifact@v6
         with:
-          name: Trener-Jezykowy-iOS
-          path: dist/Trener-Jezykowy-iOS.zip
+          name: Dialectium-iOS
+          path: dist/Dialectium-iOS.zip
 
       - name: Attach to GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ios-unsigned
-          name: Paczka iOS — Trener Językowy
+          name: Dialectium — iOS
           body: |
-            Paczka iOS dla Anielki (**bez podpisu Apple**).
+            Paczka iOS (**bez podpisu Apple**).
 
-            1. Pobierz **Trener-Jezykowy-iOS.zip**
+            1. Pobierz **Dialectium-iOS.zip**
             2. Rozpakuj na **Macu**
             3. Podpisz w Xcode / Apple Developer i wgraj na iPhone
 
             ⚠️ Na telefonie nie zainstalujesz tego jednym kliknięciem jak APK —
             Apple wymaga podpisu (konto deweloperskie lub Xcode + kabel).
-          files: dist/Trener-Jezykowy-iOS.zip
+          files: dist/Dialectium-iOS.zip
           make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

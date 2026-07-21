@@ -77,19 +77,19 @@ jobs:
       - name: Pack portable ZIP with LLM
         run: |
           SRC=build/linux/x64/release/bundle
-          OUT=Trener-Jezykowy-Linux
+          OUT=Dialectium-Linux
           rm -rf "$OUT"
           cp -a "$SRC" "$OUT"
           mkdir -p "$OUT/models" "$OUT/bundled/ollama"
           cp -f models/*.gguf "$OUT/models/"
           cp -a bundled/ollama/. "$OUT/bundled/ollama/"
-          chmod +x "$OUT/trener_jezykowy" "$OUT/bundled/ollama/ollama"
+          chmod +x "$OUT/dialectium" "$OUT/bundled/ollama/ollama"
           test -d "$OUT/bundled/ollama/lib/ollama"
           cat > "$OUT/CZYTAJ-MNIE.txt" <<'EOF'
-          Trener Jezykowy - paczka Linux (z lokalnym AI)
+          Dialectium - paczka Linux (z lokalnym AI)
 
-          1. Rozpakuj ZIP (np. ~/Trener-Jezykowy).
-          2. Uruchom: ./trener_jezykowy
+          1. Rozpakuj ZIP (np. ~/Dialectium).
+          2. Uruchom: ./dialectium
           3. Nic nie instaluj recznie.
 
           W srodku: Bielik 1.5B + Ollama (z bibliotekami lib/). Przy pierwszym
@@ -98,31 +98,31 @@ jobs:
 
           Nie usuwaj folderu bundled/ollama/lib — bez niego AI nie dziala.
           EOF
-          zip -r -q Trener-Jezykowy-Linux.zip "$OUT"
-          ls -lh Trener-Jezykowy-Linux.zip
+          zip -r -q Dialectium-Linux.zip "$OUT"
+          ls -lh Dialectium-Linux.zip
 
       - uses: actions/upload-artifact@v6
         with:
-          name: Trener-Jezykowy-Linux
-          path: Trener-Jezykowy-Linux.zip
+          name: Dialectium-Linux
+          path: Dialectium-Linux.zip
 
       - name: Attach to GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: linux-portable
-          name: Paczka Linux — Trener Językowy
+          name: Dialectium — Linux
           body: |
-            Paczka dla Anielki (Linux x86_64) — Bielik 1.5B + Ollama w ZIP.
+            Paczka Linux (x86_64) — Bielik 1.5B + Ollama w ZIP.
 
-            1. Pobierz **Trener-Jezykowy-Linux.zip**
+            1. Pobierz **Dialectium-Linux.zip**
             2. Rozpakuj
-            3. Uruchom `./trener_jezykowy`
+            3. Uruchom `./dialectium`
 
             **Ważne:** w ZIP musi być folder `bundled/ollama/lib/` (biblioteki).
 
             Na typowym Ubuntu/Fedora działa od razu. NixOS: `nix develop` albo odpowiednie `LD_LIBRARY_PATH`.
-          files: Trener-Jezykowy-Linux.zip
+          files: Dialectium-Linux.zip
           make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

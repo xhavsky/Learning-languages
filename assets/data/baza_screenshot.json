@@ -1,0 +1,26 @@
+{
+  "Angielski": {
+    "words": [
+      {"id": "w1", "pl": "kot", "obcy": "cat", "level": 1},
+      {"id": "w2", "pl": "pies", "obcy": "dog", "level": 0},
+      {"id": "w3", "pl": "dom", "obcy": "house", "level": 2}
+    ],
+    "groups": [
+      {"id": "g1", "name": "Zwierzęta", "wordIds": ["w1", "w2"]}
+    ],
+    "sentences": [
+      {
+        "id": "s1",
+        "pl": "Lubię koty.",
+        "obcy": "I like cats."
+      }
+    ]
+  },
+  "Hiszpański": {
+    "words": [
+      {"id": "es1", "pl": "kot", "obcy": "gato", "level": 0}
+    ],
+    "groups": [],
+    "sentences": []
+  }
+}

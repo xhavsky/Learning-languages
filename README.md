@@ -1,11 +1,11 @@
-# Trener Językowy — Anielka
+# Dialectium
 
 Flutter (Linux / Android / iOS / Windows) + archiwum skryptów Python w `legacy/`.
 
 ## Uruchomienie
 
 ```bash
-trener-jezykowy          # NixOS
+dialectium          # NixOS
 # albo:
 nix-shell -p flutter --run 'flutter run -d linux'
 ```
@@ -36,7 +36,7 @@ nix-shell -p flutter --run 'flutter run -d linux'
 
 Spec: [docs/MASCOT_3D_WEARABLES_SPEC.md](docs/MASCOT_3D_WEARABLES_SPEC.md).
 
-## Lokalne modele (Bielik v3) — dla buildera, nie dla Anielki
+## Lokalne modele (Bielik v3)
 
 Użytkownik końcowy **nic nie ściąga**: modele są w APK / ZIP.
 
@@ -60,14 +60,14 @@ python3 scripts/generate_tts.py
 ## Android / Windows / Linux
 
 ```bash
-./scripts/build_apk.sh          # → dist/trener-jezykowy.apk (+ GGUF jeśli pobrany)
+./scripts/build_apk.sh          # → dist/Dialectium.apk (+ GGUF jeśli pobrany)
 ```
 
-**Windows:** [Releases](https://github.com/xhavsky/Learning-languages/releases) → `Trener-Jezykowy-Windows.zip` — [INSTALL-WINDOWS.md](INSTALL-WINDOWS.md). Paczka z AI w środku.
+**Windows:** [Releases](https://github.com/xhavsky/Learning-languages/releases) → `Dialectium-Windows.zip` — [INSTALL-WINDOWS.md](INSTALL-WINDOWS.md). Paczka z AI w środku.
 
-**Linux:** ten sam Releases → `Trener-Jezykowy-Linux.zip` (Bielik 1.5B + Ollama; rozpakuj i `./trener_jezykowy`).
+**Linux:** ten sam Releases → `Dialectium-Linux.zip` (Bielik 1.5B + Ollama; rozpakuj i `./dialectium`).
 
-**Android:** ten sam Releases → `trener-jezykowy.apk` (Bielik 1.5B v3 wbudowany; przy 1. rozmowie wypakuje się sam).
+**Android:** ten sam Releases → `Dialectium.apk` (Bielik 1.5B v3 wbudowany; przy 1. rozmowie wypakuje się sam).
 
 ## Skrypty Python (archiwum)
 

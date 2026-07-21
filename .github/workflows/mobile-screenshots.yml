@@ -1,0 +1,98 @@
+name: Mobile screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lib/**"
+      - "assets/**"
+      - "pubspec.yaml"
+      - "test/screenshots/**"
+      - ".github/workflows/mobile-screenshots.yml"
+      - "scripts/publish_screenshots_discord.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Skip llm native for UI screenshots
+        run: |
+          chmod +x scripts/patch_llm_hook_skip_native.sh
+          ./scripts/patch_llm_hook_skip_native.sh
+
+      - name: Generate mobile screenshots
+        env:
+          SCREENSHOT_OUTPUT_DIR: dist/screenshots/mobile
+          SKIP_LLM_NATIVE: "1"
+          SCREENSHOT_MODE: "1"
+        run: |
+          mkdir -p dist/screenshots/mobile
+          flutter test test/screenshots/generate_mobile_screenshots_test.dart \
+            --dart-define=SCREENSHOT_MODE=true
+          ls -la dist/screenshots/mobile/
+
+      - name: Stage into docs/
+        run: |
+          set -euo pipefail
+          VER=$(grep -E '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)
+          TAG="v${VER}"
+          mkdir -p "docs/screenshots/mobile/latest" "docs/screenshots/mobile/${TAG}"
+          cp -f dist/screenshots/mobile/*.png docs/screenshots/mobile/latest/
+          cp -f dist/screenshots/mobile/*.png "docs/screenshots/mobile/${TAG}/"
+          python3 - <<PY
+          import json, os, datetime, pathlib
+          root = pathlib.Path("docs/screenshots/mobile")
+          files = sorted(p.name for p in (root / "latest").glob("*.png"))
+          ver = open("pubspec.yaml").read().split("version:")[1].split()[0].split("+")[0]
+          manifest = {
+            "version": ver,
+            "tag": f"v{ver}",
+            "sha": os.environ.get("GITHUB_SHA", ""),
+            "generatedAt": datetime.datetime.utcnow().isoformat() + "Z",
+            "files": files,
+          }
+          (root / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+          print(manifest)
+          PY
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: mobile-screenshots
+          path: docs/screenshots/mobile/latest/*.png
+
+      - name: Publish to Discord
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: "1529061120483266580"
+          DISCORD_GUILD_ID: "1529057108207730698"
+          SCREENSHOT_VERSION: ${{ github.ref_name }}
+        run: |
+          chmod +x scripts/publish_screenshots_discord.sh
+          ./scripts/publish_screenshots_discord.sh docs/screenshots/mobile/latest
+
+      - name: Commit screenshots
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/mobile
+          if git diff --staged --quiet; then
+            echo "Brak zmian w screenach."
+            exit 0
+          fi
+          git commit -m "docs: update mobile screenshots"
+          git push

@@ -301,7 +301,7 @@ String buildTutorSystemPrompt({
       .map((w) => w.obcy)
       .join(', ');
   return '''
-Jesteś przyjaciółką-trenerką Anielki w aplikacji „Trener Językowy”.
+Jesteś przyjaciółką-trenerką w aplikacji „Dialectium”.
 Język nauki: $lang.
 
 CEL: prawdziwa rozmowa, nie quiz ze słówek.
@@ -857,26 +857,50 @@ class _DailyChatPageState extends State<DailyChatPage> {
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _ctrl,
-                        enabled: !_busy,
-                        textCapitalization: TextCapitalization.sentences,
-                        decoration: const InputDecoration(
-                          hintText: 'Napisz po obcemu lub po polsku…',
-                          border: OutlineInputBorder(),
+                child: SoftPanel(
+                  margin: EdgeInsets.zero,
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _ctrl,
+                          enabled: !_busy,
+                          textCapitalization: TextCapitalization.sentences,
+                          minLines: 1,
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            hintText: 'Napisz w języku obcym lub po polsku…',
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 12,
+                            ),
+                          ),
+                          onSubmitted: (_) => _send(),
                         ),
-                        onSubmitted: (_) => _send(),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    FilledButton(
-                      onPressed: _busy ? null : _send,
-                      child: const Icon(Icons.send),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: FilledButton(
+                          onPressed: _busy ? null : _send,
+                          style: FilledButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: const Icon(Icons.send_rounded),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

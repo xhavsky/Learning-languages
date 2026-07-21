@@ -1,11 +1,11 @@
-# Windows — jak zainstalować (Anielka)
+# Windows — jak zainstalować
 
 ## Najprościej
 
 1. Wejdź na: https://github.com/xhavsky/Learning-languages/releases
-2. Pobierz **Trener-Jezykowy-Windows.zip**
+2. Pobierz **Dialectium-Windows.zip**
 3. Rozpakuj (np. na Pulpit)
-4. Kliknij dwukrotnie **trener_jezykowy.exe**
+4. Kliknij dwukrotnie **dialectium.exe**
 
 Jeśli Windows pokaże niebieski ekran „Windows ochronił komputer”:
 **Więcej informacji** → **Uruchom mimo to**.
@@ -14,7 +14,7 @@ Jeśli Windows pokaże niebieski ekran „Windows ochronił komputer”:
 
 ## Co jest w środku
 
-- `trener_jezykowy.exe` — gra / nauka słówek
+- `dialectium.exe` — gra / nauka słówek
 - folder `data/` — baza słówek i audio
 - `models/` — Bielik GGUF (1.5B + 11B v3)
 - `bundled/ollama/ollama.exe` — lokalna Ollama
@@ -25,4 +25,4 @@ Jeśli Windows pokaże niebieski ekran „Windows ochronił komputer”:
 
 - Od razu: Bielik **1.5B v3** z paczki (offline).
 - Z internetem (raz): apka sama dociągnie Bielik **11B v3** przez Ollamę w tle.
-- Pendrive z pełnym 11B offline: tata składa `package_windows_with_llm.sh`.
+- Pendrive z pełnym 11B offline: złóż paczkę przez `package_windows_with_llm.sh`.

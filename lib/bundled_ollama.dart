@@ -7,7 +7,7 @@ import 'model_paths.dart';
 ///
 /// ```
 /// bundle/
-///   trener_jezykowy[.exe]
+///   dialectium[.exe]
 ///   bundled/ollama/ollama[.exe]
 ///   models/Bielik-11B-v3.0-Instruct.Q4_K_M.gguf
 /// ```

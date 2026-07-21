@@ -1,5 +1,5 @@
 {
-  description = "Trener Językowy — Flutter + CEF (WebGL) dev shell";
+  description = "Dialectium — Flutter + CEF (WebGL) dev shell";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -58,10 +58,10 @@
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        name = "trener-jezykowy";
+        name = "dialectium";
         packages = cefBuildInputs;
         shellHook = ''
-          echo "Trener Językowy — nix develop"
+          echo "Dialectium — nix develop"
           echo "  flutter pub get && flutter build linux --release"
           export CHROME_EXECUTABLE="${pkgs.chromium}/bin/chromium"
         '';

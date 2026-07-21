@@ -33,10 +33,10 @@ class L10n {
   static const L10n pl = L10n(UiLang.pl);
 
   String get appTitle => switch (lang) {
-        UiLang.pl => 'Trener Językowy',
-        UiLang.en => 'Language Trainer',
-        UiLang.es => 'Entrenador de idiomas',
-        UiLang.ru => 'Языковой тренер',
+        UiLang.pl => 'Dialectium',
+        UiLang.en => 'Dialectium',
+        UiLang.es => 'Dialectium',
+        UiLang.ru => 'Dialectium',
       };
 
   String get tabLearn => switch (lang) {
@@ -79,6 +79,27 @@ class L10n {
         UiLang.en => 'Settings',
         UiLang.es => 'Ajustes',
         UiLang.ru => 'Настройки',
+      };
+
+  String get tabMore => switch (lang) {
+        UiLang.pl => 'Więcej',
+        UiLang.en => 'More',
+        UiLang.es => 'Más',
+        UiLang.ru => 'Ещё',
+      };
+
+  String get moreMenuTitle => switch (lang) {
+        UiLang.pl => 'Więcej opcji',
+        UiLang.en => 'More options',
+        UiLang.es => 'Más opciones',
+        UiLang.ru => 'Ещё опции',
+      };
+
+  String get lessonSettings => switch (lang) {
+        UiLang.pl => 'Ustawienia lekcji',
+        UiLang.en => 'Lesson settings',
+        UiLang.es => 'Ajustes de lección',
+        UiLang.ru => 'Настройки урока',
       };
 
   String get training => switch (lang) {
@@ -401,10 +422,10 @@ class L10n {
       };
 
   String get starting => switch (lang) {
-        UiLang.pl => 'Startuję Trener Językowy…',
-        UiLang.en => 'Starting Language Trainer…',
-        UiLang.es => 'Iniciando Entrenador…',
-        UiLang.ru => 'Запуск Языкового тренера…',
+        UiLang.pl => 'Startuję Dialectium…',
+        UiLang.en => 'Starting Dialectium…',
+        UiLang.es => 'Iniciando Dialectium…',
+        UiLang.ru => 'Запуск Dialectium…',
       };
 
   String levelUpCongrats(int level) => switch (lang) {

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate offline TTS mp3 assets for Trener Językowy from baza.json.
+"""Generate offline TTS mp3 assets for Dialectium from baza.json.
 
 Supports new format: { "Lang": { "words": [...], "groups": [...] } }
 and legacy: { "Lang": [ {...} ] }.

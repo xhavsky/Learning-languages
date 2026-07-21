@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
-exec > >(tee /tmp/trener-rebuild-install.log) 2>&1
+exec > >(tee /tmp/dialectium-rebuild-install.log) 2>&1
 set -x
 
-pkill -f 'trener_jezykowy|trener-jezykowy' 2>/dev/null || true
+pkill -f 'dialectium' 2>/dev/null || true
 sleep 1
 
 ROOT="/home/adam/Dokumenty/Projekty/Learning-languages"
-BUNDLE="/home/adam/.nixos-config/pkgs/trener-jezykowy-bundle"
+BUNDLE="/home/adam/.nixos-config/pkgs/dialectium-bundle"
 cd "$ROOT"
 
 # Find flutter
@@ -36,7 +36,7 @@ if [[ -f build/linux/x64/release/CMakeCache.txt ]]; then
   (cd build/linux/x64/release && ninja install)
 fi
 
-test -x "$PREFIX/trener_jezykowy"
+test -x "$PREFIX/dialectium"
 test -f "$PREFIX/data/flutter_assets/version.json"
 cat "$PREFIX/data/flutter_assets/version.json"
 
@@ -55,7 +55,7 @@ cat "$BUNDLE/data/flutter_assets/version.json"
 
 # Track new files for flake if needed
 cd /home/adam/.nixos-config
-git add pkgs/learning-languages.nix pkgs/trener-jezykowy-bundle 2>/dev/null || true
+git add pkgs/learning-languages.nix pkgs/dialectium-bundle 2>/dev/null || true
 
 if type nrs >/dev/null 2>&1; then
   nrs
@@ -64,14 +64,14 @@ else
 fi
 
 echo "=== which ==="
-which trener-jezykowy
-TJ="$(readlink -f "$(which trener-jezykowy)")"
+which dialectium
+TJ="$(readlink -f "$(which dialectium)")"
 echo "TJ=$TJ"
-cat "$(dirname "$TJ")/../lib/trener-jezykowy/data/flutter_assets/version.json" || \
+cat "$(dirname "$TJ")/../lib/dialectium/data/flutter_assets/version.json" || \
   find "$(dirname "$TJ")/.." -name version.json -print -exec cat {} \;
 
-rm -f /home/adam/Dokumenty/trener-boot.log
-timeout 25s trener-jezykowy 2>&1 | tee /tmp/trener-new-run.log || true
+rm -f /home/adam/Dokumenty/dialectium-boot.log
+timeout 25s dialectium 2>&1 | tee /tmp/dialectium-new-run.log || true
 echo "=== boot log ==="
-cat /home/adam/Dokumenty/trener-boot.log || echo 'no boot log'
+cat /home/adam/Dokumenty/dialectium-boot.log || echo 'no boot log'
 echo "DONE"

@@ -61,10 +61,10 @@ cp -a "$ROOT/bundled/ollama/." "$PREFIX/bundled/ollama/"
 chmod +x "$PREFIX/bundled/ollama/ollama"
 
 cat > "$PREFIX/CZYTAJ-MNIE.txt" <<'EOF'
-Trener Jezykowy - paczka Linux (z lokalnym AI)
+Dialectium - paczka Linux (z lokalnym AI)
 
-1. Rozpakuj ZIP (np. ~/Trener-Jezykowy).
-2. Uruchom: ./trener_jezykowy
+1. Rozpakuj ZIP (np. ~/Dialectium).
+2. Uruchom: ./dialectium
 3. Nic nie instaluj recznie.
 
 W srodku: Bielik 1.5B + Ollama (z bibliotekami lib/). Przy pierwszym
@@ -77,12 +77,12 @@ EOF
 
 DIST="$ROOT/dist"
 mkdir -p "$DIST"
-OUT="$DIST/trener-jezykowy-linux-x64"
+OUT="$DIST/Dialectium-Linux"
 rm -rf "$OUT" "$OUT.zip"
 cp -a "$PREFIX" "$OUT"
 (
   cd "$DIST"
-  zip -r -q "trener-jezykowy-linux-x64.zip" "trener-jezykowy-linux-x64"
+  zip -r -q "Dialectium-Linux.zip" "Dialectium-Linux"
 )
-echo "Release ZIP: $DIST/trener-jezykowy-linux-x64.zip"
-du -sh "$OUT" "$DIST/trener-jezykowy-linux-x64.zip"
+echo "Release ZIP: $DIST/Dialectium-Linux.zip"
+du -sh "$OUT" "$DIST/Dialectium-Linux.zip"

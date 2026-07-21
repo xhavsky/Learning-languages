@@ -6,8 +6,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'model_paths.dart';
 
-const _assetChannel = MethodChannel('pl.anielka.trener_jezykowy/assets');
-const _progressChannel = EventChannel('pl.anielka.trener_jezykowy/asset_progress');
+const _assetChannel = MethodChannel('app.dialectium/assets');
+const _progressChannel = EventChannel('app.dialectium/asset_progress');
 
 /// Postęp jednorazowego przygotowania modelu LLM.
 class LlmPrepareProgress {

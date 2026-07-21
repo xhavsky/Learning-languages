@@ -20,7 +20,7 @@ if '#include <cstdlib>' not in t and needle in t:
     print(f"Added #include <cstdlib> → {p}")
 PY
 fi
-if grep -q 'trener-jezykowy-cef' "$TARGET"; then
+if grep -q 'dialectium-cef' "$TARGET"; then
   echo "OK: webview_cef już z GPU + cache path"
   exit 0
 fi
@@ -42,15 +42,15 @@ new = """\tvoid startCEF()
 \t\tCefSettings cefs;
 \t\tcefs.windowless_rendering_enabled = true;
 \t\tcefs.no_sandbox = true;
-\t\t// Trener: model-viewer needs WebGL
+\t\t// Dialectium: model-viewer needs WebGL
 \t\tif (app) {
 \t\t\tapp->SetEnableGPU(true);
 \t\t}
 \t\t{
 \t\t\tconst char* home = getenv("HOME");
 \t\t\tstd::string cache = home && home[0]
-\t\t\t\t? (std::string(home) + "/.cache/trener-jezykowy-cef")
-\t\t\t\t: "/tmp/trener-jezykowy-cef";
+\t\t\t\t? (std::string(home) + "/.cache/dialectium-cef")
+\t\t\t\t: "/tmp/dialectium-cef";
 \t\t\tCefString(&cefs.root_cache_path) = cache;
 \t\t\tCefString(&cefs.cache_path) = cache;
 \t\t}

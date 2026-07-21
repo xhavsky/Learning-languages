@@ -1,12 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trener_jezykowy/curiosities.dart';
-import 'package:trener_jezykowy/import_csv.dart';
-import 'package:trener_jezykowy/l10n.dart';
-import 'package:trener_jezykowy/mascot.dart';
-import 'package:trener_jezykowy/models.dart';
-import 'package:trener_jezykowy/storage.dart';
+import 'package:dialectium/curiosities.dart';
+import 'package:dialectium/import_csv.dart';
+import 'package:dialectium/l10n.dart';
+import 'package:dialectium/mascot.dart';
+import 'package:dialectium/models.dart';
+import 'package:dialectium/storage.dart';
 
 void main() {
   test('parseBaza migrates legacy list format', () {

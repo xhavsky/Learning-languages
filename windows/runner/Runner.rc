@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "pl.anielka" "\0"
-            VALUE "FileDescription", "trener_jezykowy" "\0"
+            VALUE "CompanyName", "Dialectium" "\0"
+            VALUE "FileDescription", "Dialectium" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "trener_jezykowy" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 pl.anielka. All rights reserved." "\0"
-            VALUE "OriginalFilename", "trener_jezykowy.exe" "\0"
-            VALUE "ProductName", "trener_jezykowy" "\0"
+            VALUE "InternalName", "dialectium" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Dialectium. All rights reserved." "\0"
+            VALUE "OriginalFilename", "dialectium.exe" "\0"
+            VALUE "ProductName", "Dialectium" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -232,7 +232,7 @@ Future<void> showGithubPublishSheet(
                     '1. Wejdź na github.com i zaloguj się na SWOJE konto.\n'
                     '2. Otwórz: github.com/settings/tokens\n'
                     '3. „Generate new token” → „Generate new token (classic)”\n'
-                    '4. Note: trener · zaznacz tylko „repo”\n'
+                    '4. Note: dialectium · zaznacz tylko „repo”\n'
                     '5. Generate token → skopiuj (zaczyna się od ghp_)\n'
                     '6. Wklej poniżej nazwę użytkownika i token.\n\n'
                     'Publikacja idzie przez portal taty (Tailscale musi działać).',

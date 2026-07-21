@@ -26,7 +26,7 @@ if [[ ! -f "$ROOT/bundled/ollama/ollama.exe" || ! -f "$ROOT/bundled/ollama/lib/o
   exit 1
 fi
 
-DIST="$ROOT/dist/Trener-Jezykowy-Windows"
+DIST="$ROOT/dist/Dialectium-Windows"
 rm -rf "$DIST"
 mkdir -p "$DIST/models" "$DIST/bundled/ollama"
 cp -a "$SRC"/. "$DIST/"
@@ -35,18 +35,18 @@ cp -f "$ROOT/models/"*.gguf "$DIST/models/"
 cp -a "$ROOT/bundled/ollama"/. "$DIST/bundled/ollama/"
 
 cat > "$DIST/CZYTAJ-MNIE.txt" <<'EOF'
-Trener Językowy — pełna paczka (z lokalnym AI)
+Dialectium — pełna paczka (z lokalnym AI)
 
 1. Rozpakuj ZIP gdzie chcesz.
-2. Uruchom trener_jezykowy.exe
+2. Uruchom dialectium.exe
 3. Nic nie instaluj i nic nie ściągaj — Bielik i Ollama są w środku.
 4. Nie usuwaj folderu bundled\ollama\lib — bez niego AI nie działa.
 EOF
 
 (
   cd "$ROOT/dist"
-  rm -f Trener-Jezykowy-Windows.zip
-  zip -r -q Trener-Jezykowy-Windows.zip Trener-Jezykowy-Windows
+  rm -f Dialectium-Windows.zip
+  zip -r -q Dialectium-Windows.zip Dialectium-Windows
 )
-echo "ZIP: $ROOT/dist/Trener-Jezykowy-Windows.zip"
-du -sh "$DIST" "$ROOT/dist/Trener-Jezykowy-Windows.zip"
+echo "ZIP: $ROOT/dist/Dialectium-Windows.zip"
+du -sh "$DIST" "$ROOT/dist/Dialectium-Windows.zip"
