@@ -6335,16 +6335,6 @@
         "correctStreak": 0
       },
       {
-        "id": "22663d93",
-        "pl": "Nazywam się Anna.",
-        "obcy": "My name is Anna.",
-        "level": 0,
-        "nauczone": false,
-        "hard": false,
-        "nextDue": null,
-        "correctStreak": 0
-      },
-      {
         "id": "71a174ed",
         "pl": "Lubię koty.",
         "obcy": "I like cats.",
@@ -6435,9 +6425,149 @@
         "correctStreak": 0
       },
       {
-        "id": "411fd5e9",
-        "pl": "Mam na imię Anielka.",
-        "obcy": "My name is Anielka.",
+        "id": "28000575",
+        "pl": "Gdzie jest toaleta?",
+        "obcy": "Where is the bathroom?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "43e82b30",
+        "pl": "Lubię czytać książki.",
+        "obcy": "I like reading books.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "788561b4",
+        "pl": "Mam psa.",
+        "obcy": "I have a dog.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "92ae5de1",
+        "pl": "Jaka jest pogoda?",
+        "obcy": "What's the weather like?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b175cfd",
+        "pl": "Chcę wodę.",
+        "obcy": "I want water.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "e6454679",
+        "pl": "Idę do sklepu.",
+        "obcy": "I'm going to the store.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "9d1d5af9",
+        "pl": "Lubię muzykę.",
+        "obcy": "I like music.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5b3968b1",
+        "pl": "Jestem zmęczony.",
+        "obcy": "I am tired.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "a48397f3",
+        "pl": "Potrzebuję pomocy.",
+        "obcy": "I need help.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "fc143078",
+        "pl": "Lubię jeść lody.",
+        "obcy": "I like eating ice cream.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "09921566",
+        "pl": "Co robisz?",
+        "obcy": "What are you doing?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "3e64b126",
+        "pl": "Dzisiaj jest ładnie.",
+        "obcy": "It's nice today.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "773daa0e",
+        "pl": "Gdzie mieszkasz?",
+        "obcy": "Where do you live?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "65ebdb36",
+        "pl": "To jest bardzo smaczne.",
+        "obcy": "This is very tasty.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "eddbee56",
+        "pl": "Chodźmy do domu.",
+        "obcy": "Let's go home.",
         "level": 0,
         "nauczone": false,
         "hard": false,
@@ -12781,16 +12911,6 @@
         "correctStreak": 0
       },
       {
-        "id": "2dbe3865",
-        "pl": "Nazywam się Anna.",
-        "obcy": "Me llamo Ana.",
-        "level": 0,
-        "nauczone": false,
-        "hard": false,
-        "nextDue": null,
-        "correctStreak": 0
-      },
-      {
         "id": "0d23828a",
         "pl": "Lubię koty.",
         "obcy": "Me gustan los gatos.",
@@ -12881,9 +13001,149 @@
         "correctStreak": 0
       },
       {
-        "id": "2934d859",
-        "pl": "Mam na imię Anielka.",
-        "obcy": "Me llamo Anielka.",
+        "id": "27bd15b0",
+        "pl": "Gdzie jest toaleta?",
+        "obcy": "¿Dónde está el baño?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2b945e40",
+        "pl": "Lubię czytać książki.",
+        "obcy": "Me gusta leer libros.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7d5baf66",
+        "pl": "Mam psa.",
+        "obcy": "Tengo un perro.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "99919b13",
+        "pl": "Jaka jest pogoda?",
+        "obcy": "¿Qué tiempo hace?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "335eebc5",
+        "pl": "Chcę wodę.",
+        "obcy": "Quiero agua.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "2261c579",
+        "pl": "Idę do sklepu.",
+        "obcy": "Voy a la tienda.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "4066efed",
+        "pl": "Lubię muzykę.",
+        "obcy": "Me gusta la música.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38dbec2c",
+        "pl": "Jestem zmęczony.",
+        "obcy": "Estoy cansado.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "9338718f",
+        "pl": "Potrzebuję pomocy.",
+        "obcy": "Necesito ayuda.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "eedc21fc",
+        "pl": "Lubię jeść lody.",
+        "obcy": "Me gusta comer helado.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "f6f74877",
+        "pl": "Co robisz?",
+        "obcy": "¿Qué haces?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "a29ca829",
+        "pl": "Dzisiaj jest ładnie.",
+        "obcy": "Hoy hace buen tiempo.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "dc50493b",
+        "pl": "Gdzie mieszkasz?",
+        "obcy": "¿Dónde vives?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "a0267b63",
+        "pl": "To jest bardzo smaczne.",
+        "obcy": "Esto está muy rico.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5c8f3994",
+        "pl": "Chodźmy do domu.",
+        "obcy": "Vamos a casa.",
         "level": 0,
         "nauczone": false,
         "hard": false,
@@ -19261,16 +19521,6 @@
         "correctStreak": 0
       },
       {
-        "id": "70fffa3d",
-        "pl": "Nazywam się Anna.",
-        "obcy": "Меня зовут Анна.",
-        "level": 0,
-        "nauczone": false,
-        "hard": false,
-        "nextDue": null,
-        "correctStreak": 0
-      },
-      {
         "id": "6c8bbcf3",
         "pl": "Lubię koty.",
         "obcy": "Я люблю кошек.",
@@ -19361,9 +19611,149 @@
         "correctStreak": 0
       },
       {
-        "id": "12bfade9",
-        "pl": "Mam na imię Anielka.",
-        "obcy": "Меня зовут Анелька.",
+        "id": "cb354f62",
+        "pl": "Gdzie jest toaleta?",
+        "obcy": "Где туалет?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "38180131",
+        "pl": "Lubię czytać książki.",
+        "obcy": "Я люблю читать книги.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "360c9b92",
+        "pl": "Mam psa.",
+        "obcy": "У меня есть собака.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "8243de90",
+        "pl": "Jaka jest pogoda?",
+        "obcy": "Какая погода?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "c75a84a4",
+        "pl": "Chcę wodę.",
+        "obcy": "Я хочу воду.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "c989ca26",
+        "pl": "Idę do sklepu.",
+        "obcy": "Я иду в магазин.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "7ec4dae3",
+        "pl": "Lubię muzykę.",
+        "obcy": "Я люблю музыку.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "cedad396",
+        "pl": "Jestem zmęczony.",
+        "obcy": "Я устал.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "a97ef214",
+        "pl": "Potrzebuję pomocy.",
+        "obcy": "Мне нужна помощь.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "fb32b3d4",
+        "pl": "Lubię jeść lody.",
+        "obcy": "Я люблю есть мороженое.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "199102ab",
+        "pl": "Co robisz?",
+        "obcy": "Что ты делаешь?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "dd99ac34",
+        "pl": "Dzisiaj jest ładnie.",
+        "obcy": "Сегодня хорошая погода.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "ca006d9f",
+        "pl": "Gdzie mieszkasz?",
+        "obcy": "Где ты живёшь?",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "98a3086f",
+        "pl": "To jest bardzo smaczne.",
+        "obcy": "Это очень вкусно.",
+        "level": 0,
+        "nauczone": false,
+        "hard": false,
+        "nextDue": null,
+        "correctStreak": 0
+      },
+      {
+        "id": "5acda568",
+        "pl": "Chodźmy do domu.",
+        "obcy": "Пойдём домой.",
         "level": 0,
         "nauczone": false,
         "hard": false,

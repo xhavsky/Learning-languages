@@ -2388,6 +2388,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               crossAxisAlignment:
                                   CrossAxisAlignment.stretch,
                               children: [
+                                trening,
+                                const SizedBox(height: 14),
                                 akcje,
                                 const SizedBox(height: 14),
                                 stats,
@@ -2397,15 +2399,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           const SizedBox(width: 20),
                           Expanded(
                             flex: 5,
-                            child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.stretch,
-                              children: [
-                                trening,
-                                const SizedBox(height: 14),
-                                quiz,
-                              ],
-                            ),
+                            child: quiz,
                           ),
                         ],
                       )
