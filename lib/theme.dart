@@ -31,145 +31,39 @@ extension AppPaletteX on AppPalette {
         AppPalette.slate => const Color(0xFF546E7A),
       };
 
-  /// Background wash (4 stops — głębsza aurora).
+  /// Background wash — miękkie 3 stopy, bez ostrych przejść.
   List<Color> gradient(bool light) => switch (this) {
         AppPalette.mint => light
-            ? const [
-                Color(0xFFF2FFFC),
-                Color(0xFFD4F5F0),
-                Color(0xFFA8E0D8),
-                Color(0xFF7BCFC4),
-              ]
-            : const [
-                Color(0xFF041E1B),
-                Color(0xFF073028),
-                Color(0xFF0C3F36),
-                Color(0xFF125449),
-              ],
+            ? const [Color(0xFFE8F8F6), Color(0xFFC8EBE6), Color(0xFFA8D9D2)]
+            : const [Color(0xFF062A26), Color(0xFF0A2F2A), Color(0xFF0F3D36)],
         AppPalette.candy => light
-            ? const [
-                Color(0xFFFFF7F4),
-                Color(0xFFFFE4DA),
-                Color(0xFFFFC2AE),
-                Color(0xFFFFA88C),
-              ]
-            : const [
-                Color(0xFF1F0C08),
-                Color(0xFF331410),
-                Color(0xFF4A1E16),
-                Color(0xFF5C2A1C),
-              ],
+            ? const [Color(0xFFFFF3EF), Color(0xFFFFD8CC), Color(0xFFFFBBA8)]
+            : const [Color(0xFF2A120C), Color(0xFF3D1A12), Color(0xFF4E2218)],
         AppPalette.sky => light
-            ? const [
-                Color(0xFFF3FBFF),
-                Color(0xFFD6F0FC),
-                Color(0xFFA8DCF7),
-                Color(0xFF7AC8EF),
-              ]
-            : const [
-                Color(0xFF041218),
-                Color(0xFF081F2A),
-                Color(0xFF0D2F3E),
-                Color(0xFF134056),
-              ],
+            ? const [Color(0xFFE8F6FC), Color(0xFFC5E8F7), Color(0xFFA0D6EF)]
+            : const [Color(0xFF061820), Color(0xFF0A2533), Color(0xFF0F3344)],
         AppPalette.sunset => light
-            ? const [
-                Color(0xFFFFF9F0),
-                Color(0xFFFFECD0),
-                Color(0xFFFFD29A),
-                Color(0xFFFFBC6E),
-              ]
-            : const [
-                Color(0xFF1F1006),
-                Color(0xFF331A0A),
-                Color(0xFF4A260C),
-                Color(0xFF5C3210),
-              ],
+            ? const [Color(0xFFFFF7EC), Color(0xFFFFE6C2), Color(0xFFFFD09A)]
+            : const [Color(0xFF2A1508), Color(0xFF3D1F0A), Color(0xFF4E2A0C)],
         AppPalette.berry => light
-            ? const [
-                Color(0xFFFFF5F8),
-                Color(0xFFFFDCE8),
-                Color(0xFFF5AFC8),
-                Color(0xFFEA8AAD),
-              ]
-            : const [
-                Color(0xFF1F0A12),
-                Color(0xFF33141F),
-                Color(0xFF4A1C2C),
-                Color(0xFF5C2438),
-              ],
+            ? const [Color(0xFFFFF0F5), Color(0xFFFACFE0), Color(0xFFF5AFC8)]
+            : const [Color(0xFF2A0F18), Color(0xFF3D1524), Color(0xFF4F1C30)],
         AppPalette.forest => light
-            ? const [
-                Color(0xFFF4FBF5),
-                Color(0xFFDCEFDE),
-                Color(0xFFB5DDB8),
-                Color(0xFF8FCB94),
-              ]
-            : const [
-                Color(0xFF091610),
-                Color(0xFF102418),
-                Color(0xFF183422),
-                Color(0xFF21462E),
-              ],
+            ? const [Color(0xFFECF6ED), Color(0xFFD2EAD4), Color(0xFFB5D8B8)]
+            : const [Color(0xFF0D1F12), Color(0xFF14301C), Color(0xFF1B3D28)],
         AppPalette.slate => light
-            ? const [
-                Color(0xFFF6F8FA),
-                Color(0xFFE2E8ED),
-                Color(0xFFC5D0D8),
-                Color(0xFFA8B8C4),
-              ]
-            : const [
-                Color(0xFF0C1014),
-                Color(0xFF161E24),
-                Color(0xFF222D36),
-                Color(0xFF2E3C48),
-              ],
+            ? const [Color(0xFFF0F3F5), Color(0xFFD8E0E5), Color(0xFFC0CCD4)]
+            : const [Color(0xFF12181C), Color(0xFF1C262C), Color(0xFF263238)],
       };
 
-  /// CTA: highlight → jasny → mid → głęboki (4 stopy = biżuteria).
   List<Color> buttonGradient(bool light) => switch (this) {
-        AppPalette.mint => const [
-            Color(0xFF80CBC4),
-            Color(0xFF4DB6AC),
-            Color(0xFF00897B),
-            Color(0xFF004D40),
-          ],
-        AppPalette.candy => const [
-            Color(0xFFFFAB91),
-            Color(0xFFFF8A65),
-            Color(0xFFF4511E),
-            Color(0xFFBF360C),
-          ],
-        AppPalette.sky => const [
-            Color(0xFF81D4FA),
-            Color(0xFF4FC3F7),
-            Color(0xFF039BE5),
-            Color(0xFF01579B),
-          ],
-        AppPalette.sunset => const [
-            Color(0xFFFFCC80),
-            Color(0xFFFFB74D),
-            Color(0xFFFB8C00),
-            Color(0xFFE65100),
-          ],
-        AppPalette.berry => const [
-            Color(0xFFF48FB1),
-            Color(0xFFF06292),
-            Color(0xFFD81B60),
-            Color(0xFF880E4F),
-          ],
-        AppPalette.forest => const [
-            Color(0xFFA5D6A7),
-            Color(0xFF81C784),
-            Color(0xFF43A047),
-            Color(0xFF1B5E20),
-          ],
-        AppPalette.slate => const [
-            Color(0xFFB0BEC5),
-            Color(0xFF90A4AE),
-            Color(0xFF607D8B),
-            Color(0xFF263238),
-          ],
+        AppPalette.mint => const [Color(0xFF26A69A), Color(0xFF00695C)],
+        AppPalette.candy => const [Color(0xFFFF7043), Color(0xFFBF360C)],
+        AppPalette.sky => const [Color(0xFF29B6F6), Color(0xFF0277BD)],
+        AppPalette.sunset => const [Color(0xFFFFA726), Color(0xFFE65100)],
+        AppPalette.berry => const [Color(0xFFEC407A), Color(0xFF880E4F)],
+        AppPalette.forest => const [Color(0xFF66BB6A), Color(0xFF2E7D32)],
+        AppPalette.slate => const [Color(0xFF78909C), Color(0xFF37474F)],
       };
 
   /// Accent for fun UI flourishes (streaks, rings).
@@ -224,31 +118,23 @@ ThemeData buildAppTheme({
       centerTitle: false,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.48 : 0.58),
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.82 : 0.94),
       foregroundColor: scheme.onSurface,
       surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
       iconTheme: IconThemeData(color: scheme.primary, size: 26),
       actionsIconTheme: IconThemeData(color: scheme.primary, size: 26),
       titleTextStyle: TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.w800,
-        letterSpacing: -0.45,
-        height: 1.15,
+        letterSpacing: -0.3,
         color: scheme.onSurface,
       ),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
-      color: scheme.surface.withValues(alpha: dark ? 0.48 : 0.62),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(
-          color: scheme.primary.withValues(alpha: dark ? 0.32 : 0.16),
-          width: 1.2,
-        ),
-      ),
-      shadowColor: scheme.primary.withValues(alpha: 0.22),
+      color: scheme.surface.withValues(alpha: dark ? 0.72 : 0.92),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shadowColor: Colors.black.withValues(alpha: 0.22),
       margin: const EdgeInsets.symmetric(vertical: 6),
     ),
     listTileTheme: ListTileThemeData(
@@ -277,39 +163,16 @@ ThemeData buildAppTheme({
     ),
     navigationBarTheme: NavigationBarThemeData(
       elevation: 0,
-      height: 70,
-      backgroundColor: Colors.transparent,
-      indicatorColor: scheme.primary.withValues(alpha: dark ? 0.42 : 0.28),
-      indicatorShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-        side: BorderSide(
-          color: scheme.primary.withValues(alpha: dark ? 0.55 : 0.35),
-          width: 1.2,
-        ),
-      ),
+      height: 64,
+      backgroundColor: scheme.surface.withValues(alpha: dark ? 0.72 : 0.92),
+      indicatorColor: scheme.primaryContainer,
       surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      overlayColor: WidgetStatePropertyAll(
-        scheme.primary.withValues(alpha: 0.1),
-      ),
-      iconTheme: WidgetStateProperty.resolveWith((states) {
-        final selected = states.contains(WidgetState.selected);
-        return IconThemeData(
-          size: selected ? 28 : 24,
-          color: selected
-              ? scheme.primary
-              : scheme.onSurface.withValues(alpha: 0.68),
-        );
-      }),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         final selected = states.contains(WidgetState.selected);
         return TextStyle(
           fontSize: 12,
-          fontWeight: selected ? FontWeight.w900 : FontWeight.w600,
-          letterSpacing: selected ? 0.15 : 0,
-          color: selected
-              ? scheme.primary
-              : scheme.onSurface.withValues(alpha: 0.68),
+          fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+          color: selected ? scheme.primary : scheme.onSurface,
         );
       }),
     ),

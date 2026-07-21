@@ -1675,42 +1675,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final desktop = !phone;
 
     return Scaffold(
-      extendBody: true,
       extendBodyBehindAppBar: false,
       appBar: null,
-      bottomNavigationBar: GlassNavShell(
-        child: NavigationBar(
-          selectedIndex: _navBarIndex,
-          onDestinationSelected: _onNavBarSelected,
-          height: desktop ? 74 : 68,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Icons.school_outlined, key: const ValueKey('nav_learn')),
-              selectedIcon:
-                  Icon(Icons.school_rounded, key: const ValueKey('nav_learn')),
-              label: l10n.tabLearn,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.menu_book_outlined, key: const ValueKey('nav_words')),
-              selectedIcon: Icon(Icons.menu_book_rounded,
-                  key: const ValueKey('nav_words')),
-              label: l10n.tabWords,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.pets_outlined, key: const ValueKey('nav_mascot')),
-              selectedIcon:
-                  Icon(Icons.pets_rounded, key: const ValueKey('nav_mascot')),
-              label: l10n.tabMascot,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.more_horiz_rounded, key: const ValueKey('nav_more')),
-              selectedIcon: Icon(Icons.more_horiz_rounded,
-                  key: const ValueKey('nav_more')),
-              label: l10n.tabMore,
-            ),
-          ],
-        ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _navBarIndex,
+        onDestinationSelected: _onNavBarSelected,
+        height: desktop ? 72 : 64,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: [
+          NavigationDestination(
+            icon: Icon(Icons.school_outlined, key: const ValueKey('nav_learn')),
+            selectedIcon:
+                Icon(Icons.school_rounded, key: const ValueKey('nav_learn')),
+            label: l10n.tabLearn,
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.menu_book_outlined, key: const ValueKey('nav_words')),
+            selectedIcon: Icon(Icons.menu_book_rounded,
+                key: const ValueKey('nav_words')),
+            label: l10n.tabWords,
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.pets_outlined, key: const ValueKey('nav_mascot')),
+            selectedIcon:
+                Icon(Icons.pets_rounded, key: const ValueKey('nav_mascot')),
+            label: l10n.tabMascot,
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.more_horiz_rounded, key: const ValueKey('nav_more')),
+            selectedIcon: Icon(Icons.more_horiz_rounded,
+                key: const ValueKey('nav_more')),
+            label: l10n.tabMore,
+          ),
+        ],
       ),
       body: GradientScaffoldBody(
         palette: widget.palette,
@@ -2332,7 +2329,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                   );
                 final naukaList = ListView(
-                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 96),
+                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 28),
                   children: [
                     mission,
                     const SizedBox(height: 12),
@@ -2374,7 +2371,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ],
                 );
                 final mascotList = ListView(
-                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 96),
+                  padding: EdgeInsets.fromLTRB(hPad, phone ? 12 : 20, hPad, 28),
                   children: [
                     mascotHeader,
                     const SizedBox(height: 8),
