@@ -1,7 +1,8 @@
 {
-  "url": "https://REMOVED.invalid:7475",
-  "urlHttp": "https://REMOVED.invalid:7475",
-  "urlIp": "https://REMOVED.invalid:7475",
+  "enabled": false,
+  "url": "",
+  "urlHttp": "",
+  "urlIp": "",
   "pin": "",
-  "note": "Endpoint HTTPS — bez Tailscale. PIN wymagany."
+  "note": ""
 }

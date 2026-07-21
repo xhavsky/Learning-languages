@@ -1,6 +1,6 @@
 # Specyfikacja 3D: maskotki + ubranka do zakładania
 
-**Projekt:** Dialectium (Anielka)  
+**Projekt:** Dialectium  
 **Silnik generacji:** lokalny Trellis (`:8004`)  
 **Wersja dokumentu:** 1.0  
 **Status:** obowiązująca — generacja i kod muszą tego przestrzegać

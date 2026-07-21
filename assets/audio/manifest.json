@@ -11944,11 +11944,11 @@
       "pl": "Ile to kosztuje?",
       "id": "25643b4c"
     },
-    "Angielski|My name is Anielka.": {
-      "file": "en_my_name_is_anielka_fb0654245a.mp3",
+    "Angielski|My name is Ada.": {
+      "file": "en_my_name_is_ada_fb0654245a.mp3",
       "lang": "en",
-      "text": "My name is Anielka.",
-      "pl": "Mam na imię Anielka.",
+      "text": "My name is Ada.",
+      "pl": "Mam na imię Ada.",
       "id": "411fd5e9",
       "engine": "piper/en",
       "clarity": "length_scale=1.25"
@@ -12032,11 +12032,11 @@
       "pl": "Ile to kosztuje?",
       "id": "06297440"
     },
-    "Hiszpański|Me llamo Anielka.": {
-      "file": "es_me_llamo_anielka_1bddfd2118.mp3",
+    "Hiszpański|Me llamo Ada.": {
+      "file": "es_me_llamo_ada_1bddfd2118.mp3",
       "lang": "es",
-      "text": "Me llamo Anielka.",
-      "pl": "Mam na imię Anielka.",
+      "text": "Me llamo Ada.",
+      "pl": "Mam na imię Ada.",
       "id": "2934d859",
       "engine": "piper/es",
       "clarity": "length_scale=1.25"
@@ -12124,7 +12124,7 @@
       "file": "ru_меня_зовут_анелька_d08720c9a5.mp3",
       "lang": "ru",
       "text": "Меня зовут Анелька.",
-      "pl": "Mam na imię Anielka.",
+      "pl": "Mam na imię Ada.",
       "id": "12bfade9",
       "engine": "piper/ru",
       "clarity": "length_scale=1.25"

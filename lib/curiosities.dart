@@ -230,10 +230,10 @@ const _playerTitleDefs = <_TitleDef>[
       ru: 'Легенда тренировки',
     ),
     blurb: I18nStr(
-      pl: 'Anielka level MAX — język drży ze strachu.',
-      en: 'Anielka level MAX — the language shakes in fear.',
-      es: 'Anielka nivel MAX — el idioma tiembla.',
-      ru: 'Anielka level MAX — язык дрожит от страха.',
+      pl: 'Poziom MAX — język drży ze strachu.',
+      en: 'Level MAX — the language shakes in fear.',
+      es: 'Nivel MAX — el idioma tiembla.',
+      ru: 'Уровень MAX — язык дрожит от страха.',
     ),
   ),
 ];

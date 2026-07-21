@@ -21,11 +21,15 @@ android/app/src/main/assets/models/*.gguf
 # Release artifacts (build locally)
 dist/
 
-# IDE / lokalne narzędzia — nie na GitHub
+# IDE / lokalne narzędzia — nie na publiczny GH
 .idea/
 .vscode/
 .cursor/
 
+# Portal / collab tooling — lokalnie, poza publicznym GH
+anielka-portal/
+COLLAB.md
+scripts/start-anielka-portal.sh
 
 # Misc
 *.log
