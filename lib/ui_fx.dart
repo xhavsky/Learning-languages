@@ -45,24 +45,28 @@ class ToolbarIconButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: Tooltip(
         message: tooltip,
-        child: Material(
-          color: bg,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-            side: BorderSide(
-              color: scheme.primary.withValues(alpha: active ? 0 : 0.35),
-              width: 1.5,
+        child: ButtonShine(
+          borderRadius: 14,
+          duration: const Duration(milliseconds: 3200),
+          child: Material(
+            color: bg,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+              side: BorderSide(
+                color: scheme.primary.withValues(alpha: active ? 0 : 0.35),
+                width: 1.5,
+              ),
             ),
-          ),
-          elevation: bright ? 1.5 : 0,
-          shadowColor: scheme.primary.withValues(alpha: 0.35),
-          child: InkWell(
-            onTap: onPressed,
-            borderRadius: BorderRadius.circular(14),
-            child: SizedBox(
-              width: 44,
-              height: 44,
-              child: Icon(icon, size: 26, color: fg),
+            elevation: bright ? 3.5 : 2.5,
+            shadowColor: scheme.primary.withValues(alpha: bright ? 0.42 : 0.55),
+            child: InkWell(
+              onTap: onPressed,
+              borderRadius: BorderRadius.circular(14),
+              child: SizedBox(
+                width: 44,
+                height: 44,
+                child: Icon(icon, size: 26, color: fg),
+              ),
             ),
           ),
         ),
@@ -810,7 +814,103 @@ class AnimatedPromptWord extends StatelessWidget {
   }
 }
 
-/// Gradient-filled primary action button with shadow.
+/// Delikatny połysk przesuwający się po przycisku (nie mylić ze skeleton [Shimmer]).
+class ButtonShine extends StatefulWidget {
+  const ButtonShine({
+    super.key,
+    required this.child,
+    this.borderRadius = 16,
+    this.duration = const Duration(milliseconds: 2600),
+  });
+
+  final Widget child;
+  final double borderRadius;
+  final Duration duration;
+
+  @override
+  State<ButtonShine> createState() => _ButtonShineState();
+}
+
+class _ButtonShineState extends State<ButtonShine>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: widget.duration);
+    if (!kScreenshotMode) {
+      _ctrl.repeat();
+    } else {
+      _ctrl.value = 0.35;
+    }
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bright = Theme.of(context).brightness == Brightness.light;
+    final peak = bright ? 0.32 : 0.22;
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        widget.child,
+        Positioned.fill(
+          child: IgnorePointer(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final w = constraints.maxWidth;
+                  final band = w * 0.42;
+                  return AnimatedBuilder(
+                    animation: _ctrl,
+                    builder: (context, _) {
+                      // Pauza na końcu cyklu — połysk co chwilę, nie non-stop.
+                      final raw = _ctrl.value;
+                      final t = raw < 0.72 ? (raw / 0.72) : 1.0;
+                      final x = -band + (w + band * 2) * t;
+                      final opacity = raw < 0.72 ? 1.0 : 0.0;
+                      return Opacity(
+                        opacity: opacity,
+                        child: Transform.translate(
+                          offset: Offset(x, 0),
+                          child: Container(
+                            width: band,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.white.withValues(alpha: 0),
+                                  Colors.white.withValues(alpha: peak),
+                                  Colors.white.withValues(alpha: 0),
+                                ],
+                                stops: const [0.0, 0.5, 1.0],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Gradient-filled primary action button with shadow + shine.
 class GradientButton extends StatelessWidget {
   const GradientButton({
     super.key,
@@ -827,25 +927,28 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bright = Theme.of(context).brightness == Brightness.light;
     final colors = palette.buttonGradient(bright);
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(16),
-        child: Ink(
-          height: 56,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: LinearGradient(colors: colors),
-            boxShadow: softShadows(context, lift: 0.7),
-          ),
-          child: Center(
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
+    return ButtonShine(
+      child: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(16),
+          child: Ink(
+            height: 56,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              gradient: LinearGradient(colors: colors),
+              boxShadow: softShadows(context, lift: 1.05),
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -904,27 +1007,27 @@ class ActionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    if (filled) {
-      return FilledButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, size: 20),
-        label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
-        style: FilledButton.styleFrom(
-          minimumSize: const Size.fromHeight(48),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-        ),
-      );
-    }
-    return FilledButton.tonalIcon(
-      onPressed: onPressed,
-      icon: Icon(icon, size: 20),
-      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
-      style: FilledButton.styleFrom(
-        minimumSize: const Size.fromHeight(48),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        backgroundColor: selected ? scheme.primaryContainer : null,
-      ),
-    );
+    final button = filled
+        ? FilledButton.icon(
+            onPressed: onPressed,
+            icon: Icon(icon, size: 20),
+            label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+            ),
+          )
+        : FilledButton.tonalIcon(
+            onPressed: onPressed,
+            icon: Icon(icon, size: 20),
+            label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              backgroundColor: selected ? scheme.primaryContainer : null,
+            ),
+          );
+    return ButtonShine(child: button);
   }
 }
 
@@ -945,9 +1048,9 @@ class EqualButtonRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: left),
+        Expanded(child: ButtonShine(child: left)),
         SizedBox(width: gap),
-        Expanded(child: right),
+        Expanded(child: ButtonShine(child: right)),
       ],
     );
   }

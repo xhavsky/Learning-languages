@@ -232,25 +232,44 @@ ThemeData buildAppTheme({
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size(64, 52),
-        elevation: 1,
-        shadowColor: scheme.primary.withValues(alpha: 0.35),
+        elevation: 5,
+        shadowColor: scheme.primary.withValues(alpha: dark ? 0.55 : 0.42),
         textStyle: const TextStyle(
           fontFamily: 'Roboto',
           fontSize: 17,
           fontWeight: FontWeight.w700,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ).copyWith(
+        elevation: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) return 0.0;
+          if (states.contains(WidgetState.pressed)) return 1.5;
+          if (states.contains(WidgetState.hovered)) return 7.0;
+          return 5.0;
+        }),
+        shadowColor: WidgetStatePropertyAll(
+          scheme.primary.withValues(alpha: dark ? 0.55 : 0.42),
+        ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(64, 48),
+        elevation: 2.5,
+        shadowColor: Colors.black.withValues(alpha: dark ? 0.35 : 0.14),
+        backgroundColor: scheme.surface.withValues(alpha: dark ? 0.35 : 0.55),
         textStyle: const TextStyle(
           fontFamily: 'Roboto',
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ).copyWith(
+        elevation: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) return 0.0;
+          if (states.contains(WidgetState.pressed)) return 0.5;
+          return 2.5;
+        }),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -264,7 +283,10 @@ ThemeData buildAppTheme({
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      elevation: 3,
+      elevation: 6,
+      focusElevation: 8,
+      hoverElevation: 8,
+      highlightElevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
     ),
     snackBarTheme: SnackBarThemeData(
