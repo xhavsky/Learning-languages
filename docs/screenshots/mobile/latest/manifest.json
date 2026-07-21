@@ -1,6 +1,5 @@
 {
-  "generated_at": "2026-07-21T13:06:16+0200",
-  "version": "0.0.19+25",
+  "generated": "2026-07-21T13:50:35.381929Z",
   "files": [
     "01-nauka.png",
     "02-slowka.png",
@@ -8,6 +7,5 @@
     "04-sklep.png",
     "05-pule.png",
     "06-ustawienia.png"
-  ],
-  "device": "phone-logical-412x915@3x"
+  ]
 }

@@ -2125,28 +2125,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             animation: _successCtrl,
                             child: SoftPanel(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 14,
-                                      vertical: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: widget.palette.buttonGradient(
-                                          Theme.of(context).brightness ==
-                                              Brightness.light,
-                                        ),
+                                  Center(
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 14,
+                                        vertical: 6,
                                       ),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      _promptLabel,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 14,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: widget.palette.buttonGradient(
+                                            Theme.of(context).brightness ==
+                                                Brightness.light,
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        _promptLabel,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -2186,6 +2189,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       ),
                                       style: FilledButton.styleFrom(
                                         minimumSize: const Size.fromHeight(48),
+                                        alignment: Alignment.center,
                                       ),
                                     ),
                                     right: OutlinedButton.icon(
@@ -2195,6 +2199,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       label: Text(l10n.hint),
                                       style: OutlinedButton.styleFrom(
                                         minimumSize: const Size.fromHeight(48),
+                                        alignment: Alignment.center,
                                       ),
                                     ),
                                   ),
@@ -2837,11 +2842,20 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
       children: [
-        Text(l10n.settings, style: Theme.of(context).textTheme.titleLarge),
+        Text(
+          l10n.settings,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         const SizedBox(height: 16),
-        Text(l10n.appLanguage, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.appLanguage,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 8),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
           runSpacing: 8,
           children: [
@@ -2854,10 +2868,16 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           ],
         ),
         const SizedBox(height: 16),
-        Text(l10n.theme, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.theme,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 8),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
+          runSpacing: 8,
           children: [
             ChoiceChip(
               label: Text(l10n.themeSystem),
@@ -2877,9 +2897,14 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           ],
         ),
         const SizedBox(height: 16),
-        Text(l10n.colors, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.colors,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 8),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
           runSpacing: 8,
           children: [
@@ -2893,10 +2918,16 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           ],
         ),
         const SizedBox(height: 16),
-        Text(l10n.translateDir, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.translateDir,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 8),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
+          runSpacing: 8,
           children: [
             ChoiceChip(
               label: Text(l10n.dirPlToForeign),
@@ -2920,10 +2951,18 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 6),
-          child: Text(dirHint, style: Theme.of(context).textTheme.bodySmall),
+          child: Text(
+            dirHint,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
         ),
         const SizedBox(height: 16),
-        Text(l10n.narrator, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.narrator,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
           title: Text(l10n.enableNarrator),
@@ -2934,10 +2973,16 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           value: widget.audioEnabled,
           onChanged: widget.onAudioEnabledChanged,
         ),
-        Text(l10n.audioTempo, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.audioTempo,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 8),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
+          runSpacing: 8,
           children: [
             for (final r in [0.75, 1.0, 1.25])
               ChoiceChip(
@@ -2957,9 +3002,17 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           onTap: widget.onOpenAlbum,
         ),
         const SizedBox(height: 8),
-        Text(l10n.onDeviceAi, style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          l10n.onDeviceAi,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(height: 6),
-        Text(l10n.onDeviceAiBlurb, style: Theme.of(context).textTheme.bodySmall),
+        Text(
+          l10n.onDeviceAiBlurb,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
         const SizedBox(height: 8),
         TextField(
           controller: _ollamaCtrl,
@@ -2970,20 +3023,26 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           ),
         ),
         const SizedBox(height: 8),
-        FilledButton.tonal(
-          onPressed: () async {
-            await saveOllamaHostPref(_ollamaCtrl.text);
-            if (!context.mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.aiAddressSaved)),
-            );
-          },
-          child: Text(l10n.saveAiAddress),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton.tonal(
+            onPressed: () async {
+              await saveOllamaHostPref(_ollamaCtrl.text);
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(l10n.aiAddressSaved)),
+              );
+            },
+            child: Text(l10n.saveAiAddress),
+          ),
         ),
         const SizedBox(height: 16),
-        FilledButton.tonal(
-          onPressed: () => widget.onExportDb(),
-          child: Text(l10n.exportDb),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton.tonal(
+            onPressed: () => widget.onExportDb(),
+            child: Text(l10n.exportDb),
+          ),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -2994,13 +3053,17 @@ class _PhoneSettingsTabState extends State<_PhoneSettingsTab> {
           ),
         ),
         const SizedBox(height: 8),
-        OutlinedButton(
-          onPressed: () => widget.onImportDb(),
-          child: Text(l10n.importFromFile),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            onPressed: () => widget.onImportDb(),
+            child: Text(l10n.importFromFile),
+          ),
         ),
         const SizedBox(height: 12),
         Text(
           widget.audioStatusText,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),
         const SizedBox(height: 12),
@@ -3506,70 +3569,11 @@ class WordsPage extends StatefulWidget {
 
 class _WordsPageState extends State<WordsPage> {
   final _filterCtrl = TextEditingController();
-  final _categoryScroll = ScrollController();
   String _query = '';
   String? _categoryFilter; // null = wszystkie
-  bool _canScrollCategoriesLeft = false;
-  bool _canScrollCategoriesRight = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _categoryScroll.addListener(_updateCategoryArrows);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _updateCategoryArrows());
-  }
-
-  void _updateCategoryArrows() {
-    if (!_categoryScroll.hasClients) return;
-    final max = _categoryScroll.position.maxScrollExtent;
-    final offset = _categoryScroll.offset;
-    final canLeft = max > 8 && offset > 8;
-    final canRight = max > 8 && offset < max - 8;
-    if (canLeft != _canScrollCategoriesLeft ||
-        canRight != _canScrollCategoriesRight) {
-      setState(() {
-        _canScrollCategoriesLeft = canLeft;
-        _canScrollCategoriesRight = canRight;
-      });
-    }
-  }
-
-  void _scrollCategoriesBy(double delta) {
-    if (!_categoryScroll.hasClients) return;
-    final next = (_categoryScroll.offset + delta)
-        .clamp(0.0, _categoryScroll.position.maxScrollExtent);
-    _categoryScroll.animateTo(
-      next,
-      duration: const Duration(milliseconds: 280),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  Widget _categoryArrowButton({
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Material(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        shape: const CircleBorder(),
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Icon(icon, size: 16),
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   void dispose() {
-    _categoryScroll.removeListener(_updateCategoryArrows);
-    _categoryScroll.dispose();
     _filterCtrl.dispose();
     super.dispose();
   }
@@ -3724,75 +3728,37 @@ class _WordsPageState extends State<WordsPage> {
             if (widget.pack.groups.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
-                child: Text(
-                  widget.l10n.category,
-                  style: Theme.of(context).textTheme.labelMedium,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    widget.l10n.category,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 44,
-                child: Row(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8,
+                  runSpacing: 8,
                   children: [
-                    // Strzałki przy pierwszej karcie — w lewo i w prawo.
-                    if (_canScrollCategoriesLeft || _canScrollCategoriesRight)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (_canScrollCategoriesLeft)
-                              _categoryArrowButton(
-                                icon: Icons.arrow_back_ios_new,
-                                onTap: () => _scrollCategoriesBy(-140),
-                              ),
-                            if (_canScrollCategoriesRight)
-                              _categoryArrowButton(
-                                icon: Icons.arrow_forward_ios,
-                                onTap: () => _scrollCategoriesBy(140),
-                              ),
-                          ],
-                        ),
-                      ),
-                    Expanded(
-                      child: NotificationListener<ScrollMetricsNotification>(
-                        onNotification: (_) {
-                          _updateCategoryArrows();
-                          return false;
-                        },
-                        child: ListView(
-                          controller: _categoryScroll,
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(left: 8, right: 12),
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: FilterChip(
-                                label: Text(widget.l10n.all),
-                                selected: _categoryFilter == null,
-                                onSelected: (_) =>
-                                    setState(() => _categoryFilter = null),
-                              ),
-                            ),
-                            for (final g in widget.pack.groups)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: FilterChip(
-                                  label: Text(g.name),
-                                  selected: _categoryFilter == g.id,
-                                  onSelected: (_) => setState(
-                                    () => _categoryFilter =
-                                        _categoryFilter == g.id
-                                            ? null
-                                            : g.id,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
+                    FilterChip(
+                      label: Text(widget.l10n.all),
+                      selected: _categoryFilter == null,
+                      onSelected: (_) =>
+                          setState(() => _categoryFilter = null),
                     ),
+                    for (final g in widget.pack.groups)
+                      FilterChip(
+                        label: Text(g.name),
+                        selected: _categoryFilter == g.id,
+                        onSelected: (_) => setState(
+                          () => _categoryFilter =
+                              _categoryFilter == g.id ? null : g.id,
+                        ),
+                      ),
                   ],
                 ),
               ),
